@@ -23,7 +23,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: PUblish
-      run: dotnet publish --no-restore
+      run: dotnet publish --no-restore --output /var/www/SSY/SSY.Blazor
       working-directory: ./src/SSY.Blazor/
     - name: Test
       run: dotnet test --no-build --verbosity normal
