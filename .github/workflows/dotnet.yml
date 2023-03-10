@@ -24,6 +24,6 @@ jobs:
       run: dotnet restore
     - name: PUblish
       run: dotnet publish --no-restore
-      working-directory: ./_work/SSY/SSY/src/SSY.Blazor/
+      working-directory: /src/SSY.Blazor/
     - name: Test
       run: dotnet test --no-build --verbosity normal
