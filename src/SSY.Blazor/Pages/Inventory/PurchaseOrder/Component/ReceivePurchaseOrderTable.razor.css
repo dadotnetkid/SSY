@@ -1,0 +1,24 @@
+﻿.bg-success {
+    background-color: #7B8E61;
+}
+
+.table-row-selectable bg-success {
+    background-color: #7B8E61;
+}
+
+.is-received {
+    background-color: #7B8E61;
+}
+.backgroundBrown {
+    color: white;
+    text-align: center !important;
+    margin: auto;
+    padding: 6px;
+}
+.receivedHeader {
+    text-align: center !important;
+    margin: auto;
+    background: #BA8269 !important;
+    width:100%;
+    padding:5px;
+}

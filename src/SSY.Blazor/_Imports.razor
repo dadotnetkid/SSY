@@ -1,0 +1,184 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using SSY.Blazor
+@using Blazorise
+@using Blazorise.DataGrid
+@using Blazorise.Components
+@using Blazorise.Charts
+@using Blazorise.RichTextEdit
+@using Volo.Abp.BlazoriseUI
+@using Volo.Abp.BlazoriseUI.Components
+
+@using SSY.Blazor.HttpClients.Data.Inventory.AdditionRequests.Model
+@using SSY.Blazor.Shared.Components.Layouts.LoadingSpinner
+@using SSY.Blazor.Shared.Components.Layouts.InventoryNavsLayout
+@using SSY.Blazor.Shared.Components.Modals.ModalProductOption
+@using SSY.Blazor.Shared.Components.Modals.ModalSavingSpinner
+@using SSY.Blazor.Shared.Components.Modals
+@using SSY.Blazor.Pages.Inventory.InventoryTable
+@using SSY.Blazor.Shared.Components.Layouts.BannerLayoutSSY
+@using SSY.Blazor.Pages.Inventory.Graph
+@using SSY.Blazor.Pages.Inventory.GraphV2
+@using SSY.Blazor.Pages.Dashboard.Components.Productivity
+@using SSY.Blazor.Pages.Shared.Pages.Inventory.AdditionRequest
+
+@using SSY.Blazor.Pages.Shared.Components.Adjustment
+@using SSY.Blazor.Pages.Shared.Components.PurchasingHistory
+@using SSY.Blazor.Pages.Shared.Components.Assignment
+@using SSY.Blazor.Pages.Shared.Components.Transaction
+@using SSY.Blazor.Pages.Shared.Components.Description
+@using SSY.Blazor.Pages.Shared.Components.SubMaterialDescription
+@using SSY.Blazor.Pages.Shared.Components.SubMaterialInventory
+@using SSY.Blazor.Pages.Shared.Components.SubMaterialLocation
+@using SSY.Blazor.Pages.Shared.Components.Inventory
+@using SSY.Blazor.Pages.Shared.Components.CompositionAndConstruction
+@using SSY.Blazor.Pages.Shared.Components.Reservation
+@using SSY.Blazor.Pages.Shared.Components.RollAndLocation
+@using SSY.Blazor.Pages.Shared.Components.SupplierDetail
+@using SSY.Blazor.Pages.Shared.Components.Miscellaneous
+@using SSY.Blazor.Pages.Shared.Components.PurchasingDetail
+@using SSY.Blazor.Pages.Shared.Components.ModalMassUpload
+@using SSY.Blazor.Pages.Shared.Components.MassIssuance
+@using SSY.Blazor.Pages.Shared.Components.MassAdjustment
+@using SSY.Blazor.Pages.Shared.Components.CompanyInformation
+@using SSY.Blazor.Pages.Shared.Components.FinancialInformation
+@using SSY.Blazor.Pages.Shared.Components.FooterSticky.FooterView
+@using SSY.Blazor.Pages.Shared.Components.FooterSticky.FooterAdd
+@using SSY.Blazor.Pages.Shared.Components.FooterSticky.FooterEdit
+@using SSY.Blazor.Pages.Shared.Components.FooterStickySupplier.FooterViewSupplier
+@using SSY.Blazor.Pages.Shared.Components.FooterStickySupplier.FooterAddSupplier
+@using SSY.Blazor.Pages.Shared.Components.FooterStickySupplier.FooterEditSupplier
+@using SSY.Blazor.Pages.Shared.Components.TimlineAndComments
+@using SSY.Blazor.Pages.Shared.Components.Timeline
+
+@using SSY.Blazor.Pages.Inventory.Warehouse.Component
+
+
+@using SSY.Blazor.Pages.Shared.Pages.Inventory.Material
+@using SSY.Blazor.Pages.Shared.Pages.Inventory.SubMaterial
+@using SSY.Blazor.Pages.Shared.Pages.Inventory.Overview.WarehouseOverview
+@using SSY.Blazor.Pages.Shared.Pages.Inventory.OverviewMaterial
+@using SSY.Blazor.Pages.Shared.Pages.Inventory.PurchaseOrder.PurchaseOrderOverview
+@using SSY.Blazor.Pages.Shared.Pages.Inventory.ReceivedPurchaseOrder.ReceivedPurchaseOrderOverview
+@using SSY.Blazor.Pages.Shared.Pages.Inventory.Disposal
+@using SSY.Blazor.Pages.Shared.Pages.Inventory.BulkPurchaseOrderRequest
+
+
+
+@using SSY.Blazor.Pages.Supplier.Components.FinalSelection
+@using SSY.Blazor.Pages.Supplier.Components.ExcessList
+@using SSY.Blazor.Pages.Supplier.Components.RequestSwatches
+@using SSY.Blazor.Pages.Shared.Components.SupplierSourcing
+@using SSY.Blazor.Pages.Supplier.Components.ContactPerson
+
+
+
+
+@using SSY.Blazor.HttpClients.Data.Inventory.SwatchList.Model
+@using SSY.Blazor.HttpClients.Data.Inventory.FinalSelectionList.Model
+
+
+@using SSY.Blazor.Pages.Products.Components.ProductOverview
+@using SSY.Blazor.Pages.Products.Components.ProductOption
+@using SSY.Blazor.Pages.Products.Components.ChildProduct
+@using SSY.Blazor.Pages.Products.Components.ProductList
+@using SSY.Blazor.Pages.Products.Components.ProductMediaFile.Components.ApprovalSection
+@using SSY.Blazor.Pages.Products.Components.PricingAndAccounting
+@using SSY.Blazor.Pages.Products.Components.PricingAndAccounting.Accounting
+@using SSY.Blazor.Pages.Products.Components.PricingAndAccounting.Pricing
+@using SSY.Blazor.Pages.Products.Components.ProductMediaFile
+@using SSY.Blazor.Pages.Products.Components.ProductionFiles
+@using SSY.Blazor.Pages.Products.Components.BOMSummaryReservation
+@using SSY.Blazor.Pages.Products.Components.Shopify
+@using SSY.Blazor.Pages.Products.Components.ChildProduct.Components.ProductOptionNotes
+@using SSY.Blazor.Pages.Products.Components.ProductOption.Component.ParentDropdown
+@using SSY.Blazor.Pages.Products.Components.ProductOption.Component.ChildDropdown
+@using SSY.Blazor.Pages.Products.Components.ProductOption.Component.ParentCheckbox
+@using SSY.Blazor.Pages.Products.Components.ProductOption.Component.ChildCheckbox
+
+@using SSY.Blazor.HttpClients.Data.CollectionsAndProducts.Calendar.Model
+@using SSY.Blazor.HttpClients.Data.CollectionsAndProducts.Shopify.Models
+@using SSY.Blazor.HttpClients.Data.CollectionsAndProducts.Products.Dto
+
+
+
+@using SSY.Blazor.Pages.Shared.Components.Collection.DesignBriefs
+@using SSY.Blazor.Pages.Shared.Components.Collection.Overview
+@using SSY.Blazor.Pages.Shared.Components.Collection.CollectionProgress
+@using SSY.Blazor.Pages.Shared.Components.Collection.CollectionColorOption
+@using SSY.Blazor.Pages.Shared.Components.Collection.AssignedTo
+@using SSY.Blazor.Pages.CollectionAndProduct.Components.BomSummaryReservations
+@using SSY.Blazor.Pages.CollectionAndProduct.Components.Collections
+@using SSY.Blazor.Pages.CollectionAndProduct.Components.CollectionTimeline
+@using SSY.Blazor.Shared.Components.Layouts.ProductNavLayout
+
+
+
+
+@using SSY.Blazor.Pages.Settings.Components.InventorySettings
+@using SSY.Blazor.Pages.Settings.Components.InventorySettings.Components.ColorType
+@using SSY.Blazor.Pages.Settings.Components.InventorySettings.Components.GreigeType
+@using SSY.Blazor.Pages.Settings.Components.InventorySettings.Components.InventoryCategory
+@using SSY.Blazor.Pages.Settings.Components.InventorySettings.Components.Section
+@using SSY.Blazor.Pages.Settings.Components.InventorySettings.Components.ThreadType
+@using SSY.Blazor.Pages.Settings.Components.InventorySettings.Components.Warehouse
+
+@using SSY.Blazor.Pages.Settings.Components.AutoEmails
+@using SSY.Blazor.Pages.Settings.Components.AutoEmails.Components
+@using SSY.Blazor.Pages.Settings.Components.AutoEmails.Components.CustomerEmails
+@using SSY.Blazor.Pages.Settings.Components.AutoEmails.Components.InfluencerEmails
+@using SSY.Blazor.Pages.Settings.Components.AutoEmails.Components.InternalEmails
+@using SSY.Blazor.Pages.Settings.Components.AutoEmails.Components.InventoryEmails
+@using SSY.Blazor.Pages.Settings.Components.AutoEmails.Components.OemEmails
+@using SSY.Blazor.Pages.Settings.Components.AutoEmails.Components.ProductEmails
+@using SSY.Blazor.Pages.Settings.Components.AutoEmails.Components.UserManagementEmails
+
+
+@using SSY.Blazor.Pages.Settings.Components.ColorConfiguration
+@using SSY.Blazor.Pages.Settings.Components.DistributionList
+@using SSY.Blazor.Pages.Settings.Components.FinancialSettings
+@using SSY.Blazor.Pages.Settings.Components.InfluencerSettings
+@using SSY.Blazor.Pages.Settings.Components.Marketing
+@using SSY.Blazor.Pages.Settings.Components.Marketing.Components.Documents
+@using SSY.Blazor.Pages.Settings.Components.Marketing.Components.Prints
+@using SSY.Blazor.Pages.Settings.Components.Marketing.Components.SocialMedia
+@using SSY.Blazor.Pages.Settings.Components.MaterialTypeConfiguration
+@using SSY.Blazor.Pages.Settings.Components.ProductCategoryConfiguration
+@using SSY.Blazor.Pages.Settings.Components.SettingsDesign
+@using SSY.Blazor.Pages.Settings.Components.User
+@using SSY.Blazor.Pages.Settings.Components.Target.Components.Forecast
+@using SSY.Blazor.Pages.Settings.Components.Target.Components.InfluencerOnboard
+@using SSY.Blazor.Pages.Settings.Components.Target.Components.OnboardedTarget
+@using SSY.Blazor.Pages.Settings.Components.Target.Components.Packing
+@using SSY.Blazor.Pages.Settings.Components.Target.Components.Shipping
+
+@using SSY.Blazor.Pages.CollectionAndProduct.Components.Searchbox
+
+@using Blazored.FluentValidation
+
+@using SSY.Blazor.Pages.DashboardV2
+@using SSY.Blazor.Pages.DashboardV2.Components
+@using SSY.Blazor.Pages.DashboardV2.Components.CountDownTimer
+@using SSY.Blazor.Pages.DashboardV2.Components.SalesAndAccounting
+@using SSY.Blazor.Pages.DashboardV2.Components.SalesAndAccounting.Kpi
+@using SSY.Blazor.Pages.DashboardV2.Components.SalesAndAccounting.SalesAndAccountingOverview
+@using SSY.Blazor.Pages.DashboardV2.Components.SalesAndAccounting.PastLaunchesSalesReview
+@using SSY.Blazor.Pages.DashboardV2.Components.SalesAndAccounting.BestPerforming
+@using SSY.Blazor.Pages.DashboardV2.Components.SalesAndAccounting.UpcomingLaunchesOverview
+@using SSY.Blazor.Pages.DashboardV2.Components.SalesAndAccounting.Forecasting
+@using SSY.Blazor.Pages.DashboardV2.Components.DashboardCollectionAndProduct
+@using SSY.Blazor.Pages.DashboardV2.Components.DashboardInfluencer
+@using SSY.Blazor.Pages.DashboardV2.Components.DashboardInfluencer.CollectionSample
+@using SSY.Blazor.Pages.DashboardV2.Components.DashboardInfluencer.InfluencerStatus
+@using SSY.Blazor.Pages.DashboardV2.Components.DashboardInfluencer.Planning
+@using SSY.Blazor.Pages.DashboardV2.Components.DashboardInfluencer.DashboardUpcomingLaunches
+@using SSY.Blazor.Pages.DashboardV2.Components.Agency
+@using SSY.Blazor.Pages.DashboardV2.Components.DashboardInventory
+
+@using SSY.Blazor.Pages.BlazoriseSamples
+@* @using ChartJs.Blazor *@
+

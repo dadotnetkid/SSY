@@ -1,0 +1,158 @@
+﻿
+<CascadingValue Value="@Details" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <BannerLayoutSSY></BannerLayoutSSY>
+    </CascadingValue>
+</CascadingValue>
+<div class="bg-white">
+    <InventoryNavsLayout />
+</div>
+
+
+<div class="row">
+    <div class="col-md-12 pt-3">
+        <div class="border rounded-lg shadow-sm bg-white mt-5 pt-5">
+            <div class="col-12 col-md-12 col-lg-12">
+               
+                <Blazorise.TextEdit type="text" class="form-control" @bind-Text="@customFilterValue" placeholder="Search"></Blazorise.TextEdit>
+
+                @if(IsLoading == true)
+                {
+                    <LoadingSpinner></LoadingSpinner>
+                }
+                else {
+                <DataGrid CustomFilter="@OnCustomFilter"
+                          TItem="AdditionRequestModel"
+                          Data="@_additionRequets"
+                          Responsive
+                          Hoverable="true"
+                          ShowPager="true"
+                          ShowPageSizes="true">
+
+                    <ChildContent>
+                        <DataGridColumn TItem="AdditionRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(AdditionRequestModel.Id)" Caption="Request ID" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.Id.ToString().ToUpper()
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="AdditionRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(AdditionRequestModel.TypeValue)" Caption="Type" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.TypeValue
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="AdditionRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(AdditionRequestModel.CategoryValue)" Caption="Category" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.CategoryValue
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="AdditionRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(AdditionRequestModel.MaterialTypeValue)" Caption="Material Type" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.MaterialTypeValue
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="AdditionRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(AdditionRequestModel.ItemCode)" Caption="Item Code" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.ItemCode
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="AdditionRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(AdditionRequestModel.ColorCode)" Caption="Color Code/Name" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.ColorCode
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="AdditionRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(AdditionRequestModel.ColorValue)" Caption="Color Group" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.ColorValue
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="AdditionRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(AdditionRequestModel.TCXCode)" Caption="TCX Code" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.TCXCode
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="AdditionRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(AdditionRequestModel.RequiredYardage)" Caption="Required Yardage" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.RequiredYardage
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="AdditionRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(AdditionRequestModel.AddedBy)" Caption="Added By" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.AddedBy
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="AdditionRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(AdditionRequestModel.AddedDate)" Caption="Added Date" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.AddedDate.ToString("MMMM dd, yyyy");
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="AdditionRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(AdditionRequestModel.CollectionId)" Caption="Collection" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.Collection
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="AdditionRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(AdditionRequestModel.Influencers)" Caption="Influencer/s" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.Influencers
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="AdditionRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(AdditionRequestModel.Status)" Caption="Status" Editable>
+                            <DisplayTemplate>
+                                @{
+                                    var status = @Statuses.Find(x => x.Id == context.Status);
+                                        <div class="text-center">
+                                            <select @bind="context.Status" @oninput="@(e => OnChangeStatus(e.Value.ToString(), context.Id))" class="rounded-pill text-center form-control-sm bg-white fontBolder inputfield-editable hexcolor-@status.HexCode" id="city">
+                                            @foreach (var item in Statuses)
+                                        {
+                                                <option value="@item.Id">@item.Value</option>
+                                        }
+                                            </select>
+                                        </div>
+                                }
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                    </ChildContent>
+                    <EmptyTemplate>
+                        <div class="box text-center">
+                            No records were found.
+                        </div>
+                    </EmptyTemplate>
+                </DataGrid>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@* <TimelineAndComments></TimelineAndComments> *@
+

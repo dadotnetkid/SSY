@@ -1,0 +1,114 @@
+@using SSY.Blazor.HttpClients.Data.Inventory.ExcessList.Model
+<div class="col-lg-6 col-md-8 col-sm-12 mt-3 mb-3">
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <button type="button" class="form-control" data-toggle="collapse" data-target="#demo">Filter</button>
+                @* </EditForm> *@
+        </div>
+        <TextEdit @bind-Text="@customFilterValue" type="text" class="form-control" placeholder="Search"></TextEdit>
+    </div>
+</div>
+<div class="col-lg-6 col-md-8 col-sm-12 mt-3 mb-3">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+        Upload Excess List
+    </button>
+</div>
+
+<div class="col-md-12 supplier__components">
+    <DataGrid 
+        CustomFilter="@OnCustomFilter"
+        TItem="ExcessListModel" 
+        Data="@_excessList" 
+        Responsive 
+        Hoverable="true"
+        ShowPager="true"
+        ShowPageSizes="true">
+
+
+
+        <ChildContent>
+            <DataGridColumn TItem="ExcessListModel" Field="@nameof(ExcessListModel.Name)" Caption="File Name" Editable />
+            <DataGridColumn TItem="ExcessListModel" Field="@nameof(ExcessListModel.CreationTime)"
+                            Caption="Date Uploaded" Editable>
+                <DisplayTemplate>
+                    @* <div @onclick="(e)=> OnClickRow(context.CategoryId,context.Id)"> *@
+                    @context.CreationTime.ToString("MMMM d, yyyy") <span class="date__time">
+                        @context.CreationTime.ToString("hh:mm tt")
+                    </span>
+                    @* </div> *@
+                </DisplayTemplate>
+            </DataGridColumn>
+            <DataGridColumn Caption="Actions" Editable>
+                <DisplayTemplate>
+                    <a type="button" @onclick='@(e => DeleteSelectedIds(@context.Id))' class="seperator">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#000000"
+                             class="bi bi-trash3" viewBox="0 0 16 16">
+                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                        </svg>
+                    </a>
+
+                    <a type="button"
+                       @onclick='@(e => FileDownload(@context.MediaFile.Id,@context.MediaFile.ContentType,@context.MediaFile.FileName))'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#000000"
+                             class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+                            <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
+                            <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
+                        </svg>
+                    </a>
+                </DisplayTemplate>
+            </DataGridColumn>
+
+            <DataGridColumn TItem="ExcessListModel" Field="@nameof(ExcessListModel.AddedBy)" Caption="Added By" Editable />
+
+        </ChildContent>
+        <EmptyTemplate>
+            <div class="box text-center">
+                No records were found.
+            </div>
+        </EmptyTemplate>
+    </DataGrid>
+</div>
+
+<!-- Modal -->
+<EditForm Model="ExcessListModel">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Upload Excess List</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <InputFile OnChange="LoadFiles" type="file" class="mb-2 form-control-sm" id="customInput"
+                        aria-describedby="fileHelp"/>
+
+                    <div class="custom__upload">
+                        @if(selectedFile != null)
+                        { 
+                            <p> <span class="max__text">@selectedFile.Name</span></p>
+                        }
+                       
+                        @if(classAlert == "Failed")
+                        {
+                        <div class="alert alert-danger" role="alert">
+                             <p> @classAlert to upload @labelText</p>
+                        </div>
+                      
+                        }
+                        
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <Button Class="btn btn-success" Clicked="AddExcessList">Upload</Button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+

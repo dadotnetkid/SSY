@@ -1,0 +1,150 @@
+@inherits LayoutComponentBase
+
+<div class="account-banner">
+    
+    @if(Module == "Collections and Products")
+    {
+    } 
+    else if(Module == "Collections" || Module == "Samples" || Module == "Files" || Module == "Calendar" || Module == "Product" || Module == "BOMS" || Module == "OEM" || Module == "FILES" || Module == "Add Collections" || Module == "Create Parent Product")
+    {
+        <a class="cursor-pointer navigation-text " href='/collectionandproduct'>
+        <span> COLLECTIONS AND PRODUCTS</span>
+        </a> <span class="text-white"> > </span>
+    }
+    else if(Module == "Product Detail")
+    {
+         <a class="cursor-pointer navigation-text " href='/collectionandproduct'>
+        <span> COLLECTIONS AND PRODUCTS</span>
+        </a>
+         <span class="text-white"> > </span>
+            <a class="cursor-pointer navigation-text " href="/collectionandproduct/collections/@CollectionId">@CollectionName</a>
+        <span class="text-white"> > </span>
+    }
+    else if(Module == "Collection Detail")
+    {
+         <a class="cursor-pointer navigation-text " href='/collectionandproduct'>
+             <span> COLLECTIONS AND PRODUCTS</span>
+        </a>
+        <span class="text-white"> > </span>
+            <a class="cursor-pointer navigation-text " href="/collectionandproduct/collections/@CollectionId">@CollectionName</a>
+        <span class="text-white"> > </span>
+    }
+    else
+    {
+        <a class="cursor-pointer navigation-text " href='/dashboard'>
+        <span> DASHBOARD </span>
+        </a> <span class="text-white"> > </span>
+    }
+
+    @* <u class="cursor-pointer navigation-text text-white"> </u> *@
+        @* for inventory *@
+        @if (Module == "Reservation Overview" || Module == "Greige" || Module == "Fabric" || Module == "All" || Module == "Warehouse" || Module == "Trims and Accessories" || Module == "Packaging" || Module == "Others" || Module == "Suppliers" || Module == "Purchase Order" || Module == "Disposal" || Module == "Addition Request" || Module == "Bulk Purchase Order Request")
+        {
+            string source = Module;
+            string result = string.Concat(source.Where(c => !char.IsWhiteSpace(c))).ToLower();
+            <a href="/inventory/" class="cursor-pointer navigation-text" >Inventory</a>
+            <span class="text-white"> > </span>
+            <a href="/inventory/@result" class="cursor-pointer navigation-text ">@Module</a>
+            @* for details inventory *@
+            @if(Module == "Suppliers" ||  Module == "Greige" || Module == "Fabric" || Module == "All" || Module == "Trims and Accessories" || Module == "Packaging" || Module == "Others" )
+            {
+                @if(ModuleType =="View" || Crud == "Detail")
+                {
+                      <span class="text-white"> > </span>
+                }
+            }
+        }
+        @* for collection and product *@
+        else if(Module == "Collections" || Module == "Calendar" || Module == "Product" || Module == "BOMS" || Module == "OEM" || Module == "FILES" || Module == "Add Collections" || Module == "Create Parent Product")
+        {
+            <a href="/collectionandproduct/@Module" class="cursor-pointer navigation-text ">@Module</a>
+        }
+        else if(Module == "Collection Detail")
+        {
+             <a class="cursor-pointer navigation-text">@TabName</a>
+        }
+        @* for product detail *@
+        else if(Module == "Product Detail")
+        {
+            <a href="/collectionandproduct/product/@ProductId" class="cursor-pointer navigation-text ">@ModuleChange</a>
+            <span class="text-white"> > </span>
+            <a href="/collectionandproduct/@Module" class="cursor-pointer navigation-text ">@TabName</a>
+        }
+        else
+        {
+             <a href="/inventory/@Module" class="cursor-pointer navigation-text">@Module</a>
+        }
+                                       
+    
+    <u class="cursor-pointer navigation-text text-white"> @MaterialName</u>
+    <div class="media p-3 mb-0">
+        <div class="media-body  text-light">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 text-center ">
+                      
+                    @if (Crud == "Detail" || Crud == "Edit")
+                    {
+                        <p class="module-text">@ModuleChange</p>
+                        <p class="font-weight-light">@SubMessage</p>
+                       
+                    }
+                    else
+                    { 
+                        @if(ModuleChange != null)
+                        {
+                             <p class="module-text">@ModuleChange</p>
+                        }
+                        else
+                        {
+                             <p class="module-text">@Module</p>
+                        }
+                    }
+
+                    <p class="module-info">@ModuleMessage</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* <p>Employee Id:@EmployeeId </p>
+    <p>Employee Name:@EmployeeName </p> *@
+
+@code {
+
+    [CascadingParameter(Name = "Module")]
+    private string Module { get; set; }
+    [CascadingParameter(Name = "ModuleType")]
+    private string ModuleType { get; set; }
+    [CascadingParameter(Name = "ModuleMessage")]
+    private string ModuleMessage { get; set; }
+
+    [CascadingParameter(Name = "MaterialName")]
+    private string MaterialName { get; set; }
+
+    [CascadingParameter(Name = "ModuleChange")]
+    private string ModuleChange { get; set; }
+
+    [CascadingParameter(Name = "Crud")]
+    private string Crud { get; set; }
+
+    [CascadingParameter(Name = "SubMessage")]
+    private string SubMessage { get; set; }
+
+    [CascadingParameter(Name = "CollectionDetails")]
+    private string CollectionDetails { get; set; }
+   
+    [CascadingParameter(Name = "CollectionName")]
+    private string CollectionName { get; set; }
+
+    [CascadingParameter(Name = "CollectionId")]
+    private Guid CollectionId { get; set; }
+    [CascadingParameter(Name = "ProductId")]
+    private Guid ProductId { get; set; }
+    
+    [CascadingParameter(Name = "TabName")]
+    private string TabName { get; set; }
+
+
+}

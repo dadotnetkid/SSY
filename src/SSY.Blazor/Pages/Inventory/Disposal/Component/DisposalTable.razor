@@ -1,0 +1,280 @@
+﻿@if(IsLoading==true)
+{
+    <LoadingSpinner></LoadingSpinner>
+}
+else
+{
+    <div class="center">
+        <DataGrid CustomFilter="@OnCustomFilter"
+              TItem="MaterialModel"
+              Data="@_materials"
+              Responsive
+              Hoverable="true"
+              ShowPager="true"
+              ShowPageSizes="true">
+
+            <ChildContent>
+                <DataGridColumn TItem="MaterialModel" Field="@nameof(MaterialModel.Id)" Caption="Material Name" Editable Sortable="false">
+                    <CaptionTemplate>
+                        <div class="text-center">
+                            <input type="checkbox" @onchange='@(e => onChangeCheckBoxAll((bool)e.Value))'>
+                        </div>
+                    </CaptionTemplate>
+                    <DisplayTemplate>
+                        <div class="text-center">
+                            <input checked="@(MaterialIds.Contains(context.Id)==true)" type="checkbox" @onchange='@(e => onChangeCheckBox(context.Id, (bool)e.Value))' />
+                        </div>
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="MaterialModel" Field="@nameof(MaterialModel.Image)" Editable>
+                    <DisplayTemplate>
+                        @if (context.Image != null)
+                        {
+                            <div class="text-center" @onclick="(e) => OnClickRow(context.CategoryId, context.Id)">
+                                <img class="width-30 rounded" src="@context.Image" onerror="this.onerror = null; this.src='/img/No-Image-Placeholder.svg.png'" />
+                            </div>
+                        }
+                        else
+                        {
+                            <img class="width-30 rounded" src="/img/No-Image-Placeholder.svg.png" />
+                        }
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="MaterialModel" Field="@nameof(MaterialModel.Name)" Caption="Material Name" Editable>
+                    <DisplayTemplate>
+                        @if (context.CategoryId == 1)
+                        {
+                            <a class="tableText" href="/inventory/greige/detail/@context.Id">
+                                @context.Name
+                            </a>
+                        }
+                        else if (context.CategoryId == 2)
+                        {
+                            <a class="tableText" href="/inventory/fabric/detail/@context.Id">
+                                @context.Name
+                            </a>
+                        }
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="MaterialModel" Field="@nameof(MaterialModel.TypeLabel)" Caption="Material Type" Editable>
+                    <DisplayTemplate>
+                        @if (context.CategoryId == 1)
+                        {
+                            <a class="tableText" href="/inventory/greige/detail/@context.Id">
+                                @context.TypeLabel
+                            </a>
+                        }
+                        else if (context.CategoryId == 2)
+                        {
+                            <a class="tableText" href="/inventory/fabric/detail/@context.Id">
+                                @context.TypeLabel
+                            </a>
+                        }
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="MaterialModel" Field="@nameof(MaterialModel.ItemCode)" Caption="Item Code" Editable>
+                    <DisplayTemplate>
+                        @if (context.CategoryId == 1)
+                        {
+                            <a class="tableText" href="/inventory/greige/detail/@context.Id">
+                                @context.ItemCode
+                            </a>
+                        }
+                        else if (context.CategoryId == 2)
+                        {
+                            <a class="tableText" href="/inventory/fabric/detail/@context.Id">
+                                @context.ItemCode
+                            </a>
+                        }
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="MaterialModel" Field="@nameof(MaterialModel.ColorCode)" Caption="Color Code/Name" Editable>
+                    <DisplayTemplate>
+                        @if (context.CategoryId == 1)
+                        {
+                            <a class="tableText" href="/inventory/greige/detail/@context.Id">
+                                @context.ColorCode
+                            </a>
+                        }
+                        else if (context.CategoryId == 2)
+                        {
+                            <a class="tableText" href="/inventory/fabric/detail/@context.Id">
+                                @context.ColorCode
+                            </a>
+                        }
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="MaterialModel" Field="@nameof(MaterialModel.ColorValue)" Caption="Color Group" Editable>
+                    <DisplayTemplate>
+                        @if (context.CategoryId == 1)
+                        {
+                            <a class="tableText" href="/inventory/greige/detail/@context.Id">
+                                @context.ColorValue
+                            </a>
+                        }
+                        else if (context.CategoryId == 2)
+                        {
+                            <a class="tableText" href="/inventory/fabric/detail/@context.Id">
+                                @context.ColorValue
+                            </a>
+                        }
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="MaterialModel" Field="@nameof(MaterialModel.TotalCount)" Caption="Total Count" Editable>
+                    <DisplayTemplate>
+                        @if (context.CategoryId == 1)
+                        {
+                            <a class="tableText" href="/inventory/greige/detail/@context.Id">
+                                @context.TotalCount
+                            </a>
+                        }
+                        else if (context.CategoryId == 2)
+                        {
+                            <a class="tableText" href="/inventory/fabric/detail/@context.Id">
+                                @context.TotalCount
+                            </a>
+                        }
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="MaterialModel" Field="@nameof(MaterialModel.ReservedCount)" Caption="Reserved Count" Editable>
+                    <DisplayTemplate>
+                        @if (context.CategoryId == 1)
+                        {
+                            <a class="tableText" href="/inventory/greige/detail/@context.Id">
+                                @context.ReservedCount
+                            </a>
+                        }
+                        else if (context.CategoryId == 2)
+                        {
+                            <a class="tableText" href="/inventory/fabric/detail/@context.Id">
+                                @context.ReservedCount
+                            </a>
+                        }
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="MaterialModel" Field="@nameof(MaterialModel.AvailableCount)" Caption="Available Count" Editable>
+                    <DisplayTemplate>
+                        @if (context.CategoryId == 1)
+                        {
+                            <a class="tableText" href="/inventory/greige/detail/@context.Id">
+                                @context.AvailableCount
+                            </a>
+                        }
+                        else if (context.CategoryId == 2)
+                        {
+                            <a class="tableText" href="/inventory/fabric/detail/@context.Id">
+                                @context.AvailableCount
+                            </a>
+                        }
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="MaterialModel" Field="@nameof(MaterialModel.UsedCount)" Caption="Used Count" Editable>
+                    <DisplayTemplate>
+                        @if (context.CategoryId == 1)
+                        {
+                            <a class="tableText" href="/inventory/greige/detail/@context.Id">
+                                @context.UsedCount
+                            </a>
+                        }
+                        else if (context.CategoryId == 2)
+                        {
+                            <a class="tableText" href="/inventory/fabric/detail/@context.Id">
+                                @context.UsedCount
+                            </a>
+                        }
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="MaterialModel" Field="@nameof(MaterialModel.UnitOfMeasurementLabel)" Caption="Unit Of Measurement" Editable>
+                    <DisplayTemplate>
+                        @if (context.CategoryId == 1)
+                        {
+                            <a class="tableText" href="/inventory/greige/detail/@context.Id">
+                                @context.UnitOfMeasurementLabel
+                            </a>
+                        }
+                        else if (context.CategoryId == 2)
+                        {
+                            <a class="tableText" href="/inventory/fabric/detail/@context.Id">
+                                @context.UnitOfMeasurementLabel
+                            </a>
+                        }
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="MaterialModel" Field="@nameof(MaterialModel.CreationTime)" Caption="Date Created" Editable>
+                    <DisplayTemplate>
+                        @if (context.CategoryId == 1)
+                        {
+                            <a class="tableText" href="/inventory/greige/detail/@context.Id">
+                                @DateTime.Parse(@context.CreationTime).ToString("MMMM dd, yyyy")
+                            </a>
+                        }
+                        else if (context.CategoryId == 2)
+                        {
+                            <a class="tableText" href="/inventory/fabric/detail/@context.Id">
+                                @DateTime.Parse(@context.CreationTime).ToString("MMMM dd, yyyy")
+                            </a>
+                        }
+                    </DisplayTemplate>
+                </DataGridColumn>
+            </ChildContent>
+            <EmptyTemplate>
+                <div class="box text-center">
+                    No records were found.
+                </div>
+            </EmptyTemplate>
+        </DataGrid>
+    </div>
+
+    @if (MaterialIds.Any())
+    {
+        <div class="footer__button">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 mt-3">
+                    <div class="row background">
+                        <div class="col-3 col-sm-3 mt-3 left">
+                            <p @onclick="(e)=> UnCheckAll()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" class="bi bi-dash-square" viewBox="0 0 16 16">
+                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                                </svg>
+                                <span class="badge badge-secondary">@MaterialIds.Count()</span><span class="text__icon"> Item Selected</span>
+                            </p>
+                        </div>
+                        <div class="col-6 col-sm-6 mt-3 centered">
+                            <div class="icons">
+                                <p>
+                                    <span class="cursor__pointer" @onclick="(e)=> DeleteSelectedIds()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" class="bi bi-trash3" viewBox="0 0 16 16">
+                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                                        </svg>
+                                        <span class="text__icon">Archive/Delete</span>
+                                    </span>
+                                    <span class="cursor__pointer downlpad">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" class="bi bi-download" viewBox="0 0 16 16">
+                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                                        </svg>
+                                    </span>
+                                    <span class="cursor__pointer download__swatches">
+                                        <span class="text__icon">Download</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" class="bi bi-upc-scan" viewBox="0 0 16 16">
+                                            <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5zM3 4.5a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-7zm3 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7z" />
+                                        </svg>
+                                        <span class="text__icon">Download Qr and Swatches</span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-3 col-sm-3 mt-3 right">
+                            <div class="close__button" @onclick="(e)=> UnCheckAll()">
+                                <span class="close" aria-hidden="true">×</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

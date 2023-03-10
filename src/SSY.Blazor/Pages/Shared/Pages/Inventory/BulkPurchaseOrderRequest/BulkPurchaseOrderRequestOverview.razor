@@ -1,0 +1,171 @@
+﻿
+<CascadingValue Value="@Details" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <BannerLayoutSSY></BannerLayoutSSY>
+    </CascadingValue>
+</CascadingValue>
+<div class="bg-white">
+    <InventoryNavsLayout />
+</div>
+
+
+<div class="row">
+    <div class="col-md-12 pt-3">
+        <div class="border rounded-lg shadow-sm bg-white mt-5 pt-5">
+            <div class="col-12 col-md-12 col-lg-12">
+                <Blazorise.TextEdit type="text" class="form-control" @bind-Text="@customFilterValue" placeholder="Search"></Blazorise.TextEdit>
+
+                @if(IsLoading == true)
+                {
+                    <LoadingSpinner></LoadingSpinner>
+                }
+                else {
+                <DataGrid CustomFilter="@OnCustomFilter"
+                          TItem="BulkPurchaseOrderRequestModel"
+                          Data="@_bulkPurchaseOrderRequest"
+                          Responsive
+                          Hoverable="true"
+                          ShowPager="true"
+                          ShowPageSizes="true">
+
+                    <ChildContent>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(BulkPurchaseOrderRequestModel.Id)" Caption="Request ID" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.Id.ToString().ToUpper()
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(BulkPurchaseOrderRequestModel.CategoryLabel)" Caption="Category" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.CategoryLabel
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(BulkPurchaseOrderRequestModel.MaterialTypeValue)" Caption="Material Type" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.MaterialTypeValue
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(BulkPurchaseOrderRequestModel.ItemCode)" Caption="Item Code" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.ItemCode
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(BulkPurchaseOrderRequestModel.ColorCode)" Caption="Color Code/Name" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.ColorCode
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(BulkPurchaseOrderRequestModel.ColorValue)" Caption="Color Group" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.ColorValue
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(BulkPurchaseOrderRequestModel.TCXCode)" Caption="TCX Code" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.TCXCode
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(BulkPurchaseOrderRequestModel.RequiredYardage)" Caption="Required Yardage" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.RequiredYardage
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(BulkPurchaseOrderRequestModel.ApprovedByLabDipShade)" Caption="Approved Lab Dip Shade" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.ApprovedByLabDipShade
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(BulkPurchaseOrderRequestModel.Price)" Caption="Price" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.Price
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="Company.Name" Caption="Supplier Name" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.Company.Name
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(BulkPurchaseOrderRequestModel.Influencers)" Caption="Influencer/s" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.Influencers
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(BulkPurchaseOrderRequestModel.CollectionName)" Caption="Collection" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.CollectionName
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(BulkPurchaseOrderRequestModel.AddedBy)" Caption="Added By" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.AddedBy
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(BulkPurchaseOrderRequestModel.AddedDate)" Caption="Added Date" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.AddedDate.ToString("MMMM dd, yyyy");
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BulkPurchaseOrderRequestModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(BulkPurchaseOrderRequestModel.Status)" Caption="Status" Editable>
+                            <DisplayTemplate>
+                                @{
+                                    var status = @Statuses.Find(x => x.Id == context.Status);
+                                                                        <div class="text-center status">
+                                                                            <select @bind="context.Status"
+                                                                                    @oninput="@(e => OnChangeStatus(e.Value.ToString(), context.Id))" class="hexcolor-@status.HexCode">
+                                                                                @foreach (var item in Statuses)
+                                                                        {
+                                                                                    <option value="@item.Id">@item.Value</option>
+                                                                        }
+                                                                            </select>
+                                                                        </div>
+                                }
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                    </ChildContent>
+                    <EmptyTemplate>
+                        <div class="box text-center">
+                            No records were found.
+                        </div>
+                    </EmptyTemplate>
+                </DataGrid>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@* <TimelineAndComments></TimelineAndComments> *@

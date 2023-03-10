@@ -1,0 +1,227 @@
+@{
+    var uniqueId = Guid.NewGuid();
+
+    <div class="d-flex justify-content-between cursor-pointer" data-target="#childProduct" data-toggle="collapse">
+       
+            @if(Title == "Child Tabs")
+            {
+            }
+            else if(Title == "Overview")
+            {
+                <div class="col-md-11">
+                    <h3 class="header-text">Child Product</h3>
+                </div>
+                <div class="col-md-1">
+                    <i class="fa fa-light fa-chevron-down pull-right for-dropdown"></i>
+                </div>
+            }
+            else
+            {
+                  <div class="col-md-11">
+                     <h3 class="header-text">Child Product</h3>
+                  </div>
+                 
+            }
+      
+        
+    </div>
+    <div class="custom__overideWTH collapse show" id="childProduct">
+        <ul class="nav nav-tabs nav-tabs-views nav justify-content-left border border-left-0 border-top-0 border-right-0 scrollmenu nav-menu">
+            @foreach (var item in ChildProducts)
+            {
+                if(item.IsActive){
+                    if (ChildProducts.First() == item)
+                    {
+                        <li><a data-toggle="tab" href="#@item.Id-@uniqueId" class="active">@item.Name</a></li>
+                    }
+                    else
+                    {
+                        <li><a data-toggle="tab" href="#@item.Id-@uniqueId">@item.Name</a></li>
+                    }
+                }
+                
+            }
+        </ul>
+        <div class="tab-content">
+            @foreach (var item in ChildProducts)
+            {
+                if(item.IsActive){
+                    if (ChildProducts.First() == item)
+                    {
+                        <div id="@item.Id-@uniqueId" class="tab-pane fade in active show">
+                            @if(Title == "Child Tabs")
+                            {
+                            }
+                            else
+                            {
+                                <div class="row">
+                                      <div class="col-md-8">
+                                        <h3 class="sub-header-text mt-3">Overview</h3>
+                                    </div>
+                                    <div class="col-md-4">
+                                            <button class="btn btn-success pull-right float-right mt-2" role="button" data-toggle="modal"
+                                                    data-target="#showBom">
+                                                Show BOM Summary
+                                            </button>
+                                    </div>
+                                </div>
+                            }
+                            <div class="row mt-3">
+                                <div class="col-md-4">
+                                    <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+
+                                        <h5 class="mt-2 text-muted input-text">Child SKU</h5>
+                                        <p class="mb-2 form-control-sm bg-light for-border" contentEditable="false"
+                                        placeholder="">
+                                            <span> @item.Sku</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    @if (IsEditable)
+                                    {
+                                        <div class="border rounded-sm bg-white text-dark pl-3 pr-3">
+                                            <h5 class="mt-2 text-muted input-text">Color Options</h5>
+                                            <select class="form-control mb-2 form-control-sm bg-white for-border"
+                                                    placeholder="Select Color Options">
+                                                <option selected value="">Select</option>
+                                            </select>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                            <h5 class="mt-2 text-muted input-text">Color Options</h5>
+                                            <p class="mb-2 form-control-sm bg-light for-border" contentEditable="false"
+                                            placeholder="">
+                                                @* <span> @item.ColorOptionTitle</span> *@
+                                            </p>
+                                        </div>
+                                    }
+
+                                </div>
+                                @if(Title == "Child Tabs")
+                                {
+                                }
+                                else
+                                {
+                                    @* <div class="col-md-4">
+                                        <button class="btn btn-success pull-right float-right" role="button" data-toggle="modal"
+                                                data-target="#showBom">
+                                            Show BOM Summary
+                                        </button>
+                                    </div> *@
+                                }
+                                
+                            </div>
+
+                                @if(Title == "Child Tabs" )
+                                {
+                                    <ProductMediaFile AddRejection="AddRejection" RejectionNotes="@item.RejectionNotes"
+                                        IsEditable="IsEditable" ProductModel="@item" CategoryId="2002" Title="@item.Name"></ProductMediaFile>
+                                }
+                                else
+                                {
+                                    <ProductOption OnSaveProductOption="OnSaveProductOption" ReservedRollIds="ReservedRollIds" ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" ProductOptionRollIds="ProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductModel="@item" IsEditable="IsEditable" ProductTypeModel="ProductTypeModel" Panels="Panels" />
+
+                                    @* <ProductOptionNotes IsEditable="IsEditable" AddProductOptionNotes="AddProductOptionNotes" Product="@item"/> *@
+     
+                                    <div class="col-md-12 mt-4">
+                                        <h3 class="sub-header-text">Photoshoot Sample Images</h3>
+                                    </div>
+
+                                    <ProductMediaFile AddRejection="AddRejection" RejectionNotes="@item.RejectionNotes"
+                                                    IsEditable="IsEditable" ProductModel="@item" CategoryId="2006"
+                                                    Title="Photoshoot Samples (OEM)" />
+
+                                    <ProductMediaFile AddRejection="AddRejection" RejectionNotes="@item.RejectionNotes"
+                                                    IsEditable="IsEditable" ProductModel="@item" CategoryId="2009"
+                                                    Title="Photoshoot Samples (Influencer)" />
+                                }
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="@item.Id-@uniqueId" class="tab-pane fade">
+                            <div class="row mt-3">
+                                <div class="col-md-4">
+                                    <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+
+                                        <h5 class="mt-2 text-muted input-text">Child SKU</h5>
+                                        <p class="mb-2 form-control-sm bg-light for-border" contentEditable="false"
+                                        placeholder="">
+                                            <span> @item.Sku</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    @if (IsEditable)
+                                    {
+                                        <div class="border rounded-sm bg-white text-dark pl-3 pr-3">
+                                            <h5 class="mt-2 text-muted input-text">Color Options</h5>
+                                            <select class="form-control mb-2 form-control-sm bg-white for-border"
+                                                    placeholder="Select Color Options">
+                                                <option selected value="">Select</option>
+                                            </select>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                            <h5 class="mt-2 text-muted input-text">Color Options</h5>
+                                            <p class="mb-2 form-control-sm bg-light for-border" contentEditable="false"
+                                            placeholder="">
+                                                @* <span> @item.ColorOptionTitle</span> *@
+                                            </p>
+                                        </div>
+                                    }
+
+                                </div>
+                                @* @if(Title == "Child Tabs")
+                                {
+                                    <div class="col-md-4">
+                                    </div>
+                                }
+                                else
+                                {
+                                   
+                                } *@
+                               
+                            </div>
+                            @if(Title == "Child Tabs" )
+                            {
+                                <ProductMediaFile AddRejection="AddRejection" RejectionNotes="@item.RejectionNotes"
+                                          IsEditable="IsEditable" ProductModel="@item" CategoryId="2002" Title="@item.Name"></ProductMediaFile>
+                            }
+                            else
+                            {
+                                <ProductOption OnSaveProductOption="OnSaveProductOption" ReservedRollIds="ReservedRollIds" ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" ProductOptionRollIds="ProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductModel="@item" IsEditable="IsEditable" ProductTypeModel="ProductTypeModel" Panels="Panels" />
+                                @* <ProductOptionNotes IsEditable="IsEditable" AddProductOptionNotes="AddProductOptionNotes" Product="@item"/> *@
+     
+                                <div class="col-md-12 mt-4">
+                                    <h3 class="sub-header-text">Photoshoot Sample Images</h3>
+                                </div>
+
+                                <ProductMediaFile AddRejection="AddRejection" RejectionNotes="@item.RejectionNotes"
+                                                IsEditable="IsEditable" ProductModel="@item" CategoryId="2006"
+                                                Title="Photoshoot Samples (OEM)" />
+
+                                <ProductMediaFile AddRejection="AddRejection" RejectionNotes="@item.RejectionNotes"
+                                                IsEditable="IsEditable" ProductModel="@item" CategoryId="2009"
+                                                Title="Photoshoot Samples (Influencer)" />
+                            }
+                        </div>
+                    }
+                }
+
+            }
+        </div>
+
+        @* <ThreeDVirtualFitting Module="@Module" /> *@
+        @* <ThreeDVirtualFitting Module="@Module" ThreeDVirtualId="ThreeDVirtualId" HeaderTitle="@HeaderTitle" /> *@
+
+
+    </div>
+
+
+}

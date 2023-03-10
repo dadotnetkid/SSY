@@ -1,0 +1,4 @@
+@page "/inventory/warehouseoverview"
+@using SSY.Blazor.Pages.Shared.Pages.Inventory.Overview.WarehouseOverview
+@attribute [Authorize()]
+<WarehouseOverview CategoryId="@CategoryId" IsEditable="@IsEditable" Module="@Module" />

@@ -1,0 +1,251 @@
+﻿@attribute [Authorize()]
+<div class="col-12">
+    <div class="border rounded-lg shadow-sm bg-white mt-5">
+        <div class="d-flex justify-content-between receivedHeader">
+            <h5 class="backgroundBrown">Fabric and Greige</h5>
+        </div>
+        <div class="col-12">
+            <div class="center">
+                <DataGrid TItem="PurchaseOrderWithRollsModel"
+                          Data="@ListReceivedPurchaseOrder"
+                          Responsive
+                          Hoverable="true"
+                          PageSize="10000"
+                          RowStyling="@OnRowStylingRoll">
+
+                    <ChildContent>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderWithRollsModel" Field="Roll.PONumber" Caption="PO Number" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderWithRollsModel" Field="@nameof(PurchaseOrderWithRollsModel.ItemCode)" Caption="Item Code" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderWithRollsModel" Field="@nameof(PurchaseOrderWithRollsModel.ColorCode)" Caption="Color Code" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderWithRollsModel" Field="@nameof(PurchaseOrderWithRollsModel.ColorGroup)" Caption="Color Group" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderWithRollsModel" Field="Roll.RollNumber" Caption="Roll Number" Editable>
+                            <DisplayTemplate>
+                                @if (IsEditable)
+                                {
+                                    <div class="text-center mt-2">
+                                        <input @bind="@context.Roll.RollNumber" placeholder="Enter Roll Number" class="form-control mb-2 form-control-sm valid" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    @context.Roll.RollNumber
+                                }
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderWithRollsModel" Field="Roll.BuildingOrWarehouse" Caption="Building/Warehouse" Editable>
+                            <DisplayTemplate>
+                                @if (IsEditable)
+                                {
+                                    <div class="text-center mt-2">
+                                        <input @bind="@context.Roll.BuildingOrWarehouse" placeholder="Enter Building/Warehouse" class="form-control mb-2 form-control-sm valid" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    @context.Roll.BuildingOrWarehouse
+                                }
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderWithRollsModel" Field="Roll.TRackNumber" Caption="T-Rack Number" Editable>
+                            <DisplayTemplate>
+                                @if (IsEditable)
+                                {
+                                    <div class="text-center mt-2">
+                                        <input @bind="@context.Roll.TRackNumber" placeholder="Enter Track Number" class="form-control mb-2 form-control-sm valid" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    @context.Roll.TRackNumber
+                                }
+
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderWithRollsModel" Field="Roll.Rack" Caption="Rack" Editable>
+                            <DisplayTemplate>
+                                @if (IsEditable)
+                                {
+                                    <div class="text-center mt-2">
+                                        <input @bind="@context.Roll.Rack" placeholder="Enter Rack" class="form-control mb-2 form-control-sm valid" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    @context.Roll.Rack
+                                }
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderWithRollsModel" Field="Roll.TotalCount" Caption="Incoming Count" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderWithRollsModel" Field="Roll.ShippedCount" Caption="Shipped Count" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderWithRollsModel" Field="Roll.ReceivedCount" Caption="Receive Count" Editable>
+                            <DisplayTemplate>
+                                @if (IsEditable)
+                                {
+                                    @if (!@context.IsReceived)
+                                    {
+                                        <div class="text-center mt-2">
+                                            <input type="number" @bind="@context.Roll.ReceivedCount" class="form-control mb-2 form-control-sm valid" />
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        @context.Roll.ReceivedCount
+                                    }
+
+                                }
+                                else
+                                {
+                                    @context.Roll.ReceivedCount
+                                }
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                    </ChildContent>
+
+                </DataGrid>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="col-12">
+    <div class="border rounded-lg shadow-sm bg-white mt-5">
+        <div class="d-flex justify-content-between receivedHeader">
+            <h5 class="backgroundBrown">Trims and Accessories</h5>
+        </div>
+        <div class="col-12">
+            <div class="center">
+                <DataGrid TItem="SubMaterialModel"
+                          Data="@ListSubMaterialPurchaseOrder"
+                          Responsive
+                          Hoverable="true"
+                          PageSize="10000"
+                          RowStyling="@OnRowStyling">
+
+                    <ChildContent>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="SubMaterialModel" Field="@nameof(SubMaterialModel.PONumber)" Caption="PO Number" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="SubMaterialModel" Field="@nameof(SubMaterialModel.Name)" Caption="Material Name" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="SubMaterialModel" Field="@nameof(SubMaterialModel.TypeLabel)" Caption="Material Type" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="SubMaterialModel" Field="@nameof(SubMaterialModel.ColorLabel)" Caption="Color Group" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="SubMaterialModel" Field="Location.BuildingWarehouse" Caption="Building/Warehouse" Editable>
+                            <DisplayTemplate>
+                                @if (IsEditable)
+                                {
+                                    <div class="text-center mt-2">
+                                        <input @bind="@context.Location.BuildingWarehouse" placeholder="Enter Building/Warehouse" class="form-control mb-2 form-control-sm valid" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    @context.Location.BuildingWarehouse
+                                }
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="SubMaterialModel" Field="Location.Room" Caption="T-Rack Number" Editable>
+                            <DisplayTemplate>
+                                @if (IsEditable)
+                                {
+                                    <div class="text-center mt-2">
+                                        <input @bind="@context.Location.Room" placeholder="Enter T-Rack Number" class="form-control mb-2 form-control-sm valid" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    @context.Location.Room
+                                }
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="SubMaterialModel" Field="Location.Rack" Caption="Rack" Editable>
+                            <DisplayTemplate>
+                                @if (IsEditable)
+                                {
+                                    <div class="text-center mt-2">
+                                        <input @bind="@context.Location.Rack" placeholder="Enter Rack" class="form-control mb-2 form-control-sm valid" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    @context.Location.Rack
+                                }
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="SubMaterialModel" Field="@nameof(SubMaterialModel.TotalCount)" Caption="Incoming Count" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="SubMaterialModel" Field="@nameof(SubMaterialModel.ShippedCount)" Caption="Shipped Count" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="SubMaterialModel" Field="@nameof(SubMaterialModel.ReceivedCount)" Caption="Received Count" Editable>
+                            <DisplayTemplate>
+
+                                @if (IsEditable)
+                                {
+                                    @if (!@context.IsReceived)
+                                    {
+                                        <div class="text-center mt-2">
+                                            <input type="number" @bind="@context.ReceivedCount" class="form-control mb-2 form-control-sm valid" />
+                                            <span class="@context.ReceivedCount >"></span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        @context.ReceivedCount
+                                    }
+
+                                }
+                                else
+                                {
+                                    @context.ReceivedCount
+                                }
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                      
+                    </ChildContent>
+
+                </DataGrid>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="col-12">
+    <div class="border rounded-lg shadow-sm bg-white mt-5">
+        <div class="d-flex justify-content-between receivedHeader">
+            <h5 class="backgroundBrown">IPlex Purchase Orders</h5>
+        </div>
+        <div class="col-12">
+            <div class="center">
+                <DataGrid TItem="PurchaseOrderISTModel"
+                          Data="@ListPurchaseOrderIST"
+                          Responsive
+                          Hoverable="true"
+                          PageSize="10000">
+
+                    <ChildContent>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderISTModel" Field="@nameof(PurchaseOrderISTModel.Category)" Caption="Category" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderISTModel" Field="@nameof(PurchaseOrderISTModel.ItemCode)" Caption="Item Code" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderISTModel" Field="@nameof(PurchaseOrderISTModel.ColorCode)" Caption="Color Code" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderISTModel" Field="@nameof(PurchaseOrderISTModel.Quantity)" Caption="Quantity" Editable>
+                        </DataGridColumn>
+                        <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="PurchaseOrderISTModel" Field="@nameof(PurchaseOrderISTModel.PONumber)" Caption="PO Number" Editable>
+                        </DataGridColumn>
+                    </ChildContent>
+
+                </DataGrid>
+            </div>
+
+        </div>
+    </div>
+</div>

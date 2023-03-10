@@ -1,0 +1,159 @@
+@using System.Data;
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment env
+
+<div class="modal fade" id="MassUploadModal" tabindex="-1" role="dialog" aria-labelledby="MassUploadModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="MassUploadModalLabel">Mass Upload</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <h5 class="modal-title" id="MassUploadModalLabel">Excel file</h5>
+                    <div class="border rounded-sm bg-light text-dark pl-3 pr-3 mt-2">
+                        <div class="custom-file">
+                            <div class="container cut">
+                                <label class="custom-file" for="customInput">
+                                    <InputFile OnChange="@ImportExcelFile" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    @if (isValidating)
+                    {
+                        <button class="btn col-12 mt-1 default-background-color text-light">
+                            <span class="spinner-border spinner-border-sm "></span>
+                            Checking Data
+                        </button>
+                    }
+
+                    @if (isUploading)
+                    {
+                        <button class="btn col-12 mt-1 default-background-color text-light">
+                            <span class="spinner-border spinner-border-sm "></span>
+                            Uploading Data
+                        </button>
+                    }
+
+                    @if (MUFErrors.Any())
+                    {
+                        <div class="alert alert-danger cursor-pointer" data-toggle="collapse" data-target="#mass-upload-error">
+                            <strong>Warning!</strong> There is an error on your mass upload form. <strong>Click Here to view.</strong>
+                            <div id="mass-upload-error" class="collapse">
+                                @foreach (var item in MUFErrors)
+                                {
+                                    <p>@item</p>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        @if (isReady)
+                        {
+                            <div class="alert alert-success">
+                                <strong>Success!</strong> Mass upload form is validated and ready for uploading.
+                            </div>
+
+                        }
+
+                    }
+                    @if (isInvalidFile)
+                    {
+                        <div class="alert alert-danger">
+                            <strong>Warning!</strong> Theres an error on your excel file.
+                        </div>
+                    }
+
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <h5 class="modal-title" id="MassUploadModalLabel">Image file</h5>
+
+                    <div class="border rounded-sm bg-light text-dark pl-3 pr-3 mt-2">
+                        <div class="custom-file">
+                            <div class="container cut">
+                                <label class="custom-file" for="customInput">
+                                    <InputFile OnChange="OnInputFileName" class="form-control image__multiple" type="file"
+                                               id="formFileMultiple"
+                                               style="padding: 4px !important; background-color: #f8f9fa !important; border: 1px solid #f8f9fa !important;"
+                                               multiple />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-list">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @foreach (var imageDataUrl in imageDataUrls)
+                                    {
+                                        <div class="thumbnail">
+                                            <img src="@imageDataUrl" />
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @if (isUploadingImages)
+                    {
+                        <button class="btn col-12 mt-1 default-background-color text-light">
+                            <span class="spinner-border spinner-border-sm "></span>
+                            Uploading Images
+                        </button>
+                    }
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 text-center">
+                    <p>Download the Template below to see the updated template for uploading</p>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-4 col-sm-4 green__links download__file">
+                            <div class="link_download pt-4">
+                                <span class="cursor-pointer default-color download-label"
+                                      @onclick='@(e => DownloadFileFromURL("/Templates/Fabric and Greige Template.xlsx","Fabric and Greige Template"))'>
+                                    Fabric and Greige Template
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-4 col-sm-4 green__links download__file">
+                            <div class="link_download">
+                                <span class="cursor-pointer default-color"
+                                      @onclick='@(e => DownloadFileFromURL("/Templates/Trims and Accessories, Packaging & Others Template.xlsx","Trims and Accessories, Packaging & Others Template"))'>
+                                    Trims and Accessories, Packaging & Others Template
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-4 col-sm-4 green__links download__file">
+                            <div class="link_download pt-4">
+                                <span class="cursor-pointer default-color"
+                                      @onclick='@(e => DownloadFileFromURL("/Templates/Yarn MUF Template.xlsx","Yarn MUF Template"))'>
+                                    Yarn Template
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primar avocado__color" @onclick="@(e => FileUpload())">Upload Images</button>
+                <button type="button" class="btn btn-primar avocado__color" @onclick="@(e => HandleUploadSubmit())">
+                    Upload
+                    excel
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

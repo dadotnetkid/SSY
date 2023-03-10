@@ -1,0 +1,127 @@
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <CascadingValue Value="@SubMaterialModel.Name" Name="MaterialName">
+            <CascadingValue Value="@SubMaterialModel.Name" Name="ModuleChange">
+                <CascadingValue Value="@Crud" Name="Crud">
+                    <BannerLayoutSSY></BannerLayoutSSY>
+                </CascadingValue>
+            </CascadingValue>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+
+<EditForm Model="SubMaterialModel">
+    <DataAnnotationsValidator />
+
+    <ul class="nav nav-tabs nav-tabs-views nav justify-content-center border border-left-0 border-top-0 border-right-0 scrollmenu nav-menu">
+        <li><a data-toggle="tab" href="#home" class="active">Overview</a></li>
+        <li><a data-toggle="tab" href="#menu1">Reservations</a></li>
+        <li><a data-toggle="tab" href="#menu2">Transactions</a></li>
+        <li><a data-toggle="tab" href="#menu3">Adjustments</a></li>
+        <li><a data-toggle="tab" href="#menu4">Product Assignments</a></li>
+        <li><a data-toggle="tab" href="#menu5">Purchasing History</a></li>
+    </ul>
+
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active show">
+            <div class="row">
+
+                <div class="col-md-6 col-sm-12 mt-3 description">
+                    <SubMaterialDescription @ref="DescriptionComponent" SubMaterialModel="@SubMaterialModel" IsEditable="@IsEditable" CategoryId="SubMaterialModel.CategoryId" />
+                </div>
+
+                <div class="col-md-6 col-sm-12 mt-3 inventory">
+                    <SubMaterialInventory @ref="InventoryComponent" SubMaterialModel="@SubMaterialModel" IsEditable="@IsEditable" />
+                    <SubMaterialLocation @ref="LocationComponent" SubMaterialModel="@SubMaterialModel" IsEditable="@IsEditable" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 mt-3 supplier">
+                    <SupplierDetail SupplierModel="@SubMaterialModel.Company" IsEditable="@IsEditable" OnChangeSupplier="SupplierChanged" />
+                </div>
+
+                <div class="col-md-12 col-sm-12 mt-3 purchase order">
+                        <PurchasingDetail PurchaseDetailModel="@SubMaterialModel.PurchaseDetail" IsEditable="@IsEditable" />
+                    </div>
+
+            </div>
+            <div class="footer__button">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 mt-3">
+                        <div class="background">
+                            <div class="buttons">
+                                <button href="inventory/view" class="btn btn-lg btn-danger buttons__class" onclick="window.history.go(-1); return false;">Cancel</button>
+                                <a class="btn btn-lg btn-success buttons__class" @onclick="@(e => HandleSubmit(SubMaterialModel))">Save</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="menu1" class="tab-pane fade">
+            @* <Reservation SubMaterialId="@Id" SubMaterialModel="@SubMaterialModel" ActualCount="@SubMaterialModel.ActualCount" ReservedCount="@SubMaterialModel.ReservedCount" AvailableCount="@SubMaterialModel.AvailableCount" IsEditable="@IsEditable"></Reservation> *@
+            <Reservation SubMaterialId="@Id" SubMaterialModel="@SubMaterialModel" OnDeleteSubMaterialReservation="DeleteSubMaterialReservation" OnSubReservationSubmit="GetSubMaterial" IsEditable="true"></Reservation>
+
+        </div>
+
+        <div id="menu2" class="tab-pane fade">
+            <Transaction CategoryId="@SubMaterialModel.CategoryId" Id="@Id" IsEditable="@IsEditable"></Transaction>
+        </div>
+
+        <div id="menu3" class="tab-pane fade">
+            <Adjustment SubMaterialId="@Id" TotalCount="@SubMaterialModel.TotalCount" IsEditable="@IsEditable" OnSubAdjustmentSubmit="UpdateActualCount"></Adjustment>
+        </div>
+
+        <div id="menu4" class="tab-pane fade">
+            <Assignment CategoryId="@SubMaterialModel.CategoryId" Id="@Id" IsEditable="@IsEditable"></Assignment>
+        </div>
+
+        <div id="menu5" class="tab-pane fade">
+            <PurchasingHistory IsEditable="@IsEditable" CategoryId="@SubMaterialModel.CategoryId" Id="@Id"></PurchasingHistory>
+        </div>
+
+    </div>
+</EditForm>
+
+
+
+@code {
+    SubMaterialDescription DescriptionComponent = new();
+    SubMaterialInventory InventoryComponent = new();
+    SubMaterialLocation LocationComponent = new();
+    @*SupplierDetail SupplierComponent = new();*@
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @* //old *@
+
+
+    <div class="tab-content">
+        <div class="row">
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+@page "/influencers/admin/dashboard"
+@using SSY.Blazor.Pages.Influencers.Shared
+@using SSY.Blazor.Pages.Influencers.Shared.BannerLayouts
+
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <CascadingValue Value="@ModuleChange" Name="ModuleChange">
+            <BannerLayouts></BannerLayouts>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+<NavLayout></NavLayout>
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white mb-3">
+    <InfluencerStatus></InfluencerStatus>
+    <CollectionSample></CollectionSample>
+</div>
+
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white mb-3 planning">
+    <Planning></Planning>
+</div>
+
+<UpcomingLaunches></UpcomingLaunches>
+
+
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white mb-3 launch-list">
+    <LaunchList></LaunchList>
+</div>
+

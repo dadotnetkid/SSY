@@ -1,0 +1,64 @@
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white personal-information">
+    <div class="inline__flex filter">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Personal Information</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
+            <div class="border rounded-sm text-dark pl-3 pr-3">
+                <!--!-->
+                <h5 class="mt-2 text-muted input-text">FIRST NAME</h5>
+                <p class="text-muted input-field-text" contenteditable="false">
+                    <InputText @bind-Value="@ActualInfos.UserDetail.FirstName" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" placeholder="Enter First Name" />
+                    <ValidationMessage For="()=>ActualInfos.UserDetail.FirstName" />
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
+            <div class="border rounded-sm text-dark pl-3 pr-3">
+                <!--!-->
+                <h5 class="mt-2 text-muted input-text">LAST NAME</h5>
+                <p class="text-muted input-field-text" contenteditable="false">
+                    <InputText @bind-Value="@ActualInfos.UserDetail.Surname" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" placeholder="Enter Last Name" />
+                    <ValidationMessage For="()=>ActualInfos.UserDetail.Surname" />
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-3">
+            <div class="border rounded-sm text-dark pl-3 pr-3">
+                <!--!-->
+                <h5 class="mt-2 text-muted input-text">EMAIL </h5>
+                <p class="text-muted input-field-text" contenteditable="false">
+                    <InputText @bind-Value="@ActualInfos.UserDetail.Email" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" placeholder="Enter Email" />
+                    <ValidationMessage For="()=>ActualInfos.UserDetail.Email" />
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-3">
+            <div class="border rounded-sm text-dark pl-3 pr-3">
+                <!--!-->
+                <h5 class="mt-2 text-muted input-text">PASSWORD</h5>
+                <p class="text-muted input-field-text" contenteditable="false">
+                    <InputText type="password" @bind-Value="@ActualInfos.UserDetail.Password" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" placeholder="Enter Password" />
+                    <ValidationMessage For="()=>ActualInfos.UserDetail.Password" />
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
+            <div class="border rounded-sm text-dark pl-3 pr-3">
+                <!--!-->
+                <h5 class="mt-2 text-muted input-text">GENDER</h5>
+                <p class="text-muted input-field-text" contenteditable="false">
+                    <InputSelect class="form-select" @bind-Value="ActualInfos.UserDetail.Gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </InputSelect>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,45 @@
+table thead tr th {
+  text-align: left;
+  font: 'Poppins' !important;
+  font-size: 11px;
+  letter-spacing: 0px;
+  color: #2C2C2C;
+  text-transform: uppercase;
+  opacity: 1;
+}
+
+table tbody tr td {
+  text-align: left;
+  font: 'Poppins' !important;
+  font-size: 14px;
+  letter-spacing: 0px;
+  color: #2C2C2C;
+  text-transform: uppercase;
+  opacity: 1;
+}
+
+.view-details {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #7b8d61;
+  border-radius: 3px;
+  text-align: center;
+  font: 'Poppins' !important;
+  font-size: 14px;
+  letter-spacing: 0.1px;
+  color: #7b8d61;
+}
+
+.on-track {
+  text-align: left;
+  font: 'Poppins' !important;
+  font-size: 18px;
+  letter-spacing: 0px;
+  color: #7b8d61;
+  opacity: 1;
+}
+
+.inven-text {
+  font: 'Poppins' !important;
+  font-size: 11px;
+  opacity: 1;
+}

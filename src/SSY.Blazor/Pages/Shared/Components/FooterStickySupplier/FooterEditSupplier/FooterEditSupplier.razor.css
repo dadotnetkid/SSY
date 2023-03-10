@@ -1,0 +1,22 @@
+.footer__button {
+ 
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #00000087;
+
+    bottom: 0;
+
+}
+.background {
+    padding: 10px;
+}
+.buttons {
+    text-align: right;
+}
+.mt-3, .my-3 {
+    margin-top: 0!important;
+    margin-bottom: 0 !important;
+}
+.buttons__class {
+    font-size: 15px;
+}

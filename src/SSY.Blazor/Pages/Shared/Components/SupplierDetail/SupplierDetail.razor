@@ -1,0 +1,118 @@
+<EditForm Model="SupplierModel" @ref="editForm">
+    <DataAnnotationsValidator />
+
+    <div class="border rounded-lg p-4 shadow-sm bg-white">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Supplier Details</h3>
+        </div>
+
+        <div class="row custom__overideWTH">
+            <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+
+                    @if (IsEditable)
+                    {
+                        <h5 class="mt-2 text-muted input-text">Company Name <span class="text-danger">*</span> </h5>
+                        <InputSelect @bind-Value="SupplierModel.Id" @oninput="(e)=>SupplierHandler(e.Value.ToString())" class="form-control mb-2 form-control-sm">
+                            <option selected="selected" disabled value="0">Select Company Name</option>
+
+                            @foreach (var supplier in SuppliersModel)
+                            {
+                                <option value="@supplier.Id">@supplier.Name</option>
+                            }
+
+                        </InputSelect>
+                        <ValidationMessage For="@(() => SupplierModel.Name)" />
+                    }
+                    else
+                    {
+                        <h5 class="mt-2 text-muted input-text">Company Name </h5>
+                        <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.Name</p>
+                    }
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 bg-light">
+                    <h5 class="mt-2 text-muted input-text">Contact Email </h5>
+                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.ContactPersons?.FirstOrDefault()?.Email</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 bg-light">
+                    <h5 class="mt-2 text-muted input-text">Contact Number</h5>
+                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.ContactPersons?.FirstOrDefault()?.MobileNumber</p>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 bg-light">
+                    <h5 class="mt-2 text-muted input-text">Address 1 </h5>
+                    <p class="text-muted input-field-text address" contentEditable="false" placeholder="">@SupplierModel.Address1</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 bg-light">
+                    <h5 class="mt-2 text-muted input-text">Company Code </h5>
+                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                        @SupplierModel.Code
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-12 col-sm-12 mt-3 ">
+            <div class="border rounded-sm text-dark pl-3 pr-3 bg-light">
+                <h5 class="mt-2 text-muted input-text">Contact Name</h5>
+                <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.ContactPersons?.FirstOrDefault()?.Name</p>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+            <div class="border rounded-sm text-dark pl-3 pr-3 bg-light">
+                <h5 class="mt-2 text-muted input-text">Address 2</h5>
+                <p class="text-muted input-field-text address" contentEditable="false" placeholder="">@SupplierModel.Address2</p>
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 short">
+            <div class="border rounded-sm text-dark pl-3 pr-3 bg-light">
+                <h5 class="mt-2 text-muted input-text">City</h5>
+                <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                    @SupplierModel.City
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 short">
+            <div class="border rounded-sm text-dark pl-3 pr-3 bg-light">
+                <h5 class="mt-2 text-muted input-text">State</h5>
+                <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.City</p>
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 short">
+            <div class="border rounded-sm text-dark pl-3 pr-3 bg-light">
+                <h5 class="mt-2 text-muted input-text">Country</h5>
+                <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.Country</p>
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 short">
+            <div class="border rounded-sm text-dark pl-3 pr-3 bg-light">
+                <h5 class="mt-2 text-muted input-text">Zip Code</h5>
+                <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.ZipCode</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+</EditForm>
+
+
+@code {
+    EditForm editForm;
+}

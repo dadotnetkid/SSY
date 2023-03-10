@@ -1,0 +1,5 @@
+﻿@media only screen and (max-width: 991px) {
+    .form-group.mt-4.email-body {
+        overflow: auto;
+    }
+  }

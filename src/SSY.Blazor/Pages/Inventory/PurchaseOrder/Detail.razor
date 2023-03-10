@@ -1,0 +1,43 @@
+﻿@page "/inventory/purchaseorder/detail/{id:guid}"
+@attribute [Authorize()]
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <CascadingValue Value="@Crud" Name="Crud">
+            <CascadingValue Value="@PurchaseOrderModel.Number" Name="MaterialName">
+                <CascadingValue Value="@PurchaseOrderModel.Number" Name="ModuleChange">
+                    <PurchaseOrderDescription PurchaseOrderModel="@PurchaseOrderModel" IsEditable="@IsEditable" />
+                </CascadingValue>
+            </CascadingValue>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+
+
+<ReceivePurchaseOrderTable ListReceivedPurchaseOrder="@PurchaseOrderWithRollsList" IsEditable="@IsEditable"
+                           ListSubMaterialPurchaseOrder="@PurchaseOrderWithSubMaterialModel.Result"
+                           ListPurchaseOrderIST="@PurchaseOrderISTModelList"/>
+
+
+<div class="footer__button">
+    <div class="row mt-2 saveButton">
+        <div class="col-md-12 col-sm-12 mt-3">
+            <div class="background">
+                <div class="buttons mb-2">
+                    <button class="btn btn-lg btn-danger buttons__class"
+                            onclick="window.history.go(-1); return false;">
+                        Discard
+                    </button>
+                    <button class="btn btn-lg btn-success buttons__class" onclick="location.href='@($"/inventory/purchaseorder/edit/{PurchaseOrderModel.Id}'")">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<form class="">
+    <div class="form-group">
+        <div class="col-lg-12">
+            <TimelineAndComment></TimelineAndComment>
+        </div>
+    </div>
+</form>*@

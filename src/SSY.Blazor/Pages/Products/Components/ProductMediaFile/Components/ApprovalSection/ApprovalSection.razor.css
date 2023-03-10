@@ -1,0 +1,7 @@
+span.success {
+    color: green !important;
+    font-weight: 600;
+}
+span.notes {
+    word-break: break-word;
+}

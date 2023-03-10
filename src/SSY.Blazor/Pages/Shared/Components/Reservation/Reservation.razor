@@ -1,0 +1,269 @@
+<div class="row border rounded-lg p-4 shadow-sm bg-white">
+    <div class="col-md-12">
+        <div class="reservation__box">
+            <div class="row box-gray-layout">
+                <div class="col-md-4">
+                    <div class="box-gray for-count">
+                        <p class="title-count">Total Count</p>
+                        <h4 class="title-count-number">@TotalCount</h4>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="box-gray for-count">
+                        <p class="title-count">Total Reserved Count</p>
+                        <h4 class="title-count-number">@ReservedCount</h4>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="box-gray for-count">
+                        <p class="title-count">Total Available Count</p>
+                        <h4 class="title-count-number">@AvailableCount</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pl-3 pr-3 table-responsive">
+            <div class="center">
+                @if (MaterialId != Guid.Empty)
+                {
+                    <DataGrid TItem="RollReservationModel" Data="@_rollReservation" Responsive Hoverable="true" PageSize="1000000">
+                        <ChildContent>
+                            <DataGridColumn TItem="RollReservationModel" Field="@nameof(RollReservationModel.InfluencerNames)" Caption="Influencers" Editable />
+
+                            <DataGridColumn TItem="RollReservationModel" Field="@nameof(RollReservationModel.RollNumber)" Caption="Roll Number" Editable />
+
+                            <DataGridColumn TItem="RollReservationModel" Field="@nameof(RollReservationModel.CollectionName)" Caption="Collection" Editable />
+
+                            <DataGridColumn TItem="RollReservationModel" Field="@nameof(RollReservationModel.ReservationCount)" Caption="Reserved Count" Editable />
+
+                            <DataGridColumn TItem="RollReservationModel" Field="@nameof(RollReservationModel.ReservationDate)" Caption="Reserved Date" Editable>
+                                <DisplayTemplate>
+                                    @context.ReservationDate.ToString("MMMM dd, yyyy")
+                                </DisplayTemplate>
+                            </DataGridColumn>
+                            @*<DataGridColumn TItem="RollReservationModel" Field="@nameof(RollReservationModel.ReservationId)" Caption="Action" Editable>
+                                <DisplayTemplate>
+                                    <div @onclick="@(e => Delete(context.ReservationId))">
+                                        <i class="fa-regular fa-trash-can fa-2x"></i>
+                                    </div>
+                                </DisplayTemplate>
+                            </DataGridColumn>*@
+                        </ChildContent>
+                        <EmptyTemplate>
+                            <div class="box text-center">
+                                No records were found.
+                            </div>
+                        </EmptyTemplate>
+                    </DataGrid>
+                }
+                else
+                {
+                    <DataGrid TItem="SubMaterialReservationModel" Data="@_subMaterialReservation" Responsive Hoverable="true" PageSize="1000000">
+                        <ChildContent>
+                            <DataGridColumn TItem="SubMaterialReservationModel" Field="@nameof(SubMaterialReservationModel.InfluencersNames)" Caption="Influencers" Editable />
+
+                            <DataGridColumn TItem="SubMaterialReservationModel" Field="@nameof(SubMaterialReservationModel.CollectionName)" Caption="Collection" Editable />
+
+                            <DataGridColumn TItem="SubMaterialReservationModel" Field="@nameof(SubMaterialReservationModel.ReservationCount)" Caption="Reserved Count" Editable />
+
+                            <DataGridColumn TItem="SubMaterialReservationModel" Field="@nameof(SubMaterialReservationModel.ReservationDate)" Caption="Reserved Date" Editable>
+                                <DisplayTemplate>
+                                    @context.ReservationDate.ToString("MMMM dd, yyyy")
+                                </DisplayTemplate>
+                            </DataGridColumn>
+                            @*<DataGridColumn TItem="SubMaterialReservationModel" Field="@nameof(SubMaterialReservationModel.ReservationId)" Caption="Action" Editable>
+                                <DisplayTemplate>
+                                    <div @onclick="@(e => Delete(context.ReservationId))">
+                                        <i class="fa-regular fa-trash-can fa-2x"></i>
+                                    </div>
+                                </DisplayTemplate>
+                            </DataGridColumn>*@
+                        </ChildContent>
+                        <EmptyTemplate>
+                            <div class="box text-center">
+                                No records were found.
+                            </div>
+                        </EmptyTemplate>
+                    </DataGrid>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@if (IsEditable)
+{
+    <div class="footer__button">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 mt-3">
+                <div class="background">
+                    <div class="buttons">
+                        
+                            <button Size="Size.Small" class="btn-success buttons__class text-white cursor-pointer" Clicked="@ShowModal">
+                                Add Reservation
+                            </button>
+                        
+                        <button data-toggle="modal" data-target="#AddReservationModal" class="btn btn-lg btn-success buttons__class">Add Reservation</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}*@
+
+<!-- Modal Reservation -->
+<EditForm Model="CreateReservationModel">
+    <DataAnnotationsValidator />
+
+    <div class="modal fade" id="AddReservationModal" tabindex="-1" role="dialog" aria-labelledby="AddReservationModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddReservationModal">Add Reservation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        @* display for material reservation *@
+                        @if (MaterialId != Guid.Empty)
+                        {
+                            <div class="border rounded-lg shadow-sm bg-white">
+                                <div class="button-group btn col-12 bg-white inputfield">
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle col-12" data-toggle="dropdown">Select Roll <i class="fa fa-chevron-down fabric-dropdown-icon pull-right caretStyle"></i></button>
+                                    <ul class="dropdown-menu">
+                                        @foreach (var item in GetAllRollAndLocationOutputModel?.Result?.Items)
+                                        {
+                                            <li>
+                                                <label class="form-check-label">
+                                                    @if (@item.AvailableCount != null)
+                                                    {
+                                                        <input type="checkbox" value="1" @onchange="@(e => CheckRoll((bool)e.Value,@item))" />
+                                                        <span class="input-text-roll"> @item.RollNumber (</span>
+                                                        <span class="input-text-roll">
+                                                            @item.AvailableCount @MaterialModel.UnitOfMeasurementLabel/
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" value="1" disabled />
+                                                        <span class="input-text-roll"> @item.RollNumber (</span>
+                                                        <span class="input-text-roll">Roll Count is Empty/</span>
+                                                    }
+                                                    @if (@item.ShadingValue != null)
+                                                    {
+                                                        <span class="input-text-rollnonborder">
+                                                            @item.ShadingValue)
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="input-text-rollnonborder">
+                                                            Shading Value is Empty)
+                                                        </span>
+                                                    }
+                                                </label>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="row custom-row">
+                                @foreach (var roll in CreateRollReservationModel.RollReservations)
+                                {
+                                    <div class="roll float-left col">
+                                        <h5 class="formGroupExampleInput text__label">@roll.RollNumber</h5>
+                                        <small> Available Count: @roll.CurrentCount @MaterialModel.UnitOfMeasurementLabel</small>
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInput"> Reserved Count<span class="text-danger">*</span> </label>
+                                            <InputNumber @bind-Value="roll.ReservedCount" class="form-control mb-2 form-control-sm" placeholder="Reserved Count" />
+                                            <ValidationMessage For="@(() => CreateRollReservationModel.RollReservations)" />
+
+                                            <label>Reserved Date<span class="text-danger">*</span></label>
+                                            <InputDate @bind-Value="roll.Date" class="form-control mb-2 form-control-sm" placeholder="Reserved Date" />
+                                            <ValidationMessage For="@(() => roll.Date)" />
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        @if (MaterialId == Guid.Empty)
+                        {
+                            <span> Available Count: @SubMaterialModel.AvailableCount @SubMaterialModel.UnitOfMeasurementLabel</span>
+                            <div class="form-group">
+                                <label for="formGroupExampleInput"> Reserved Count<span class="text-danger">*</span> </label>
+                                <InputNumber @bind-Value="CreateSubMaterialReservationModel.ReservedCount" class="form-control mb-2 form-control-sm" placeholder="Reserved Count" />
+                                <ValidationMessage For="@(() => CreateSubMaterialReservationModel.ReservedCount)" />
+
+                                <label>Reserved Date<span class="text-danger">*</span></label>
+                                <InputDate @bind-Value="CreateSubMaterialReservationModel.Date" class="form-control mb-2 form-control-sm" placeholder="Reserved Date" />
+                                <ValidationMessage For="@(() => CreateSubMaterialReservationModel.Date)" />
+                            </div>
+                        }
+                        <label for="formGroupExampleInput">Influencers<span class="text-danger">*</span></label>
+                        <div class="border rounded-lg shadow-sm bg-white">
+                            <div class="button-group btn col-12 bg-white inputfield">
+                                <button type="button" class="btn btn-default btn-sm dropdown-toggle col-12" data-toggle="dropdown">@InfluencerNamesValue <i class="fa fa-chevron-down fabric-dropdown-icon pull-right caretStyle"></i></button>
+                                <ul class="dropdown-menu">
+                                    @foreach (var item in GetAllUserDetailModel.Result.Items.Where(x => x.Status == 7 && x.RoleNames.Contains("INFLUENCER")).OrderBy(x => x.FullName))
+                                    {
+                                        <li>
+                                            <input class="form-check-input"
+                                                   checked="@(InfluencersIds.Contains(item.Id)==true)"
+                                                   type="checkbox"
+                                                   id="flexCheckChecked"
+                                                   @onchange="@(e => onChangeInfluencer(item.Id, item.FullName, (bool)e.Value))" />
+                                            <label class="text-muted input-field-text" contenteditable="false">@item.FullName</label>
+                                        </li>
+
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <div class="row custom-row">
+                            <label for="formGroupExampleInput">Collection<span class="text-danger">*</span></label>
+                            <div class="border rounded-lg shadow-sm bg-white col-12 custom-select-collection">
+
+                                @if (MaterialId != Guid.Empty)
+                                {
+
+                                    <select @oninput="@(e => OnSelectCollection(e.Value.ToString()))" class="form-control form-control-sm " placeholder="Enter Collection">
+                                        <option disabled selected value="0">Select</option>
+                                        @foreach (var item in CollectionsListModel)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    </select>
+                                }
+                                else
+                                {
+                                    <label for="formGroupExampleInput">Collection<span class="text-danger">*</span></label>
+                                    <InputSelect @bind-Value="CreateSubMaterialReservationModel.CollectionId" class="form-control form-control-sm" placeholder="Enter Collection">
+                                        <option disabled selected value="0">Select</option>
+                                        @foreach (var item in CollectionsListModel)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    </InputSelect>
+                                    <ValidationMessage For="@(() => CreateSubMaterialReservationModel.CollectionId)" />
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-lg btn-success buttons__class" data-dismiss="modal" @onclick="OnSubmit">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>

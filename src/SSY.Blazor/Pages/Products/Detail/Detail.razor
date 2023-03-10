@@ -1,0 +1,321 @@
+@page "/collectionandproduct/product/{Id:guid}"
+
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@TabName" Name="TabName">
+        <CascadingValue Value="@CollectionName" Name="CollectionName">
+            <CascadingValue Value="@CollectionId" Name="CollectionId">
+                <CascadingValue Value="@ProductId" Name="ProductId">
+                     <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+                        <CascadingValue Value="@ModuleChange" Name="ModuleChange">
+                            <BannerLayoutSSY></BannerLayoutSSY>
+                        </CascadingValue>
+                    </CascadingValue>
+                </CascadingValue>
+            </CascadingValue>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+<ul class="nav nav-tabs nav-tabs-views nav justify-content-center border border-left-0 border-top-0 border-right-0 scrollmenu nav-menu">
+    <li><a data-toggle="tab" href="#home" class="active" @onclick='@(e => tabName("Overview"))'>Overview</a></li>
+    <li><a data-toggle="tab" href="#shopify" @onclick='@(e => tabName("Shopify"))'>Shopify</a></li>
+    <li>
+        <a data-toggle="tab" href="#pricingandaccounting" @onclick='@(e => tabName("Pricing & Accounting"))'>
+            Pricing &
+            Accounting
+        </a>
+    </li>
+    <li><a data-toggle="tab" href="#files" @onclick='@(e => tabName("Files"))'>Files</a></li>
+</ul>
+
+@if (IsLoading == true)
+{
+    <div class="border rounded-lg p-4 shadow-sm bg-white">
+        <LoadingSpinner></LoadingSpinner>
+    </div>
+}
+else
+{
+    <CascadingValue Value="this" Name="MainPage">
+        <EditForm Model="CreateProductModel">
+            <DataAnnotationsValidator />
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active show">
+                    <ProductOverview LaunchCategoryList="LaunchCategoryList" ProductModel="ProductModel"
+                                 IsEditable="IsEditable"></ProductOverview>
+
+                    <div class="border rounded-lg p-4 shadow-sm bg-white">
+                        <div class="d-flex justify-content-between " data-target="#design-draft" data-toggle="collapse">
+                            <div class="col-md-8">
+                                <h3 class="header-text">Design Draft</h3>
+                            </div>
+
+                            <div class="col-md-4">
+                                <i class="fa fa-light fa-chevron-down pull-right for-dropdown"></i>
+                            </div>
+
+                        </div>
+                        <div class="collapse show" id="design-draft">
+                            <ProductMediaFile AddRejection="AddRejectionNote" RejectionNotes="ProductModel.RejectionNotes"
+                                          IsEditable="IsEditable" ProductModel="ProductModel" CategoryId="2001" Title="Design Draft" />
+                        </div>
+                    </div>
+
+                <div class="border p-4 rounded-lg shadow-sm bg-white">
+                    <ProductOption OnSaveProductOption="OnSaveProductOption" ReservedRollIds="ReservedRollIds" ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" ProductOptionRollIds="ProductOptionRollIds" MaterialListModel="MaterialListModel"
+                                   unitOfMeasurementListModel="unitOfMeasurementListModel"
+                                   SaveParentProductOption="SaveParentProductOption" ProductParentId="ProductModel.Id"
+                                   ProductModel="ProductModel" IsEditable="IsEditable" ProductTypeModel="ProductTypeModel"
+                                   Panels="Panels" Title="Parent Product Options" />
+                    </div>
+                    <div class="border rounded-lg p-4 shadow-sm bg-white">
+                        <div class="d-flex justify-content-between " data-target="#3d" data-toggle="collapse">
+                            <div class="col-md-8">
+                                <h3 class="header-text">3D Virtual Fitting Preview</h3>
+                            </div>
+
+                            <div class="col-md-4">
+                                <i class="fa fa-light fa-chevron-down pull-right for-dropdown"></i>
+                            </div>
+
+                        </div>
+                        <div class="collapse show" id="3d">
+                            <ProductMediaFile AddRejection="AddRejectionNote" RejectionNotes="ProductModel.RejectionNotes"
+                                          IsEditable="IsEditable" ProductModel="ProductModel" CategoryId="2002"
+                                          Title="Parent Preview" />
+
+                            <div class="col-md-12 mt-4">
+                                <h3 class="sub-header-text">Child Tabs</h3>
+                            </div>
+
+                        <ChildProduct AddProductOptionNotes="AddProductOptionNotes" OnSaveProductOption="OnSaveProductOption" ReservedRollIds="ReservedRollIds" ForecastQuantity="ForecastQuantity" AddRejection="AddRejectionNote" UpdateProductOptionRollIds="UpdateProductOptionRollIds" ProductOptionRollIds="ProductOptionRollIds" MaterialListModel="MaterialListModel"
+                                      unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductModel.Id"
+                                      ChildProducts="ProductModel.ChildProducts" IsEditable="IsEditable"
+                                      ProductTypeModel="ProductTypeModel" Panels="Panels" Title="Child Tabs" />
+                        </div>
+                    </div>
+
+                    <div class="border rounded-lg p-4 shadow-sm bg-white">
+                        <div class="d-flex justify-content-between " data-target="#mockup" data-toggle="collapse">
+                            <div class="col-md-8">
+                                <h3 class="header-text">Mock Up</h3>
+                            </div>
+
+                            <div class="col-md-4">
+                                <i class="fa fa-light fa-chevron-down pull-right for-dropdown"></i>
+                            </div>
+
+                        </div>
+                        <div class="collapse show" id="mockup">
+                            <ProductMediaFile AddRejection="AddRejectionNote" RejectionNotes="ProductModel.RejectionNotes"
+                                          IsEditable="IsEditable" ProductModel="ProductModel" CategoryId="2003" Title="Mock Up Images" />
+                        </div>
+                    </div>
+
+                    <div class="border rounded-lg p-4 shadow-sm bg-white">
+                        <div class="d-flex justify-content-between " data-target="#OEMfirstDesign" data-toggle="collapse">
+                            <div class="col-md-11">
+                                <h3 class="header-text">Fit Sample Images</h3>
+                            </div>
+                            <div class="col-md-1">
+                                <i class="fa fa-light fa-chevron-down pull-right for-dropdown"></i>
+                            </div>
+                        </div>
+                        <div class="row custom__overideWTH collapse show" id="OEMfirstDesign">
+                            <div class="col-md-12 pl-0 pr-0">
+                                @* <OEMFirstFitSamples OnOEMSampleImageChanged="OEMSampleImageChanged"
+                            ProductModel="ProductModel" IsEditable="IsEditable" /> *@
+                                <ProductMediaFile AddRejection="AddRejectionNote" RejectionNotes="ProductModel.RejectionNotes"
+                                              IsEditable="IsEditable" ProductModel="ProductModel" CategoryId="2004"
+                                              Title="1st Fit Sample Images (OEM)" />
+                            </div>
+
+                            <div class="col-md-12 pl-0 pr-0 mt-4">
+                                @* <OEMSecondFitSamples OnOEMSecondSampleImageChanged="OEMSecondSampleImageChanged"
+                            ProductModel="ProductModel" IsEditable="IsEditable" /> *@
+                                <ProductMediaFile AddRejection="AddRejectionNote" RejectionNotes="ProductModel.RejectionNotes"
+                                              IsEditable="IsEditable" ProductModel="ProductModel" CategoryId="2005"
+                                              Title="2nd Fit Sample Images (OEM)" />
+                            </div>
+                            <div class="col-md-12 pl-0 pr-0">
+                                @* <OEMFirstFitSamples OnOEMSampleImageChanged="OEMSampleImageChanged"
+                            ProductModel="ProductModel" IsEditable="IsEditable" /> *@
+                                <ProductMediaFile AddRejection="AddRejectionNote" RejectionNotes="ProductModel.RejectionNotes"
+                                              IsEditable="IsEditable" ProductModel="ProductModel" CategoryId="2007"
+                                              Title="1st Fit Sample Images (Influencer)" />
+                            </div>
+
+                            <div class="col-md-12 pl-0 pr-0 mt-4">
+                                @* <OEMSecondFitSamples OnOEMSecondSampleImageChanged="OEMSecondSampleImageChanged"
+                            ProductModel="ProductModel" IsEditable="IsEditable" /> *@
+                                <ProductMediaFile AddRejection="AddRejectionNote" RejectionNotes="ProductModel.RejectionNotes"
+                                              IsEditable="IsEditable" ProductModel="ProductModel" CategoryId="2008"
+                                              Title="2nd Fit Sample Images (Influencer)" />
+                            </div>
+                            @* <div class="col-md-12 pl-0 pr-0 mt-4">
+                        <ProductMediaFile AddRejection="AddRejectionNote" RejectionNotes="ProductModel.RejectionNotes"
+                        IsEditable="IsEditable" ProductModel="ProductModel" CategoryId="2006"
+                        Title="Photoshoot Samples" /> *@
+
+                            @* <OEMPhotoShootSamples OnOEMPhotoShootSampleImageChanged="OEMPhotoShootSampleImageChanged"
+                        ProductModel="ProductModel" IsEditable="IsEditable" /> *@
+                            @* </div> *@
+                        </div>
+                    </div>
+
+                    <div class="border p-4 rounded-lg shadow-sm bg-white mt-3">
+
+
+                    <ChildProduct  AddProductOptionNotes="AddProductOptionNotes" OnSaveProductOption="OnSaveProductOption" ReservedRollIds="ReservedRollIds" ForecastQuantity="ForecastQuantity" AddRejection="AddRejectionNote" UpdateProductOptionRollIds="UpdateProductOptionRollIds" ProductOptionRollIds="ProductOptionRollIds" MaterialListModel="MaterialListModel"
+                                  unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductModel.Id"
+                                  ChildProducts="ProductModel.ChildProducts" IsEditable="IsEditable"
+                                  ProductTypeModel="ProductTypeModel" Panels="Panels" title="Overview" />
+
+
+                    </div>
+
+
+
+
+
+                    @* OEM sample images *@
+
+
+                    @* influencer sample images *@
+                    @* <div class="border rounded-lg p-4 shadow-sm bg-white">
+                <div class="d-flex justify-content-between " data-target="#firstDesign" data-toggle="collapse">
+                <div class="col-md-11">
+                <h3 class="header-text">Sample Images (Influencer)</h3>
+                </div>
+                <div class="col-md-1">
+                <i class="fa fa-light fa-chevron-down pull-right for-dropdown"></i>
+                </div>
+                </div>
+                <div class="row custom__overideWTH collapse show" id="firstDesign">
+                <div class="col-md-12 pl-0 pr-0"> *@
+                    @* <OEMFirstFitSamples OnOEMSampleImageChanged="OEMSampleImageChanged"
+                ProductModel="ProductModel" IsEditable="IsEditable" /> *@
+                    @* <ProductMediaFile AddRejection="AddRejectionNote" RejectionNotes="ProductModel.RejectionNotes"
+                IsEditable="IsEditable" ProductModel="ProductModel" CategoryId="2007"
+                Title="1st Fit Sample Images" />
+                </div>
+
+                <div class="col-md-12 pl-0 pr-0 mt-4"> *@
+                    @* <OEMSecondFitSamples OnOEMSecondSampleImageChanged="OEMSecondSampleImageChanged"
+                ProductModel="ProductModel" IsEditable="IsEditable" /> *@
+                    @* <ProductMediaFile AddRejection="AddRejectionNote" RejectionNotes="ProductModel.RejectionNotes"
+                IsEditable="IsEditable" ProductModel="ProductModel" CategoryId="2008"
+                Title="2nd Fit Sample Images" />
+                </div> *@
+
+                    @* <div class="col-md-12 pl-0 pr-0 mt-4">
+                <ProductMediaFile AddRejection="AddRejectionNote" RejectionNotes="ProductModel.RejectionNotes"
+                IsEditable="IsEditable" ProductModel="ProductModel" CategoryId="2009"
+                Title="Photoshoot Samples" /> *@
+
+                    @* <OEMPhotoShootSamples OnOEMPhotoShootSampleImageChanged="OEMPhotoShootSampleImageChanged"
+                ProductModel="ProductModel" IsEditable="IsEditable" /> *@
+                    @* </div> *@
+                    @* </div>
+                </div> *@
+                    @* <ProductionFiles OnProductionFileChanged="ProductionFileChanged" ProductModel="ProductModel"
+                IsEditable="IsEditable" /> *@
+                    @* <ProductList Id="Id"/> *@
+                    <div class="border rounded-lg p-4 shadow-sm bg-white">
+                        <div class="d-flex justify-content-between " data-target="#productList" data-toggle="collapse">
+                            <div class="col-md-8">
+                                <h3 class="header-text">Product List</h3>
+                            </div>
+                            <div class="col-md-4">
+                                <i class="fa fa-light fa-chevron-down pull-right for-dropdown"></i>
+                            </div>
+                        </div>
+                        <div class="collapse show" id="productList">
+                            <ProductList ProductModel="ProductModel" ChildProducts="ChildProducts" ColorList="ColorList" DropListModel="DropListModel"></ProductList>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg p-4 shadow-sm bg-white">
+                        <div class="d-flex justify-content-between " data-target="#productionFiles" data-toggle="collapse">
+                            <div class="col-md-8">
+                                <h3 class="header-text">Production Files</h3>
+                            </div>
+
+                            <div class="col-md-4">
+                                <i class="fa fa-light fa-chevron-down pull-right for-dropdown"></i>
+                            </div>
+
+                        </div>
+                        <div class="collapse show" id="productionFiles">
+                            @* <ProductMediaFile AddRejection="AddRejectionNote" RejectionNotes="ProductModel.RejectionNotes"
+                        IsEditable="IsEditable" ProductModel="ProductModel" CategoryId="2010" Title="Mock Up Images" /> *@
+                            <ProductionFiles ProductModel="ProductModel" CategoryId="2010" IsEditable="IsEditable" />
+
+                        </div>
+                    </div>
+
+                    <div class="border rounded-lg shadow-sm bg-white">
+                        <div class="d-flex justify-content-between p-4" data-target="#bomsummary" data-toggle="collapse">
+                            <div class="col-md-8">
+                                <h3 class="header-text">BOM Summary & Reservation</h3>
+                            </div>
+
+                            <div class="col-md-4">
+                                <i class="fa fa-light fa-chevron-down pull-right for-dropdown"></i>
+                            </div>
+
+                        </div>
+                        <div class="collapse show" id="bomsummary">
+                            <BOMSummaryReservation IsEditable="IsEditable" ProductModel="ProductModel"
+                                               ChildProducts="ChildProducts" BomSummaries="BomSummaries"></BOMSummaryReservation>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="shopify" class="tab-pane fade">
+                    <Shopify ChildProducts="ProductModel.ChildProducts" IsEditable="IsEditable"></Shopify>
+                </div>
+
+                <div id="pricingandaccounting" class="tab-pane fade">
+                    <PricingAndAccounting />
+                </div>
+
+                <div id="files" class="tab-pane fade">
+                    @* <Files/> *@
+                </div>
+            </div>
+        </EditForm>
+    </CascadingValue>
+}
+
+<div class="footer__button">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 mt-3">
+            <div class="background">
+                <div class="buttons">
+                    
+                      @if (IsEditable)
+                    {
+                        <button class="btn btn-lg btn-danger buttons__class mr-2"
+                                @onclick="Back">
+                           Discard
+                        </button>
+                        <button class="btn btn-lg btn-success buttons__class" @onclick="Save">Save</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-lg btn-danger buttons__class mr-2"
+                                onclick="window.history.go(-1); return false;">
+                             Back
+                        </button>
+
+                        <button class="btn btn-lg btn-success buttons__class" @onclick="Edit">Edit</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<Modal @ref="ModalSaving">  
+    <ModalSavingSpinner></ModalSavingSpinner>
+</Modal>

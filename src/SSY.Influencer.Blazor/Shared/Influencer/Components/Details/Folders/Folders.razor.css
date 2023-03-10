@@ -1,0 +1,45 @@
+.messaging h5 {
+    margin-top: 11px;
+    font-size: 20px;
+}
+span.email-tags {
+    padding: 0px 0 0 20px;
+    border-radius: 0 14px 14px 0px;
+    background: #7b8e61;
+    margin-right: 7px;
+}
+span.badge.hex-color.notif-folder {
+    background: #a56041;
+    margin-left: 86px;
+}
+.messaging p {
+    margin-bottom: 9px;
+}
+.bg-green {
+    background: #dbe6cc;
+    border-radius: 3px;
+    padding: 3px;
+}
+.btn-color-hex{
+    background: #7b8e61;
+    color: white;
+    font-size: 11px;
+}
+#selected:active {
+    background: #dee3d7;
+}
+#selected:focus-within {
+    background: #dee3d7;
+}
+.box-message {
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.box-message h5 {
+    line-height: 1px;
+    font-size: 14px !important;
+}
+span.time-date {
+    font-size: 11px;
+}

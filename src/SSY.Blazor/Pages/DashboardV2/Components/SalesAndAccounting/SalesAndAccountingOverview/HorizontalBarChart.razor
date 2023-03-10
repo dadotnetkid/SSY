@@ -1,0 +1,39 @@
+<div class="container-grap">
+    @foreach (var dataPoint in DataPoints)
+    {
+        var percentage = ((double)dataPoint.Value / DataPoints.Sum(dp => dp.Value)) * 100;
+        var width = percentage <= 100 ? percentage : 100;
+        <label class="bar-graph-horizontal-label">@dataPoint.Label</label>
+       
+        <div class="percentage-with-graph">
+            <div class="bar-graph-horizontal" style="width: @(width)%; background-color: @(dataPoint.Color);"></div><span class="percentage">@(percentage.ToString("0") + "%")</span>
+        </div>
+        
+    }
+</div>
+
+@code {
+    public class DataPoint
+    {
+        public string Label { get; set; }
+        public int Value { get; set; }
+        public string Color { get; set; }
+        public int Y { get; set; }
+    }
+
+    [Parameter]
+    public List<DataPoint> DataPoints { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        int y = 10;
+        int maxVal = DataPoints.Max(dp => dp.Value);
+
+        foreach (var dataPoint in DataPoints)
+        {
+            dataPoint.Y = y;
+            dataPoint.Value = (int)(((double)dataPoint.Value / maxVal) * 380);
+            y += 60;
+        }
+    }
+}

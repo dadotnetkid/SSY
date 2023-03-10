@@ -1,0 +1,28 @@
+﻿@page "/inventory/purchaseorder/add"
+@using SSY.Blazor.Pages.Inventory.PurchaseOrder.Component
+@attribute [Authorize()]
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <PurchaseOrderDescription @ref="PurchaseOrderDescriptionComponent" PurchaseOrderModel="@PurchaseOrderModel" IsEditable="@IsEditable" />
+    </CascadingValue>
+</CascadingValue>
+
+<div class="footer__button">
+    <div class="row mt-2 saveButton">
+        <div class="col-md-12 col-sm-12 mt-3">
+            <div class="background">
+                <div class="buttons">
+                    <button class="btn btn-lg btn-danger buttons__class mb-2"
+                            onclick="window.history.go(-1); return false;">
+                        Discard
+                    </button>
+                    <button class="btn btn-lg btn-success buttons__class mb-2" @onclick="OnSubmit">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    PurchaseOrderDescription PurchaseOrderDescriptionComponent;
+}

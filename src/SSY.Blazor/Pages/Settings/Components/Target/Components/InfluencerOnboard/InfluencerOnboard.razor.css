@@ -1,0 +1,19 @@
+tr td {
+    text-align: center;
+    vertical-align: middle;
+}
+button.btn.btn-outline-secondary.bg-white {
+    border: 1px solid #dee2e6!important;
+}
+.btn-outline-secondary:hover {
+    color: #7c8e61;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}   
+td.tb-td-text {
+    text-align: center;
+}
+th.tb-header {
+    text-align: center;
+}
+ 

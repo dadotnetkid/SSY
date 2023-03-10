@@ -1,0 +1,71 @@
+@using ChartJs.Blazor
+
+        <div class="rounded-lg border shadow-sm bg-white">
+            <div class="d-flex justify-content-between rounded-sm p-3  ">
+                <div class=" font-weight-bolder dashboard-header-text">SewSew You Productivity Dashboard</div>
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-6 col-sm-12 mt-3 ">
+                    <div class="border rounded-lg shadow-sm boxes__top">
+                        <div class="row">
+                            <div class="col-9 ">
+                                <ul class="list-group p-2">
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center border-top-0 border-bottom-0 border-left-0 ">
+                                        <span class="productivity-text">YEAR 2020 TARGET</span>
+                                        <span class="productivity-price font-weight-bold">$300,000.00</span>
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center border-top-0 border-bottom-0 border-left-0 ">
+                                        <span class="productivity-text">RUN RATE BASED ON FORECAST</span>
+                                        <span class="productivity-price font-weight-bold">$320,000.00</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-3 text-center align-self-center">
+                                @* <div class=" border bg-dark mr-3 vertical-center">asd</div> *@
+                                <div class="border mr-4 mb-2 productivity-percentage p-2">70%</div>
+                                <div class=" productivity-percentage-text mr-4">On Track</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border rounded-lg shadow-sm mt-3 boxes__top">
+                        <div class="row">
+                            <div class="col-9 ">
+                                <ul class="list-group p-2">
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center border-top-0 border-bottom-0 border-left-0 ">
+                                        <span class="productivity-text">MONTH-TO-DATE TARGET</span>
+                                        <span class="productivity-price font-weight-bold">$300,000.00</span>
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center border-top-0 border-bottom-0 border-left-0 ">
+                                        <span class="productivity-text">MONTH-TO-DATE ACTUAL</span>
+                                        <span class="productivity-price font-weight-bold">$320,000.00</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-3 text-center align-self-center">
+                                @* <div class=" border bg-dark mr-3 vertical-center">asd</div> *@
+                                <div class="border mr-4 mb-2 productivity-percentage p-2">70%</div>
+                                <div class=" productivity-percentage-text mr-4">On Track</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 mt-3">
+                    <div class="border rounded-lg shadow-sm">
+
+                        @* <Chart Config="_barconfig"></Chart> *@
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>

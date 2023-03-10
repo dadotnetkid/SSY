@@ -1,0 +1,95 @@
+@using SSY.Enums
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white sampling-address">
+    <div class="inline__flex filter">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Sampling Address</h3>
+        </div>
+    </div>
+    @foreach (var i in ActualInfos.UserDetail.Addresses.Where(c=>c.AddressType==AddressType.Sampling).Select((data, index) => new { data, index }))
+    {
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+                    <!--!-->
+                    <h5 class="mt-2 text-muted input-text">FIRST NAME</h5>
+                    <p class="text-muted input-field-text" contenteditable="false">
+                        @ActualInfos.UserDetail.AppUser.Name
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+                    <!--!-->
+                    <h5 class="mt-2 text-muted input-text">LAST NAME</h5>
+                    <p class="text-muted input-field-text" contenteditable="false">
+                        @ActualInfos.UserDetail.AppUser.Surname
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+                    <!--!-->
+                    <h5 class="mt-2 text-muted input-text">ADDRESS @(i.index + 1)</h5>
+                    <p class="text-muted input-field-text" contenteditable="false">
+                        @i.data.Address1
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+                    <!--!-->
+                    <h5 class="mt-2 text-muted input-text">CITY</h5>
+                    <p class="text-muted input-field-text" contenteditable="false">
+                        @i.data.City
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+                    <!--!-->
+                    <h5 class="mt-2 text-muted input-text">STATE /PROVINCE</h5>
+                    <p class="text-muted input-field-text" contenteditable="false">
+                        @i.data.State
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3">
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+                    <!--!-->
+                    <h5 class="mt-2 text-muted input-text">COUNTRY</h5>
+                    <p class="text-muted input-field-text" contenteditable="false">
+                        @i.data.Country
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3">
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+                    <!--!-->
+                    <h5 class="mt-2 text-muted input-text">ZIP CODE</h5>
+                    <p class="text-muted input-field-text" contenteditable="false">
+                        @i.data.ZipCode
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3">
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+                    <!--!-->
+                    <h5 class="mt-2 text-muted input-text">PROVINCE CODE</h5>
+                    <p class="text-muted input-field-text" contenteditable="false">
+                        @i.data.ProvinceCode
+                    </p>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    }
+
+</div>

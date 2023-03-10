@@ -1,0 +1,238 @@
+
+
+<div class="border rounded-sm bg-white text-dark pl-3 pr-3">
+    <h4 class="mt-2 mb-0 text-muted input-text">@Title</h4>
+    <InputSelect @bind-Value="@SelectedOption" @oninput='@(e => OnClickDropdown(e.Value.ToString()))' class="form-control mb-0">
+        <option selected disabled value="0">Select Option</option>
+        @foreach (var item in OptionListModel)
+        {
+            <option value="@item.Id">@item.Value</option>
+        }
+    </InputSelect>
+</div>
+
+@if(!SelectedProductOption.OptionOptions.Any() && SelectedProductOption.HasPanel && ProductParentId != ProductId){
+   var uniqueIdRollSelection = Guid.NewGuid();
+   var uniqueIdMaterialSelection = Guid.NewGuid();
+    <div class="border rounded-sm bg-white text-dark mt-2 ml-3 mb-1 p-2">
+        @* <div class="parent"> *@
+
+            <div class="border rounded-sm bg-white text-dark pl-3 pr-3">
+                <h4 class="mt-2 mb-0 text-muted input-text">Consumption*</h4>
+                <input value="@Consumption" @oninput='@(e => OnInputConsumption(e.Value.ToString()))' type="number" class="form-control"
+                placeholder="Enter Consumption"/>
+            </div>
+
+            <div class="border rounded-sm bg-white text-dark mt-2 pl-3 pr-3">
+                <h4 class="mt-2 mb-0 text-muted input-text">Unit Of Measurement*</h4>
+                <select @bind="UnitOfMeasurementId" class="form-control mb-0 form-control-sm" @oninput='@(e => OnSelectUOM(e.Value.ToString()))'>
+                    <option selected disabled value="0">Select Unit Of Measurement</option>
+                    @foreach (var unit in unitOfMeasurementListModel.Result.Items)
+                    {
+                        <option value="@unit.Id">@unit.Label</option>
+                    }
+                </select>
+            </div>
+
+            <div class="border rounded-sm bg-white text-dark mt-2 pl-3 pr-3">
+                <h4 class="mt-2 mb-0 text-muted input-text">Requirement</h4>
+                <span>@ForecastQuantity</span>
+            </div>
+
+            <div class="border rounded-sm bg-white text-dark mt-2 pl-3 pr-3">
+                <h4 class="mt-2 mb-0 text-muted input-text">Select Material*</h4>
+                @* <select class="form-control mb-0 form-control-sm" @oninput='@(e => OnSelectMaterial(e.Value.ToString()))'>
+                    <option selected disabled value="0">Select</option>
+                    @foreach (var item in MaterialListModel.Materials)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select> *@
+                <span>@SelectMaterialName</span>
+
+                <div class="border rounded-lg pl-1 pr-1 pt-1 shadow-sm bg-white">
+                    <div class="d-flex justify-content-between " data-target="#@uniqueIdMaterialSelection" data-toggle="collapse">
+                        <div class="col-md-8">
+                            <h3 class="header-text">Select Available Material</h3>
+                        </div>
+
+                        <div class="col-md-4">
+                            <i class="fa fa-light fa-chevron-down pull-right for-dropdown"></i>
+                        </div>
+                    </div>
+                    <div class="collapse" id="@uniqueIdMaterialSelection">
+                        <TextEdit type="text" class="form-control" @bind-Text="@customFabricFilterValue" placeholder="Search"></TextEdit>
+
+                        <DataGrid CustomFilter="@OnCustomFabricFilter"
+                                TItem="MaterialModel"
+                                Data="@_materials"
+                                Responsive
+                                Hoverable="true"
+                                ShowPager="true"
+                                ShowPageSizes="true"
+                                FixedHeader
+                                FixedHeaderTableHeight="500px">
+
+                            <ChildContent>
+                                <DataGridColumn TItem="MaterialModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(MaterialModel.Id)" Caption="" Editable>
+                                    <DisplayTemplate>
+                                        <div class="text-center">
+                                            <div class="text-center m-1 custom-checkbox  checkbox__producttype custom-control custom-checkbox" id="material-@context.Id">
+                                                <input class="form-check-input text-center custom-control-input" checked="@(SelectedMaterialId.Equals(context.Id)==true)" @onchange="@(e => OnSelectMaterial((bool)e.Value, context.Id))" type="checkbox" id="@uniqueIdMaterialSelection-@context.Id" name="@uniqueIdMaterialSelection-@context.Id">
+                                                <label class="form-check-label text-center custom-control-label" for="@uniqueIdMaterialSelection-@context.Id"></label>
+                                            </div>
+                                        </div>
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                                <DataGridColumn TItem="MaterialModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(MaterialModel.Image)" Caption="Thumbnail" Editable>
+                                    <DisplayTemplate>
+                                        <div class="text-center">
+                                            <img class="width-30 rounded" src="@context.Image" onerror="this.onerror = null; this.src='/img/No-Image-Placeholder.svg.png'" />
+                                        </div>
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                                <DataGridColumn TItem="MaterialModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(MaterialModel.Name)" Caption="Name" Editable>
+                                    <DisplayTemplate>
+                                        <div class="text-center">
+                                            @context.Name
+                                        </div>
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                                <DataGridColumn TItem="MaterialModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(MaterialModel.AvailableCount)" Caption="Available Count" Editable>
+                                    <DisplayTemplate>
+                                        <div class="text-center">
+                                            @context.AvailableCount Yards
+                                        </div>
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                            </ChildContent>
+                            <EmptyTemplate>
+                                <div class="box text-center">
+                                    No records were found.
+                                </div>
+                            </EmptyTemplate>
+                        </DataGrid>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border rounded-sm bg-white text-dark mt-2 pl-3 pr-3">
+                <h4 class="mt-2 mb-0 text-muted input-text">Select Roll*</h4>
+                @* <select class="form-control mb-0 form-control-sm" >
+                    <option selected disabled value="0">Select</option>
+                    @foreach (var item in RollsAndLocations)
+                    {
+                        <option value="@item.Id">@item.RollNumber</option>
+                    }
+                </select> *@
+                @foreach (var roll in selectedRolls)
+                {
+                    if(roll ==  selectedRolls.Last()){
+                        <span>@roll.RollNumber </span>
+                    }else {
+                        <span>@roll.RollNumber, </span>
+                    }
+                }
+
+                <div class="border rounded-lg pl-1 pr-1 pt-1 shadow-sm bg-white">
+                    <div class="d-flex justify-content-between " data-target="#@uniqueIdRollSelection" data-toggle="collapse">
+                        <div class="col-md-8">
+                            <h3 class="header-text">Select Available Rolls</h3>
+                        </div>
+
+                        <div class="col-md-4">
+                            <i class="fa fa-light fa-chevron-down pull-right for-dropdown"></i>
+                        </div>
+                    </div>
+                    <div class="collapse" id="@uniqueIdRollSelection">
+                        <TextEdit type="text" class="form-control" @bind-Text="@customRollFilterValue" placeholder="Search"></TextEdit>
+
+                        <DataGrid CustomFilter="@OnCustomRollFilter"
+                                TItem="RollAndLocationModel"
+                                Data="@_rolls"
+                                Responsive
+                                Hoverable="true"
+                                ShowPager="true"
+                                ShowPageSizes="true"
+                                FixedHeader
+                                FixedHeaderTableHeight="500px">
+
+                            <ChildContent>
+                                <DataGridColumn TItem="RollAndLocationModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(RollAndLocationModel.Id)" Caption="" Editable Sortable="false">
+                                    <CaptionTemplate>
+                                        <div class="text-center">
+                                            <div class="text-center m-0 custom-checkbox  checkbox__producttype custom-control custom-checkbox" id="roll-checkAll">
+                                                <input class="form-check-input text-center custom-control-input" @onchange="@(e => OnSelectAllRolls( (bool)e.Value))" type="checkbox" id="@uniqueIdRollSelection-checkAll" name="roll-checkAll">
+                                                <label class="form-check-label text-center custom-control-label" for="@uniqueIdRollSelection-checkAll"></label>
+                                            </div>
+                                        </div>
+                                    </CaptionTemplate>
+                                    <DisplayTemplate>
+                                        <div class="text-center">
+                                            <div class="text-center m-1 custom-checkbox  checkbox__producttype custom-control custom-checkbox" id="roll-@context.Id">
+                                                @if(ProductOptionRollIds.Contains(context.Id) && !selectedRolls.Contains(context)==true){
+                                                    <div class="tooltip-wrapper">
+
+                                                        @* Must Adjust because the position is not fixed because of the displaying the adjustment is inside razor.css named ".tool-tip-message"*@
+                                                        <span class="tool-tip-message">There Roll is already selected.</span>
+
+                                                        <i class="fa fa-exclamation-triangle fabric-dropdown-icon pull-right caretStyle"></i>
+                                                    </div>
+                                                }else {
+                                                    <input class="form-check-input text-center custom-control-input" checked="@(selectedRolls.Contains(context)==true)" @onchange="@(e => OnSelectRolls((bool)e.Value, context))" type="checkbox" id="@uniqueIdRollSelection-@context.Id" name="@uniqueIdRollSelection-@context.Id">
+                                                    <label class="form-check-label text-center custom-control-label" for="@uniqueIdRollSelection-@context.Id"></label>
+                                                }
+                                            </div>
+                                        </div>
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                                <DataGridColumn TItem="RollAndLocationModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(RollAndLocationModel.RollNumber)" Caption="QR" Editable>
+                                    <DisplayTemplate>
+                                        <div class="text-center">
+                                            <QRCode Value="@($"{context.Id} - {context.RollNumber}")" Alt="QRCode image" style="width:50px;height:50px;" />
+                                        </div>
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                                <DataGridColumn TItem="RollAndLocationModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(RollAndLocationModel.RollNumber)" Caption="Roll Number" Editable>
+                                    <DisplayTemplate>
+                                        <div class="text-center">
+                                            @context.RollNumber
+                                        </div>
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                                <DataGridColumn TItem="RollAndLocationModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(RollAndLocationModel.AvailableCount)" Caption="Total Count" Editable>
+                                    <DisplayTemplate>
+                                        <div class="text-center">
+                                            @context.TotalCount Yards
+                                        </div>
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                                <DataGridColumn TItem="RollAndLocationModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(RollAndLocationModel.BuildingOrWarehouse)" Caption="Building/Warehouse" Editable>
+                                    <DisplayTemplate>
+                                        <div class="text-center">
+                                            @context.BuildingOrWarehouse
+                                        </div>
+                                    </DisplayTemplate>
+                                </DataGridColumn>
+                            </ChildContent>
+                            <EmptyTemplate>
+                                <div class="box text-center">
+                                    No records were found.
+                                </div>
+                            </EmptyTemplate>
+                        </DataGrid>
+                    </div>
+                </div>
+            </div>
+        @* <div class="child">Show Rolls Here.</div> *@
+        @* </div> *@
+    </div>
+    
+}
+
+@if(SelectedProductOption.OptionOptions.Any() && SelectedIds.Contains(SelectedOption)){
+
+    <div class="ml-3 mt-2">
+        <ChildDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductId" ProductOptions="ProductOptions" Title="Options" OptionListModel="@SelectedProductOption.OptionOptions" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds"  />
+    </div>
+}

@@ -1,0 +1,112 @@
+@inherits LayoutComponentBase
+<div class="page">
+    @* Will add Logic for user authentication *@
+
+    <div class="sidebar" id="mySidenav">
+        <NavMenu IsMobileView=@isMobileView OnCloseSideBar=@OnCloseSideBar />
+    </div>
+
+
+    <div class="main">
+        <div class="top-row">
+            <div class=" float-left mt-3 ff-navs ff">
+                <img src="/img/ssy-wordmark-color.svg" style="width: 100%;" class="mobile__logo" />
+
+                @* <h4 class="ff-navs nav-header-message ff">Inventory</h4> *@
+                <img id="" src="/img/ssy-icon.svg" class="ff-icon-nav cursor-pointer" alt="">
+                <img src="/img/hamburger-icon.svg" class="cursor-pointer nav-header-icon" @onclick="ShowSideBar" alt="">
+                @* @isMobileView *@
+                @* <input type="checkbox" @onchange="ShowSideBar" />
+                    @isMobileView *@
+            </div>
+            <div class="float-left ff-navs ff search top__row">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="dropdown float-right mt-2 background__tooltips">
+
+
+
+                <button type="button" class="btn btn-outline-light text-dark dropdown-toggle" data-toggle="dropdown">
+                    <img src="/img/Avatar_ba.png" alt="" class=" rounded-circle" style="width:30px;">
+                    <span class="nav-name nav-name-nav">@UserName</span>
+                </button>
+
+                <div class="dropdown-menu dropdown-menu-right dropdown-nav">
+                    <a class="dropdown-item disabled" href=""><span
+                            class="nav-name nav-name-dropdown">@UserName</span></a>
+                    <div class="dropdown-divider nav-name-dropdown"></div>
+                    @* <li class="disabled"><a href="#"></a></li> *@
+                    <a class="dropdown-item" href="/influencer/accountinformation/accountinformation">Account Information</a>
+                    <div class="dropdown-divider"></div>
+                    <p class="dropdown-item cursor-pointer" @onclick="@(e => Logout())">Logout</p>
+                </div>
+
+
+            </div>
+            <div class="float-right background__tooltips mt-2">
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-bell
+                    notif__bell" viewBox="0 0 16 16">
+                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134
+                    2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12
+                    6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78
+                    1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002
+                    5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
+                </svg>
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-file-text-fill
+                    list__infor" viewBox="0 0 16 16">
+                    <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4h6a.5.5 0 0 1 0
+                    1H5a.5.5 0 0 1 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8h6a.5.5 0 0 1 0
+                    1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z" />
+                </svg>
+            </div>
+
+        </div>
+        @* Will add Logic for user authentication *@
+        @if (UserName != "")
+        {
+            @if (!IsAdmin)
+            {
+                <InfluencerLayout />
+            }
+        }
+
+        <div class="content body__content" @onclick="CloseSideBar">
+            @Body
+        </div>
+      
+       <Copyright></Copyright>
+    </div>
+</div>
+
+
+@code {
+    private bool isMobileView = false;
+
+    private void ShowSideBar()
+    {
+        isMobileView = true;
+    }
+
+    private void CloseSideBar()
+    {
+        isMobileView = false;
+    }
+
+    private async Task OnCloseSideBar(bool isMobileView)
+    {
+        this.isMobileView = isMobileView;
+    }
+
+}

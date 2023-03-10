@@ -1,0 +1,66 @@
+@page "/influencers/accountinfo/{Id:guid}"
+@using SSY.Blazor.Pages.Influencers.Shared.BannerLayouts
+@using SSY.Blazor.Pages.Influencers.Components.AccountInfo.Details.ContactInformation
+@using SSY.Blazor.Pages.Influencers.Components.AccountInfo.Details.ResidentialAddress
+@using SSY.Blazor.Pages.Influencers.Components.AccountInfo.Details.PersonalInformation
+@using SSY.Blazor.Pages.Influencers.Components.AccountInfo.Details.SamplingAddress
+@using SSY.Blazor.Pages.Influencers.Components.AccountInfo.Details.SocialMedia
+@using SSY.Blazor.Pages.Influencers.Components.AccountInfo.Details.ProductType
+@using SSY.Blazor.Pages.Influencers.Shared.NavInfluencerDetail
+
+
+
+<NavInfluencerDetail @ref="influencerNav" Id="Id"></NavInfluencerDetail>
+
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <CascadingValue Value="@ModuleChange" Name="ModuleChange">
+            <BannerLayouts></BannerLayouts>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+<CascadingValue Name="MainPage" Value="this">
+    @if (UserDetail is not null)
+    {
+        
+    <div class="row inlfluencer-detail">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <PersonalInformation></PersonalInformation>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ContactInformation></ContactInformation>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ResidentialAddress></ResidentialAddress>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <SamplingAddress></SamplingAddress>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <SocialMedia></SocialMedia>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ProductType></ProductType>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    }
+
+</CascadingValue>

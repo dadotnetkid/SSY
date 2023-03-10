@@ -1,0 +1,67 @@
+@foreach (var timeline in GetAllTimelineOutputModel?.Result?.Items)
+{
+  <div class="border rounded-lg p-4 shadow-sm bg-white">
+    
+    <div class="row">
+        <div class="col-md-1"><span class="badge badge-success "> &nbsp;</span>    </div>
+        <div class="col-md-5 happens">
+            @if(@timeline.ServiceName == "SSY.Products.Collections.CollectionAppService"){
+                <p class="service__name timelineheight">There was a change in <span class="timeline__color">Collections</span></p>
+            }
+            else if(@timeline.ServiceName == "SSY.Comments.CommentAppService"){
+                <p class="service__name timelineheight">There was a change in <span class="timeline__color">Comments</span></p>
+            }
+            else if(@timeline.ServiceName == "SSY.Inventory.Materials.MaterialAppService")
+            {
+                <p class="service__name timelineheight">There was a change in <span class="timeline__color">Materials</span></p>
+            }
+            else if(@timeline.ServiceName == "SSY.Auditing.Timelines.TimelineAppService")
+            {
+                <p class="service__name timelineheight">There was a change in <span class="timeline__color">Timelines</span></p>
+            }
+           
+            
+            @if(@timeline.MethodName == "CreateAsync")
+            {
+                <p class="method__name timelineheight">Method Name: <span class="timeline__color">Create</span></p>
+            }
+            else if(@timeline.MethodName == "UpdateAsync")
+            {
+                 <p class="method__name timelineheight">Method Name: <span class="timeline__color">Update</span></p>
+            }
+              else if(@timeline.MethodName == "ReservationCreateAsync")
+            {
+                <p class="service__name timelineheight">Method Name: <span class="timeline__color">Create Reservation</span></p>
+            }
+            else
+            {
+                <p class="method__name timelineheight">@timeline.MethodName</p>
+            }
+            <div class="parameters timelineheight">
+            <p>Parameters <span class="badge default ssy_color">Hover me</span></p>
+            <textarea class="addText" @bind="timeline.Parameters" disabled="disabled"></textarea>
+            </div>
+           
+            
+        </div>
+        <div class="col-md-2 textalign-center name">    
+           
+            @if(timeline.UserId == null)
+            {
+             <p><span class="oi oi-person"></span> &nbsp; System</p>
+            }
+            else
+            {
+             <p><span class="oi oi-person"></span> &nbsp; @timeline.UserId</p>
+            }
+           
+        </div>
+        <div class="col-md-4 textalign-center time">
+            <p>
+                @timeline.ExecutionTime.ToString("MMMM d, yyyy") <span class="time__uppercase">@timeline.ExecutionTime.ToString("hh:mm tt")</span> <span lass="time__uppercase"> HKT</span>
+            </p>  
+            
+        </div>
+    </div>
+</div>  
+}

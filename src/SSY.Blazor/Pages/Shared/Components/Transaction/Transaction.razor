@@ -1,0 +1,117 @@
+<div class="row mt-3">
+    <div class="col-12 ">
+ <div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+        <div class="pl-3 pr-3 table-responsive">
+            <table class="table table-hover">
+
+                <thead>
+                    <tr>
+                        <th class="tb-header" @onclick="@(() => SortTable("OrderNumber"))"><i class="@(SetSortIcon("OrderNumber"))"></i> Order Number</th>
+                        <th class="tb-header" @onclick="@(() => SortTable("OrderType"))"><i class="@(SetSortIcon("OrderType"))"></i> Order Type</th>
+                        <th class="tb-header" @onclick="@(() => SortTable("Quantity"))"><i class="@(SetSortIcon("Quantity"))"></i> Quantity</th>
+                        <th class="tb-header" @onclick="@(() => SortTable("OrderDate"))"><i class="@(SetSortIcon("OrderDate"))"></i> Order Date</th>
+                        @if (IsEditable)
+                        {
+                            <th class="tb-header">Action</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in TransactionList)
+                    {
+                        <tr>
+                            <td class="tb-td-text">@item.OrderNumber</td>
+                            <td class="tb-td-text">@item.OrderType</td>
+                            <td class="tb-td-text">@item.Quantity</td>
+                            <td class="tb-td-text">@item.OrderDate.ToShortDateString()</td>
+                            @if (IsEditable)
+                            {
+                                <td class="tb-td-text">
+                                    <span class="cursor-pointer"
+                                          @onclick="@(e => EditTransaction(@item.Id))" data-toggle="modal" data-target="#transaction">Edit</span> | 
+
+                                    <span class="cursor-pointer"
+                                          @onclick="@(e => RemoveTransaction(@item.Id))">Delete</span>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+@* <TimelineAndComments></TimelineAndComments> *@
+@if (IsEditable)
+{
+
+    <div class="footer__button">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 mt-3">
+                <div class="background">
+                    <div class="buttons">
+                        <a class="btn btn-lg btn-success buttons__class text-white cursor-pointer" data-toggle="modal" data-target="#transaction">Add Transaction</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<!-- Modal Reservation -->
+<EditForm Model="TransactionModel" OnValidSubmit="OnSubmit">
+    <DataAnnotationsValidator />
+    <div class="modal fade" id="transaction" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @if (ModuleMessage == "Edit")
+                    {
+                        <h5 class="modal-title" id="exampleModalLongTitle">Update Transaction</h5>
+                    }
+                    else
+                    {
+                        <h5 class="modal-title" id="exampleModalLongTitle">Add Transaction</h5>
+                    }
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="ClearAll">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Order Number<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="TransactionModel.OrderNumber" class="form-control mb-2 form-control-sm" placeholder="Enter Order Number" />
+                        <ValidationMessage For="@(() => TransactionModel.OrderNumber)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Order Type<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="TransactionModel.OrderType" class="form-control mb-2 form-control-sm" placeholder="Enter Order Type" />
+                        <ValidationMessage For="@(() => TransactionModel.OrderType)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Quantity<span class="text-danger">*</span></label>
+                        <InputNumber @bind-Value="TransactionModel.Quantity" class="form-control mb-2 form-control-sm" placeholder="Enter Quantity" />
+                        <ValidationMessage For="@(() => TransactionModel.Quantity)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Order Date<span class="text-danger">*</span></label>
+                        <InputDate @bind-Value="TransactionModel.OrderDate" class="form-control mb-2 form-control-sm" placeholder="Enter Order Date" />
+                        <ValidationMessage For="@(() => TransactionModel.OrderDate)" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-lg btn-danger buttons__class"
+                            data-dismiss="modal" @onclick="ClearAll">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-lg btn-success buttons__class">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>

@@ -1,0 +1,184 @@
+@page "/influencers"
+@inject IStringLocalizer<SSYResource> L
+@inject AbpBlazorMessageLocalizerHelper<SSYResource> LH
+@using SSY.UserDetails
+@using SSY.Blazor.Pages.Influencers.Shared
+@inherits AbpCrudPageBase<IUserDetailAppService , UserDetailDto, Guid, PagedAndSortedResultRequestDto,CreateUserDetailDto,UpdateUserDetailDto>
+@attribute [Authorize(Roles = "admin,Influencer")]
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <CascadingValue Value="@ModuleChange" Name="ModuleChange">
+            <BannerLayoutSSY></BannerLayoutSSY>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+<NavLayout></NavLayout>
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+    <div class="inline__flex filter">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Influencers</h3>
+        </div>
+    </div>
+    <div class="row">
+        <CardBody>
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="form-control" data-toggle="collapse" data-target="#demo">Filter</button>
+                        <div id="demo" class="collapse w-100">
+                            <div class="form__label">
+                                <div class="row">
+                                    <div class="col-md-3"> <label>Warehouse/Location</label></div>
+                                    <div class="col-md-9">
+                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__label">
+                                <div class="row">
+                                    <div class="col-md-3"> <label>Color</label></div>
+                                    <div class="col-md-9">
+                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__label">
+                                <div class="row">
+                                    <div class="col-md-3"> <label>Material Type</label></div>
+                                    <div class="col-md-9">
+                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                            </div>
+                        </div>
+                    </div>
+                    <TextEdit TextChanged="@OnCustomFilterValueChanged" type="text" class="form-control" placeholder="Search"></TextEdit>
+
+                </div>
+            </div>
+            <div class="table-responsive">
+                <DataGrid TItem="UserDetailDto"
+                          Data="Entities"
+                          ReadData="OnDataGridReadAsync"
+                          CurrentPage="CurrentPage"
+                          TotalItems="TotalCount"
+                          ShowPager="true"
+                          PageSize="PageSize"
+                          @ref="dataGrid">
+                    <DataGridColumns>
+
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Field="AppUser.Name"
+                                        Caption="@L["First Name"]">
+                            <DisplayTemplate>
+                                <a href="/influencers/accountinfo/@context.Id">
+                                    @context.AppUser.Name
+                                </a>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Field="AppUser.Surname"
+                                        Caption="@L["Last Name"]">
+                            <DisplayTemplate>
+                                <a href="/influencers/accountinfo/@context.Id">
+                                    @context.AppUser.Surname
+                                </a>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Influencer Status"]">
+                        </DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Collection Status"]">
+                        </DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Field="@nameof(UserDetailDto.Instagram)"
+                                        Caption="@L["IG Handle"]">
+                        </DataGridColumn>
+
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Other Socials"]">
+                            <DisplayTemplate>
+                                <p>@context.Facebook</p>
+                                <p>@context.Pinterest</p>
+                                <p>@context.Twitter</p>
+                                <p>@context.Tiktok</p>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                    
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["IG Followers"]">
+                        </DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Female Followers (%)"]">
+                        </DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Activewear Forecast Quantity"]">
+                        </DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Activewear Forecast $"]">
+                        </DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Knitwear Forecast Quantity"]">
+                        </DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Knitwear Forecast $"]">
+                        </DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Onboarded Date"]">
+                        </DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Next Launch Date"]">
+                        </DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Number of Launches"]">
+                        </DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Number of Collections"]">
+                        </DataGridColumn>
+
+                    </DataGridColumns>
+                </DataGrid>
+            </div>
+        </CardBody>
+    </div>
+</div>
+@code {
+    private DataGrid<UserDetailDto> dataGrid;
+
+    private bool CustomFilter(UserDetailDto item)
+    {
+        if (string.IsNullOrEmpty(CustomFilterValue)) return true;
+        foreach (var i in typeof(UserDetailDto).GetProperties())
+        {
+            var value = i.GetValue(item);
+            if (i.PropertyType == typeof(string))
+            {
+                return value?.ToString()?.Contains(CustomFilterValue, StringComparison.OrdinalIgnoreCase) == true;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        return true;
+    }
+
+    private void OnCustomFilterValueChanged(string obj)
+    {
+        CustomFilterValue = obj;
+        dataGrid.Reload();
+    }
+
+    public string CustomFilterValue { get; set; }
+
+
+}

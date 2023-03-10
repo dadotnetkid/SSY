@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "SSY.Plugins.AwsS3Bucket": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:63384;http://localhost:63385",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

@@ -1,0 +1,207 @@
+@page "/collectionandproduct/product/add"
+@using System.Text.Json;
+
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <BannerLayoutSSY></BannerLayoutSSY>
+    </CascadingValue>
+</CascadingValue>
+
+
+<EditForm Model="CreateProductModel">
+    <DataAnnotationsValidator />
+
+@*if(IsLoading == true)
+{
+    <div class="border rounded-lg p-4 shadow-sm bg-white">
+        <LoadingSpinner></LoadingSpinner>
+    </div>
+    
+}
+else
+{*@
+    <div class="border rounded-lg bg-white p-4 shadow-sm">
+        <div class="row custom__overideWTH">
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm bg-white text-dark pl-3 pr-3">
+                    <h5 class="mt-2 mb-0 text-muted input-text">Influencer Name</h5>
+                    <div class="row fieldcontent dropdown">
+                        <button type="button" id="influencerButton" class="mb-0 form-control-sm bg-white inputfield influencerButton" @onclick="OnClickInfluencers">
+                            @InfluencerNamesValue
+                            <i class="fa fa-chevron-down fabric-dropdown-icon pull-right caretStyle"></i>
+                        </button>
+                    </div>
+                    <div id="influencers" class="collapse @collapseInfluencers">
+                        @foreach (var item in UserDetailListModel.Result.Items.Where(x => x.RoleNames.Contains("INFLUENCER") && x.Status.Equals(7)).OrderBy(x => x.FullName).DistinctBy(x => x.FullName))
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-check custom-control custom-checkbox checkbox__producttype">
+                                        <input class="form-check-input custom-control-input" checked="@(CreateProductModel.InfluencerIds?.Contains(item.Id.ToString())==true)"
+                                               value="@CreateProductModel.InfluencerIds" type="checkbox" name="@item.FullName"
+                                               id="@item.Id" @onchange='@(e => onChangeInfluencer(item.Id, @item.FullName, (bool)e.Value))'>
+                                        <label class="form-check-label custom-control-label" for="@item.Id">@item.FullName</label>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm bg-white text-dark pl-3 pr-3">
+                    <h5 class="mt-2 mb-0 text-muted input-text">Collection Name </h5>
+                    <select value="@CreateProductModel.CollectionId" class="form-control mb-0 form-control-sm collectionSelect"
+                            @oninput='@(e => onChangeCollection(e.Value.ToString()))'>
+                        <option selected disabled value="@Guid.Empty">Select Collection Name</option>
+                        @foreach (var item in CollectionsListModel)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm bg-white text-dark pl-3 pr-3">
+                    <h3 class="mt-2 mb-0 text-muted input-text">Material Type </h3>
+                    <div class="row fieldcontent dropdown">
+                        <button type="button" id="influencerButton" class=" mb-0 form-control-sm bg-white inputfield materialButton" @onclick="OnClickMaterialType">
+                            @selectedMaterialType
+                            <i class="fa fa-chevron-down fabric-dropdown-icon pull-right caretStyle"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="material-product-type" class="collapse material-type @collapseMaterialTypes">
+                    @foreach (var item in SelectedCollection.ProductTypes)
+                    {
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check checkbox__materialtype custom-control custom-radio">
+                                    <input class="form-check-input custom-control-input" type="radio" id="@item.MaterialTypeId" name="Material"
+                                           value="@item.MaterialTypeId" @onchange='@(e => onChangeMaterialTypeHandler(item.MaterialTypeId))'>
+                                    <label class="form-check-label custom-control-label" for="@item.MaterialTypeId">@item.MaterialTypeValue</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="border text-dark mt-3 pl-3 pr-3 bg-white fieldBody">
+                                    <div class="row fieldheader">
+                                        <h3 class="mt-2 text-muted input-text">Product Type</h3>
+                                    </div>
+                                    @if (item.MaterialTypeId == CreateProductModel.MaterialTypeId)
+                                    {
+                                        <select @bind="@CreateProductModel.TypeId" class="form-control mb-2 form-control-sm form-control-plaintext shadow-none bg-white dropdownProd">
+                                            <option selected disabled value="0">Select</option>
+                                            @foreach (var productType in ProductTypeListModel.Items.Where(x => x.MaterialTypeId == item.MaterialTypeId))
+                                            {
+                                                <option value="@productType.Id">@productType.Value</option>
+                                            }
+                                        </select>
+                                    }
+                                    else
+                                    {
+                                <select @bind="@CreateProductModel.TypeId" class="form-control mb-2 form-control-sm form-control-plaintext shadow-none addProductType bg-white">
+                                    <option selected disabled value="0">Select</option>
+                                    @foreach (var productType in ProductTypeListModel.Items.Where(x => x.MaterialTypeId == item.MaterialTypeId))
+                                    {
+                                        <option value="@productType.Id">@productType.Value</option>
+                                    }
+                                </select>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row clearAll">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <button type="button" class="form-control col-12 btn btn-lg  buttons__class" @onclick="ClearAll">Clear All</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" data-toggle="collapse" data-target="#material-product-type" id="applyButton" class="form-control col-12 btn btn-lg btn-success buttons__class text-light" @onclick="Apply">Apply</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                    <h5 class="mt-2 mb-0 text-muted input-text">Parent SKU</h5>
+                    @if (CreateProductModel.Sku != null)
+                    {
+                        <p class="mb-0 form-control-sm inputfield materialButton" contentEditable="false" placeholder="">@CreateProductModel.Sku</p>
+                    }
+                    else
+                    {
+                        <p class="mb-0 form-control-sm inputfield materialButton" contentEditable="false" placeholder="">
+                            Parent SKU Not Available
+                        </p>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12 col-sm-12 mt-3">
+                <div class="border rounded-sm bg-white text-dark pl-3 pr-3">
+                    <h5 class="mt-2 mb-0 text-muted input-text productName">Product Name</h5>
+
+                    <InputText @bind-Value="CreateProductModel.Name" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" placeholder="Enter Product Name"></InputText>
+                    <ValidationMessage For="@(() => CreateProductModel.Name)" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="border rounded-lg p-4 shadow-sm bg-white">
+        <CascadingValue Value="@ModuleType" Name="ModuleType">
+            <FirstDesignDraft OnFirstDesignDraftChanged="FirstDesignDraftChanged" IsEditable="true" />
+        </CascadingValue>
+    </div>
+
+    <div class="border rounded-lg p-4 shadow-sm bg-white">
+        <div class="d-flex justify-content-between">
+            <h3 class="header-text">Approval Status</h3>
+        </div>
+        <div class="row custom__overideWTH">
+            <div class="border rounded-sm bg-white text-dark pl-3 pr-3 ml-3">
+                <h5 class="mt-2 mb-0 text-muted input-text">Approval Status</h5>
+                <select class="form-control mb-0 form-control-sm" @oninput='@(e => onChangeApprovalStatus(e.Value.ToString()))'>
+                    <option disabled value="0">Select Status</option>
+                    @foreach (var item in ApprovalStatusListModel?.Result?.Items.OrderBy(x => x.Label))
+                    {
+                        @if (item.Label.Equals("Pending"))
+                        {
+                            <option value="@item.Id" selected>@item.Value</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.Value</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer__button">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 mt-3">
+                <div class="background">
+                    <div class="buttons">
+                        <button class="btn btn-lg btn-danger buttons__class"
+                                onclick="window.history.go(-1); return false;">
+                            Discard
+                        </button>
+                        <button class="btn btn-lg btn-success buttons__class" @onclick="Save">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@*}*@
+</EditForm>
+
+<Modal @ref="ModalSaving">  
+    <ModalSavingSpinner></ModalSavingSpinner>
+</Modal>

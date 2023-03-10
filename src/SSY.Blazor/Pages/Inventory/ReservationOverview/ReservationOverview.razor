@@ -1,0 +1,396 @@
+@page "/inventory/reservationoverview/"
+@attribute [Authorize()]
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <BannerLayoutSSY></BannerLayoutSSY>
+    </CascadingValue>
+</CascadingValue>
+
+<div class="bg-white">
+    <InventoryNavsLayout />
+</div>
+
+@* <div class="row">
+    <div class="col-md-12 pt-3">
+    <div class="border rounded-lg shadow-sm bg-white mt-5 pt-5">
+    <Graph CategoryId="@CategoryId" Module="@Module"/>
+    </div>
+    </div>
+    </div> *@
+<div class="row">
+    <div class="col-12">
+        <div class="border rounded-lg shadow-sm bg-white mt-5">
+            <div class="col-lg-6 col-md-8 col-sm-12 mt-3 ">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="form-control" data-toggle="collapse" data-target="#demo">Filter</button>
+                        @* <EditForm Model="SearchModel">
+                            <DataAnnotationsValidator /> *@
+                        <div id="demo" class="collapse w-100">
+                            <div class="form__label">
+                                <div class="row">
+                                    <div class="col-md-3"> <label>Influencer</label></div>
+                                    <div class="col-md-9">
+                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                            @* <h5 class="mt-2 text-muted input-text">Material Type</h5> *@
+
+                                            <select class="select-picker form-control mb-2 form-control-sm" disabled multiple data-live-search="true">
+
+                                                @* @foreach (var item in MaterialTypeModel?.Result?.Items)
+                                                    {
+                                                        <option value="@item.Id">@item.Label</option>
+                                                    } *@
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__label">
+                                <div class="row">
+                                    <div class="col-md-3"> <label>Collection</label></div>
+                                    <div class="col-md-9">
+                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                            @* <h5 class="mt-2 text-muted input-text">Material Type</h5> *@
+                                            <select class="form-control mb-2 form-control-sm" disabled>
+                                                <option selected disabled value="0">Select Collection Type</option>
+                                                <option value="all">All</option>
+                                                @* @foreach (var item in MaterialTypeModel?.Result?.Items)
+                                                    {
+                                                        <option value="@item.Id">@item.Label</option>
+                                                    } *@
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__label">
+                                <div class="row">
+                                    <div class="col-md-3"> <label>Warehouse/Location</label></div>
+                                    <div class="col-md-9">
+                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                            @* <h5 class="mt-2 text-muted input-text">Material Type</h5> *@
+                                            <select @bind="Warehouses" class="select-picker form-control mb-2 form-control-sm" multiple data-live-search="true" data-dropup-auto="false">
+                                                @foreach (var type in WarehouseList?.Result?.Items)
+                                                {
+                                                    <option value="@type.Location">@type.Location</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__label">
+                                <div class="row">
+                                    <div class="col-md-3"> <label>Color</label></div>
+                                    <div class="col-md-9">
+                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                            @* <h5 class="mt-2 text-muted input-text">Material Type</h5> *@
+                                            <select @bind="ColorIds" class="select-picker form-control mb-2 form-control-sm" multiple data-live-search="true" data-dropup-auto="false">
+
+                                                @foreach (var item in ColorDropdownListModel?.Result?.Items)
+                                                {
+                                                    <option value="@item.Id">@item.Label</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form__label">
+                                <div class="row">
+                                    <div class="col-md-3"> <label>Material Type</label></div>
+                                    <div class="col-md-9">
+                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                            @* <h5 class="mt-2 text-muted input-text">Material Type</h5> *@
+                                            <select @bind="MaterialTypeIds" class="select-picker form-control mb-2 form-control-sm" multiple data-live-search="true" data-dropup-auto="false">
+                                                @foreach (var type in MaterialTypeModel?.Result?.Items)
+                                                {
+                                                    @if (Module == "All")
+                                                    {
+                                                        @if (type.CategoryId == 1 || type.CategoryId == 2)
+                                                        {
+                                                            <option value="@type.Id">@type.Label</option>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@type.Id">@type.Label</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-6"> <button type="button" class="btn col-12 btn-export">Clear All Filters</button></div>
+                                <div class="col-md-3"><button type="button" class="btn col-12 btn-export" data-toggle="collapse" data-target="#demo">Cancel</button> </div>
+                                <div class="col-md-3"><button type="button" class="btn col-12 btn-export" @onclick="Search" data-toggle="collapse" data-target="#demo">Apply</button></div>
+                            </div>
+                        </div>
+                        @* </EditForm> *@
+                    </div>
+                    <input type="text" class="form-control" @oninput="@(e => OnSearch(e.Value.ToString()))" placeholder="Search">
+
+                </div>
+            </div>
+
+            <div class="center mt-3 p-3">
+            @if(IsLoading == true)
+            {
+                <LoadingSpinner></LoadingSpinner>
+            }
+            else
+            {
+                
+                <Accordion>
+                    @*  Material Reservation Overview *@
+                    <Collapse Visible="@IsVisibleMaterial">
+                        <CollapseHeader @onclick="@(()=>IsVisibleMaterial = !IsVisibleMaterial)" Class="collapse-header text-center cursor-pointer">
+                            @* @onclick="(e)=> OnClickRow(context.CategoryId,context.Id)" *@
+                            @* <Heading  Size="HeadingSize.Is5" > *@
+                            @* <Button Clicked="@(()=>IsVisibleMaterial = !IsVisibleMaterial)">Greige & Fabric</Button> *@
+                            Greige & Fabric
+                            @* </Heading> *@
+                        </CollapseHeader>
+                            <CollapseBody>
+                            <div class="table-responsive tbl-height">
+                                <Table Bordered Narrow>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <th class="table-header-brown text-center wd-table"><span>Thumbnails </span></th>
+                                            <th class="table-header-brown text-center wd-table"><span>Material Type</span></th>
+                                            <th class="table-header-brown text-center wd-table"><span>Item Code</span></th>
+                                            <th class="table-header-brown text-center wd-table"><span>Color Code/Name</span></th>
+                                            <th class="table-header-brown text-center wd-table"><span>Color Group</span></th>
+                                            <th class="table-header-brown text-center wd-table"><span>Total Count</span></th>
+                                            <th class="table-header-brown text-center wd-table"><span>Actual Used</span></th>
+                                            <th class="table-header-brown text-center wd-table"><span>Total Allocated Quantity (Allocated)</span></th>
+                                            <th class="table-header-gray text-center wd-table"><span>Reserved for This Collection</span></th>
+                                            <th class="table-header-gray text-center wd-table"><span>Location</span></th>
+                                            <th class="table-header-gray text-center wd-table"><span>Used In Collection</span></th>
+                                            <th class="table-header-gray text-center wd-table"><span>Used for this Collection (Calculated)</span></th>
+                                            <th class="table-header-gray text-center wd-table"><span>Used for this Collection (Actual)</span></th>
+                                            <th class="table-header-yellow text-center wd-table"><span>Total Unallocated Quantity (Free Float)</span></th>
+
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        @foreach (var material in _materials)
+                                        {
+                                            var rowspan = material.ReservationOverviews.Count;
+
+                                            if (material.ReservationOverviews.Count != 0)
+                                            {
+                                                @foreach (var reservation in material.ReservationOverviews)
+                                                {
+                                                    if (material.ReservationOverviews.First() == reservation)
+                                                    {
+                                                        <TableRow>
+                                                            @if (@material.Image != null)
+                                                            {
+                                                                <TableRowCell class="text-center" RowSpan=@rowspan>
+                                                                    <img class="width-30 rounded" src="@material.Image" onerror="this.onerror = null; this.src='/img/No-Image-Placeholder.svg.png'" />
+                                                                </TableRowCell>
+                                                            }
+                                                            else
+                                                            {
+                                                                <TableRowCell class="text-center" RowSpan=@rowspan>
+                                                                    <img class="width-30 rounded" src="/img/No-Image-Placeholder.svg.png" />
+                                                                </TableRowCell>
+                                                            }
+                                                            <TableRowCell class="text-center" RowSpan=@rowspan>@material.TypeLabel</TableRowCell>
+                                                            <TableRowCell class="text-center" RowSpan=@rowspan>@material.ItemCode</TableRowCell>
+                                                            <TableRowCell class="text-center" RowSpan=@rowspan>@material.ColorCode</TableRowCell>
+                                                            <TableRowCell class="text-center" RowSpan=@rowspan>@material.ColorValue</TableRowCell>
+                                                            <TableRowCell class="text-center" RowSpan=@rowspan>@material.TotalCount</TableRowCell>
+                                                            <TableRowCell class="text-center" RowSpan=@rowspan>0</TableRowCell>
+                                                            <TableRowCell class="text-center" RowSpan=@rowspan>@material.ReservedCount</TableRowCell>
+
+                                                            @* group by building  *@
+                                                            @* get sum  *@
+                                                            @* get count for row span  *@
+                                                            <TableRowCell class="text-center">@reservation.ReservedForCollection</TableRowCell>
+                                                            <TableRowCell class="text-center">@reservation.Warehouse</TableRowCell>
+                                                            <TableRowCell class="text-center">@reservation.CollectionName</TableRowCell>
+                                                            <TableRowCell class="text-center">0</TableRowCell>
+                                                            <TableRowCell class="text-center">0</TableRowCell>
+                                                            @if (material.TotalCount - material.ReservedCount >= 0)
+                                                            {
+                                                                <TableRowCell class="text-center" RowSpan=@rowspan>
+                                                                    @(material.TotalCount - material.ReservedCount)
+                                                                </TableRowCell>
+                                                            }
+                                                            else
+                                                            {
+                                                                <TableRowCell class="text-center bg-light-red" RowSpan=@rowspan>
+                                                                    @(material.TotalCount - material.ReservedCount)
+                                                                </TableRowCell>
+                                                            }
+
+                                                        </TableRow>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <TableRow>
+                                                            <TableRowCell class="text-center">@reservation.ReservedForCollection</TableRowCell>
+                                                            <TableRowCell class="text-center">@reservation.Warehouse</TableRowCell>
+                                                            <TableRowCell class="text-center">@reservation.CollectionName</TableRowCell>
+                                                            <TableRowCell class="text-center">0</TableRowCell>
+                                                            <TableRowCell class="text-center">0</TableRowCell>
+                                                        </TableRow>
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <TableRow>
+                                                    <TableRowCell class="text-center">
+                                                        <img class="width-30 rounded" src="@material.Image" />
+                                                    </TableRowCell>
+                                                    <TableRowCell class="text-center">@material.TypeLabel</TableRowCell>
+                                                    <TableRowCell class="text-center">@material.ItemCode</TableRowCell>
+                                                    <TableRowCell class="text-center">@material.ColorCode</TableRowCell>
+                                                    <TableRowCell class="text-center">@material.ColorValue</TableRowCell>
+                                                    <TableRowCell class="text-center">@material.TotalCount</TableRowCell>
+                                                    <TableRowCell class="text-center">0</TableRowCell>
+                                                    <TableRowCell class="text-center">@material.ReservedCount</TableRowCell>
+                                                    <TableRowCell></TableRowCell>
+                                                    <TableRowCell></TableRowCell>
+                                                    <TableRowCell></TableRowCell>
+                                                    <TableRowCell></TableRowCell>
+                                                    <TableRowCell></TableRowCell>
+                                                    <TableRowCell class="text-center"> @(material.TotalCount - material.ReservedCount) </TableRowCell>
+                                                </TableRow>
+                                            }
+
+                                        }
+
+                                    </TableBody>
+                                </Table>
+                                </div>
+                            </CollapseBody>
+                    </Collapse>
+
+                    @*  SubMaterial Reservation Overview *@
+                    <Collapse Visible="@IsVisibleSubMaterial">
+                        <CollapseHeader @onclick="@(()=>IsVisibleSubMaterial = !IsVisibleSubMaterial)" Class="collapse-header text-center cursor-pointer">
+                            @* @onclick="(e)=> OnClickRow(context.CategoryId,context.Id)" *@
+                            @* <Heading  Size="HeadingSize.Is5" > *@
+                            @* <Button Clicked="@(()=>IsVisibleMaterial = !IsVisibleMaterial)">Greige & Fabric</Button> *@
+                            Trims & Acceessories, Packaging and Others
+                            @* </Heading> *@
+                        </CollapseHeader>
+                            <CollapseBody>
+                              <div class="table-responsive tbl-height">
+                                <Table Bordered Narrow Resizable ResizeMode="TableResizeMode.Columns">
+                                    <TableHeader>
+                                        <TableRow>
+                                            <th class="table-header-brown text-center"><span>Thumbnails</span></th>
+                                            <th class="table-header-brown text-center"><span>Material Type</span></th>
+                                            @* <th class="table-header-brown text-center">Item Code</th>
+                                                <th class="table-header-brown text-center">Color Code / Item Type</th> *@
+                                            <th class="table-header-brown text-center"><span>Color Name</span></th>
+                                            <th class="table-header-brown text-center"><span>Total Count</span></th>
+                                            <th class="table-header-brown text-center"><span>Actual Used</span></th>
+                                            <th class="table-header-brown text-center"><span>Total Allocated Quantity (Allocated)</span></th>
+                                            <th class="table-header-gray text-center"><span>Reserved for This Collection</span></th>
+                                            <th class="table-header-gray text-center"><span>Location</span></th>
+                                            <th class="table-header-gray text-center"><span>Used In Collection</span></th>
+                                            <th class="table-header-gray text-center"><span>Used for this Collection (Calculated)</span></th>
+                                            <th class="table-header-gray text-center"><span>Used for this Collection (Actual)</span></th>
+                                            <th class="table-header-yellow text-center"><span>Total Unallocated Quantity (Free Float)</span></th>
+
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        @foreach (var subMaterial in _subMaterials)
+                                        {
+                                            var rowspan = subMaterial.ReservationOverviews.Count;
+                                            if (subMaterial.ReservationOverviews.Count != 0)
+                                            {
+                                                @foreach (var reservation in subMaterial.ReservationOverviews)
+                                                {
+                                                    if (subMaterial.ReservationOverviews.First() == reservation)
+                                                    {
+                                                        <TableRow>
+                                                            <TableRowCell class="text-center" RowSpan=@rowspan>
+                                                                <img class="width-30 rounded" src="@subMaterial.Image" />
+                                                            </TableRowCell>
+                                                            <TableRowCell class="text-center" RowSpan=@rowspan>@subMaterial.TypeLabel</TableRowCell>
+                                                            @* <TableRowCell class="text-center"  RowSpan=@rowspan>material.ItemCode</TableRowCell>
+                                                                <TableRowCell class="text-center"  RowSpan=@rowspan>material.ColorCode</TableRowCell> *@
+                                                            <TableRowCell class="text-center" RowSpan=@rowspan>@subMaterial.ColorValue</TableRowCell>
+                                                            <TableRowCell class="text-center" RowSpan=@rowspan>@subMaterial.TotalCount  </TableRowCell>
+                                                            <TableRowCell class="text-center" RowSpan=@rowspan>0</TableRowCell>
+                                                            <TableRowCell class="text-center" RowSpan=@rowspan>@subMaterial.ReservedCount</TableRowCell>
+                                                            <TableRowCell class="text-center">@reservation.ReservedForCollection.</TableRowCell>
+                                                            <TableRowCell class="text-center">@subMaterial.Location.BuildingWarehouse</TableRowCell>
+                                                            <TableRowCell class="text-center">@reservation.CollectionName</TableRowCell>
+                                                            <TableRowCell class="text-center">0</TableRowCell>
+                                                            <TableRowCell class="text-center">0</TableRowCell>
+                                                            <TableRowCell class="text-center" RowSpan=@rowspan></TableRowCell>
+                                                        </TableRow>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <TableRow>
+                                                            <TableRowCell class="text-center">@reservation.ReservedForCollection</TableRowCell>
+                                                            <TableRowCell class="text-center">@subMaterial.Location.BuildingWarehouse</TableRowCell>
+                                                            <TableRowCell class="text-center">@reservation.CollectionName</TableRowCell>
+                                                            <TableRowCell class="text-center">0</TableRowCell>
+                                                            <TableRowCell class="text-center">0</TableRowCell>
+                                                        </TableRow>
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <TableRow>
+                                                    <TableRowCell class="text-center">
+                                                        <img class="width-30 rounded" src="@subMaterial.Image" />
+                                                    </TableRowCell>
+                                                    <TableRowCell class="text-center">@subMaterial.TypeLabel</TableRowCell>
+                                                    @* <TableRowCell class="text-center">@subMaterial.ItemCode</TableRowCell>
+                                                        <TableRowCell class="text-center">@subMaterial.ColorCode</TableRowCell> *@
+                                                    <TableRowCell class="text-center">@subMaterial.ColorValue</TableRowCell>
+                                                    <TableRowCell class="text-center">@subMaterial.TotalCount</TableRowCell>
+                                                    <TableRowCell class="text-center">0</TableRowCell>
+                                                    <TableRowCell class="text-center">@subMaterial.ReservedCount</TableRowCell>
+                                                    <TableRowCell></TableRowCell>
+                                                    <TableRowCell></TableRowCell>
+                                                    <TableRowCell></TableRowCell>
+                                                    <TableRowCell></TableRowCell>
+                                                    <TableRowCell></TableRowCell>
+                                                    <TableRowCell></TableRowCell>
+                                                </TableRow>
+                                            }
+
+                                        }
+
+                                    </TableBody>
+                                </Table>
+                                </div>
+                            </CollapseBody>
+                    </Collapse>
+                </Accordion>
+
+            }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* <CascadingValue Value="@GreigeListTable" Name="GreigeListTable">
+    <InventoryTable Module="@Module" CategoryId="@CategoryId"/>
+    </CascadingValue> *@

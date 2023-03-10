@@ -1,0 +1,111 @@
+<DataGrid 
+                    TItem="MaterialModel" 
+                    Data="@_materials" 
+                    Responsive 
+                    Hoverable="true" 
+                    PageSize="10000"
+                    DetailRowStartsVisible="true"
+                    DetailRowTrigger="@((e) => e.Item.Reservations?.Count > 0)"
+                    RowStyling="@OnRowStyling"
+                    >
+
+                    <DataGridColumns >
+                        <DataGridColumn HeaderCellClass="table-header-brown" TItem="MaterialModel" Field="@nameof(MaterialModel.TypeLabel)" Caption="Material Type" Editable>
+                            @* <DisplayTemplate>
+                                <div @onclick="(e)=> OnClickRow(context.CategoryId,context.Id)">
+                                    @context.TypeLabel 
+                                </div>
+                            </DisplayTemplate> *@
+                        </DataGridColumn>
+                        
+                        <DataGridColumn HeaderCellClass="table-header-brown" TItem="MaterialModel" Field="@nameof(MaterialModel.ItemCode)" Caption="Item Code" Editable >
+                            @* <DisplayTemplate>
+                                <div @onclick="(e)=> OnClickRow(context.CategoryId,context.Id)">
+                                    @context.ItemCode 
+                                </div>
+                            </DisplayTemplate> *@
+                        </DataGridColumn>
+                        <DataGridColumn HeaderCellClass="table-header-brown" TItem="MaterialModel" Field="@nameof(MaterialModel.ColorCode)" Caption="Color Code/ Item Type" Editable >
+                            @* <DisplayTemplate>
+                                <div @onclick="(e)=> OnClickRow(context.CategoryId,context.Id)">
+                                    @context.ColorCode 
+                                </div>
+                            </DisplayTemplate> *@
+                        </DataGridColumn>
+                        <DataGridColumn HeaderCellClass="table-header-brown" TItem="MaterialModel" Field="@nameof(MaterialModel.ColorValue)" Caption="Color Name" Editable >
+                            @* <DisplayTemplate>
+                                <div @onclick="(e)=> OnClickRow(context.CategoryId,context.Id)">
+                                    @context.ColorValue 
+                                </div>
+                            </DisplayTemplate> *@
+                        </DataGridColumn>
+                        <DataGridColumn HeaderCellClass="table-header-brown" TItem="MaterialModel" Field="@nameof(MaterialModel.ActualCount)" Caption="Actual Count" Editable >
+                            @* <DisplayTemplate>
+                                <div @onclick="(e)=> OnClickRow(context.CategoryId,context.Id)">
+                                    @context.ReservedCount 
+                                </div>
+                            </DisplayTemplate> *@
+                        </DataGridColumn>
+                        <DataGridColumn HeaderCellClass="table-header-brown" TItem="MaterialModel" Field="@nameof(MaterialModel.AvailableCount)" Caption="Actual Used" Editable >
+                            @* Note: 0 muna waiting for shopfiy integration *@
+                            <DisplayTemplate>
+                                @* <div @onclick="(e)=> OnClickRow(context.CategoryId,context.Id)"> *@
+                                    <span>0</span>
+                                @* </div> *@
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn HeaderCellClass="table-header-brown" TItem="MaterialModel" Field="@nameof(MaterialModel.UnitOfMeasurementLabel)" Caption="Total Allocated Quantity (Allocated)" Editable >
+                            @* <DisplayTemplate>
+                                <div @onclick="(e)=> OnClickRow(context.CategoryId,context.Id)">
+                                    @context.UnitOfMeasurementLabel 
+                                </div>
+                            </DisplayTemplate> *@
+                        </DataGridColumn>
+                        <DataGridColumn HeaderCellClass="table-header-yellow" TItem="MaterialModel" Field="@nameof(MaterialModel.AvailableCount)" Caption="Total Unallocated Quantity (Free Float)" Editable >
+                            @* <DisplayTemplate>
+                                <div @onclick="(e)=> OnClickRow(context.CategoryId,context.Id)"> 
+                                    @DateTime.Parse(@context.CreationTime).ToString("MMMM dd, yyyy")
+                                </div>
+                            </DisplayTemplate> *@
+                        </DataGridColumn>
+                    </DataGridColumns>
+                    <DetailRowTemplate>
+                        @{
+                            var reservations = ( context as MaterialModel ).Reservations;
+                            @* System.Console.WriteLine(JsonSerializer.Serialize(rolls)); *@
+                            @* var Reservation = ( context as RollAndLocationModel ).RollReservations; *@
+                            <div class="">
+                                <DataGrid TItem="RollReservationModel"
+                                        Data="reservations"
+                                        Sortable="false"
+                                        >
+                                        
+                                    <DataGridColumns>
+
+                                        <DataGridColumn HeaderCellClass="sub-table-header-gray" TItem="RollReservationModel" Field="@nameof(RollReservationModel.ReservationCount)" Caption="Reserved for This Collection" Editable >
+                                        
+                                        </DataGridColumn>
+                                        <DataGridColumn HeaderCellClass="sub-table-header-gray" TItem="RollReservationModel" Field="@nameof(RollReservationModel.CollectionName)" Caption="Used In Collection" Editable >
+                                        
+                                        </DataGridColumn>
+
+                                        @* Note: 0 muna waiting for shopfiy integration *@
+                                        <DataGridColumn HeaderCellClass="sub-table-header-gray" TItem="RollReservationModel" Field="@nameof(RollReservationModel.ReservationCount)" Caption="Used for this Collection(Calculated)" Editable >
+                                        
+                                        </DataGridColumn>
+
+
+                                        <DataGridColumn HeaderCellClass="sub-table-header-gray" TItem="RollReservationModel" Field="@nameof(RollReservationModel.ReservationCount)" Caption="Used for this Collection(Actual)" Editable >
+                                        
+                                        </DataGridColumn>
+                                    </DataGridColumns>
+                                </DataGrid>
+                            </div>
+                        }
+                    </DetailRowTemplate>
+                    <EmptyTemplate>
+                        <div class="box text-center">
+                            No records were found.
+                        </div>
+                    </EmptyTemplate>
+                </DataGrid>

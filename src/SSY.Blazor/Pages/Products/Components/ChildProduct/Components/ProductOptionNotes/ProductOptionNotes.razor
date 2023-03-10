@@ -1,0 +1,42 @@
+
+@* <div >
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h3 class="sub-header-text mt-3">Product Option Notes</h3>
+        </div>
+
+        <div class="col-md-12 mt-3">
+            <RichTextEdit @ref="richTextEditRef"
+                        Theme="RichTextEditTheme.Snow"
+                        ContentChanged="@OnContentChanged"
+                        PlaceHolder="Enter Product Option Notes..."
+                        ReadOnly="@(!IsEditable)"
+                        SubmitOnEnter="false"
+                        EnterPressed="@OnSave"
+                        ToolbarPosition="Placement.Bottom">
+                <Editor>@((MarkupString)Product.ProductOptionNotes)</Editor>
+                <Toolbar>
+                    <RichTextEditToolbarGroup>
+                        <RichTextEditToolbarButton Action="RichTextEditAction.Bold" />
+                        <RichTextEditToolbarButton Action="RichTextEditAction.Italic" />
+                        <RichTextEditToolbarSelect Action="RichTextEditAction.Size">
+                            <RichTextEditToolbarSelectItem Value="small" />
+                            <RichTextEditToolbarSelectItem Selected />
+                            <RichTextEditToolbarSelectItem Value="large" />
+                            <RichTextEditToolbarSelectItem Value="huge">Very Big</RichTextEditToolbarSelectItem>
+                        </RichTextEditToolbarSelect>
+                        <RichTextEditToolbarButton Action="RichTextEditAction.List" Value="ordered" />
+                        <RichTextEditToolbarButton Action="RichTextEditAction.List" Value="bullet" />
+                    </RichTextEditToolbarGroup> *@
+                    <!-- Custom toolbar content -->
+                    @* <RichTextEditToolbarGroup Float="Float.End"> *@
+                        @* <Button onClick="window.open('https://www.quilljs.com/','quilljs')"><Icon Name="IconName.InfoCircle" /></Button> *@
+                        @* <Button Clicked="@OnSave"><Icon Name="IconName.Save" /></Button> *@
+                    @* </RichTextEditToolbarGroup>
+                </Toolbar>
+            </RichTextEdit>
+        </div>
+    </div>
+</div> *@
+
+ 

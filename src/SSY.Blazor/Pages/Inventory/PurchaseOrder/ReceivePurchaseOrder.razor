@@ -1,0 +1,26 @@
+﻿@page "/inventory/purchaseorder/received/{POIds}"
+@attribute [Authorize()]
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <BannerLayoutSSY></BannerLayoutSSY>
+    </CascadingValue>
+</CascadingValue>
+
+<ReceivePurchaseOrderTable ListSubMaterialPurchaseOrder ="@PurchaseOrderWithSubMaterialModel.Result"
+                           ListReceivedPurchaseOrder="@PurchaseOrderWithRollsList" IsEditable="@IsEditable" />
+                        
+<div class="footer__button">
+    <div class="row mt-2 saveButton">
+        <div class="col-md-12 col-sm-12 mt-3">
+            <div class="background">
+                <div class="buttons">
+                    <button class="btn btn-lg btn-danger buttons__class mb-2"
+                            onclick="window.history.go(-1); return false;">
+                        Cancel
+                    </button>
+                    <button class="btn btn-lg btn-success buttons__class mb-2" @onclick="OnSubmit">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

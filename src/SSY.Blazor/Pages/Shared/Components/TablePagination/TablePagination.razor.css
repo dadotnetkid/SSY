@@ -1,0 +1,9 @@
+.active > p {
+    background-color: pink;
+}
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #7c8e61;
+    border-color: #7c8e61;
+}

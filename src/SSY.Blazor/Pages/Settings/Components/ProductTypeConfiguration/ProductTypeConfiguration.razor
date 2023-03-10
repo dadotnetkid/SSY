@@ -1,0 +1,235 @@
+
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+    <div class="d-flex justify-content-between">
+        <h3 class="header-text">Product Type Configuration</h3>
+    </div>
+    <div class="inline__flex filter row">
+        <div class="col-md-10">
+            <Searchbox></Searchbox>
+        </div>
+        <div class="col-md-2">
+
+            <button class="btn bg-btn col-12 text-light" data-toggle="modal" data-target="#productType" @onclick="(e => AddProductTypeHandler())">Add Product Type Configuration</button>
+
+        </div>
+    </div>
+
+    <div class="pl-3 pr-3 table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="tb-header text-center">Product Type</th>
+                    <th class="tb-header text-center">Product Category</th>
+                    <th class="tb-header text-center">Sub Sales Percentage(%)</th>
+                    <th class="tb-header text-center">Average Consumption (Yards)</th>
+                    <th class="tb-header text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ProductTypeListModel.Items)
+                {
+                    <tr>
+                        <td class="tb-td-text text-center">@item.Label</td>
+                        <td class="tb-td-text text-center">@ProductCategoryListModel.Items.Find(x => x.Id == @item.ProductCategoryId)?.Value</td>
+                        <td class="tb-td-text text-center">@item.SubSalesPercentage</td>
+                        <td class="tb-td-text text-center">@item.AverageConsumption</td>
+                        <td class="tb-td-text text-center">
+                            <span class="cursor-pointer"
+                                  @onclick="@(e => EditProductType(@item))" data-toggle="modal" data-target="#productType">Edit</span> |
+
+                            <span class="cursor-pointer"
+                                  @onclick="@(e => RemoveProductType(@item.Id))">Delete</span>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Modal Reservation -->
+<EditForm Model="ProductTypeModel" OnValidSubmit="OnSubmit" @onclick="@RefreshCategory">
+    <DataAnnotationsValidator />
+    <div class="modal fade" id="productType" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @if (IsAddProductType)
+                    {
+                        <h5 class="modal-title" id="exampleModalLongTitle">Add Product Type Configuration</h5>
+                    }
+                    else
+                    {
+                        <h5 class="modal-title" id="exampleModalLongTitle">Update Product Type Configuration</h5>
+                    }
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="(e => ClearAll())">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Material Type<span class="text-danger">*</span></label>
+                        <InputSelect @bind-Value="ProductTypeModel.MaterialTypeId" class="form-control mb-2 form-control-sm" placeholder="Material Type">
+                            <option value="0" selected disabled>Select Material Type</option>
+                            @foreach (var item in TypeListModel.Result.Items)
+                            {
+                                <option value="@item.Id">@item.Value</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => ProductTypeModel.MaterialTypeId)" />
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Product Type<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="ProductTypeModel.Label" class="form-control mb-2 form-control-sm" placeholder="Enter Product type" />
+                        <ValidationMessage For="@(() => ProductTypeModel.Label)" />
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Short Code<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="ProductTypeModel.ShortCode" class="form-control mb-2 form-control-sm" placeholder="Enter Order Number" />
+                        <ValidationMessage For="@(() => ProductTypeModel.ShortCode)" />
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Average Consumption<span class="text-danger">*</span></label>
+                        <InputNumber @bind-Value="ProductTypeModel.AverageConsumption" class="form-control mb-2 form-control-sm" placeholder="Enter Average Consumption" />
+                        <ValidationMessage For="@(() => ProductTypeModel.AverageConsumption)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Product Category</label>
+                        <InputSelect @bind-Value="ProductTypeModel.ProductCategoryId" class="form-control mb-2 form-control-sm" @oninput="@(e => onChangeProductCategory(e.Value.ToString()))" placeholder="Product Category">
+                            <option value="0" selected disabled>Select Product Category</option>
+                            @foreach (var item in ProductCategoryListModel?.Items)
+                            {
+                                <option value="@item.Id">@item.Value</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => ProductTypeModel.ProductCategoryId)" />
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Sales Percentage</label>
+                        <InputNumber @bind-Value="ProductTypeModel.SalesPercentage" class="form-control mb-2 form-control-sm" disabled placeholder="Enter Sales Percentage" />
+                        <ValidationMessage For="@(() => ProductTypeModel.SalesPercentage)" />
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Sub Sales Percentage</label>
+                        <InputNumber @bind-Value="ProductTypeModel.SubSalesPercentage" class="form-control mb-2 form-control-sm" placeholder="Enter Sub Sales Percentage" />
+                        <ValidationMessage For="@(() => ProductTypeModel.SubSalesPercentage)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Order Number</label>
+                        <InputNumber @bind-Value="ProductTypeModel.OrderNumber" class="form-control mb-2 form-control-sm" placeholder="Enter Order Number" />
+                        <ValidationMessage For="@(() => ProductTypeModel.OrderNumber)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Base Size Specs</label>
+
+                        <InputFile OnChange="LoadBaseSizeSpecFiles" type="file" id="uploadBSS" multiple hidden />
+                        <label class="btn1 hexcolor-7B8E61 text-light text-center size-button-product-inside-border for-first-col" for="uploadBSS">Add Base Size Spec Files</label>
+                        <div class="custom__upload">
+                            @if (selectedBaseSizeSpecFiles != null)
+                            {
+                                @foreach (var file in selectedBaseSizeSpecFiles)
+                                {
+                                    <p> <span class="max__text">@file.Name</span></p>
+                                }
+                            }
+                            @if (classAlert == "Failed")
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    <p> @classAlert to upload. @labelNewText.</p>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">OBJ Pattern Block</label>
+
+                        <InputFile OnChange="LoadOBJPatternBlockFiles" type="file" id="uploadOBJ" multiple hidden />
+                        <label class="btn1 hexcolor-7B8E61 text-light text-center size-button-product-inside-border for-first-col" for="uploadOBJ">Add OBJ Pattern Block Files</label>
+                        <div class="custom__upload">
+                            @if (selectedOBJPatternBlockFiles != null)
+                            {
+                                @foreach (var file in selectedOBJPatternBlockFiles)
+                                {
+                                    <p> <span class="max__text">@file.Name</span></p>
+                                }
+                            }
+                            @if (classAlert == "Failed")
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    <p> @classAlert to upload. @labelNewText.</p>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Workmanship Guide</label>
+
+                        <InputFile OnChange="LoadWorkmanshipGuideFiles" type="file" id="uploadWG" hidden />
+                        <label class="btn1 hexcolor-7B8E61 text-light text-center size-button-product-inside-border for-first-col" for="uploadWG">Add Workmanship Guide File</label>
+                        <div class="custom__upload">
+                            @if (selectedWorkmanshipGuideFile != null)
+                            {
+                                <p> <span class="max__text">@selectedWorkmanshipGuideFile.Name</span></p>
+                            }
+
+                            @if (classAlert == "Failed")
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    <p> @classAlert to upload. @labelNewText.</p>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                    <div class="row mt-4 ml-0">
+                        <h5>Shipping Pricing</h5>
+                    </div>
+                    <div class="form-group mt-1">
+                        <label for="formGroupExampleInput">Free Shipping (FedEx)</label>
+                        <InputNumber @bind-Value="ProductTypeModel.FreeShippingFedExPrice" class="form-control mb-2 form-control-sm" placeholder="Enter Amount" />
+                        <ValidationMessage For="@(() => ProductTypeModel.FreeShippingFedExPrice)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Free Shipping (DHL)</label>
+                        <InputNumber @bind-Value="ProductTypeModel.FreeShippingDHLPrice" class="form-control mb-2 form-control-sm" placeholder="Enter Amount" />
+                        <ValidationMessage For="@(() => ProductTypeModel.FreeShippingDHLPrice)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">10 USD</label>
+                        <InputNumber @bind-Value="ProductTypeModel.TenUSDPrice" class="form-control mb-2 form-control-sm" placeholder="Enter Amount" />
+                        <ValidationMessage For="@(() => ProductTypeModel.TenUSDPrice)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">15 USD</label>
+                        <InputNumber @bind-Value="ProductTypeModel.FiftenUSDPrice" class="form-control mb-2 form-control-sm" placeholder="Enter Amount" />
+                        <ValidationMessage For="@(() => ProductTypeModel.FiftenUSDPrice)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">20 USD</label>
+                        <InputNumber @bind-Value="ProductTypeModel.TwentyUSDPrice" class="form-control mb-2 form-control-sm" placeholder="Enter Amount" />
+                        <ValidationMessage For="@(() => ProductTypeModel.TwentyUSDPrice)" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn text-light btn-lg btn-danger buttons__class"
+                            data-dismiss="modal" @onclick="(e => ClearAll())">
+                        Close
+                    </button>
+                    <button type="submit" class="btn bg-btn text-light btn-lg btn-success buttons__class" @onclick="(e)=> AddWorkmanshipGuide()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>

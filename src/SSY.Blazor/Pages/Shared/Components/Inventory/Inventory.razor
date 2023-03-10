@@ -1,0 +1,299 @@
+@using Microsoft.AspNetCore.Hosting
+@using Microsoft.Extensions.Logging
+@* @inject ILogger<FileUpload1> Logger *@
+@inject IWebHostEnvironment Environment
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment env
+
+
+
+
+
+<EditForm Model="InventoryModel" @ref="editForm">
+    <DataAnnotationsValidator />
+    <div class="border rounded-lg p-4 shadow-sm bg-white inventory">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Inventory</h3>
+        </div>
+        <div class="row ">
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 bg-light">
+                    <h5 class="mt-2 text-muted input-text">Total Count  </h5>
+
+                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">@InventoryModel.TotalCount</p>
+
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 bg-light onHand">
+                    <h5 class="mt-2 text-muted input-text">On Hand Count</h5>
+                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                        @InventoryModel.OnHandCount
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 bg-light inComing">
+                    <h5 class="mt-2 text-muted input-text">Incoming Count</h5>
+                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                        @InventoryModel.IncomingCount
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 bg-light availableCount">
+                    <h5 class="mt-2 text-muted input-text">Available Count </h5>
+                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                        @InventoryModel.AvailableCount
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 bg-light reserveCount">
+                    <h5 class="mt-2 text-muted input-text">Reserved Count </h5>
+                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                        @InventoryModel.ReservedCount
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 bg-light usedCount">
+                    <h5 class="mt-2 text-muted input-text">Used Count </h5>
+                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                        @InventoryModel.UsedCount
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+                    <div class="custom-file">
+                        <div class="container cut">
+                            <label class="custom-file" for="customInput">
+                                @if (IsEditable)
+                                {
+                                    <InputFile OnChange="LoadFiles" hidden type="file" class="custom-file-input" id="customInput"
+                                               aria-describedby="fileHelp" accept=".png,.jpg,.jpeg" />
+
+                                    <div class="custom__upload">
+                                        <span class="custom-file-control form-control-file">Upload Image</span>
+                                        <span class="max__text">Upload png or jpg (Maximum of 5MB)</span>
+                                        @foreach (var file in loadedFiles)
+                                        {
+                                            <span class="max__text">@file.Name</span>
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="width__images mt-2">
+                                                    <img class="width-30 rounded" src="@InventoryModel.Image" onerror="this.onerror = null; this.src='/img/No-Image-Placeholder.svg.png'" />
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="custom__disabled">
+                                                    <span class="max__text view">You are in View Mode</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 uom">
+                    <h5 class="mt-2 text-muted input-text">Unit of Measurement <span class="text-danger">*</span> </h5>
+                    @if (IsEditable)
+                    {
+                        <InputSelect @bind-Value="InventoryModel.UnitOfMeasurementId"
+                                     class="form-control mb-2 form-control-sm" id="country" aria-placeholder="MaterialType">
+                            <option selected disabled value="0">Select Unit of Measurement</option>
+                            @foreach (var unit in unitOfMeasurementListModel.Result.Items)
+                            {
+                                <option value="@unit.Id">@unit.Label</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => InventoryModel.UnitOfMeasurementId)" />
+                    }
+                    else
+                    {
+
+                        @if (unitOfMeasurementListModel.Result.Items.FirstOrDefault(x => x.Id ==
+              InventoryModel.UnitOfMeasurementId) != null)
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                @unitOfMeasurementListModel.Result.Items.First(x => x.Id ==
+                        InventoryModel.UnitOfMeasurementId).Label
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                No Unit Of Measurement
+                                Selected
+                            </p>
+                        }
+                        @* <p class="text-muted input-field-text" contentEditable="false"
+                    placeholder="">@InventoryModel.UnitOfMeasurementId</p> *@
+                    }
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</EditForm>
+
+
+@* <h3>Upload Files</h3>
+
+    <p>
+        <label>
+            Max file size:
+            <input type="number" @bind="maxFileSize" />
+        </label>
+    </p>
+
+    <p>
+        <label>
+            Max allowed files:
+            <input type="number" @bind="maxAllowedFiles" />
+        </label>
+    </p>
+
+    <p>
+        <label>
+            Upload up to @maxAllowedFiles of up to @maxFileSize bytes:
+            <InputFile OnChange="@LoadFiles" multiple />
+        </label>
+    </p>
+
+    @if (isLoading)
+    {
+        <p>Uploading...</p>
+    }
+    else
+    {
+        <ul>
+        @foreach (var file in loadedFiles)
+            {
+                <li>
+                    <ul>
+                        <li>Name: @file.Name</li>
+                        <li>Last modified: @file.LastModified.ToString()</li>
+                        <li>Size (bytes): @file.Size</li>
+                        <li>Content type: @file.ContentType</li>
+                    </ul>
+                </li>
+            }
+        </ul>
+    } *@
+
+@code {
+    private List<IBrowserFile> loadedFiles = new();
+    private long maxFileSize = 1024 * 5000;
+    private int maxAllowedFiles = 3;
+    private bool isLoading;
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+        loadedFiles.Clear();
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            try
+            {
+                loadedFiles.Add(file);
+
+                @* var trustedFileNameForFileStorage = Path.GetRandomFileName();
+                    var path = $@"{env.WebRootPath}/Uploads/Images/{file.Name}";
+
+                    await using FileStream fs = new(path, FileMode.Create);
+                    await file.OpenReadStream(maxFileSize).CopyToAsync(fs); *@
+
+                Stream stream = file.OpenReadStream(maxFileSize);
+                var path = $@"/Uploads/Images/{file.Name}";
+                var fullPath = $@"{env.WebRootPath}/Uploads/Images/{file.Name}";
+                FileStream fs = File.Create(fullPath);
+                await stream.CopyToAsync(fs);
+                fs.Close();
+                InventoryModel.Image = path;
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine("File: {Filename} Error: {Error} " +
+                file.Name + ex.Message);
+                await js.InvokeVoidAsync("defaultMessage", "error", "Upload Error!", ex.Message);
+
+            }
+        }
+
+        isLoading = false;
+    }
+
+    @* IList<string> imageDataUrls = new List<string>();
+        IReadOnlyList<IBrowserFile> selectedImage;
+        string labelText = "";
+        string classAlert = "";
+        async Task OnInputFileName(InputFileChangeEventArgs e)
+        {
+        var imagesFiles = e.GetMultipleFiles();
+        selectedImage = imagesFiles;
+        var format = "image/png";
+
+        foreach (var imageFile in imagesFiles)
+        {
+        try
+        {
+        var resizedImageFiles = await imageFile.RequestImageFileAsync(format, 100, 100);
+        var buffer = new byte[resizedImageFiles.Size];
+        await resizedImageFiles.OpenReadStream(maxFileSize).ReadAsync(buffer);
+
+        var imageDataUrl = $"data: {format}; base64,{Convert.ToBase64String(buffer)}";
+        imageDataUrls.Add(imageDataUrl);
+
+        }
+        catch (Exception ex)
+        {
+        System.Console.WriteLine("File: {Filename} Error: {Error} " +
+        imageFile.Name + ex.Message);
+
+        }
+        }
+        }
+
+        public async void FileUpload()
+        {
+
+        foreach (var file in selectedImage)
+        {
+        Stream stream = file.OpenReadStream(1024 * 6000);
+        var path = $@"{env.WebRootPath}/Uploads/Images/{file.Name}";
+        FileStream fs = File.Create(path);
+        await stream.CopyToAsync(fs);
+        fs.Close();
+        }
+        labelText = "Uploaded Success";
+        classAlert = "success";
+        this.StateHasChanged();
+        } *@
+
+
+}
+
+@code {
+    EditForm editForm;
+}

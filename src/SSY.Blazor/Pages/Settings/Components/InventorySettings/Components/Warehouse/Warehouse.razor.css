@@ -1,0 +1,15 @@
+﻿.bg-btn {
+    background-color: #7B8E61;
+}
+
+.bg-btn.col-12 {
+        background-color: #7B8E61;
+        font-size: 12px;
+}
+
+.inline__flex.filter.row {
+    padding: 17px;
+}
+.addWarehouse {
+    float:right;
+}

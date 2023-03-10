@@ -1,0 +1,30 @@
+
+   
+    <div class="border rounded-lg p-4 shadow-sm bg-white" id="comment_section">
+        <div class="d-flex title__comments">
+            <ul class="nav nav-tabs">
+                <li><a data-toggle="tab"  @onclick='@(e => ChangeTab("comment"))'><h4 class="header-text"><span class="oi oi-comment-square"></span> Comments</h4></a></li>
+                <li><a data-toggle="tab"  @onclick='@(e => ChangeTab("timeline"))'><h4 class="header-text"><span class="oi oi-clock"></span> Timeline</h4></a></li>
+            </ul>
+        </div>
+       
+              @if(SelectedTab == "comment"){
+                   <div id="comments" class="timeline__comments">
+                        <Comment PageName="@PageName"></Comment>
+                   </div>
+              }
+              else if(SelectedTab == "timeline")
+              {
+                   <div id="timeline" class="imeline__comments">
+                       <Timeline></Timeline>
+                    </div>
+              }
+              else
+              {
+                   <div id="comments" class="imeline__comments">
+                        <Comment PageName="@PageName"></Comment>
+                   </div>
+              }
+        
+    </div>
+

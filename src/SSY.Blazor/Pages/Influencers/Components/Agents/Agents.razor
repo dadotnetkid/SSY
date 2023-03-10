@@ -1,0 +1,65 @@
+@page "/influencers/agents/{Id:guid}"
+@using SSY.Blazor.Pages.Influencers.Shared.NavInfluencerDetail
+@using SSY.Blazor.Pages.Influencers.Shared.BannerLayouts
+<NavInfluencerDetail Id="Id"></NavInfluencerDetail>
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <CascadingValue Value="@ModuleChange" Name="ModuleChange">
+            <BannerLayouts></BannerLayouts>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+
+<div class="row agents">
+    <div class="col-md-12">
+        <div class="border rounded-lg p-4 roll_loc shadow-sm bg-white agents">
+            @foreach (var i in AgentLists)
+            {
+                <div class="row">
+                    <div class="col-lg-11">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-12 col-sm-12 mt-3">
+                                <div class="border rounded-sm text-dark pl-3 pr-3">
+                                    <!--!-->
+                                    <h5 class="mt-2 text-muted input-text">Agent</h5>
+                                    <p class="text-muted input-field-text" contenteditable="false">
+                                        <InputText @bind-Value="i.AgencyName" placeholder="Enter Agent" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" />
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-12 col-sm-12 mt-3">
+                                <div class="border rounded-sm text-dark pl-3 pr-3">
+                                    <!--!-->
+                                    <h5 class="mt-2 text-muted input-text">LAST NAME</h5>
+                                    <p class="text-muted input-field-text" contenteditable="false">
+                                        <InputText @bind-Value="i.AgentName" placeholder="Enter Agent" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" />
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-12 col-sm-12 mt-3">
+                                <div class="border rounded-sm text-dark pl-3 pr-3">
+                                    <!--!-->
+                                    <h5 class="mt-2 text-muted input-text">Category</h5>
+                                    <p class="text-muted input-field-text" contenteditable="false">
+                                        Direct
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-lg-1 col-md-12 col-sm-12 mt-3 pt-2">
+                            <button @onclick="() => OnSave(i)" class="btn btn-primary "><span class="fas fa-save"></span></button>
+                            <button @onclick="() => OnRemove(i)" class="btn btn-danger "><span class="fas fa-trash"></span></button>
+                        </div>
+                    </div>
+            }
+
+            <div class="col-md-12 mt-3">
+                <a @onclick="AddMore" class="btn btn-hexcolor no-underline">Add More</a>
+            </div>
+        </div>
+    </div>
+</div>
+

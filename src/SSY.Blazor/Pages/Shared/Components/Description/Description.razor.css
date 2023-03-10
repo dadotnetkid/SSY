@@ -1,0 +1,61 @@
+
+a.collapsable__item.mb-2.form-control-sm {
+    color: #495057;
+    margin-left: -27px;
+    width: 100%;
+    display: block;
+    padding: 9px;
+}
+.form-check.checkbox__assignment {
+    overflow: auto;
+    background: white;
+    padding: 0px 0px 0px 25px;
+    margin-bottom: 13px;
+    border-radius: 5px;
+    border: none !important;
+}
+a:hover {
+    text-decoration: none;
+}
+.spacer {
+    padding: 18px;
+}
+div#productassignment {
+    height: 145px !important;
+}
+  .form-check.checkbox__assignment {
+    overflow: auto;
+    background: white;
+    padding: 0px 0px 0px 25px;
+    margin-bottom: 13px;
+    border-radius: 5px;
+    border: #e8e7e7 solid;
+  }
+.form-check.checkbox__assignment.details {
+  height: 148px;
+}
+
+
+@media screen and (max-width: 991px) {
+    .border.rounded-lg.p-4.shadow-sm.description {
+        height: 100% !important;
+    }   
+}
+@media screen and (max-width: 505px) {
+    a.collapsable__item.mb-2.form-control-sm {
+      margin-left: -5px;
+      padding: 12px;
+    }
+    .weight__unit {
+      margin-right: auto !important;
+      margin: auto;
+      margin-left: 22px;
+      margin-top: -7px;
+  }
+  }
+
+  @media screen and (max-width: 1087px) {
+    .form-check.checkbox__weightunit{
+      display: block;
+  }
+  }

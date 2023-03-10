@@ -1,0 +1,49 @@
+@* @page "/dashboard"
+@page "/" *@
+@using SSY.Blazor.Pages.Dashboard.Components.SalesReport
+@using SSY.Blazor.Pages.Dashboard.Components.InfluencerOnBoarding
+@using SSY.Blazor.Pages.Dashboard.Components.InfluencerSamplesDevelopment
+@using SSY.Blazor.Pages.Dashboard.Components.Inven
+@using SSY.Blazor.Pages.Dashboard.Components.KPI
+@using SSY.Blazor.Pages.Dashboard.Components.Production
+@using SSY.Blazor.Pages.Dashboard.Components.RefundAndRemake
+@using SSY.Blazor.Pages.Dashboard.Components.SalesReview
+@using SSY.Blazor.Pages.Dashboard.Components.UpcomingLaunches
+
+@attribute [Authorize]
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <Productivity />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-lg-6 col-sm-12">
+        <SalesReport />
+    </div>
+    <div class="col-md-6 col-lg-6 col-sm-12">
+        <InfluencerOnBoarding />
+    </div>
+
+</div>
+
+<SalesReview />
+<Production />
+<InfluencerSamplesDevelopment />
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12  pt-3 ">
+        <Inven />
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12  pt-3 ">
+        <UpcomingLaunches />
+    </div>
+
+</div>
+
+<KPI />
+<RefundAndRemake />
+
+<div class="spacer__footer"></div>
+@{
+}

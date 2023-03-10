@@ -1,0 +1,63 @@
+
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white tozi-account-information">
+    <div class="inline__flex filter">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Tozi Account Information</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mt-3">
+            <div class="border rounded-sm text-dark pl-3 pr-3">
+                <!--!-->
+                <h5 class="mt-2 text-muted input-text">TOZI USER</h5>
+                <p class="text-muted input-field-text" contenteditable="false">
+                    <InputText @bind-Value="@MainPage.SizingModel.ToziUser" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" placeholder="Enter Tozi User" />
+                </p>
+            </div>
+        </div>
+
+        <div class="col mt-3">
+            <div class="border rounded-sm text-dark pl-3 pr-3">
+                <!--!-->
+                <h5 class="mt-2 text-muted input-text">TOZI ID</h5>
+                <p class="text-muted input-field-text" contenteditable="false">
+                    <InputText @bind-Value="@MainPage.SizingModel.ToziId" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" placeholder="Enter Tozi ID" />
+                </p>
+            </div>
+        </div>
+
+        <div class="col mt-3">
+            <div class="border rounded-sm text-dark pl-3 pr-3">
+                <!--!-->
+                <h5 class="mt-2 text-muted input-text">TOZI CODE</h5>
+                <p class="text-muted input-field-text" contenteditable="false">
+                    <InputText @bind-Value="@MainPage.SizingModel.ToziCode" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" placeholder="Enter Tozi Code" />
+                </p>
+            </div>
+        </div>
+
+        <div class="col mt-3">
+            <div class="border rounded-sm text-dark pl-3 pr-3">
+                <!--!-->
+                <h5 class="mt-2 text-muted input-text">TOZI OBJ</h5>
+                <p class="text-muted input-field-text" contenteditable="false">
+                    <InputText @bind-Value="@MainPage.SizingModel.ToziObj" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" placeholder="Enter Tozi Obj" />
+                </p>
+            </div>
+        </div>
+
+        <div class="col mt-3">
+            <div class="border rounded-sm text-dark pl-3 pr-3">
+                <!--!-->
+                <h5 class="mt-2 text-muted input-text">TOZI XLS FILE</h5>
+                <p class="text-muted input-field-text" contenteditable="false">
+                    
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-12 mt-3">
+            <Switch TValue="bool" Checked="@rememberMe" CheckedChanged="@OnRememberMeChanged">Remind Measurement</Switch>
+        </div>
+    </div>
+</div>

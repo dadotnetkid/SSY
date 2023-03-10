@@ -1,0 +1,60 @@
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white tozi-measurement mt-3">
+    <div class="inline__flex filter">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Tozi Measurements</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mt-3">
+            <div class="border rounded-sm text-dark pl-3 pr-3">
+                <!--!-->
+                <h5 class="mt-2 text-muted input-text">TOZI TOP SIZE</h5>
+                <p class="text-muted input-field-text" contenteditable="false">
+                    <InputNumber @bind-Value="@MainPage.SizingModel.ToziTopSize" placeholder="Enter Length" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" />
+                </p>
+            </div>
+        </div>
+
+        <div class="col mt-3">
+            <div class="border rounded-sm text-dark pl-3 pr-3">
+                <!--!-->
+                <h5 class="mt-2 text-muted input-text">TOZI BOTTOM SIZE</h5>
+                <p class="text-muted input-field-text" contenteditable="false">
+                    <InputNumber @bind-Value="@MainPage.SizingModel.ToziBottomSize" placeholder="Enter Length" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" />
+                </p>
+            </div>
+        </div>
+
+        <div class="col mt-3">
+            <div class="border rounded-sm text-dark pl-3 pr-3">
+                <!--!-->
+                <h5 class="mt-2 text-muted input-text">TOZI DRESS SIZE</h5>
+                <p class="text-muted input-field-text" contenteditable="false">
+                    <InputNumber @bind-Value="@MainPage.SizingModel.ToziDressSize" placeholder="Enter Length" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" />
+                </p>
+            </div>
+        </div>
+
+        <div class="col mt-3">
+            <div class="border rounded-sm text-dark pl-3 pr-3">
+                <!--!-->
+                <h5 class="mt-2 text-muted input-text">TOZI HEIGHT</h5>
+                <p class="text-muted input-field-text" contenteditable="false">
+                    <InputNumber @bind-Value="@MainPage.SizingModel.ToziHeight" placeholder="Enter Length" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" />
+                </p>
+            </div>
+        </div>
+
+        <div class="col mt-3">
+            <div class="border rounded-sm text-dark pl-3 pr-3">
+                <!--!-->
+                <h5 class="mt-2 text-muted input-text">TOZI WEIGHT</h5>
+                <p class="text-muted input-field-text" contenteditable="false">
+                    <InputNumber @bind-Value="@MainPage.SizingModel.ToziWeight" placeholder="Enter Length" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" />
+                </p>
+            </div>
+        </div>
+    </div>
+    <TopMeasurements></TopMeasurements>
+    <BottomMeasurements></BottomMeasurements>
+</div>

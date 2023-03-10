@@ -1,0 +1,71 @@
+.d-flex.justify-content-between {
+    margin: 16px;
+}
+
+.badge:empty {
+    display: inline-flex;
+}
+
+.color__circle {
+    height: 10px;
+    width: 10px;
+    border-radius: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.pl-3.pr-3.table-responsive tr td {
+    text-align: center;
+}
+
+th.tb-header {
+    text-align: center;
+}
+
+td.tb-td-text.confirmed {
+    width: 100px;
+}
+
+.bg-btn {
+    background-color: #7B8E61;
+}
+
+.inline__flex.filter.row {
+    padding: 20px;
+}
+
+.table-primary, .table-primary > td, .table-primary > th {
+    background-color: #B7BFAE;
+}
+
+    .table-primary tbody + tbody, .table-primary td, .table-primary th, .table-primary thead th {
+        border-color: #B7BFAE;
+    }
+
+
+.accordion-dropdown-icon {
+    background: #EBEEEF;
+    padding: 5px;
+}
+
+
+.hexcolor-F2F2F2 {
+    background-color: gray !important;
+}
+
+.hexcolor-FF8A34 {
+    background-color: #FF8A34 !important;
+}
+
+.hexcolor-7B8E61 {
+    background-color: #7B8E61 !important;
+}
+
+.hexcolor-FF3C52 {
+    background-color: #FF3C52 !important;
+}
+
+.tableText {
+    color: black;
+    text-decoration: none;
+}

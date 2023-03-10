@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<OutputType>Library</OutputType>
+		<IsPackable>true</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AWSSDK.S3" Version="3.7.103.8" />
+		<PackageReference Include="Volo.Abp.AspNetCore.Components.Web.Theming" Version="6.0.0" />
+		<PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="6.0.0" />
+		<PackageReference Include="Volo.Abp.Autofac" Version="6.0.0" />
+		<PackageReference Include="Volo.Abp.Core" Version="6.0.0" />
+		<PackageReference Include="Volo.Abp.Ddd.Application" Version="6.0.0" />
+		<PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="6.0.0" />
+	</ItemGroup>
+
+</Project>

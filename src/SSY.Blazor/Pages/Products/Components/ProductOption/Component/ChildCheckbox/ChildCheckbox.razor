@@ -1,0 +1,27 @@
+<h6 class="mt-2" id="headingOne">
+    @Title
+</h6>
+
+<div class="for__inline">
+
+    @foreach (var item in OptionListModel)
+    {
+        var uniqueId = Guid.NewGuid();
+        <div class="form-check custom-control custom-checkbox">
+            <input type="checkbox" checked="@(SelectedIds.Contains(item.Id)==true)" id="@uniqueId" class="form-check-input custom-control-input" @onchange="@(e => OnClickCheckBox((bool)e.Value, @item.Id))" >
+            @* <input class="form-check-input custom-control-input" type="checkbox" id="@item.OptionId"> *@
+            <label class="form-check-label custom-control-label" for="@uniqueId">@item.Value</label>
+        </div>
+
+        @if(SelectedIds.Contains(item.Id)){
+            @if (item.OptionOptions.Any())
+            {
+                <div class="ml-3 mt-2">
+                    <ChildDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductId" ProductOptions="ProductOptions" Title="Options" OptionListModel="@item.OptionOptions" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                </div>
+            }
+        }
+    }
+
+</div>
+

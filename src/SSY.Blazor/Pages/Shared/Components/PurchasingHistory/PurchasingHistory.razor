@@ -1,0 +1,137 @@
+<div class="row mt-3">
+    <div class="col-12 ">
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+        <div class="pl-3 pr-3 table-responsive">
+            <table class="table table-hover">
+
+                <thead>
+                    <tr>
+
+                        <th class="tb-header" @onclick="@(() => SortTable("OrderStatus"))"><i class="@(SetSortIcon("OrderStatus"))"></i> Order Status</th>
+                        <th class="tb-header" @onclick="@(() => SortTable("OrderNumber"))"><i class="@(SetSortIcon("OrderNumber"))"></i> Order Number</th>
+                        <th class="tb-header" @onclick="@(() => SortTable("OrderQuantity"))"><i class="@(SetSortIcon("OrderQuantity"))"></i> Ordered Quantity</th>
+                        <th class="tb-header" @onclick="@(() => SortTable("UnitOfMeasurementValue"))"><i class="@(SetSortIcon("UnitOfMeasurementValue"))"></i> Unit of Measurement</th>
+                        <th class="tb-header" @onclick="@(() => SortTable("OrderDate"))"><i class="@(SetSortIcon("OrderDate"))"></i> Ordered Date</th>
+                        <th class="tb-header" @onclick="@(() => SortTable("OrderBy"))"><i class="@(SetSortIcon("OrderBy"))"></i>Ordered By</th>
+                        @if (IsEditable)
+                        {
+                            <th class="tb-header">Action</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in PurchasingHistoryList)
+                    {
+                        <tr>
+                            <td class="tb-td-text">@item.OrderStatus</td>
+                            <td class="tb-td-text">@item.OrderNumber</td>
+                            <td class="tb-td-text">@item.OrderQuantity</td>
+                            <td class="tb-td-text">@item.UnitOfMeasurementValue</td>
+                            <td class="tb-td-text">@item.OrderDate.ToShortDateString()</td>
+                            <td class="tb-td-text">@item.OrderBy</td>
+                            @if (IsEditable)
+                            {
+                                <td class="tb-td-text">
+                                    <span class="cursor-pointer"
+                                          @onclick="@(e => EditPurchasingHistory(@item.Id))" data-toggle="modal" data-target="#purchasingHistory">Edit</span> |
+
+                                    <span class="cursor-pointer"
+                                          @onclick="@(e => RemovePurchasingHistory(@item.Id))">Delete</span>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+ @* <TimelineAndComments></TimelineAndComments> *@
+@if (IsEditable)
+{
+
+    <div class="footer__button">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 mt-3">
+                <div class="background">
+                    <div class="buttons">
+                        <a class="btn btn-lg btn-success buttons__class text-white cursor-pointer" data-toggle="modal" data-target="#purchasingHistory">Add Purchasing History</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<!-- Modal Reservation -->
+<EditForm Model="PurchasingHistoryModel" OnValidSubmit="OnSubmit">
+    <DataAnnotationsValidator />
+    <div class="modal fade" id="purchasingHistory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @if (ModuleMessage == "Edit")
+                    {
+                        <h5 class="modal-title" id="exampleModalLongTitle">Update Purchasing History</h5>
+                    }
+                    else
+                    {
+                        <h5 class="modal-title" id="exampleModalLongTitle">Add Purchasing History</h5>
+                    }
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="ClearAll">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Order Status<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="PurchasingHistoryModel.OrderStatus" class="form-control mb-2 form-control-sm" placeholder="Enter Order Status" />
+                        <ValidationMessage For="@(() => PurchasingHistoryModel.OrderStatus)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Order Number<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="PurchasingHistoryModel.OrderNumber" class="form-control mb-2 form-control-sm" placeholder="Enter Order Number" />
+                        <ValidationMessage For="@(() => PurchasingHistoryModel.OrderNumber)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Order Quantity<span class="text-danger">*</span></label>
+                        <InputNumber @bind-Value="PurchasingHistoryModel.OrderQuantity" class="form-control mb-2 form-control-sm" placeholder="Enter Order Quantity" />
+                        <ValidationMessage For="@(() => PurchasingHistoryModel.OrderQuantity)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Unit of Measurement<span class="text-danger">*</span></label>
+                        <InputSelect @bind-Value="PurchasingHistoryModel.UnitOfMeasurementId" class="form-control mb-2 form-control-sm" id="unitOfMeasurement" aria-placeholder="Select Unit of Measurement">
+                            <option selected disabled value="0">Select Unit of Measurement</option>
+                            @foreach (var unit in UnitOfMeasurementListModel.Result.Items)
+                            {
+                                <option value="@unit.Id">@unit.Label</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => PurchasingHistoryModel.UnitOfMeasurementId)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Order Date<span class="text-danger">*</span></label>
+                        <InputDate @bind-Value="PurchasingHistoryModel.OrderDate" class="form-control mb-2 form-control-sm" placeholder="Enter Order Date" />
+                        <ValidationMessage For="@(() => PurchasingHistoryModel.OrderDate)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Order By<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="PurchasingHistoryModel.OrderBy" class="form-control mb-2 form-control-sm" placeholder="Enter Order By" />
+                        <ValidationMessage For="@(() => PurchasingHistoryModel.OrderBy)" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-lg btn-danger buttons__class"
+                            data-dismiss="modal" @onclick="ClearAll">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-lg btn-success buttons__class">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>

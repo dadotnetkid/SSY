@@ -1,0 +1,20 @@
+.bg-btn {
+    background-color: #7B8E61;
+}
+
+    .bg-btn.col-12 {
+        background-color: #7B8E61;
+        font-size: 12px;
+    }
+
+.inline__flex.filter.row {
+    padding: 17px;
+}
+
+label.btn1.hexcolor-7B8E61.text-light.text-center.size-button-product-inside-border.for-first-col {
+    margin-top: 1rem !important;
+    margin-bottom: 2rem !important;
+    width: 68%;
+    padding: 7.5px;
+    border-radius: 4px;
+}

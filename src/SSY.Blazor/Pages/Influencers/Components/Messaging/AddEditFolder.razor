@@ -1,0 +1,15 @@
+﻿<Modal @ref="modalRef" Closing="OnClosing">
+    <ModalContent Centered>
+        <ModalHeader>
+            <ModalTitle>Folder Name</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <input type="text" @bind="FolderName" placeholder="Folder Name" class="form-control" />
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideModal">Close</Button>
+            <Button Color="Color.Primary" Clicked="@SaveChanges">Save Changes</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>

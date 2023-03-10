@@ -1,0 +1,161 @@
+@page "/collectionandproduct/bom"
+
+@if (PageName != "Dashboard")
+{
+    <CascadingValue Value="@Module" Name="Module">
+        <BannerLayoutSSY></BannerLayoutSSY>
+    </CascadingValue>
+
+    <div class="bg-white">
+        <ProductNavLayout />
+    </div>
+}
+
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+
+    <div class="d-flex justify-content-between  background__rool">
+        <h5 class="brown__background header-text">Fabric & Greige</h5>
+    </div>
+    <div class="roll__loc">
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="tb-header text-center">Thumbnail</th>
+                            <th class="tb-header text-center">Material Name</th>
+                            <th class="tb-header text-center">Color Name</th>
+                            <th class="tb-header text-center">Total Reserved Amount</th>
+                            <th class="tb-header text-center">Available Unreserved Amount</th>
+                            <th class="tb-header text-center">Unit of Measurements</th>
+                            <th class="tb-header text-center">Reserved for this Collection</th>
+                            <th class="tb-header text-center col-3">Used in Collections</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in BOMContentList.DistinctBy(x => x.MaterialId))
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    <img id="@item.MaterialId" name="@item.MaterialName" src="@item.Thumbnail" width="50" height="50" onerror="this.onerror = null; this.src='/img/No-Image-Placeholder.svg.png'" />
+                                </td>
+                                <td class="text-center">@item.ItemCode</td>
+                                <td class="text-center m-0 p-0">@item.ColorCode</td>
+                                <td class="text-center">@item.ColorName</td>
+                                <td class="text-center">@item.TotalReservedAmount</td>
+                                <td class="text-center">@item.UnitOfMeasurement</td>
+                                <td class="text-center">
+                                    @foreach (var i in item.UsedCollections.OrderBy(x => x.CollectionName))
+                                    {
+                                        <p class="d-inline-flex m-0 p-0">@i.ReservationCount</p><br />
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @foreach (var i in item.UsedCollections.OrderBy(x => x.CollectionName))
+                                    {
+                                        <p class="d-inline-flex m-0 p-0">@i.CollectionName</p><br />
+                                    }
+                                </td>
+                                <td class="text-center">No Available</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+    <div class="d-flex justify-content-between  background__rool">
+        <h5 class="brown__background header-text">Trims and Accessories</h5>
+    </div>
+    <div class="roll__loc">
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                         <tr>
+                            <th class="tb-header text-center">Thumbnail</th>
+                            <th class="tb-header text-center">Material Name</th>
+                            <th class="tb-header text-center">Color Name</th>
+                            <th class="tb-header text-center">Total Reserved Amount</th>
+                            <th class="tb-header text-center">Available Unreserved Amount</th>
+                            <th class="tb-header text-center">Unit of Measurements</th>
+                            <th class="tb-header text-center">Reserved for this Collection</th>
+                            <th class="tb-header text-center col-3">Used in Collections</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#7B8E61"
+                                     class="bi bi-square-fill" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                </svg>
+                            </td>
+                            <td>No Available</td>
+                            <td>No Available</td>
+                            <td>No Available</td>
+                            <td>No Available</td>
+                            <td>No Available</td>
+                            <td>No Available</td>
+                            <td>No Available</td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+    <div class="d-flex justify-content-between  background__rool">
+        <h5 class="brown__background header-text">Packaging</h5>
+    </div>
+    <div class="roll__loc">
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                           <tr>
+                            <th class="tb-header text-center">Thumbnail</th>
+                            <th class="tb-header text-center">Material Name</th>
+                            <th class="tb-header text-center">Color Name</th>
+                            <th class="tb-header text-center">Total Reserved Amount</th>
+                            <th class="tb-header text-center">Available Unreserved Amount</th>
+                            <th class="tb-header text-center">Unit of Measurements</th>
+                            <th class="tb-header text-center">Reserved for this Collection</th>
+                            <th class="tb-header text-center col-3">Used in Collections</th>
+                        </tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#7B8E61"
+                                     class="bi bi-square-fill" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                </svg>
+                            </td>
+                            <td>No Available</td>
+                            <td>No Available</td>
+                            <td>No Available</td>
+                            <td>No Available</td>
+                            <td>No Available</td>
+                            <td>No Available</td>
+                            <td>No Available</td>
+                          
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<TimelineAndComment PageName="@Module"></TimelineAndComment>

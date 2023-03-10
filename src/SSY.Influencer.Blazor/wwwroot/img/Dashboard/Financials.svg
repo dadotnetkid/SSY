@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56">
+  <g id="Financials" transform="translate(-135 -158)">
+    <rect id="Rectangle_154" data-name="Rectangle 154" width="56" height="56" rx="11" transform="translate(135 158)" fill="rgba(123,142,97,0.15)"/>
+    <g id="Financials-2" data-name="Financials" transform="translate(-720 44)">
+      <path id="Path_686" data-name="Path 686" d="M5.888,12.549V10.433C8.273,10.019,9.579,8.443,9.579,6.6c0-1.866-1-3.007-3.463-3.878C4.353,2.055,3.627,1.62,3.627.935c0-.581.436-1.161,1.784-1.161A6.878,6.878,0,0,1,8.4.479L9-1.865a7.466,7.466,0,0,0-3.007-.684V-4.374H3.959V-2.4C1.74-1.968.454-.537.454,1.288c0,2.012,1.514,3.049,3.733,3.8,1.535.518,2.2,1.016,2.2,1.8,0,.83-.809,1.286-1.991,1.286A7.322,7.322,0,0,1,.952,7.26L.33,9.687a8.343,8.343,0,0,0,3.526.892v1.97Z" transform="translate(878.545 138.412)" fill="#7b8e61"/>
+      <circle id="Ellipse_32" data-name="Ellipse 32" cx="14.5" cy="14.5" r="14.5" transform="translate(869 128)" fill="none" stroke="#7b8e61" stroke-linecap="round" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

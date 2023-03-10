@@ -1,0 +1,59 @@
+.nav-item ::deep a.active {
+    border-bottom: #7B8E61 solid;
+    color: #7B8E61;
+    opacity: 1;
+  }
+  ul.nav.nav-tabs.nav-tabs-views.nav.justify-content-center.border.border-left-0.border-top-0.border-right-0.scrollmenu.nav-menu {
+    font-size: 14px;
+    font-family: avenir !important;
+    font-weight: 700;
+  }
+  .nav-item ::deep a {
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--unnamed-color-5a5a5a);
+    text-align: center;
+    font-family: "Avenir" !important;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0px;
+    color: #5A5A5A;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+    
+  .cursor-pointer{
+    cursor: pointer;
+  }
+  
+  .scrollmenu {
+    overflow-x: auto; 
+    white-space: nowrap;
+  }
+  
+  /* .scrollmenu a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+  } */
+  
+  
+  @media (max-width: 640.98px) {
+    .nav-menu {
+        /* background-image: url("/img/header background account.svg");
+        background-repeat: no-repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-position: center;
+        margin-bottom: 0%; */
+        width: 100%;
+        
+    }
+  }
+  
+  @media (min-width: 641px) {
+    
+  }

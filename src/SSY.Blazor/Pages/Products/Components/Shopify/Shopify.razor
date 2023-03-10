@@ -1,0 +1,317 @@
+﻿
+@foreach (var product in ChildProducts)
+{
+    var name = product.Name;
+    @if (product.IsActive)
+    {
+        <EditForm Model="product.Shopify">
+            <DataAnnotationsValidator />
+
+            <div class="border rounded-lg p-4 shadow-sm bg-white shopify">
+                <div class="d-flex justify-content-between ">
+                    <div class="@(product.Shopify.Published ?"col-md-6":"col-md-8")">
+                        <h3 class="header-text">@name</h3>
+                    </div>
+                    <div class="@(product.Shopify.Published ?"col-md-5":"col-md-3")">
+                        <div class="row">
+
+                            @if (product.Shopify.Published)
+                            {
+                                <div class="col">
+                                    @product.Shopify.PublishedAt?.ToString("MMMM dd, yyyy hh:mm tt")
+                                </div>
+                            }
+                            <div class="col">
+                                <a class="text-ssy-color">View on Shopify</a>
+                            </div>
+                            <div class="col">
+                                @if (!product.CollectionAvailability)
+                                {
+                                    <Tooltip Text="Can't put products online since collection is still offline.">
+                                        <Button class="dropdown-item btn bg-btn col-12 text-light bg-ssy-color dropdown-toggle" @onclick=@(() => ShowDropDown(product))>
+                                            @if (!product.CollectionAvailability)
+                                            {
+                                                <span class="fa fa-exclamation-triangle"></span> 
+                                            }
+                                            @if (product.Shopify.Published)
+                                            {
+                                                <span class=" fa text-success text-ssy-color mr-2">●</span>
+                                            }
+                                            &nbsp; @(product.Shopify.Published ? "Online" : "Push to Online")
+                                        </Button>
+                                    </Tooltip>
+                                }
+                                else
+                                {
+                                    <Button class="dropdown-item btn bg-btn col-12 text-light bg-ssy-color dropdown-toggle" @onclick=@(() => ShowDropDown(product))>
+                                        @if (product.IsSaving)
+                                        {
+                                            <span class="fa fa-spinner fa-spin"></span>
+                                        }
+                                        @if (product.Shopify.Published)
+                                        {
+                                            <span class=" fa text-success text-ssy-color mr-2">●</span>
+                                        }
+                                        @(product.Shopify.Published ? "Online" : "Push to Online")
+                                    </Button>
+                                }
+
+                                <ul class="dropdown-menu @(product.IsDropdownShow ? "show" : string.Empty)" aria-labelledby="dropdownMenuButton">
+                                    @foreach (var i in ChildProducts)
+                                    {
+
+                                        <li>
+                                            <a class="dropdown-item">
+                                                <div class="form-check">
+                                                    <InputCheckbox class="form-check-input" @bind-Value="@i.IsIncluded" />
+                                                    <label class="form-check-label" for="Checkme1">@i.Name</label>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    }
+                                    <li>
+
+                                        <a class="dropdown-item btn bg-btn col-12 text-light bg-ssy-color" @onclick=@(() => OnShopifyOnlinePublishChanged())>
+                                            @if (product.IsSaving)
+                                            {
+                                                <span class="fa fa-spinner fa-spin"></span>
+                                            }
+                                            @if (product.Shopify.Published)
+                                            {
+                                                <span class=" fa text-success text-ssy-color mr-2">●</span>
+                                            }
+                                            @(product.Shopify.Published ? "Online" : "Push to Online")
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <i class="fa fa-light fa-chevron-down pull-right for-drowpdown" data-target="#overview" data-toggle="collapse"></i>
+                    </div>
+                </div>
+
+                <div class="row custom__overideWTH collapse show" id="overview">
+                    <div class="col-lg-5 col-md-12 col-sm-12 mt-3 ">
+                        <div class="border rounded-sm bg-white text-dark pl-3 pr-3 productName">
+                            <h5 class="mt-2 text-muted input-text">Shopify Name </h5>
+                            @if (IsEditable)
+                            {
+                                <InputText @bind-Value="product.Shopify.Name" class="form-control form-control-sm bg-white for-border mb-3" placeholder="Enter Name"></InputText>
+                            }
+                            else
+                            {
+                                @if (product.Shopify.Name != null)
+                                {
+                                    <p class="form-control form-control-sm bg-white for-border mb-3" placeholder="Add Name">@product.Shopify.Name </p>
+                                }
+                                else
+                                {
+                                    <p class="form-control form-control-sm bg-white for-border mb-3"></p>
+                                }
+
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                        <div class="border rounded-sm bg-white text-dark pl-3 pr-3 productName">
+
+                            <h5 class="mt-2 text-muted input-text">Shopify ID </h5>
+                            @if (IsEditable)
+                            {
+                                <InputNumber @bind-Value="product.Shopify.ShopifyId" class="form-control form-control-sm bg-white for-border mb-3" placeholder="Shopify ID"></InputNumber>
+                            }
+                            else
+                            {
+                                @if (product.Shopify.ShopifyId != null)
+                                {
+                                    <p class="form-control form-control-sm bg-white for-border mb-3" placeholder="Enter Number">@product.Shopify.ShopifyId </p>
+                                }
+                                else
+                                {
+                                    <p class="form-control form-control-sm bg-white for-border mb-3" placeholder="Enter Number"> </p>
+                                }
+
+                            }
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-12 col-sm-12 mt-3 ">
+                        <div class="border rounded-sm bg-white text-dark pl-3 pr-3 productName">
+
+                            <h5 class="mt-2 text-muted input-text">Price</h5>
+                            @if (IsEditable)
+                            {
+                                <InputNumber @bind-Value="product.Shopify.Price" class="form-control form-control-sm bg-white for-border mb-3" placeholder="Enter Name"></InputNumber>
+                            }
+                            else
+                            {
+                                @if (product.Shopify.Price != null)
+                                {
+                                    <p class="form-control form-control-sm bg-white for-border mb-3" placeholder="Add Price">@product.Shopify.Price </p>
+                                }
+                                else
+                                {
+                                    <p class="form-control form-control-sm bg-white for-border mb-3"></p>
+                                }
+
+                            }
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3 productName">
+
+                            <h5 class="mt-2 text-muted input-text">Fabric Composition</h5>
+
+                            <InputTextArea @bind-Value="product.Shopify.FabricComposition" class="bg-light form-control form-control-sm bg-white height-text-area for-border mb-3" disabled></InputTextArea>
+
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3 productName">
+                            <h5 class="mt-2 text-muted input-text">Care Instruction</h5>
+                            <InputTextArea @bind-Value="product.Shopify.CareInstruction" class="bg-light form-control form-control-sm bg-white height-text-area for-border mb-3" disabled></InputTextArea>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+                        <div class="border rounded-sm bg-white text-dark pl-3 pr-3 productName">
+                            <div class="mt-3 custom-shopify">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="d-inline-flex col-12">
+                                            <label class="mt-2 text-muted input-text text-right mr-3">Tags</label>
+                                            <!-- <div class="border rounded-sm bg-white text-dark pl-3 pr-3 productName col-12"> -->
+                                            @if (IsEditable)
+                                            {
+                                                <Autocomplete TItem="ShopifyModel"
+                                                  TValue="string"
+                                                  Data="@_tags"
+                                                  Placeholder="Add Tags"
+                                                  Filter="AutocompleteFilter.StartsWith"
+                                                  @bind-SelectedValues="multipleSelectionData"
+                                                  @bind-SelectedTexts="product.Shopify.ListTags"
+                                                  Multiple
+                                                  FreeTyping>
+                                                </Autocomplete>
+                                            }
+                                            else
+                                            {
+                                                @if (product.Shopify.Tags != null)
+                                                {
+                                                    <div class="autocomplete-disable">
+                                                        <Autocomplete TItem="ShopifyModel"
+                                                      TValue="string"
+                                                      Data="@_tags"
+                                                      Placeholder="Display Mode"
+                                                      Filter="AutocompleteFilter.StartsWith"
+                                                      @bind-SelectedValues="multipleSelectionData"
+                                                      @bind-SelectedTexts="product.Shopify.ListTags"
+                                                      Multiple
+                                                      disabled>
+                                                        </Autocomplete>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <p class="form-control form-control-sm bg-white for-border mb-3"> </p>
+                                                }
+
+                                            }
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 align-middle">
+                                        <label @onclick='@(e => ApplyToAll(@product))' class="btn btn-sm hexcolor-7B8E61 text-light text-center ">Apply to All Colorways</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="mt-2 text-muted input-text">Description</h5>
+                            @if (IsEditable)
+                            {
+                                <InputTextArea @bind-Value="product.Shopify.Description" placeholder="Add Description" class="form-control form-control-sm bg-white for-border mb-3"></InputTextArea>
+                            }
+                            else
+                            {
+                                @if (product.Shopify.Description != null)
+                                {
+                                    <InputTextArea @bind-Value="product.Shopify.Description" placeholder="Add Description" class="form-control form-control-sm bg-white for-border mb-3" disabled></InputTextArea>
+                                }
+                                else
+                                {
+                                    <p class="form-control form-control-sm bg-white for-border mb-3"></p>
+                                }
+
+                            }
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12 mt-3">
+                        <div class="row">
+                            @foreach (var item in product.Shopify.MediaFiles)
+                            {
+                                @if (IsEditable == false)
+                                {
+                                    <div class="col-2">
+                                        <div class="add-container">
+                                            <div class="border-dashed border-secondary border-width rounded design-draft-content-detail">
+                                                <div class="thumbnail-container">
+                                                    <img class="thumbnail responsive" src="@item.MediaFile.FilePath" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-2">
+                                        <div class="add-container">
+                                            <div class="border-dashed border-secondary border-width rounded design-draft-content-detail">
+                                                <div class="thumbnail-container">
+                                                    <img class="thumbnail responsive" src="@item.MediaFile.FilePath" />
+                                                    <span class="fa fa-trash cursor-pointer" @onclick='@(e => OnDelete(@product.Id,@item.MediaFile.Id))'></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            @if (IsEditable)
+                            {
+                                var uniqueId = Guid.NewGuid();
+                                <div class="col-2">
+                                    <div class="add-container">
+                                        <div class="mr-3 mb-3">
+                                            <div class="border-dashed border-secondary border-width rounded design-draft-content-detail">
+                                                <InputFile id="@uniqueId" OnChange='@(e => UploadFile(e,product.Id))' type="file" hidden multiple />
+                                                <label class="btn hexcolor-7B8E61 text-light text-center size-button-product-inside-border for-first-col" for="@uniqueId">Add File</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </EditForm>
+    }
+
+}
+
+
+

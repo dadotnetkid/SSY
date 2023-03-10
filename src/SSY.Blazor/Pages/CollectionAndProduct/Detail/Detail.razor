@@ -1,0 +1,546 @@
+@page "/collectionandproduct/details"
+
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <BannerLayoutSSY></BannerLayoutSSY>
+    </CascadingValue>
+</CascadingValue>
+
+<ul
+    class="nav nav-tabs nav-tabs-views nav justify-content-center border border-left-0 border-top-0 border-right-0 scrollmenu nav-menu">
+    <li><a data-toggle="tab" href="#home" class="active">Overview</a></li>
+    <li><a data-toggle="tab" href="#menu1">Files</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="home" class="tab-pane fade in active show">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+                    <div class="d-flex justify-content-between ">
+                        <h3 class="header-text">Timeline</h3>
+                    </div>
+                    <div class="pl-3 pr-3 table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="tb-header">Collection Development</th>
+                                    <th class="tb-header">Design Draft</th>
+                                    <th class="tb-header">3D Virtual Fitting</th>
+                                    <th class="tb-header">Fit Sample</th>
+                                    <th class="tb-header">Photo Sample</th>
+                                    <th class="tb-header">Lauch Ready</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="tb-td-text"><span class="badge badge-success color__circle"></span>June
+                                        2, 2022</td>
+                                    <td class="tb-td-text"><span class="badge badge-success color__circle"></span>June
+                                        2, 2022</td>
+                                    <td class="tb-td-text"><span class="badge badge-secondary color__circle"></span>
+                                    </td>
+                                    <td class="tb-td-text"><span class="badge badge-secondary color__circle"></span>
+                                    </td>
+                                    <td class="tb-td-text"><span class="badge badge-secondary color__circle"></span>
+                                    </td>
+                                    <td class="tb-td-text"><span class="badge badge-secondary color__circle"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="border rounded-lg p-4 shadow-sm bg-white">
+                    <div class="d-flex justify-content-between ">
+                        <h3 class="header-text">Overview</h3>
+                    </div>
+                    <div class="row custom__overideWTH">
+                        <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                <h5 class="mt-2 text-muted input-text">Collection Name </h5>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Name
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                <h5 class="mt-2 text-muted input-text">Influencers</h5>
+                                <select class="form-control mb-2 form-control-sm" id="city">
+                                    <option selected disabled value="">Select Influencers</option>
+                                    <option value="ISOAlpha2">SOName</option>
+                                    <option value="ISOAlpha2">FriendlyName</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                <h5 class="mt-2 text-muted input-text">Factory</h5>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                    ContactPersonNumber</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+
+                                <h5 class="mt-2 text-muted input-text">Price Point </h5>
+
+                                <select class="form-control mb-2 form-control-sm" id="city">
+                                    <option selected disabled value="">Select Price Point</option>
+                                    <option value="ISOAlpha2">SOName</option>
+                                    <option value="ISOAlpha2">FriendlyName</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+
+                                <h5 class="mt-2 text-muted input-text">Date Added</h5>
+
+                                <input class="form-control mb-2 form-control-sm" id="date" name="date" type="date" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                <div class="for__inline">
+                                    <h5 class="title__collection">Size of Collection </h5>
+                                    <p>
+                                        Activewear <span class="border rounded-sm bg-light text-dark pl-3 pr-3">0</span>
+                                        Sweats <span class="border rounded-sm bg-light text-dark pl-3 pr-3">0</span>
+                                        Knitwear <span class="border rounded-sm bg-light text-dark pl-3 pr-3">0</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                <h5 class="mt-2 text-muted input-text">Material Type</h5>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">dsade</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                <h5 class="mt-2 text-muted input-text">Product Type</h5>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">dsade</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                <h5 class="mt-2 text-muted input-text">Launch Progress</h5>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">dsade</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                <h5 class="mt-2 text-muted input-text">Collection Status</h5>
+                                <select class="form-control mb-2 form-control-sm" id="city">
+                                    <option selected disabled value="">Select Collection Status</option>
+                                    <option value="ISOAlpha2">SOName</option>
+                                    <option value="ISOAlpha2">FriendlyName</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                            <h5 class="mt-2 text-muted input-text">Shopify Availability</h5>
+                            <div class="for__inline">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Available
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Unavailable
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border rounded-lg p-4 shadow-sm bg-white">
+                    <div class="d-flex justify-content-between ">
+                        <h3 class="header-text">Color Options</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="thumbnail">
+                                <div class="header-title">
+                                    <p class="header__text">Leggings</p>
+                                </div>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Color
+                                    Block</p>
+                                <p>Black, Red</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Fabric,
+                                    Selection</p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Black"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-RED
+                                </p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Red"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-BLACK
+                                </p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                    Sublimation</p>
+                                <p>Yes</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">TCX Code
+                                </p>
+                                <p>16-1359 TCX ORANGE</p>
+                                <p>13-0758 TCX YELLOW</p>
+
+                                <div class="divider"></div>
+
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Color
+                                    Block</p>
+                                <p>Black, Red</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Fabric,
+                                    Selection</p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Black"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-RED
+                                </p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Red"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-BLACK
+                                </p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                    Sublimation</p>
+                                <p>Yes</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">TCX Code
+                                </p>
+                                <p>16-1359 TCX ORANGE</p>
+                                <p>13-0758 TCX YELLOW</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="thumbnail">
+                                <div class="header-title">
+                                    <p class="header__text">Leggings</p>
+                                </div>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Color
+                                    Block</p>
+                                <p>Black, Red</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Fabric,
+                                    Selection</p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Black"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-RED
+                                </p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Red"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-BLACK
+                                </p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                    Sublimation</p>
+                                <p>Yes</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">TCX Code
+                                </p>
+                                <p>16-1359 TCX ORANGE</p>
+                                <p>13-0758 TCX YELLOW</p>
+
+                                <div class="divider"></div>
+
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Color
+                                    Block</p>
+                                <p>Black, Red</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Fabric,
+                                    Selection</p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Black"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-RED
+                                </p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Red"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-BLACK
+                                </p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                    Sublimation</p>
+                                <p>Yes</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">TCX Code
+                                </p>
+                                <p>16-1359 TCX ORANGE</p>
+                                <p>13-0758 TCX YELLOW</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="thumbnail">
+                                <div class="header-title">
+                                    <p class="header__text">Leggings</p>
+                                </div>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Color
+                                    Block</p>
+                                <p>Black, Red</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Fabric,
+                                    Selection</p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Black"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-RED
+                                </p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Red"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-BLACK
+                                </p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                    Sublimation</p>
+                                <p>Yes</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">TCX Code
+                                </p>
+                                <p>16-1359 TCX ORANGE</p>
+                                <p>13-0758 TCX YELLOW</p>
+
+                                <div class="divider"></div>
+
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Color
+                                    Block</p>
+                                <p>Black, Red</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Fabric,
+                                    Selection</p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Black"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-RED
+                                </p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Red"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-BLACK
+                                </p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                    Sublimation</p>
+                                <p>Yes</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">TCX Code
+                                </p>
+                                <p>16-1359 TCX ORANGE</p>
+                                <p>13-0758 TCX YELLOW</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="thumbnail">
+                                <div class="header-title">
+                                    <p class="header__text">Leggings</p>
+                                </div>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Color
+                                    Block</p>
+                                <p>Black, Red</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Fabric,
+                                    Selection</p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Black"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-RED
+                                </p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Red"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-BLACK
+                                </p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                    Sublimation</p>
+                                <p>Yes</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">TCX Code
+                                </p>
+                                <p>16-1359 TCX ORANGE</p>
+                                <p>13-0758 TCX YELLOW</p>
+
+                                <div class="divider"></div>
+
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Color
+                                    Block</p>
+                                <p>Black, Red</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Fabric,
+                                    Selection</p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Black"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-RED
+                                </p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Red"
+                                        class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                    GZYPP-TEST1235-TEST1235-E-BLACK
+                                </p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                    Sublimation</p>
+                                <p>Yes</p>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">TCX Code
+                                </p>
+                                <p>16-1359 TCX ORANGE</p>
+                                <p>13-0758 TCX YELLOW</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <BomSummaryReservation></BomSummaryReservation>
+
+                <div class="border rounded-lg p-4 shadow-sm bg-white">
+                    <div class="d-flex justify-content-between ">
+                        <h3 class="header-text">Assigned to:</h3>
+                    </div>
+                    <div class="row custom__overideWTH">
+                        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                <h5 class="mt-2 text-muted input-text">OEM Pattern Maker</h5>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">Name
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                <h5 class="mt-2 text-muted input-text">OEM Merchandiser</h5>
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                    ContactPersonContactEmail</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+
+                                <h5 class="mt-2 text-muted input-text">SSY Merchandiser</h5>
+
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                    ContactPersonNumber</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                <h5 class="mt-2 text-muted input-text">3D Designer</h5>
+
+                                <p class="text-muted input-field-text address" contentEditable="false" placeholder="">
+                                    dsdad</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+
+                                <h5 class="mt-2 text-muted input-text">Designer </h5>
+
+                                <p class="text-muted input-field-text address" contentEditable="false" placeholder="">
+                                    dsdad</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                            <button class="btn bg-btn col-12 text-light assign__button">Assign</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="border rounded-lg p-4 shadow-sm bg-white">
+                    <div class="d-flex justify-content-between ">
+                        <h3 class="header-text">Product List</h3>
+                    </div>
+                    <div class="pl-3 pr-3 table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="tb-header">Product Name</th>
+                                    <th class="tb-header">Status</th>
+                                    <th class="tb-header">Child</th>
+                                    <th class="tb-header">1st Fit Samples Status</th>
+                                    <th class="tb-header">2nd Fit Samples Status</th>
+                                    <th class="tb-header">PhotoShoot Sample Status</th>
+                                    <th class="tb-header">Marketing Sample QTY</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="tb-td-text">Ariana & Audrey Collection</td>
+                                    <td class="tb-td-text">Product Onboarded</td>
+                                    <td class="tb-td-text">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="Red"
+                                            class="bi bi-square-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                        </svg>
+                                        Red Colorway
+                                    </td>
+                                    <td class="tb-td-text"><span class="badge badge-success color__circle"></span>Not
+                                        Ordered</td>
+                                    <td class="tb-td-text"><span class="badge badge-success color__circle"></span>Not
+                                        Ordered</td>
+                                    <td class="tb-td-text"><span
+                                            class="badge badge-success color__circle"></span>Ordered 16-Feb-22</td>
+                                    <td class="tb-td-text">10</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu1" class="tab-pane fade">
+        <div class="row">
+            <div class="col-md-12">
+                <Files></Files>
+            </div>
+        </div>
+    </div>
+</div>

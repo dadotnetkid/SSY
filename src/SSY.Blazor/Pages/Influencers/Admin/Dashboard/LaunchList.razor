@@ -1,0 +1,134 @@
+@using Volo.Abp.Application.Dtos
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Components.Web
+@inject AbpBlazorMessageLocalizerHelper<SSYResource> LH
+@inherits AbpCrudPageBase<SSY.UserDetails.IUserDetailAppService, UserDetailDto, Guid, PagedAndSortedResultRequestDto, CreateUserDetailDto,UpdateUserDetailDto>
+
+<div class="influencer-status filter">
+    <div class="d-flex justify-content-between ">
+        <h3 class="header-text">Launch List</h3>
+    </div>
+    <div class="row">
+        <CardBody>
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="button" class="form-control" data-toggle="collapse" data-target="#demo">Filter</button>
+                        <div id="demo" class="collapse w-100">
+                            <div class="form__label">
+                                <div class="row">
+                                    <div class="col-md-3"> <label>Warehouse/Location</label></div>
+                                    <div class="col-md-9">
+                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                            <h5 class="mt-2 text-muted input-text">Material Type</h5>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form__label">
+                                <div class="row">
+                                    <div class="col-md-3"> <label>Color</label></div>
+                                    <div class="col-md-9">
+                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form__label">
+                                <div class="row">
+                                    <div class="col-md-3"> <label>Material Type</label></div>
+                                    <div class="col-md-9">
+                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                            </div>
+                        </div>
+                    </div>
+                    <TextEdit type="text" class="form-control" @bind-Text="@customFilterValue" placeholder="Search"></TextEdit>
+
+                </div>
+            </div>
+            <div class="table-responsive">
+                <DataGrid TItem="UserDetailDto"
+                          Data="Entities"
+                          ReadData="OnDataGridReadAsync"
+                          CurrentPage="CurrentPage"
+                          TotalItems="TotalCount"
+                          ShowPager="true"
+                          PageSize="PageSize">
+                    <DataGridColumns>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Influencer"]"></DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Collection"]"></DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Start Date"]">
+                            <DisplayTemplate>
+                                @DateTime.Now
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["End Date"]">
+                            <DisplayTemplate>
+                                @DateTime.Now
+                            </DisplayTemplate>
+                        </DataGridColumn>
+
+
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Created By"]">
+                        </DataGridColumn>
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Created Date"]">
+                            <DisplayTemplate>
+                                @DateTime.Now
+                            </DisplayTemplate>
+                        </DataGridColumn>
+
+                        <DataGridColumn TItem="UserDetailDto"
+                                        Caption="@L["Status"]">
+                            <DisplayTemplate>
+                                <span class="badge badge-green">
+                                    Tentative
+                                </span>
+
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                    </DataGridColumns>
+                </DataGrid>
+            </div>
+        </CardBody>
+    </div>
+</div>
+
+
+@code
+{
+
+    private string customFilterValue;
+
+    //ADDED A NEW FIELD
+    IReadOnlyList<AuthorLookupDto> authorList = Array.Empty<AuthorLookupDto>();
+
+    @* public Books() // Constructor
+    {
+        CreatePolicyName = AdministrationPermissions.Books.Create;
+        UpdatePolicyName = AdministrationPermissions.Books.Edit;
+        DeletePolicyName = AdministrationPermissions.Books.Delete;
+    } *@
+
+    //GET AUTHORS ON INITIALIZATION
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+}

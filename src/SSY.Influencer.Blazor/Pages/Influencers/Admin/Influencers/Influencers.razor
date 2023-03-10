@@ -1,0 +1,249 @@
+@page "/influencers"
+
+@using Volo.Abp.Application.Dtos
+@using SSY.Localization
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Components.Web
+@inject IStringLocalizer<SSYResource> L
+@inject AbpBlazorMessageLocalizerHelper<SSYResource> LH
+@inherits AbpCrudPageBase<IBookAppService, BookDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateBookDto>
+
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <CascadingValue Value="@ModuleChange" Name="ModuleChange">
+            <BannerLayouts></BannerLayouts>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+
+<NavLayout></NavLayout>
+
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+    <div class="inline__flex filter">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Influencers</h3>
+        </div>
+    </div>
+    <div class="row">
+                        <CardBody>
+                            <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="form-control" data-toggle="collapse" data-target="#demo">Filter</button>
+                                        <div id="demo" class="collapse w-100">
+                                            <div class="form__label">
+                                                <div class="row">
+                                                    <div class="col-md-3"> <label>Warehouse/Location</label></div>
+                                                    <div class="col-md-9">
+                                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                                            <h5 class="mt-2 text-muted input-text">Material Type</h5>
+                                                            @* <select @bind="Warehouses" class="select-picker form-control mb-2 form-control-sm" multiple data-live-search="true" data-dropup-auto="false">
+                                                                @foreach (var type in WarehouseList?.Result?.Items)
+                                                                {
+                                                                    <option value="@type.Location">@type.Location</option>
+                                                                }
+                                                            </select> *@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form__label">
+                                                <div class="row">
+                                                    <div class="col-md-3"> <label>Color</label></div>
+                                                    <div class="col-md-9">
+                                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                                            @* <h5 class="mt-2 text-muted input-text">Material Type</h5> *@
+                                                            @* <select @bind="ColorIds" class="select-picker form-control mb-2 form-control-sm" multiple data-live-search="true" data-dropup-auto="false">
+
+                                                                @foreach (var item in ColorDropdownListModel?.Result?.Items)
+                                                                {
+                                                                    <option value="@item.Id">@item.Label</option>
+                                                                }
+                                                            </select> *@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form__label">
+                                                <div class="row">
+                                                    <div class="col-md-3"> <label>Material Type</label></div>
+                                                    <div class="col-md-9">
+                                                        <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                                            @* <h5 class="mt-2 text-muted input-text">Material Type</h5> *@
+                                                            @* <select @bind="MaterialTypeIds" class="select-picker form-control mb-2 form-control-sm" multiple data-live-search="true" data-dropup-auto="false">
+                                                                @foreach (var type in MaterialTypeModel?.Result?.Items)
+                                                                {
+                                                                    @if (Module == "All")
+                                                                    {
+                                                                        @if (type.CategoryId == 1 || type.CategoryId == 2)
+                                                                        {
+                                                                            <option value="@type.Id">@type.Label</option>
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@type.Id">@type.Label</option>
+                                                                    }
+                                                                }
+                                                            </select> *@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                @* <div class="col-md-6"> <button type="button" class="btn col-12 btn-export" @onclick="ClearAll">Clear All Filters</button></div>
+                                                <div class="col-md-3"><button type="button" class="btn col-12 btn-export" data-toggle="collapse" data-target="#demo">Cancel</button> </div>
+                                                <div class="col-md-3"><button type="button" class="btn col-12 btn-export" @onclick="Search" data-toggle="collapse" data-target="#demo">Apply</button></div> *@
+                                            </div>
+                                        </div>
+                                        @* </EditForm> *@
+                                    </div>
+                                    <TextEdit type="text" class="form-control" @bind-Text="@customFilterValue" placeholder="Search"></TextEdit>
+
+                                </div>
+                            </div>
+                <div class="table-responsive">
+                <DataGrid TItem="BookDto"
+                        Data="Entities"
+                        ReadData="OnDataGridReadAsync"
+                        CurrentPage="CurrentPage"
+                        TotalItems="TotalCount"
+                        ShowPager="true"
+                        PageSize="PageSize">
+                    <DataGridColumns>
+                        <DataGridColumn TItem="BookDto"
+                                        Field="@nameof(BookDto.Name)"
+                                        Caption="@L["First Name"]">
+                         <DisplayTemplate>
+                              <a href="/influencers/actualinfo">
+                                    @context.Name
+                                </a>
+                        </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BookDto"
+                                        Field="@nameof(BookDto.AuthorName)"
+                                        Caption="@L["Second Name"]"></DataGridColumn>
+                        <DataGridColumn TItem="BookDto"
+                                        Field="@nameof(BookDto.PublishDate)"
+                                        Caption="@L["Influencer Status"]">
+                            <DisplayTemplate>
+                                <span class="badge badge-green">
+                                    Tentative
+                                </span>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BookDto"
+                                        Field="@nameof(BookDto.PublishDate)"
+                                        Caption="@L["Collection Status"]">
+                            <DisplayTemplate>
+                              <span class="badge badge-green">
+                                    Tentative
+                                </span>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                    
+                    
+                        <DataGridColumn TItem="BookDto"
+                                        Field="@nameof(BookDto.Price)"
+                                        Caption="@L["IG Handle"]">
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BookDto"
+                                        Field="@nameof(BookDto.CreationTime)"
+                                        Caption="@L["Other Socials"]">
+                            <DisplayTemplate>
+                                 Tentative
+                            </DisplayTemplate>
+                        </DataGridColumn>
+
+                        <DataGridColumn TItem="BookDto"
+                                        Field="@nameof(BookDto.CreationTime)"
+                                        Caption="@L["IG Followers"]">
+                            <DisplayTemplate>
+                                  Tentative
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BookDto"
+                                        Field="@nameof(BookDto.CreationTime)"
+                                        Caption="@L["IG Engagement(%)"]">
+                            <DisplayTemplate>
+                                 Tentative
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BookDto"
+                                        Field="@nameof(BookDto.CreationTime)"
+                                        Caption="@L["Female Followers(%)"]">
+                            <DisplayTemplate>
+                                   Tentative
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                         <DataGridColumn TItem="BookDto"
+                                        Field="@nameof(BookDto.CreationTime)"
+                                        Caption="@L["Forecast Quantity"]">
+                            <DisplayTemplate>
+                                Tentative
+                            </DisplayTemplate>
+                         </DataGridColumn>
+                         <DataGridColumn TItem="BookDto"
+                                        Field="@nameof(BookDto.CreationTime)"
+                                        Caption="@L["Next Launch Date"]">
+                            <DisplayTemplate>
+                                  Tentative
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BookDto"
+                                        Field="@nameof(BookDto.CreationTime)"
+                                        Caption="@L["Onboarded Date"]">
+                            <DisplayTemplate>
+                               Tentative
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BookDto"
+                                        Field="@nameof(BookDto.CreationTime)"
+                                        Caption="@L["No. of Launches"]">
+                            <DisplayTemplate>
+                                Tentative
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="BookDto"
+                                        Field="@nameof(BookDto.CreationTime)"
+                                        Caption="@L["No. of Collections"]">
+                            <DisplayTemplate>
+                                Tentative
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                    </DataGridColumns>
+                </DataGrid>
+                </div>
+            </CardBody>
+        </div>
+</div>
+
+
+@code
+{
+    @using SSY.Permissions;
+
+    private string customFilterValue;
+
+    //ADDED A NEW FIELD
+    IReadOnlyList<AuthorLookupDto> authorList = Array.Empty<AuthorLookupDto>();
+
+    @* public Books() // Constructor
+    {
+        CreatePolicyName = AdministrationPermissions.Books.Create;
+        UpdatePolicyName = AdministrationPermissions.Books.Edit;
+        DeletePolicyName = AdministrationPermissions.Books.Delete;
+    } *@
+
+    //GET AUTHORS ON INITIALIZATION
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        authorList = (await AppService.GetAuthorLookupAsync()).Items;
+    }
+}

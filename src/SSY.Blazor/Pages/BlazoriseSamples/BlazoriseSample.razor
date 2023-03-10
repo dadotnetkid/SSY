@@ -1,0 +1,16 @@
+@page "/blazorchart"
+
+@using Blazorise.Charts
+
+ @* <LineChart @ref="lineChart" TItem="double" /> *@
+    @* <HorizontalBarChart DataPoints="@DataPoints" /> *@
+  @code{
+   
+     private List<HorizontalBarChart.DataPoint> DataPoints = new List<HorizontalBarChart.DataPoint>()
+    {
+        new HorizontalBarChart.DataPoint { Label = "Label1", Value = 10, Color = "#4caf50" },
+        new HorizontalBarChart.DataPoint { Label = "Label2", Value = 20, Color = "#f44336" },
+        new HorizontalBarChart.DataPoint { Label = "Label3", Value = 30, Color = "#2196f3" },
+        new HorizontalBarChart.DataPoint { Label = "Label4", Value = 40, Color = "#ffc107" },
+    };
+}

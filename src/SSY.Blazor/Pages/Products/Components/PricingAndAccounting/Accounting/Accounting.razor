@@ -1,0 +1,40 @@
+<EditForm Model="AccountingModel" OnValidSubmit="OnSubmit">
+    <DataAnnotationsValidator />
+    <div class="border rounded-lg p-4 shadow-sm bg-white">
+        <div class="d-flex justify-content-between " data-target="#pricing" data-toggle="collapse">
+            <div class="col-md-11">
+                <h3 class="header-text">Accounting</h3>
+            </div>
+            <div class="col-md-1">
+                <i class="fa fa-light fa-chevron-down pull-right for-drowpdown"></i>
+            </div>
+        </div>
+
+        <div class="row custom__overideWTH collapse show" id="pricing">
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm bg-white text-dark pl-3 pr-3 productName">
+                    <h5 class="mt-2 text-muted input-text">Unit Sales</h5>
+                    <InputNumber @bind-Value="AccountingModel.UnitSales" class="form-control form-control-sm bg-white for-border mb-3" disabled></InputNumber>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm bg-white text-dark pl-3 pr-3 productName">
+                    <h5 class="mt-2 text-muted input-text">Total Sales</h5>
+                    <InputNumber @bind-Value="AccountingModel.TotalSales" class="form-control form-control-sm bg-white for-border mb-3" disabled></InputNumber>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+
+            </div>
+
+            <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                <button type="submit" class="btn bg-btn col-12 text-light" style="height:54px;">Save</button>
+            </div>
+
+        </div>
+    </div>
+</EditForm>

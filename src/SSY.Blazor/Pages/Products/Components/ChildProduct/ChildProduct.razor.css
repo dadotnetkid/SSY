@@ -1,0 +1,12 @@
+a,
+a:hover {
+    text-decoration: none !important;
+    color: #708951 !important;
+}
+
+a.active {
+    color: #687a52 !important;
+    padding: 6px;
+    border-bottom: 2px solid #687a52;
+    font-weight: 600 !important;
+}

@@ -1,0 +1,3 @@
+@page "/inventory/fabric/detail/{Id:guid}"
+@attribute [Authorize()]
+<MaterialDetail Id="@Id" IsEditable="@IsEditable" Module="@Module" />

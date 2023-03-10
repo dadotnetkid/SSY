@@ -1,0 +1,31 @@
+﻿.spinner {
+    border: 16px solid #D7E6C6;
+    border-top: 16px solid #7B8E61;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 700ms linear infinite;
+    position: relative;
+    margin: auto;
+}
+
+#loadingText {
+    text-align: center !important;
+    position: relative;
+    font-size: 16px/12px;
+    font-family: 'Avenir', 'Poppins', sans-serif;
+    text-transform: none;
+    font-style: normal;
+    margin-top: 10px;
+    /*font: normal normal normal 16px/12px Avenir;*/
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}

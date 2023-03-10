@@ -1,0 +1,55 @@
+
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <BannerLayoutSSY></BannerLayoutSSY>
+    </CascadingValue>
+</CascadingValue>
+
+<EditForm Model="SubMaterialModel">
+    <DataAnnotationsValidator />
+
+    <div class="tab-content">
+        <div class="row">
+
+            <div class="col-md-6 col-sm-12 mt-3 description">
+                <SubMaterialDescription @ref="DescriptionComponent" IsEditable="@IsEditable" SubMaterialModel="@SubMaterialModel" CategoryId="CategoryId" />
+            </div>
+
+            <div class="col-md-6 col-sm-12 mt-3 inventory">
+                <SubMaterialInventory @ref="InventoryComponent" SubMaterialModel="@SubMaterialModel" IsEditable="@IsEditable" />
+                <SubMaterialLocation @ref="LocationComponent" SubMaterialModel="@SubMaterialModel" IsEditable="@IsEditable" />
+            </div>
+
+            <div class="col-md-12 col-sm-12 mt-3 supplier">
+                <SupplierDetail SupplierModel="@SubMaterialModel.Company" IsEditable="@IsEditable" OnChangeSupplier="SupplierChanged" />
+            </div>
+
+            <div class="col-md-12 col-sm-12 mt-3 purchase order">
+                <PurchasingDetail PurchaseDetailModel="@SubMaterialModel.PurchaseDetail" IsEditable="@IsEditable" />
+            </div>
+
+        </div>
+    </div>
+
+</EditForm>
+
+
+<div class="footer__button">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 mt-3">
+            <div class="background">
+                <div class="buttons">
+                    <button href="inventory/view" class="btn btn-lg btn-danger buttons__class" onclick="window.history.go(-1); return false;">Cancel</button>
+                    <a class="btn btn-lg btn-success buttons__class" @onclick="@(e => HandleSubmit(SubMaterialModel))">Save</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    SubMaterialDescription DescriptionComponent = new();
+    SubMaterialInventory InventoryComponent = new();
+    SubMaterialLocation LocationComponent = new();
+    @*SupplierDetail SupplierComponent = new();*@
+}

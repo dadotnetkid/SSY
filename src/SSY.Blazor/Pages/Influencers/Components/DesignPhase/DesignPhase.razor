@@ -1,0 +1,102 @@
+@page "/influencers/designphase/{Id:guid}"
+@using SSY.Blazor.Pages.Influencers.Shared.NavInfluencerDetail
+<NavInfluencerDetail Id="Id"></NavInfluencerDetail>
+
+@* <CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <CascadingValue Value="@ModuleChange" Name="ModuleChange">
+            <BannerLayouts></BannerLayouts>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue> *@
+
+
+<div class="design-phase-header-container">
+    <div class="design-phase-content">
+        <div class="row">
+            <div class="col-md">
+               <span class="design-phase-header-label">Dashboard</span> >  <span class="design-phase-header-label">INFLUENCERS</span> > <span class="selected-component-class">@Module.ToUpper()</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-12 mt-5">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="design-phase-nav-content @(SelectedComponent == "inspiration" ? "active" : "")">
+                            <span class="fa-stack fa-2x mx-auto" @onclick="@(() => SetSelectedComponent("inspiration"))">
+                                <i class="fa fa-circle fa-stack-2x fa-5x" aria-hidden="true"></i>
+                                <i class="fa icon-inspiration-sm d-block fa-stack-1x" aria-hidden="true"></i>
+                            </span>
+                            <span class="nav-label">Internal</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="design-phase-nav-content @(SelectedComponent == "materials" ? "active" : "")">
+                            <span class="fa-stack fa-2x mx-auto" @onclick="@(() => SetSelectedComponent("materials"))">
+                                <i class="fa fa-circle fa-stack-2x fa-5x" aria-hidden="true"></i>
+                                <i class="fa icon-materials-sm d-block fa-stack-1x" aria-hidden="true"></i>
+                            </span>
+                            <span class="nav-label">Materials</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="design-phase-nav-content @(SelectedComponent == "designdraft" ? "active" : "")">
+                            <span class="fa-stack fa-2x mx-auto" @onclick="@(() => SetSelectedComponent("designdraft"))">
+                                <i class="fa fa-circle fa-stack-2x fa-5x" aria-hidden="true"></i>
+                                <i class="fa icon-materials-sm d-block fa-stack-1x" aria-hidden="true"></i>
+                            </span>
+                            <span class="nav-label">Design Draft</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="design-phase-nav-content @(SelectedComponent == "virtualfitting" ? "active" : "")">
+                            <span class="fa-stack fa-2x mx-auto" @onclick="@(() => SetSelectedComponent("virtualfitting"))">
+                                <i class="fa fa-circle fa-stack-2x fa-5x" aria-hidden="true"></i>
+                                <i class="fa icon-materials-sm d-block fa-stack-1x" aria-hidden="true"></i>
+                            </span>
+                            <span class="nav-label">Virtual Fitting</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="design-phase-nav-content @(SelectedComponent == "fullcollectionoverview" ? "active" : "")">
+                            <span class="fa-stack fa-2x mx-auto" @onclick="@(() => SetSelectedComponent("fullcollectionoverview"))">
+                                <i class="fa fa-circle fa-stack-2x fa-5x" aria-hidden="true"></i>
+                                <i class="fa icon-materials-sm d-block fa-stack-1x" aria-hidden="true"></i>
+                            </span>
+                            <span class="nav-label">Full Collection Overview</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-lg-4 mt-4 your-design-col">
+                <div class="your-design-section-content">
+                    <span class="your-design-main-text">Jenna Compono</span>
+                    @* <span>All of your inspiration and creations are here</span> *@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (SelectedComponent == "inspiration")
+{
+    <p>inspiration</p>
+    @* <Inspirations></Inspirations> *@
+}
+else if (SelectedComponent == "materials")
+{
+    <Materials></Materials>
+}
+else if (SelectedComponent == "designdraft")
+{
+    <DesignDraft></DesignDraft>
+}
+else if (SelectedComponent == "virtualfitting")
+{
+    <DesignDraft></DesignDraft>
+}
+else if (SelectedComponent == "fullcollectionoverview")
+{
+     <p>fullcollectionoverview</p>
+    @* <Materials></Materials> *@
+}

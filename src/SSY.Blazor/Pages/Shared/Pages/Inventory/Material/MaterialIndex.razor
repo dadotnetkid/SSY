@@ -1,0 +1,26 @@
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <BannerLayoutSSY></BannerLayoutSSY>
+    </CascadingValue>
+</CascadingValue>
+<div class="bg-white">
+        <InventoryNavsLayout />
+</div>
+
+<div class="row">
+    <div class="col-md-12 pt-3">
+        <div class="border rounded-lg shadow-sm bg-white mt-5 pt-5">
+            <GraphV2 CategoryId="@CategoryId" Module="@Module" />
+        </div>
+    </div>
+</div>
+
+
+<CascadingValue Value="@GreigeListTable" Name="GreigeListTable">
+    <InventoryTable Module="@Module" CategoryId="@CategoryId" />
+</CascadingValue>
+
+
+
+@* <TimelineAndComments></TimelineAndComments> *@
+

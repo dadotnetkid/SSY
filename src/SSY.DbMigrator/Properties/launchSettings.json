@@ -1,0 +1,17 @@
+{
+  "profiles": {
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    },
+    "SSY.DbMigrator.Developer": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Developer"
+      }
+    },
+    "SSY.DbMigrator.Prod": {
+      "commandName": "Project"
+    }
+  }
+}

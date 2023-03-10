@@ -1,0 +1,20 @@
+.bar-graph-horizontal-label{
+	font-size: 16px;
+}
+.bar-graph-horizontal{
+
+	height: 5px;
+}
+.container-grap {
+    direction: ltr;
+    overflow: hidden;
+    pointer-events: none;
+}
+.percentage-with-graph {
+    display: flex;
+    font-size: 14px;
+}
+span.percentage {
+    font-size: 13px;
+    margin-top: -9px;
+}

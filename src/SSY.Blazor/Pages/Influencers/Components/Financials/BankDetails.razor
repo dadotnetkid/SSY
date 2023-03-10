@@ -1,0 +1,120 @@
+@using SSY.Enums
+<EditForm Model="MainPage.BankDetail">
+    <div class="border rounded-lg p-4 roll_loc shadow-sm bg-white bank-details">
+        <div class="inline__flex filter">
+            <div class="d-flex justify-content-between ">
+                <h3 class="header-text">Paypal Id</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+                <div class="border rounded-sm text-dark pl-3 pr-3 col-4">
+                    <!--!-->
+                    <h5 class="mt-2 text-muted input-text">Paypal Email Address</h5>
+                    <p class="text-muted input-field-text" contenteditable="false">
+                        @if (MainPage.BankDetail.EditDetail)
+                        {
+                            <InputText @bind-Value="@MainPage.BankDetail.EmailAddress" placeholder="Enter Email Address" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" />
+                        }
+                        else
+                        {
+                            @MainPage.BankDetail.EmailAddress
+                        }
+
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <a class="btn btn-hexcolor no-underline col-sm-2 mt-2" @onclick="EnableEdit"> @(MainPage.BankDetail.EditDetail ? "Save" : "Edit Details")</a>
+            </div>
+
+        </div>
+    </div>
+</EditForm>
+@foreach (var i in MainPage.RevenueShares)
+{
+    <div class="border rounded-lg p-4 roll_loc shadow-sm bg-white bank-details mt-3">
+        <div class="inline__flex filter row">
+            <div class="d-flex justify-content-between col-12">
+                <h3 class="header-text">@(i.RevenueShareType == RevenueShareType.Agent ? "Agent's" : "Your") Revenue Share</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2 col-md-12 col-sm-12 mt-3">
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+                    <!--!-->
+                    <h5 class="mt-2 text-muted input-text">From</h5>
+                    <p class="text-muted input-field-text" contenteditable="false">
+                        @if (i.IsEdit)
+                        {
+                            <input type="number" @bind="@i.From" placeholder="$" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" />
+                        }
+                        else
+                        {
+                            @($"$ {i.From}")
+                        }
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-12 col-sm-12 mt-3">
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+                    <!--!-->
+                    <h5 class="mt-2 text-muted input-text">To</h5>
+                    <p class="text-muted input-field-text" contenteditable="false">
+                        @if (i.IsEdit)
+                        {
+                            <input type="number" @bind="@i.To" placeholder="$" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" />
+                        }
+                        else
+                        {
+                            @($"$ {i.Percentage}")
+                        }
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-12 col-sm-12 mt-3">
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+                    <!--!-->
+                    <h5 class="mt-2 text-muted input-text">%</h5>
+                    <p class="text-muted input-field-text" contenteditable="false">
+                        @if (i.IsEdit)
+                        {
+                            <input type="number" @bind="@i.Percentage" placeholder="%" class="mb-0 col-12 form-control-sm bg-white inputfield materialButton" />
+                        }
+                        else
+                        {
+                            @($"% {i.Percentage}")
+                        }
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+        <div class=" row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3 class="header-text">SSY Note</h3>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+                    <!--!-->
+                    <h5 class="mt-2 text-muted input-text">SSY Note</h5>
+                    <p class="text-muted input-field-text" contenteditable="false">
+                        @if (i.IsEdit)
+                        {
+                            <textarea @bind="i.Note" class="form-control" rows="5"></textarea>
+                        }
+                        else
+                        {
+                            @($"{i.Note}")
+                        }
+            
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <a class="btn btn-hexcolor no-underline col-sm-3 mt-2" @onclick="@(()=>EnableEditRevenueShare(i))"> @(i.IsEdit ? "Save" : "Edit Details")</a>
+            </div>
+        </div>
+    </div>
+}

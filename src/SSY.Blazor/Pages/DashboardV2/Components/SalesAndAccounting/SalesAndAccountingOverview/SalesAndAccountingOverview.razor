@@ -1,0 +1,141 @@
+
+
+@using Blazorise.Charts
+<div class="border rounded-lg p-4 shadow-sm bg-white">
+        @* <div class="d-flex justify-content-between " data-target="#assignedTo" data-toggle="collapse">
+            <div class="col-md-11">
+                <h3 class="header-text">Assigned To</h3>
+            </div>
+            <div class="col-md-1">
+                <i class="fa fa-light fa-chevron-down pull-right accordion-dropdown-icon"></i>
+            </div>
+        </div> *@
+
+
+<div class="custom__overideWTH collapse show" id="assignedTo">
+ 
+          <div class="row overview-dashboard">
+                <div class="col-md-2">
+                    <p class="title-uppercase">Orders</p>
+                    <p class="sub-title">7782</p>
+                    <div class="icons">X </div>
+                </div>
+                <div class="col-md-2">
+                    <p class="title-uppercase">Items</p>
+                    <p class="sub-title">22728</p>
+                    <div class="icons">X </div>
+                </div>
+                <div class="col-md-2">
+                    <p class="title-uppercase">Total Sales</p>
+                    <p class="sub-title">$958,781</p>
+                    <div class="icons">X </div>
+                </div>
+                <div class="col-md-2">
+                    <p class="title-uppercase">Shipping Premium</p>
+                    <p class="sub-title">$228,781</p>
+                    <div class="icons">X </div>
+                </div>
+                <div class="col-md-2">
+                    <p class="title-uppercase">Net Sales</p>
+                    <p class="sub-title">$228,781</p>
+                    <div class="icons">X </div>
+                </div>
+                <div class="col-md-2">
+                    <p class="title-uppercase">Average Net Price</p>
+                    <p class="sub-title">$228,781</p>
+                    <div class="icons">X </div>
+                </div>
+           </div>
+           <div class="row mt-5">
+                <div class="col-md-5">
+                    <p class="font-weight-bold">Quantity Over Time</p>
+                    <div class="border rounded-lg p-4 shadow-sm bg-white">
+                        <div class="chartjs-size-monitor">
+                            <LineChart @ref="lineChart" TItem="double" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                     <p class="font-weight-bold">Sales In $ Over Time</p>
+                    <div class="border rounded-lg p-4 shadow-sm bg-white">
+                        <div class="chartjs-size-monitor2">
+                            <LineChart @ref="lineChart2" TItem="double" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <p class="font-weight-bold">Sales By Country</p>
+                    <div class="border rounded-lg p-2 shadow-sm bg-white">
+                        <p>Country</p>
+                        <HorizontalBarChart DataPoints="@DataPoints" />
+                    </div>
+                </div>
+           </div>
+        </div>
+
+    </div>
+
+    @code
+    {
+         private List<HorizontalBarChart.DataPoint> DataPoints = new List<HorizontalBarChart.DataPoint>()
+        {
+            new HorizontalBarChart.DataPoint { Label = "United States", Value = 70, Color = "#7B8E61" },
+            new HorizontalBarChart.DataPoint { Label = "Canada", Value = 20, Color = "#7B8E61" },
+            new HorizontalBarChart.DataPoint { Label = "Australia", Value = 16, Color = "#7B8E61" },
+            new HorizontalBarChart.DataPoint { Label = "United Kingdom", Value = 16, Color = "#7B8E61" },
+            new HorizontalBarChart.DataPoint { Label = "Germany", Value = 5, Color = "#7B8E61" },
+            new HorizontalBarChart.DataPoint { Label = "New Zealand", Value = 3, Color = "#7B8E61" },
+            new HorizontalBarChart.DataPoint { Label = "Philippines", Value = 2, Color = "#7B8E61" },
+        };
+    
+    LineChart<double> lineChart;
+    LineChart<double> lineChart2;
+    
+   
+    protected override async Task OnAfterRenderAsync( bool firstRender )
+    {
+        if ( firstRender )
+        {
+            await HandleRedraw();
+        }
+    }
+
+    async Task HandleRedraw()
+    {
+        await lineChart.Clear();
+
+        await lineChart.AddLabelsDatasetsAndUpdate( Labels, GetLineChartDataset() );
+        await lineChart2.AddLabelsDatasetsAndUpdate( Labels, GetLineChartDataset() );
+    }
+
+    LineChartDataset<double> GetLineChartDataset()
+    {
+        return new LineChartDataset<double>
+        {
+            Label = "# of randoms",
+            Data = RandomizeData(),
+            BackgroundColor = "#ffffff00",
+            BorderColor = "#7B8E61",
+            Fill = true,
+            PointRadius = 3,
+            CubicInterpolationMode = "monotone",
+        };
+    }
+
+    string[] Labels = { "Red", "Blue", "Yellow", "Green", "Purple", "Orange" };
+    List<string> backgroundColors = new List<string> { ChartColor.FromRgba( 255, 99, 132, 0.2f ), ChartColor.FromRgba( 54, 162, 235, 0.2f ), ChartColor.FromRgba( 255, 206, 86, 0.2f ), ChartColor.FromRgba( 75, 192, 192, 0.2f ), ChartColor.FromRgba( 153, 102, 255, 0.2f ), ChartColor.FromRgba( 255, 159, 64, 0.2f ) };
+    List<string> borderColors = new List<string> { ChartColor.FromRgba( 255, 99, 132, 1f ), ChartColor.FromRgba( 54, 162, 235, 1f ), ChartColor.FromRgba( 255, 206, 86, 1f ), ChartColor.FromRgba( 75, 192, 192, 1f ), ChartColor.FromRgba( 153, 102, 255, 1f ), ChartColor.FromRgba( 255, 159, 64, 1f ) };
+
+    List<double> RandomizeData()
+    {
+        var r = new Random( DateTime.Now.Millisecond );
+
+        return new List<double> { 
+            r.Next( 3, 50 ) * r.NextDouble(),
+            r.Next( 3, 50 ) * r.NextDouble(),
+            r.Next( 3, 50 ) * r.NextDouble(),
+            r.Next( 3, 50 ) * r.NextDouble(),
+            r.Next( 3, 50 ) * r.NextDouble(),
+            r.Next( 3, 50 ) * r.NextDouble() };
+    }
+}

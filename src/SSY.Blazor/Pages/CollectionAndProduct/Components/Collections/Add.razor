@@ -1,0 +1,297 @@
+@page "/collectionandproduct/collections/add"
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <BannerLayoutSSY></BannerLayoutSSY>
+    </CascadingValue>
+</CascadingValue>
+@if (IsLoading == true)
+{
+    <div class="border rounded-lg p-4 shadow-sm bg-white">
+        <LoadingSpinner></LoadingSpinner>
+    </div>
+}
+else
+{
+    <EditForm Model="CollectionModel">
+        <DataAnnotationsValidator />
+        <div class="border rounded-lg p-4 shadow-sm bg-white">
+            <div class="row custom__overideWTH">
+                <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border bg-light text-dark pl-1 pr-1 bg-white fieldBody">
+                        <div class="row fieldheader">
+                            <h3 class="mt-2 text-muted input-text">Influencer/s *</h3>
+                        </div>
+                        <div class="row fieldcontent pl-3 pr-3 ml-1 mr-0 dropdown">
+                            <button type="button" id="influencerButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn mb-2 form-control-sm bg-white inputfield influencerDropdown">
+                                @CollectionModel.Influencers
+                                <i class="fa fa-chevron-down fabric-dropdown-icon pull-right caretStyle"></i>
+                            </button>
+                            <div id="influencers" aria-labelledby="influencerButton" class="dropdown-menu @collapseInfluencers influencersList">
+                                @foreach (var item in InfluencerListModel.Where(x => x.RoleNames.Contains("INFLUENCER") && x.Status.Equals(7)).OrderBy(x => x.FullName).DistinctBy(x => x.FullName))
+                                {
+                                    <div class="dropdown-item pl-5">
+                                        <div class="form-check checkbox__producttype custom-control custom-checkbox m-0 p-0">
+                                            <input class="form-check-input custom-control-input" type="checkbox" id="@item.Id" name="@item.FullName"
+                                                   value="@OverviewModel.Influencers" @onchange='@(e => onChangeInfluencerHandler(item.Name, item, (bool)e.Value))'>
+                                            <label class="form-check-label custom-control-label" for="@item.Id">@item.FullName</label>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border bg-light text-dark pl-1 pr-1 bg-white fieldBody">
+                        <div class="row fieldheader">
+                            <h3 class="mt-2 text-muted input-text">Season *</h3>
+                        </div>
+                        <div class="row fieldcontent pl-3 pr-3 ml-1 mr-0">
+                            <select @oninput="@(e => onChangeSeason(e.Value.ToString()))" class="form-control mb-2 form-control-sm border-0 season" id="city">
+                                <option selected disabled value="0">Select Season</option>
+                                @foreach (var item in SeasonListModel.OrderBy(x => x.OrderNumber))
+                                {
+                                    <option value="@item.Id">@item.Value (@item.Label)</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border bg-light text-dark pl-1 pr-1 bg-white fieldBody">
+                        <div class="row fieldheader">
+                            <h3 class="mt-2 text-muted input-text">Year *</h3>
+                        </div>
+                        <div class="row fieldcontent pl-3 pr-3 ml-1 mr-0">
+                            <select @oninput="@(e => onChangeYear(e.Value.ToString()))" class="form-control m-0 p-1 mb-2 form-control-sm border-0 pricePoint" id="city">
+                                <option selected disabled value="0">Select Year</option>
+                                @foreach (var item in YearList)
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border bg-light text-dark pl-1 pr-1 bg-white fieldBody">
+                        <div class="row fieldheader">
+                            <h3 class="mt-2 text-muted input-text">Collection Name *</h3>
+                        </div>
+                        <div class="row fieldcontent pl-3 pr-3 ml-1 mr-0">
+                            <InputText @bind-Value="CollectionModel.Name" class="form-control mb-2 form-control-sm bg-white inputfield  border-0 collectionName" contentEditable="false" placeholder="Collection Name">
+                            </InputText>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border bg-light text-dark pl-1 pr-1 bg-white fieldBody">
+                        <div class="row fieldheader">
+                            <h3 class="mt-2 text-muted input-text">Status *</h3>
+                        </div>
+                        <div class="row fieldcontent pl-3 pr-3 ml-1 mr-0">
+                            <InputSelect @bind-Value="CollectionModel.StatusId" class="form-control mb-2 form-control-sm border-0 pricePoint" id="city">
+                                <option selected disabled value="0">Select Status</option>
+                                @foreach (var item in StatusListModel.OrderBy(x => x.OrderNumber))
+                                {
+                                    <option value="@item.Id">@item.Value</option>
+                                }
+                            </InputSelect>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border bg-light text-dark pl-1 pr-1 bg-white fieldBody">
+                        <div class="row fieldheader">
+                            <h3 class="mt-2 text-muted input-text">Price Point</h3>
+                        </div>
+                        <div class="row fieldcontent pl-3 pr-3 ml-1 mr-0">
+                            <InputSelect @bind-Value="CollectionModel.PricePointId" class="form-control mb-2 form-control-sm border-0 pricePoint" id="city">
+                                <option selected disabled value="0">Select Price Point</option>
+                                @foreach (var item in PricePointListModel.OrderBy(x => x.OrderNumber))
+                                {
+                                    <option value="@item.Id">@item.Value</option>
+                                }
+                            </InputSelect>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border bg-light text-dark pl-1 pr-1 bg-white fieldBody">
+                        <div class="row fieldheader">
+                            <h3 class="mt-2 text-muted input-text">OEM *</h3>
+                        </div>
+                        <div class="row fieldcontent pl-3 pr-3 ml-1 mr-0">
+                            <select @oninput="@(e => onChangeFactory(e.Value.ToString()))" class="form-control mb-2 form-control-sm border-0 factory" id="city">
+                                <option selected disabled value="0">Select OEM</option>
+                                @foreach (var item in FactoryListModel.OrderBy(x => x.OrderNumber))
+                                {
+                                    <option value="@item.Id">@item.Value</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border bg-light text-dark pl-1 pr-1 bg-white fieldBody">
+                        <div class="row fieldheader">
+                            <h3 class="mt-2 text-muted input-text">Shipping Type *</h3>
+                        </div>
+                        <div class="row fieldcontent pl-3 pr-3 ml-1 mr-0">
+                            <InputSelect @bind-Value="CollectionModel.ShippingTypeId" class="form-control mb-2 form-control-sm border-0 factory" id="city">
+                                <option selected disabled value="0">Select Shipping Type</option>
+                                @foreach (var item in ShippingTypeListModel.OrderBy(x => x.OrderNumber))
+                                {
+                                    <option value="@item.Id">@item.Label</option>
+                                }
+                            </InputSelect>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border bg-light text-dark pl-1 pr-1 bg-white fieldBody">
+                        <div class="row fieldheader">
+                            <h3 class="mt-2 text-muted input-text">Marketing Type *</h3>
+                        </div>
+                        <div class="row fieldcontent pl-3 pr-3 ml-1 mr-0">
+                            <InputSelect @bind-Value="CollectionModel.MarketingTypeId" class="form-control mb-2 form-control-sm border-0 factory" id="city">
+                                <option disabled value="0">Select Marketing Type</option>
+                                @foreach (var item in MarketingTypeListModel.OrderBy(x => x.OrderNumber))
+                                {
+                                    <option value="@item.Id">@item.Value </option>
+                                }
+                            </InputSelect>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border bg-light text-dark pl-1 pr-1 bg-white fieldBody">
+                        <div class="row fieldheader">
+                            <h3 class="mt-2 text-muted input-text">Material Type *</h3>
+                        </div>
+                        <div class="row fieldcontent pl-3 pr-3 ml-1 mr-0 dropdown">
+
+                            @if (showMaterialType == "show")
+                            {
+                                <button id="influencerButton" type="button" class="btn mb-2 form-control-sm bg-white inputfield influencerDropdown" data-toggle="modal" data-target="#materialType">
+                                    @selectedMaterialType
+                                    <i class="fa fa-chevron-down fabric-dropdown-icon pull-right caretStyle"></i>
+                                </button>
+                            }
+                            else
+                            {
+                                <button id="influencerButton" type="button" class="btn mb-2 form-control-sm bg-white inputfield influencerDropdown" data-toggle="modal" data-target="#materialType" disabled>
+                                    @selectedMaterialType
+                                    <div class="tooltip-wrapper">
+                                        <span class="tool-tip-message">Please select factory before proceeding.</span>
+                                        <i class="fa fa-exclamation-triangle fabric-dropdown-icon pull-right caretStyle"></i>
+                                    </div>
+                                </button>
+                            }
+
+
+
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="materialType" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h6 class="modal-title" id="exampleModalLabel">Material Type</h6>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body modal-material">
+                                        @foreach (var item in MaterialTypeListModel.OrderBy(x => x.Label).Where(x => x.IsActive == true))
+                                        {
+                                            @if (!item.Value.Contains("Rib"))
+                                            {
+                                                var selectedProductTypeNames = "Select Product Types";
+                                                var selectedProductType = @CollectionModel.MaterialProductTypeList.Find(x => x.MaterialTypeId == item.Id);
+                                                if (selectedProductType != null)
+                                                    selectedProductTypeNames = selectedProductType.selectedProductTypeNames.ToString();
+                                                else
+                                                    selectedProductTypeNames = "Select Product Types";
+                                                <div class="row border-bottom p-2 m-0">
+                                                    <div class="col-md-4">
+                                                        <div class="form-check checkbox__producttype custom-control custom-checkbox">
+                                                            <input class="form-check-input custom-control-input" type="checkbox" id="@item.Id" name="@item.Value"
+                                                                   value="@item.Id" checked="@(MaterialTypeIds.Contains(item.Id)==true)" @onchange='@(e => onChangeMaterialTypeHandler(item.Id, item, (bool)e.Value))'>
+                                                            <label class="form-check-label custom-control-label" for="@item.Id">@item.Value</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="border bg-light text-dark mt-3 pl-3 pr-3 bg-white fieldBody">
+                                                            <div class="row fieldheader">
+                                                                <h3 class="mt-2 text-muted input-text">Product Type</h3>
+                                                            </div>
+                                                            <div class="row fieldcontent ml-1 mr-0 dropdown">
+                                                                <button type="button" id="influencerButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn mb-2 col-md-12 form-control-sm bg-white inputfield productType">
+                                                                    @selectedProductTypeNames
+                                                                    <i class="fa fa-chevron-down fabric-dropdown-icon pl-3 ml-3 pt-2 pull-right col-md-1 caretStyle"></i>
+                                                                </button>
+                                                                <div id="productTypes" aria-labelledby="influencerButton" class="dropdown-menu @item.Id">
+                                                                    @if (MaterialTypeIds.Contains(item.Id))
+                                                                    {
+
+                                                                        @foreach (var productType in ProductTypeListModel.Items)
+                                                                        {
+                                                                            @if (productType.MaterialTypeId == item.Id)
+                                                                            {
+                                                                                var prod = ProductTypeListModel.Items.FindAll(x => CollectionModel.MaterialProductTypeList.Any(m => m.ProductTypes.Any(p => p.Id == x.Id && p.MaterialTypeId == item.Id)));
+                                                                                <div class="dropdown-item pl-5">
+                                                                                    <div class="form-check checkbox__producttype custom-control custom-checkbox m-0 p-0">
+                                                                                        <input class="form-check-input custom-control-input" checked="@(prod.Contains(productType) == true)" type="checkbox" id="@productType.Id" name="@productType.Value" @onchange='@(e => onChangeProductTypeHandler(productType, item, (bool)e.Value))'>
+                                                                                        <label class="form-check-label custom-control-label" for="@productType.Id">@productType.Value</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="col-md-12 m-0 p-0 text-center no-product-type">
+                                                                            <p class="text-center m-0 p-0">Please select material type</p>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-lg  buttons__class" @onclick="ClearAll">Clear All</button>
+                                        <button type="button" data-dismiss="modal" id="applyButton" class=" btn btn-lg btn-success buttons__class" @onclick="Apply">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <DesignBriefs @ref="designBriefRef"></DesignBriefs>
+        <CollectionColorOption AdditionRequests="AdditionRequests" CollectionModel="CollectionModel" OverviewModel="OverviewModel" IsEditable="IsEditable" IsModuleAdd="IsModuleAdd" ColorList="ColorList" ProductTypeListModel="ProductTypeListModel" ProductListModel="ProductsListModel" MaterialListModel="MaterialModel" TypeListModel="MaterialTypeListModel" AdditionRequestTypeListModel="AdditionRequestTypeListModel" MaterialCategoryListModel="MaterialCategoryListModel"></CollectionColorOption>
+    </EditForm>
+    <div class="footer__button">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 mt-3">
+                <div class="background">
+                    <div class="buttons">
+                        <button class="btn btn-lg btn-danger buttons__class" @onclick="@(e => OnDiscard())">Discard</button>
+                        <button class="btn btn-lg btn-success buttons__class" @onclick="@(e => OnSubmitHandler())">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <Modal @ref="ModalSaving">
+        <ModalSavingSpinner></ModalSavingSpinner>
+    </Modal>
+}

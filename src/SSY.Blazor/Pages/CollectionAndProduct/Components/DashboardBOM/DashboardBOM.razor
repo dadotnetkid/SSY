@@ -1,0 +1,273 @@
+<div class="border rounded-lg pt-4 pb-4 shadow-sm bg-white">
+    <div class="d-flex justify-content-between pl-3 pr-3" data-target="#collectionProgress" data-toggle="collapse">
+                        <div class="col-md-8">
+                            <h3 class="header-text pl-4">BOM Summary & Reservation</h3>
+                        </div>
+
+                        <div class="col-md-4">
+                            <i class="fa fa-light fa-chevron-down pull-right for-dropdown"></i>
+                        </div>
+
+                    </div>
+    <div class="collapse show mt-3" id="collectionProgress">
+        @* <div class="d-flex justify-content-between background__rool">
+            <h5 class="brown__background">Fabric & Greige</h5>
+            </div>
+            <div class="container roll__loc">
+            <div class="row">
+            <div class="table-responsive">
+            <table class="table">
+            <thead>
+            <tr>
+            <th scope="col">Thumbnail</th>
+            <th scope="col">Item Code</th>
+            <th scope="col">Color Code</th>
+            <th scope="col">Color Name</th>
+            <th scope="col">Allocated Amount</th>
+            <th scope="col">Remaining Allocated After Sold</th>
+            <th scope="col">Unallocated Amount</th>
+            <th scope="col">Unit of Measurements</th>
+            <th scope="col">Consumption</th>
+            <th scope="col">Max Qty Using Allocated + Unallocated</th>
+            <th scope="col">Max Qty Using Allocated</th>
+            <th scope="col">Used in Product/s</th>
+            <th scope="col">Moved to Reservation Area</th>
+            <th scope="col">Moved By</th>
+            <th scope="col">Moved Date</th>
+            <th scope="col">Current Location</th>
+            <th scope="col">Excess Amount</th>
+            <th scope="col">Excess Returned</th>
+            <th scope="col">Moved By</th>
+            <th scope="col">Moved Date</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach (var item in CollectionModel.ColorSelectionList.Where(x => x.IsApproved == true).DistinctBy(x => x.Id))
+            {
+            <tr>
+            @if (item.BOMMaterial.Thumbnail == null || item.BOMMaterial.Thumbnail == string.Empty)
+            {
+            <td>
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#@ColorList.Result.Items.Find(x => x.Id ==
+            item.ColorId).HexCode"
+            class="bi bi-square-fill" viewBox="0 0 16 16">
+            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+            </svg>
+            </td>
+            }
+            else
+            {
+            <td><img src="@item.BOMMaterial.Thumbnail" width="50" height="50" onerror="this.onerror = null;
+            this.src='/img/No-Image-Placeholder.svg.png'" /></td>
+            }
+            <td>@item.BOMMaterial.ItemCode</td>
+            <td>@item.BOMMaterial.ColorCode</td>
+            <td>@item.BOMMaterial.ColorName</td>
+            <td>@item.BOMMaterial.AllocatedAmount</td>
+            <td>@item.BOMMaterial.RemainingAllocatedAfterSold</td>
+            <td>@item.BOMMaterial.UnallocatedAmount</td>
+            <td>@item.BOMMaterial.UnitOfMeasurement</td>
+            <td>@item.BOMMaterial.Consumption</td>
+            <td>@item.BOMMaterial.MaxQuantityUsingAllocatedAndUnallocated</td>
+            <td>@item.BOMMaterial.MaxQuantityUsingAllocated</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            </tr>
+            }
+
+            </tbody>
+            </table>
+            </div>
+            </div>
+            </div> *@
+
+        @* <div class="d-flex justify-content-between background__rool">
+            <h5 class="brown__background">Trims and Accessories</h5>
+            </div>
+            <div class="container roll__loc">
+            <div class="row">
+            <div class="table-responsive">
+            <table class="table">
+            <thead>
+            <tr>
+            <th scope="col">Thumbnail</th>
+            <th scope="col">Item Code</th>
+            <th scope="col">Color Code</th>
+            <th scope="col">Color Name</th>
+            <th scope="col">Total Reserved Amount</th>
+            <th scope="col">Unit of Measurements</th>
+            <th scope="col">Reserved for this Collection</th>
+            <th scope="col">Used Collections</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#7B8E61"
+            class="bi bi-square-fill" viewBox="0 0 16 16">
+            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+            </svg>
+            </td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            </tr>
+            </tbody>
+            </table>
+            </div>
+            </div>
+            </div> *@
+
+        @* <div class="d-flex justify-content-between background__rool">
+            <h5 class="brown__background">Packaging</h5>
+            </div>
+            <div class="container roll__loc">
+            <div class="row">
+            <div class="table-responsive">
+            <table class="table">
+            <thead>
+            <tr>
+            <th scope="col">Thumbnail</th>
+            <th scope="col">Item Code</th>
+            <th scope="col">Color Code</th>
+            <th scope="col">Color Name</th>
+            <th scope="col">Total Reserved Amount</th>
+            <th scope="col">Unit of Measurements</th>
+            <th scope="col">Reserved for this Collection</th>
+            <th scope="col">Used Collections</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#7B8E61"
+            class="bi bi-square-fill" viewBox="0 0 16 16">
+            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+            </svg>
+            </td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            </tr>
+            </tbody>
+            </table>
+            </div>
+            </div>
+            </div> *@
+
+        <div class="table-responsive">
+            <table class="table summary-reservation">
+                <tr>
+                    <td class="tbl-fabric-greige" colspan="20">Fabric & Greige</td>
+                </tr>
+                 <tr>
+                    @*Fabric & Greige*@
+                    <td class="sub-header">Thumbnail</td>
+                    <td class="sub-header">Material Name</td>
+                    <td class="sub-header">Color Name</td>
+                    <td class="sub-header">Total Reserved Amount</td>
+                    <td class="sub-header">Available Unreserved Count</td>
+                    <td class="sub-header">Unit of Measurements</td>
+                    <td class="sub-header">Reserved for Collection</td>
+                    <td class="sub-header">Used in Collection/s</td>
+                </tr>
+
+                @* Note do the Foreach here *@
+
+                <tr>
+                    @* Fabric & Greige *@
+                    <td><img src="" /></td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="table-responsive">
+            <table class="table summary-reservation">
+                <tr>
+                    <td class="tbl-fabric-greige" colspan="8">Trims & Accessories</td>
+                </tr>
+                <tr>
+                    @*Trims & Accessories*@
+                    <td class="sub-header">Thumbnail</td>
+                    <td class="sub-header">Material Name</td>
+                    <td class="sub-header">Color Name</td>
+                    <td class="sub-header">Total Reserved Amount</td>
+                    <td class="sub-header">Available Unreserved Count</td>
+                    <td class="sub-header">Unit of Measurements</td>
+                    <td class="sub-header">Reserved for Collection</td>
+                    <td class="sub-header">Used in Collection/s</td>
+                </tr>
+
+                @* Note do the Foreach here *@
+
+                <tr>
+                    @* Trims & Accessories *@
+                    <td><img src="" /></td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table summary-reservation">
+                <tr>
+                    <td class="tbl-fabric-greige" colspan="8">Packaging</td>
+                </tr>
+                     <tr>
+                    @*Packaging*@
+                    <td class="sub-header">Thumbnail</td>
+                    <td class="sub-header">Material Name</td>
+                    <td class="sub-header">Color Name</td>
+                    <td class="sub-header">Total Reserved Amount</td>
+                    <td class="sub-header">Available Unreserved Count</td>
+                    <td class="sub-header">Unit of Measurements</td>
+                    <td class="sub-header">Reserved for Collection</td>
+                    <td class="sub-header">Used in Collection/s</td>
+                </tr>
+
+                @* Note do the Foreach here *@
+
+                <tr>
+                    @* Packaging *@
+                    <td><img src="" /></td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

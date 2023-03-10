@@ -1,0 +1,386 @@
+<div class="border rounded-lg pt-4 pb-4 shadow-sm bg-white">
+    <div class="d-flex justify-content-between " data-target="#collectionProgress" data-toggle="collapse">
+        <div class="col-md-11 m-0 p-0">
+            <h3 class="header-text ml-3 m-0 p-0 pr-4 pl-4">BOM Summary & Reservation</h3>
+        </div>
+        <div class="col-md-1">
+            <i class="fa fa-light fa-chevron-down accordion-dropdown-icon mr-4"></i>
+        </div>
+    </div>
+    <div class="collapse show mt-3" id="collectionProgress">
+        @* <div class="d-flex justify-content-between background__rool">
+            <h5 class="brown__background">Fabric & Greige</h5>
+            </div>
+            <div class="container roll__loc">
+            <div class="row">
+            <div class="table-responsive">
+            <table class="table">
+            <thead>
+            <tr>
+            <th scope="col">Thumbnail</th>
+            <th scope="col">Item Code</th>
+            <th scope="col">Color Code</th>
+            <th scope="col">Color Name</th>
+            <th scope="col">Allocated Amount</th>
+            <th scope="col">Remaining Allocated After Sold</th>
+            <th scope="col">Unallocated Amount</th>
+            <th scope="col">Unit of Measurements</th>
+            <th scope="col">Consumption</th>
+            <th scope="col">Max Qty Using Allocated + Unallocated</th>
+            <th scope="col">Max Qty Using Allocated</th>
+            <th scope="col">Used in Product/s</th>
+            <th scope="col">Moved to Reservation Area</th>
+            <th scope="col">Moved By</th>
+            <th scope="col">Moved Date</th>
+            <th scope="col">Current Location</th>
+            <th scope="col">Excess Amount</th>
+            <th scope="col">Excess Returned</th>
+            <th scope="col">Moved By</th>
+            <th scope="col">Moved Date</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach (var item in CollectionModel.ColorSelectionList.Where(x => x.IsApproved == true).DistinctBy(x => x.Id))
+            {
+            <tr>
+            @if (item.BOMMaterial.Thumbnail == null || item.BOMMaterial.Thumbnail == string.Empty)
+            {
+            <td>
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#@ColorList.Result.Items.Find(x => x.Id ==
+            item.ColorId).HexCode"
+            class="bi bi-square-fill" viewBox="0 0 16 16">
+            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+            </svg>
+            </td>
+            }
+            else
+            {
+            <td><img src="@item.BOMMaterial.Thumbnail" width="50" height="50" onerror="this.onerror = null;
+            this.src='/img/No-Image-Placeholder.svg.png'" /></td>
+            }
+            <td>@item.BOMMaterial.ItemCode</td>
+            <td>@item.BOMMaterial.ColorCode</td>
+            <td>@item.BOMMaterial.ColorName</td>
+            <td>@item.BOMMaterial.AllocatedAmount</td>
+            <td>@item.BOMMaterial.RemainingAllocatedAfterSold</td>
+            <td>@item.BOMMaterial.UnallocatedAmount</td>
+            <td>@item.BOMMaterial.UnitOfMeasurement</td>
+            <td>@item.BOMMaterial.Consumption</td>
+            <td>@item.BOMMaterial.MaxQuantityUsingAllocatedAndUnallocated</td>
+            <td>@item.BOMMaterial.MaxQuantityUsingAllocated</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            <td>No Available</td>
+            </tr>
+            }
+
+            </tbody>
+            </table>
+            </div>
+            </div>
+            </div> *@
+
+        @* <div class="d-flex justify-content-between background__rool">
+            <h5 class="brown__background">Trims and Accessories</h5>
+            </div>
+            <div class="container roll__loc">
+            <div class="row">
+            <div class="table-responsive">
+            <table class="table">
+            <thead>
+            <tr>
+            <th scope="col">Thumbnail</th>
+            <th scope="col">Item Code</th>
+            <th scope="col">Color Code</th>
+            <th scope="col">Color Name</th>
+            <th scope="col">Total Reserved Amount</th>
+            <th scope="col">Unit of Measurements</th>
+            <th scope="col">Reserved for this Collection</th>
+            <th scope="col">Used Collections</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#7B8E61"
+            class="bi bi-square-fill" viewBox="0 0 16 16">
+            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+            </svg>
+            </td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            </tr>
+            </tbody>
+            </table>
+            </div>
+            </div>
+            </div> *@
+
+        @* <div class="d-flex justify-content-between background__rool">
+            <h5 class="brown__background">Packaging</h5>
+            </div>
+            <div class="container roll__loc">
+            <div class="row">
+            <div class="table-responsive">
+            <table class="table">
+            <thead>
+            <tr>
+            <th scope="col">Thumbnail</th>
+            <th scope="col">Item Code</th>
+            <th scope="col">Color Code</th>
+            <th scope="col">Color Name</th>
+            <th scope="col">Total Reserved Amount</th>
+            <th scope="col">Unit of Measurements</th>
+            <th scope="col">Reserved for this Collection</th>
+            <th scope="col">Used Collections</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#7B8E61"
+            class="bi bi-square-fill" viewBox="0 0 16 16">
+            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+            </svg>
+            </td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            </tr>
+            </tbody>
+            </table>
+            </div>
+            </div>
+            </div> *@
+
+        <div class="table-responsive">
+            <table class="table summary-reservation">
+                <tr>
+                    <td class="tbl-fabric-greige" colspan="20">Fabric & Greige</td>
+                </tr>
+                <tr>
+                    <td class="tbl-reservation" colspan="12">Reservation</td>
+                    <td class="tbl-physical-location" colspan="4">Physical Location</td>
+                    <td class="tbl-excess-returned" colspan="4">Excess Returned</td>
+                </tr>
+                <tr>
+                    @* Fabric & Greige Header*@
+                    <td class="sub-header">Thumbnail</td>
+                    <td class="sub-header">Item Code</td>
+                    <td class="sub-header">Color Code</td>
+                    <td class="sub-header">Color Name</td>
+                    <td class="sub-header">Allocated Amount</td>
+                    <td class="sub-header">Remaining Allocated - After Sold</td>
+                    <td class="sub-header">Unallocated Amount</td>
+                    <td class="sub-header">Unit of Measurements</td>
+                    <td class="sub-header">Consumption</td>
+                    <td class="sub-header">Max QTY - Using Allocated + Unallocated</td>
+                    <td class="sub-header">Max QTY - Using Allocated</td>
+                    <td class="sub-header">Used in Product/s</td>
+                    @* Physical Location Header*@
+                    <td class="sub-header physical-location-sub">Moved to Reservation area</td>
+                    <td class="sub-header physical-location-sub">Moved by</td>
+                    <td class="sub-header physical-location-sub">Move Date</td>
+                    <td class="sub-header physical-location-sub">Current Location</td>
+                    @* Excess Returned Header*@
+                    <td class="sub-header excess-returned">Excess Amount</td>
+                    <td class="sub-header excess-returned">Excess Returned</td>
+                    <td class="sub-header excess-returned">Moved By</td>
+                    <td class="sub-header excess-returned">Move Date</td>
+                </tr>
+                @* Note do the Foreach here *@
+
+                @foreach (var colorSelection in CollectionModel.ColorSelectionList.Where(x => x.IsApproved == true).DistinctBy(x => x.Id))
+                {
+                    @foreach (var item in colorSelection.BOMMaterial)
+                    {
+                        <tr>
+                            @* Fabric & Greige *@
+                            @if (item.Thumbnail == null || item.Thumbnail == string.Empty)
+                            {
+                                <td>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="@ColorList.Result.Items.Find(x => x.Id == item.ColorId).HexCode"
+                                         class="bi bi-square-fill" viewBox="0 0 16 16">
+                                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                    </svg>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <img src="@item.Thumbnail" width="50" height="50" onerror="this.onerror = null; this.src='/img/No-Image-Placeholder.svg.png'" />
+                                </td>
+                            }
+
+                            @*<td><img src="" /></td>*@
+                            <td>@item.ItemCode</td>
+                            <td>@item.ColorCode</td>
+                            <td>@item.ColorName</td>
+                            <td>@item.AllocatedAmount</td>
+                            <td>@item.RemainingAllocatedAfterSold</td>
+                            <td>@item.UnallocatedAmount</td>
+                            <td>@item.UnitOfMeasurement</td>
+                            <td>@item.Consumption</td>
+                            <td>@item.MaxQuantityUsingAllocatedAndUnallocated</td>
+                            <td>@item.MaxQuantityUsingAllocated</td>
+                            @* Physical Location *@
+                            <td>x</td>
+                            <td>x</td>
+                            <td>x</td>
+                            <td>x</td>
+                            @* Excess Returned *@
+                            <td>x</td>
+                            <td>x</td>
+                            <td>x</td>
+                            <td>x</td>
+                        </tr>
+                    }
+                }
+
+            </table>
+        </div>
+        <div class="table-responsive">
+            <table class="table summary-reservation">
+                <tr>
+                    <td class="tbl-fabric-greige" colspan="20">Trims & Accessories</td>
+                </tr>
+                <tr>
+                    <td class="tbl-reservation" colspan="11">Reservation</td>
+                    <td class="tbl-physical-location" colspan="4">Physical Location</td>
+                    <td class="tbl-excess-returned" colspan="4">Excess Returned</td>
+                </tr>
+                <tr>
+                    @*Trims & Accessories*@
+                    <td class="sub-header">Thumbnail</td>
+                    <td class="sub-header">Color Code</td>
+                    <td class="sub-header">Color Name</td>
+                    <td class="sub-header">Allocated Amount</td>
+                    <td class="sub-header">Remaining Allocated - After Sold</td>
+                    <td class="sub-header">Unallocated Amount</td>
+                    <td class="sub-header">Unit of Measurements</td>
+                    <td class="sub-header">Consumption</td>
+                    <td class="sub-header">Max QTY - Using Allocated + Unallocated</td>
+                    <td class="sub-header">Max QTY - Using Allocated</td>
+                    <td class="sub-header">Used in Product/s</td>
+                    @* Physical Location Header*@
+                    <td class="sub-header physical-location-sub">Moved to Reservation area</td>
+                    <td class="sub-header physical-location-sub">Moved by</td>
+                    <td class="sub-header physical-location-sub">Move Date</td>
+                    <td class="sub-header physical-location-sub">Current Location</td>
+                    @* Excess Returned Header*@
+                    <td class="sub-header excess-returned">Excess Amount</td>
+                    <td class="sub-header excess-returned">Excess Returned</td>
+                    <td class="sub-header excess-returned">Moved By</td>
+                    <td class="sub-header excess-returned">Move Date</td>
+                </tr>
+
+                @* Note do the Foreach here *@
+
+                <tr>
+                    @* Fabric & Greige *@
+                    <td><img src="" /></td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    @* Physical Location *@
+                    <td>x</td>
+                    <td>x</td>
+                    <td>x</td>
+                    <td>x</td>
+                    @* Excess Returned *@
+                    <td>x</td>
+                    <td>x</td>
+                    <td>x</td>
+                    <td>x</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table summary-reservation">
+                <tr>
+                    <td class="tbl-fabric-greige" colspan="20">Packaging</td>
+                </tr>
+                <tr>
+                    <td class="tbl-reservation" colspan="11">Reservation</td>
+                    <td class="tbl-physical-location" colspan="4">Physical Location</td>
+                    <td class="tbl-excess-returned" colspan="4">Excess Returned</td>
+                </tr>
+                <tr>
+                    @*Packaging*@
+                    <td class="sub-header">Thumbnail</td>
+                    <td class="sub-header">Color Code</td>
+                    <td class="sub-header">Color Name</td>
+                    <td class="sub-header">Allocated Amount</td>
+                    <td class="sub-header">Remaining Allocated - After Sold</td>
+                    <td class="sub-header">Unallocated Amount</td>
+                    <td class="sub-header">Unit of Measurements</td>
+                    <td class="sub-header">Consumption</td>
+                    <td class="sub-header">Max QTY - Using Allocated + Unallocated</td>
+                    <td class="sub-header">Max QTY - Using Allocated</td>
+                    <td class="sub-header">Used in Product/s</td>
+                    @* Physical Location Header*@
+                    <td class="sub-header physical-location-sub">Moved to Reservation area</td>
+                    <td class="sub-header physical-location-sub">Moved by</td>
+                    <td class="sub-header physical-location-sub">Move Date</td>
+                    <td class="sub-header physical-location-sub">Current Location</td>
+                    @* Excess Returned Header*@
+                    <td class="sub-header excess-returned">Excess Amount</td>
+                    <td class="sub-header excess-returned">Excess Returned</td>
+                    <td class="sub-header excess-returned">Moved By</td>
+                    <td class="sub-header excess-returned">Move Date</td>
+                </tr>
+
+                @* Note do the Foreach here *@
+
+                <tr>
+                    @* Packaging *@
+                    <td><img src="" /></td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    @* Physical Location *@
+                    <td>x</td>
+                    <td>x</td>
+                    <td>x</td>
+                    <td>x</td>
+                    @* Excess Returned *@
+                    <td>x</td>
+                    <td>x</td>
+                    <td>x</td>
+                    <td>x</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

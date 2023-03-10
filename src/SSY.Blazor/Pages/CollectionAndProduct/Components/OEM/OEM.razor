@@ -1,0 +1,40 @@
+           @page "/collectionandproduct/oem"       
+           <CascadingValue Value="@Module" Name="Module">
+                <BannerLayoutSSY></BannerLayoutSSY>
+            </CascadingValue>
+
+<div class="bg-white">
+        <ProductNavLayout />
+</div>      
+                   <div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+                    <Searchbox></Searchbox>
+                     <div class="pl-3 pr-3 table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="tb-header">ID</th>
+                                    <th class="tb-header">OEM</th>
+                                    <th class="tb-header">Location</th>
+                                    <th class="tb-header">Contact Person</th>
+                                    <th class="tb-header">Contact Number</th>
+                                    <th class="tb-header">Category</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in OEMListTable.OEMs)
+                                                {
+                                    <tr>
+                                        <td class="tb-td-text" onclick="location.href='@($"/collectionandproduct/OEM/Details'")">@item.OEMId</td>
+                                        <td class="tb-td-text" onclick="location.href='@($"/collectionandproduct/OEM/Details'")">@item.OEM</td>  
+                                        <td class="tb-td-text" onclick="location.href='@($"/collectionandproduct/OEM/Details'")">@item.Location</td>
+                                        <td class="tb-td-text" onclick="location.href='@($"/collectionandproduct/OEM/Details'")">@item.ContactPerson</td>
+                                        <td class="tb-td-text" onclick="location.href='@($"/collectionandproduct/OEM/Details'")">@item.ContactNumber</td>
+                                        <td class="tb-td-text" onclick="location.href='@($"/collectionandproduct/OEM/Details'")">@item.Category</td>
+                                    </tr>  
+                                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+
+             <TimelineAndComment PageName="@Module"></TimelineAndComment>

@@ -1,0 +1,347 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
+    <PreserveCompilationReferences>true</PreserveCompilationReferences>
+    <UserSecretsId>SSY-4681b4fd-151f-4221-84a4-929d86723e4c</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'SSY.Blazor.Dev' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'SSY.Blazor.Beta' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'SSY.Blazor.Developer' " />
+  <ItemGroup>
+    <PackageReference Include="Blazored.FluentValidation" Version="2.1.0" />
+    <PackageReference Include="Blazorise.Bootstrap" Version="1.2.1" />
+    <PackageReference Include="Blazorise.Bootstrap5" Version="1.2.1" />
+    <PackageReference Include="Blazorise.Charts" Version="1.2.1" />
+    <PackageReference Include="Blazorise.Components" Version="1.2.1" />
+    <PackageReference Include="Blazorise.DataGrid" Version="1.2.1" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.2.1" />
+    <PackageReference Include="Blazorise.RichTextEdit" Version="1.2.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+    <PackageReference Include="ChartJs.Blazor.Fork" Version="2.0.2" />
+    <PackageReference Include="NPOI" Version="2.5.6" />
+    <PackageReference Include="EPPlus" Version="6.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AspNetCore.Components.Server.LeptonXLiteTheme" Version="2.0.*" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite" Version="2.0.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SSY.Application\SSY.Application.csproj">
+      <Targets></Targets>
+      <OutputItemType></OutputItemType>
+      <ReferenceSourceTarget>ProjectReference</ReferenceSourceTarget>
+    </ProjectReference>
+    <ProjectReference Include="..\SSY.Blazor.HttpClients\SSY.Blazor.HttpClients.csproj">
+      <Targets></Targets>
+      <OutputItemType></OutputItemType>
+      <ReferenceSourceTarget>ProjectReference</ReferenceSourceTarget>
+    </ProjectReference>
+    <ProjectReference Include="..\SSY.Blazor.Shared.Components\SSY.Blazor.Shared.Components.csproj">
+      <Targets></Targets>
+      <OutputItemType></OutputItemType>
+      <ReferenceSourceTarget>ProjectReference</ReferenceSourceTarget>
+    </ProjectReference>
+    <ProjectReference Include="..\SSY.HttpApi\SSY.HttpApi.csproj">
+      <Targets></Targets>
+      <OutputItemType></OutputItemType>
+      <ReferenceSourceTarget>ProjectReference</ReferenceSourceTarget>
+    </ProjectReference>
+    <ProjectReference Include="..\SSY.EntityFrameworkCore\SSY.EntityFrameworkCore.csproj">
+      <Targets></Targets>
+      <OutputItemType></OutputItemType>
+      <ReferenceSourceTarget>ProjectReference</ReferenceSourceTarget>
+    </ProjectReference>
+    <PackageReference Include="Volo.Abp.Autofac" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.Swashbuckle" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.Account.Web.OpenIddict" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.Identity.Blazor.Server" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Blazor.Server" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Blazor.Server" Version="7.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Logs\**" />
+    <Compile Remove="Pages\Influencers\Components\AccountInfo\Details\Financials\**" />
+    <Compile Remove="Pages\Influencers\Components\AccountInfo\Details\Folders\**" />
+    <Compile Remove="Pages\Influencers\Shared\Influencer\Components\InfluencerStatus\**" />
+    <Compile Remove="Pages\Influencers\Shared\Influencer\Components\LaunchList\**" />
+    <Compile Remove="Pages\Influencers\Shared\Influencer\Components\Planning\**" />
+    <Compile Remove="Pages\Influencers\Shared\Influencer\Components\UpcomingLaunches\**" />
+    <Content Remove="Logs\**" />
+    <Content Remove="Pages\Influencers\Components\AccountInfo\Details\Financials\**" />
+    <Content Remove="Pages\Influencers\Components\AccountInfo\Details\Folders\**" />
+    <Content Remove="Pages\Influencers\Shared\Influencer\Components\InfluencerStatus\**" />
+    <Content Remove="Pages\Influencers\Shared\Influencer\Components\LaunchList\**" />
+    <Content Remove="Pages\Influencers\Shared\Influencer\Components\Planning\**" />
+    <Content Remove="Pages\Influencers\Shared\Influencer\Components\UpcomingLaunches\**" />
+    <EmbeddedResource Remove="Logs\**" />
+    <EmbeddedResource Remove="Pages\Influencers\Components\AccountInfo\Details\Financials\**" />
+    <EmbeddedResource Remove="Pages\Influencers\Components\AccountInfo\Details\Folders\**" />
+    <EmbeddedResource Remove="Pages\Influencers\Shared\Influencer\Components\InfluencerStatus\**" />
+    <EmbeddedResource Remove="Pages\Influencers\Shared\Influencer\Components\LaunchList\**" />
+    <EmbeddedResource Remove="Pages\Influencers\Shared\Influencer\Components\Planning\**" />
+    <EmbeddedResource Remove="Pages\Influencers\Shared\Influencer\Components\UpcomingLaunches\**" />
+    <None Remove="Logs\**" />
+    <None Remove="Pages\Influencers\Components\AccountInfo\Details\Financials\**" />
+    <None Remove="Pages\Influencers\Components\AccountInfo\Details\Folders\**" />
+    <None Remove="Pages\Influencers\Shared\Influencer\Components\InfluencerStatus\**" />
+    <None Remove="Pages\Influencers\Shared\Influencer\Components\LaunchList\**" />
+    <None Remove="Pages\Influencers\Shared\Influencer\Components\Planning\**" />
+    <None Remove="Pages\Influencers\Shared\Influencer\Components\UpcomingLaunches\**" />
+    <None Remove="Pages\Inventory\Yarn\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Pages\Account\Login.cshtml.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Pages\**\*.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Pages\**\*.css">
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\" />
+    <Folder Include="Pages\Influencers\Admin\Influencers\" />
+    <Folder Include="Pages\Inventory\Yarn\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\CollectionAndProduct\Components\BomSummaryReservations\BomSummaryReservation.razor" />
+    <None Include="Pages\CollectionAndProduct\Components\BOMs\BOMs.razor" />
+    <None Include="Pages\CollectionAndProduct\Components\Calendar\Calendar.razor" />
+    <None Include="Pages\CollectionAndProduct\Components\Collections\Add.razor" />
+    <None Include="Pages\CollectionAndProduct\Components\Collections\Collections.razor" />
+    <None Include="Pages\CollectionAndProduct\Components\Collections\Detail.razor" />
+    <None Include="Pages\CollectionAndProduct\Components\CollectionTimeline\CollectionTimeline.razor" />
+    <None Include="Pages\CollectionAndProduct\Components\DashboardBOM\DashboardBOM.razor" />
+    <None Include="Pages\CollectionAndProduct\Components\Dashboard\Dashboard.razor" />
+    <None Include="Pages\CollectionAndProduct\Components\Files\Files.razor" />
+    <None Include="Pages\CollectionAndProduct\Components\OEM\Detail\Detail.razor" />
+    <None Include="Pages\CollectionAndProduct\Components\OEM\OEM.razor" />
+    <None Include="Pages\CollectionAndProduct\Components\Samples\Samples.razor" />
+    <None Include="Pages\CollectionAndProduct\Components\Searchbox\Searchbox.razor" />
+    <None Include="Pages\CollectionAndProduct\Detail\Detail.razor" />
+    <None Include="Pages\CollectionAndProduct\Index.razor" />
+    <None Include="Pages\Dashboard\Components\InfluencerOnBoarding\InfluencerOnBoarding.razor" />
+    <None Include="Pages\Dashboard\Components\InfluencerSamplesDevelopment\InfluencerSamplesDevelopment.razor" />
+    <None Include="Pages\Dashboard\Components\Inven\Inven.razor" />
+    <None Include="Pages\Dashboard\Components\KPI\KPI.razor" />
+    <None Include="Pages\Dashboard\Components\Production\Production.razor" />
+    <None Include="Pages\Dashboard\Components\Productivity\Productivity.razor" />
+    <None Include="Pages\Dashboard\Components\RefundAndRemake\RefundAndRemake.razor" />
+    <None Include="Pages\Dashboard\Components\SalesReport\SalesReport.razor" />
+    <None Include="Pages\Dashboard\Components\SalesReview\SalesReview.razor" />
+    <None Include="Pages\Dashboard\Components\UpcomingLaunches\UpcomingLaunches.razor" />
+    <None Include="Pages\Dashboard\Dashboard.razor" />
+    <None Include="Pages\Influencers\Components\AccountInfo\Create\ContactInformation.razor" />
+    <None Include="Pages\Influencers\Components\AccountInfo\Create\ProductType.razor" />
+    <None Include="Pages\Influencers\Components\AccountInfo\Create\ResidentialAddress.razor" />
+    <None Include="Pages\Influencers\Components\AccountInfo\Create\SamplingAddress.razor" />
+    <None Include="Pages\Influencers\Components\AccountInfo\Create\SocialMedia.razor" />
+    <None Include="Pages\Influencers\Components\Financials\BankDetails.razor" />
+    <None Include="Pages\Influencers\Components\Sizing\ToziAccountInformation.razor" />
+    <None Include="Pages\Influencers\Components\Sizing\BottomMeasurements.razor" />
+    <None Include="Pages\Influencers\Components\Sizing\TopMeasurements.razor" />
+    <None Include="Pages\Influencers\Components\Sizing\ToziMeasurements.razor" />
+    <None Include="Pages\Influencers\Shared\Influencer\Components\CollectionSample\CollectionSample.razor" />
+    <None Include="Pages\Influencers\Components\AccountInfo\Details\ContactInformation\ContactInformation.razor" />
+    <None Include="Pages\Influencers\Components\AccountInfo\Details\PersonalInformation\PersonalInformation.razor" />
+    <None Include="Pages\Influencers\Components\AccountInfo\Details\ProductType\ProductType.razor" />
+    <None Include="Pages\Influencers\Components\AccountInfo\Details\ResidentialAddress\ResidentialAddress.razor" />
+    <None Include="Pages\Influencers\Components\AccountInfo\Details\SamplingAddress\SamplingAddress.razor" />
+    <None Include="Pages\Influencers\Components\AccountInfo\Details\SocialMedia\SocialMedia.razor" />
+    <None Include="Pages\Influencers\Components\AccountInfo\Details\DesignPhase\DesignDraft\Component\ApprovalSection\ApprovalSection.razor" />
+    <None Include="Pages\Influencers\Components\AccountInfo\Details\DesignPhase\DesignDraft\DesignDraft.razor" />
+    <None Include="Pages\Influencers\Components\AccountInfo\Details\DesignPhase\Materials\Materials.razor" />
+    <None Include="Pages\Influencers\Shared\NavInfluencerDetail\NavInfluencerDetail.razor" />
+    <None Include="Pages\Inventory\AdditionRequests\Index.razor" />
+    <None Include="Pages\Inventory\All\Index.razor" />
+    <None Include="Pages\Inventory\Assignments\Assignments.razor" />
+    <None Include="Pages\Inventory\BulkPurchaseOrderRequest\Index.razor" />
+    <None Include="Pages\Inventory\Disposal\Component\DisposalTable.razor" />
+    <None Include="Pages\Inventory\Disposal\Index.razor" />
+    <None Include="Pages\Inventory\Fabric\Add.razor" />
+    <None Include="Pages\Inventory\Fabric\Detail.razor" />
+    <None Include="Pages\Inventory\Fabric\Edit.razor" />
+    <None Include="Pages\Inventory\Fabric\Index.razor" />
+    <None Include="Pages\Inventory\Graph\Graph.razor" />
+    <None Include="Pages\Inventory\Greige\Add.razor" />
+    <None Include="Pages\Inventory\Greige\Detail.razor" />
+    <None Include="Pages\Inventory\Greige\Edit.razor" />
+    <None Include="Pages\Inventory\Greige\Index.razor" />
+    <None Include="Pages\Inventory\InventoryOverview\InventoryOverview.razor" />
+    <None Include="Pages\Inventory\InventoryTable\InventoryTable.razor" />
+    <None Include="Pages\Inventory\Others\Add.razor" />
+    <None Include="Pages\Inventory\Others\Detail.razor" />
+    <None Include="Pages\Inventory\Others\Edit.razor" />
+    <None Include="Pages\Inventory\Others\Index.razor" />
+    <None Include="Pages\Inventory\OverviewTable\Component\OverviewTable.razor" />
+    <None Include="Pages\Inventory\OverviewTable\Index.razor" />
+    <None Include="Pages\Inventory\Packaging\Add.razor" />
+    <None Include="Pages\Inventory\Packaging\Detail.razor" />
+    <None Include="Pages\Inventory\Packaging\Edit.razor" />
+    <None Include="Pages\Inventory\Packaging\Index.razor" />
+    <None Include="Pages\Inventory\PurchaseOrder\Add.razor" />
+    <None Include="Pages\Inventory\PurchaseOrder\Component\PurchaseOrderDescription.razor" />
+    <None Include="Pages\Inventory\PurchaseOrder\Component\PurchaseOrderTable.razor" />
+    <None Include="Pages\Inventory\PurchaseOrder\Component\ReceivePurchaseOrderTable.razor" />
+    <None Include="Pages\Inventory\PurchaseOrder\Detail.razor" />
+    <None Include="Pages\Inventory\PurchaseOrder\Edit.razor" />
+    <None Include="Pages\Inventory\PurchaseOrder\Index.razor" />
+    <None Include="Pages\Inventory\PurchaseOrder\ReceivePurchaseOrder.razor" />
+    <None Include="Pages\Inventory\ReceivedPurchaseOrder\Component\ReceivedPOTable.razor" />
+    <None Include="Pages\Inventory\ReceivedPurchaseOrder\Index.razor" />
+    <None Include="Pages\Inventory\ReservationOverview\ReservationOverview.razor" />
+    <None Include="Pages\Inventory\TrimsAndAccessories\Add.razor" />
+    <None Include="Pages\Inventory\TrimsAndAccessories\Detail.razor" />
+    <None Include="Pages\Inventory\TrimsAndAccessories\Edit.razor" />
+    <None Include="Pages\Inventory\TrimsAndAccessories\Index.razor" />
+    <None Include="Pages\Inventory\Warehouse\Index.razor" />
+    <None Include="Pages\Products\Add\Add.razor" />
+    <None Include="Pages\Products\Components\BOMSummaryReservation\BOMSummaryReservation.razor" />
+    <None Include="Pages\Products\Components\ChildProduct\ChildProduct.razor" />
+    <None Include="Pages\Products\Components\PricingAndAccounting\Accounting\Accounting.razor" />
+    <None Include="Pages\Products\Components\PricingAndAccounting\PricingAndAccounting.razor" />
+    <None Include="Pages\Products\Components\PricingAndAccounting\Pricing\Pricing.razor" />
+    <None Include="Pages\Products\Components\ProductionFiles\ProductionFiles.razor" />
+    <None Include="Pages\Products\Components\ProductList\ProductList.razor" />
+    <None Include="Pages\Products\Components\ProductMediaFile\Components\ApprovalSection\ApprovalSection.razor" />
+    <None Include="Pages\Products\Components\ProductMediaFile\ProductMediaFile.razor" />
+    <None Include="Pages\Products\Components\ProductOption\Component\ChildCheckbox\ChildCheckbox.razor" />
+    <None Include="Pages\Products\Components\ProductOption\Component\ChildDropdown\ChildDropdown.razor" />
+    <None Include="Pages\Products\Components\ProductOption\Component\ParentCheckbox\ParentCheckbox.razor" />
+    <None Include="Pages\Products\Components\ProductOption\Component\ParentDropdown\ParentDropdown.razor" />
+    <None Include="Pages\Products\Components\ProductOption\ProductOption.razor" />
+    <None Include="Pages\Products\Components\ProductOverview\ProductOverview.razor" />
+    <None Include="Pages\Products\Components\Shopify\Shopify.razor" />
+    <None Include="Pages\Products\Detail\Detail.razor" />
+    <None Include="Pages\Products\Products.razor" />
+    <None Include="Pages\Settings\Components\AutoEmails\AutoEmail.razor" />
+    <None Include="Pages\Settings\Components\AutoEmails\Components\AutoEmailTable.razor" />
+    <None Include="Pages\Settings\Components\AutoEmails\Components\CustomerEmails\CustomerEmail.razor" />
+    <None Include="Pages\Settings\Components\AutoEmails\Components\InfluencerEmails\InfluencerEmail.razor" />
+    <None Include="Pages\Settings\Components\AutoEmails\Components\InternalEmails\InternalEmail.razor" />
+    <None Include="Pages\Settings\Components\AutoEmails\Components\InventoryEmails\InventoryEmail.razor" />
+    <None Include="Pages\Settings\Components\AutoEmails\Components\OemEmails\OemEmail.razor" />
+    <None Include="Pages\Settings\Components\AutoEmails\Components\ProductEmails\ProductEmail.razor" />
+    <None Include="Pages\Settings\Components\AutoEmails\Components\UserManagementEmails\UserManagementEmail.razor" />
+    <None Include="Pages\Settings\Components\ColorConfiguration\ColorConfiguration.razor" />
+    <None Include="Pages\Settings\Components\DistributionList\DistributionList.razor" />
+    <None Include="Pages\Settings\Components\FinancialSettings\FinancialSettings.razor" />
+    <None Include="Pages\Settings\Components\InfluencerSettings\InfluencerSettings.razor" />
+    <None Include="Pages\Settings\Components\InventorySettings\Components\ColorType\ColorType.razor" />
+    <None Include="Pages\Settings\Components\InventorySettings\Components\GreigeType\GreigeType.razor" />
+    <None Include="Pages\Settings\Components\InventorySettings\Components\InventoryCategory\InventoryCategory.razor" />
+    <None Include="Pages\Settings\Components\InventorySettings\Components\Section\Section.razor" />
+    <None Include="Pages\Settings\Components\InventorySettings\Components\ThreadType\ThreadType.razor" />
+    <None Include="Pages\Settings\Components\InventorySettings\Components\Warehouse\Warehouse.razor" />
+    <None Include="Pages\Settings\Components\InventorySettings\InventorySettings.razor" />
+    <None Include="Pages\Settings\Components\Marketing\Components\Documents\MarketingDocuments.razor" />
+    <None Include="Pages\Settings\Components\Marketing\Components\Prints\MarketingPrints.razor" />
+    <None Include="Pages\Settings\Components\Marketing\Components\SocialMedia\MarketingSocialMedia.razor" />
+    <None Include="Pages\Settings\Components\Marketing\Marketing.razor" />
+    <None Include="Pages\Settings\Components\MaterialTypeConfiguration\MaterialTypeConfiguration.razor" />
+    <None Include="Pages\Settings\Components\ProductCategoryConfiguration\ProductCategoryConfiguration.razor" />
+    <None Include="Pages\Settings\Components\ProductTypeConfiguration\ProductTypeConfiguration.razor" />
+    <None Include="Pages\Settings\Components\SettingsDesign\SettingsDesign.razor" />
+    <None Include="Pages\Settings\Components\Target\Components\Forecast\Forecast.razor" />
+    <None Include="Pages\Settings\Components\Target\Components\InfluencerOnboard\InfluencerOnboard.razor" />
+    <None Include="Pages\Settings\Components\Target\Components\OnboardedTarget\OnboardedTarget.razor" />
+    <None Include="Pages\Settings\Components\Target\Components\Packing\Packing.razor" />
+    <None Include="Pages\Settings\Components\Target\Components\Shipping\Shipping.razor" />
+    <None Include="Pages\Settings\Components\Target\Target.razor" />
+    <None Include="Pages\Settings\Components\User\User.razor" />
+    <None Include="Pages\Shared\Components\Adjustment\Adjustment.razor" />
+    <None Include="Pages\Shared\Components\Assignment\Assignment.razor" />
+    <None Include="Pages\Shared\Components\Collection\AssignedTo\AssignedTo.razor" />
+    <None Include="Pages\Shared\Components\Collection\CollectionColorOption\CollectionColorOption.razor" />
+    <None Include="Pages\Shared\Components\Collection\CollectionMaterialPlan\CollectionMaterialPlan.razor" />
+    <None Include="Pages\Shared\Components\Collection\CollectionProgress\CollectionProgress.razor" />
+    <None Include="Pages\Shared\Components\Collection\DesignBriefs\DesignBriefs.razor" />
+    <None Include="Pages\Shared\Components\Collection\Overview\Overview.razor" />
+    <None Include="Pages\Shared\Components\Comment\Comment.razor" />
+    <None Include="Pages\Shared\Components\Comment\Components\Comment3DVF\Comment3DVF.razor" />
+    <None Include="Pages\Shared\Components\Comment\Components\CommentAll\CommentAll.razor" />
+    <None Include="Pages\Shared\Components\Comment\Components\CommentInfluencers\CommentInfluencers.razor" />
+    <None Include="Pages\Shared\Components\Comment\Components\CommentInventory\CommentInventory.razor" />
+    <None Include="Pages\Shared\Components\Comment\Components\DesignBrief\DesignBrief.razor" />
+    <None Include="Pages\Shared\Components\Comment\Components\FabricBoard\FabricBoard.razor" />
+    <None Include="Pages\Shared\Components\Comment\Components\FitSample\FitSample.razor" />
+    <None Include="Pages\Shared\Components\Comment\Components\Launch\Launch.razor" />
+    <None Include="Pages\Shared\Components\Comment\Components\Orders\Orders.razor" />
+    <None Include="Pages\Shared\Components\Comment\Components\Others\Others.razor" />
+    <None Include="Pages\Shared\Components\Comment\Components\PhotoSample\PhotoSample.razor" />
+    <None Include="Pages\Shared\Components\CompanyInformation\CompanyInformation.razor" />
+    <None Include="Pages\Shared\Components\CompositionAndConstruction\CompositionAndConstruction.razor" />
+    <None Include="Pages\Shared\Components\Description\Description.razor" />
+    <None Include="Pages\Shared\Components\FinancialInformation\FinancialInformation.razor" />
+    <None Include="Pages\Shared\Components\FooterStickySupplier\FooterAddSupplier\FooterAddSupplier.razor" />
+    <None Include="Pages\Shared\Components\FooterStickySupplier\FooterEditSupplier\FooterEditSupplier.razor" />
+    <None Include="Pages\Shared\Components\FooterStickySupplier\FooterViewSupplier\FooterViewSupplier.razor" />
+    <None Include="Pages\Shared\Components\FooterSticky\FooterAdd\FooterAdd.razor" />
+    <None Include="Pages\Shared\Components\FooterSticky\FooterEdit\FooterEdit.razor" />
+    <None Include="Pages\Shared\Components\FooterSticky\FooterView\FooterView.razor" />
+    <None Include="Pages\Shared\Components\InfluencerBanner\InfluencerBanner.razor" />
+    <None Include="Pages\Shared\Components\Inventory\Inventory.razor" />
+    <None Include="Pages\Shared\Components\MassAdjustment\MassAdjustment.razor" />
+    <None Include="Pages\Shared\Components\MassIssuance\MassIssuance.razor" />
+    <None Include="Pages\Shared\Components\Miscellaneous\Miscellaneous.razor" />
+    <None Include="Pages\Shared\Components\ModalMassUpload\ModalMassUpload.razor" />
+    <None Include="Pages\Shared\Components\ModalYourBio\ModalYourBio.razor" />
+    <None Include="Pages\Shared\Components\ModalYourHeroImages\ModalYourHeroImages.razor" />
+    <None Include="Pages\Shared\Components\ModalYourLogo\ModalYourLogo.razor" />
+    <None Include="Pages\Shared\Components\PurchasingDetail\PurchasingDetail.razor" />
+    <None Include="Pages\Shared\Components\PurchasingHistory\PurchasingHistory.razor" />
+    <None Include="Pages\Shared\Components\Reservation\Reservation.razor" />
+    <None Include="Pages\Shared\Components\RollAndLocation\RollAndLocation.razor" />
+    <None Include="Pages\Shared\Components\SubMaterialDescription\SubMaterialDescription.razor" />
+    <None Include="Pages\Shared\Components\SubMaterialInventory\SubMaterialInventory.razor" />
+    <None Include="Pages\Shared\Components\SubMaterialLocation\SubMaterialLocation.razor" />
+    <None Include="Pages\Shared\Components\SupplierDetail\SupplierDetail.razor" />
+    <None Include="Pages\Shared\Components\SupplierSourcing\SupplierSourcing.razor" />
+    <None Include="Pages\Shared\Components\TablePagination\TablePagination.razor" />
+    <None Include="Pages\Shared\Components\Timeline\Timeline.razor" />
+    <None Include="Pages\Shared\Components\TimlineAndComments\TimelineAndComment.razor" />
+    <None Include="Pages\Shared\Components\Transaction\Transaction.razor" />
+    <None Include="Pages\Shared\Pages\Inventory\AdditionRequest\AdditionRequestIndex.razor" />
+    <None Include="Pages\Shared\Pages\Inventory\BulkPurchaseOrderRequest\BulkPurchaseOrderRequestOverview.razor" />
+    <None Include="Pages\Shared\Pages\Inventory\Disposal\DisposalOverview.razor" />
+    <None Include="Pages\Shared\Pages\Inventory\Material\MaterialAdd.razor" />
+    <None Include="Pages\Shared\Pages\Inventory\Material\MaterialDetail.razor" />
+    <None Include="Pages\Shared\Pages\Inventory\Material\MaterialEdit.razor" />
+    <None Include="Pages\Shared\Pages\Inventory\Material\MaterialIndex.razor" />
+    <None Include="Pages\Shared\Pages\Inventory\OverviewMaterial\OverviewMaterial.razor" />
+    <None Include="Pages\Shared\Pages\Inventory\Overview\WarehouseOverview\WarehouseOverview.razor" />
+    <None Include="Pages\Shared\Pages\Inventory\PurchaseOrder\PurchaseOrderOverview\PurchaseOrderOverview.razor" />
+    <None Include="Pages\Shared\Pages\Inventory\ReceivedPurchaseOrder\ReceivedPurchaseOrderOverview\ReceivedPurchaseOrderOverview.razor" />
+    <None Include="Pages\Shared\Pages\Inventory\SubMaterial\SubMaterialAdd.razor" />
+    <None Include="Pages\Shared\Pages\Inventory\SubMaterial\SubMaterialDetail.razor" />
+    <None Include="Pages\Shared\Pages\Inventory\SubMaterial\SubMaterialEdit.razor" />
+    <None Include="Pages\Shared\Pages\Inventory\SubMaterial\SubMaterialIndex.razor" />
+    <None Include="Pages\Supplier\Components\ContactPerson\ContactPerson.razor" />
+    <None Include="Pages\Supplier\Components\ExcessList\ExcessList.razor" />
+    <None Include="Pages\Supplier\Components\FinalSelection\FinalSelection.razor" />
+    <None Include="Pages\Supplier\Components\RequestSwatches\RequestSwatches.razor" />
+    <None Include="Pages\Supplier\Create.razor" />
+    <None Include="Pages\Supplier\Detail.razor" />
+    <None Include="Pages\Supplier\Edit.razor" />
+    <None Include="Pages\Supplier\Index.razor" />
+  </ItemGroup>
+
+</Project>

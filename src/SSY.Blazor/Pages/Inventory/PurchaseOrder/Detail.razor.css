@@ -1,0 +1,31 @@
+﻿.buttons__class {
+    font-size: 15px;
+}
+
+.btn-success {
+    color: #fff !important;
+    background-color: #7B8E61;
+    border-color: #7B8E61;
+}
+
+button.btn.btn-lg.btn-danger.buttons__class {
+    background: #646D7B;
+    border-color: #646D7B;
+}
+
+.btn-danger.focus, .btn-danger:focus {
+    box-shadow: #646D7B !important;
+}
+
+a.btn.btn-lg.btn-success.buttons__class {
+    background-color: #7B8E61;
+    border-color: #7B8E61;
+}
+
+.footer__button .col-md-12.col-sm-12.mt-3 {
+    margin-top: 0px !important;
+}
+
+.saveButton {
+    float: right;
+}

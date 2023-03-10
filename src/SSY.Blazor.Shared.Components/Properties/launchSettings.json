@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "SSY.Blazor.Shared.Components": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:60844;http://localhost:60845"
+    }
+  }
+}

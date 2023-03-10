@@ -1,0 +1,76 @@
+@page "/influencers/accountinfo/create"
+@using SSY.Blazor.Pages.Influencers.Shared.BannerLayouts
+@using SSY.Blazor.Pages.Influencers.Shared.NavInfluencerDetail
+@using ValidationSummary = Microsoft.AspNetCore.Components.Forms.ValidationSummary
+
+
+
+<NavInfluencerDetail></NavInfluencerDetail>
+
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <CascadingValue Value="@ModuleChange" Name="ModuleChange">
+            <BannerLayouts></BannerLayouts>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+<CascadingValue Name="MainPage" Value="this">
+    @if (UserDetail is not null)
+    {
+        <EditForm Model="UserDetail" OnSubmit="OnSubmit">
+            <FluentValidationValidator @ref="fluentValidator" />
+            <div class="row inlfluencer-detail">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <PersonalInformation/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ContactInformation></ContactInformation>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ResidentialAddress></ResidentialAddress>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <SamplingAddress></SamplingAddress>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <SocialMedia></SocialMedia>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ProductType></ProductType>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer__button" b-90ngp27tmn="">
+                <div class="row" b-90ngp27tmn="">
+                    <div class="col-md-12 col-sm-12 mt-3" b-90ngp27tmn="">
+                        <div class="background" b-90ngp27tmn="">
+                            <div class="buttons" b-90ngp27tmn="">
+                                <button class="btn btn-lg btn-danger buttons__class" b-90ngp27tmn="" type="button">Discard</button><!--!-->
+                                <button class="btn btn-lg btn-success buttons__class" b-90ngp27tmn="" type="submit">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </EditForm>
+    }
+
+</CascadingValue>

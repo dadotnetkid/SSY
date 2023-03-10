@@ -1,0 +1,78 @@
+
+using System;
+using SSY.Web.Blazor.Core.Data.CollectionsAndProducts.Products.ProductOptions.Model;
+
+namespace SSY.Web.Blazor.Core.Data.CollectionsAndProducts.Products.ProductOptions.Models
+{
+    public class ProductOptionsModel
+    {
+        public Guid ProductId { get; set; }
+        public int GenderId { get; set; }
+        public int RiseId { get; set; }
+        public int WaistBandId { get; set; }
+        public int FrontSeamId { get; set; }
+        public int LengthId { get; set; }
+        public int BaseId { get; set; }
+        public int NecklineId { get; set; }
+        public int NecklineStyleId { get; set; }
+        public int BackCutOutStyleId { get; set; }
+        public int BustbandId { get; set; }
+        public int BodyLengthId { get; set; }
+        public int FitId { get; set; }
+        public int StrapId { get; set; }
+        public int SleeveTypeId { get; set; }
+        public int SleeveStyleId { get; set; }
+        public int HemId { get; set; }
+        public int FrontOpeningId { get; set; }
+        public int PocketId { get; set; }
+        public int InsideShortsId { get; set; }
+        public int LegShapeId { get; set; }
+        public int WaistbandStyleId { get; set; }
+        public int InsideShortLengthId { get; set; }
+        public int InsideShortPanelId { get; set; }
+        public int OutsideShortsId { get; set; }
+
+        public List<int> WaistBandPocketIds { get; set; } = new();
+        public List<int> PanelIds { get; set; } = new();
+
+        public List<TypeOption> WaistBandPockets { get; set; } = new();
+        public List<TypeOption> Panels { get; set; } = new();
+
+        public int WaistBandPocketOptionId { get; set; }
+        public ProductOptionDropdownModel WaistBandPocketOption { get; set; }
+        public int WaistBandPocketChildOptionId { get; set; }
+        public ProductOptionDropdownModel WaistBandPocketChildOption { get; set; }
+
+        public double WaistBandPocketOptionConsumption { get; set; }
+
+        public int LFullSideId { get; set; }
+        public int LFullSideOptionId { get; set; }
+        public double LFullSideOptionConsumption { get; set; }
+
+        public int RFullSideId { get; set; }
+        public int RFullSideOptionId { get; set; }
+        public double RFullSideOptionConsumption { get; set; }
+
+        public int LPanelId { get; set; }
+        public int LPanelOptionId { get; set; }
+        public int LPanelOption2Id { get; set; }
+        public double LPanelOptionConsumption { get; set; }
+
+        public int RPanelId { get; set; }
+        public int RPanelOptionId { get; set; }
+        public int RPanelOption2Id { get; set; }
+        public double RPanelOptionConsumption { get; set; }
+
+        public double BackCenterOptionConsumption { get; set; }
+
+        // Front Opening
+        public List<int> FrontOpeningIds { get; set; } = new();
+        public List<TypeOption> FrontOpenings { get; set; } = new();
+        public int FrontOpeningOptionId { get; set; }
+        public ProductOptionDropdownModel FrontOpeningOption { get; set; }
+        public int FrontOpeningChildOptionId { get; set; }
+        public ProductOptionDropdownModel FrontOpeningChildOption { get; set; }
+        public double FrontOpeningHalfZipOptionConsumption { get; set; }
+        public double FrontOpeningFullZipOptionConsumption { get; set; }
+    }
+}

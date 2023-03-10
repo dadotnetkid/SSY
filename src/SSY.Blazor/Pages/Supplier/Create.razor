@@ -1,0 +1,62 @@
+@page "/inventory/supplier/create"
+
+
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <BannerLayoutSSY></BannerLayoutSSY>
+    </CascadingValue>
+</CascadingValue>
+
+@*<ul class="nav nav-tabs nav-tabs-views nav justify-content-center border border-left-0 border-top-0 border-right-0 scrollmenu nav-menu">
+    <li><a data-toggle="tab" href="#overview" class="active">Overview</a></li>
+    <li><a data-toggle="tab" href="#excesslist">Excess List</a></li>
+    <li><a data-toggle="tab" href="#requestswatches">Request for Swatches List</a></li>
+    <li><a data-toggle="tab" href="#finalselection">Final Selection List</a></li>
+</ul>*@
+<div class="row">
+    <div class="p-4 roll_loc col-12">
+        <div class="tab-content">
+            <div id="overview" class="tab-pane fade in active show">
+                <div class="row settings">
+                    <div class="col-md-12 col-sm-12 mt-3">
+                        <CompanyInformation CompanyTypeIds="SupplierModel.CompanyTypeIds" SupplierModel="SupplierModel" ModuleType="ModuleType" IsEditable="IsEditable"/>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 mt-3">
+                        <CascadingValue Value="@ModuleType" Name="ModuleType">
+                            <SupplierSourcing CompanyMaterialTypeIds="SupplierModel.MaterialTypeIds" CompanyExcessReminderIds="SupplierModel.CompanyExcessReminderIds" SupplierModel="SupplierModel"></SupplierSourcing>
+                        </CascadingValue>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 mt-3">
+                        <CascadingValue Value="@SupplierModel" Name="SupplierModel">
+                            <CascadingValue Value="@ModuleType" Name="ModuleType">
+                                <FinancialInformation />
+                            </CascadingValue>
+                        </CascadingValue>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 mt-3">
+                        <CascadingValue Value="@ModuleType" Name="ModuleType">
+                            <ContactPerson ContactPersons="SupplierModel.ContactPersons" OnAddContactPerson="ContactPersonAdded" />
+                        </CascadingValue>
+                    </div>
+                </div>
+
+                <div class="footer__button">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 mt-3">
+                            <div class="background">
+                                <div class="buttons">
+                                    <button type="button" action="action" class="btn btn-lg btn-danger buttons__class" onclick="window.history.go(-1); return false;"> Discard</button>
+                                    <button class="btn btn-lg btn-success buttons__class" @onclick="@(e => HandleSubmit())"> Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

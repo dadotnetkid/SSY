@@ -1,0 +1,36 @@
+﻿<ModalContent Centered>
+    <ModalBody>
+        <Div Class="spinner-border d-flex justify-content-center"
+             Margin="Margin.IsAuto.OnX.Is3.FromTop.Is1.FromBottom"
+             Position="Position.Relative"
+             Style="border: 16px solid #D7E6C6;
+               border-top: 16px solid #7B8E61;
+               border-radius: 50%;
+               width: 80px;
+               height: 80px;"></Div>
+        <Paragraph Position="Position.Relative"
+                   Margin="Margin.Is3.FromTop"
+                   TextAlignment="TextAlignment.Center">
+            <Text Style="font-family: 'Avenir', 'Poppins', sans-serif;
+                    font-size:16px/12px;">Saving... Please wait.</Text>
+        </Paragraph>
+    </ModalBody>
+</ModalContent>
+
+@*
+    Add the following to the .razor.cs file of the target:
+
+    private Modal ModalSaving;
+
+    private Task ShowSavingModal()
+        {
+            return ModalSaving.Show();
+        }
+
+        private Task HideSavingModal()
+        {
+            return ModalSaving.Hide();
+        }
+
+        Remember to implement try-catch.
+*@

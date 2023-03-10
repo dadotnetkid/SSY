@@ -1,0 +1,66 @@
+@inherits LayoutComponentBase
+
+<div class="account-banner ">
+    <a class="cursor-pointer navigation-text pl-2" href='/dashboard'>DASHBOARD</a> <span class="text-white"> > </span>
+    <u class="cursor-pointer navigation-text text-white">
+        @* @if(Module == "Trims and Accessories"){
+            <a href="/inventory/trimsandaccessories" class="text-white">@Module</a>
+            }
+            else
+            {
+            <a href="/inventory/@Module" class="text-white">@Module</a>
+            } *@
+    </u>
+    @* <u class="cursor-pointer navigation-text text-white"> @MaterialName</u> *@
+    <div class="media p-3 mb-0">
+        <div class="media-body text-light">
+            <div class="row">
+                <div class="col-lg-2 col-md-12">
+                    <img alt class="rounded-circle border border-white mx-auto d-block banner-image"
+                        src="/img/Avatar_ba.png">
+
+                    @* @if(Crud == "Detail" || Crud == "Edit")
+                        {
+                        <p class="module-text">@ModuleChange</p>
+                        }
+                        else
+                        {
+                        <p class="module-text">@Module</p>
+                        }
+
+                        <p class="module-info">@ModuleMessage</p> *@
+
+                </div>
+                <div class="col-lg-3 col-md-12 text-center">
+                    <h3 class="name-text">Helecia Williams</h3>
+                </div>
+                <div class="col-lg-7 col-md-12 mt-3">
+                    <p class="module-text">Financials</p>
+                    <p class="module-info">Insights on your sales andn payouts</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* <p>Employee Id:@EmployeeId </p>
+    <p>Employee Name:@EmployeeName </p> *@
+
+@code {
+
+    [CascadingParameter(Name = "Module")]
+
+    private string Module { get; set; }
+    [CascadingParameter(Name = "ModuleMessage")]
+    private string ModuleMessage { get; set; }
+
+    [CascadingParameter(Name = "MaterialName")]
+    private string MaterialName { get; set; }
+
+    [CascadingParameter(Name = "ModuleChange")]
+    private string ModuleChange { get; set; }
+
+    [CascadingParameter(Name = "Crud")]
+    private string Crud { get; set; }
+}

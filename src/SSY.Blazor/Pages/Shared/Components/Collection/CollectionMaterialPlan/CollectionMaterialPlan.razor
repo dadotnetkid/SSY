@@ -1,0 +1,253 @@
+@*<EditForm Model="GetCollectionModel">
+    <DataAnnotationsValidator />
+
+    <div class="border rounded-lg p-4 shadow-sm bg-white">
+        <div class="d-flex justify-content-between " data-target="#collectionMaterialPlan" data-toggle="collapse">
+            <div class="col-md-11">
+                <h3 class="header-text">Collection Material Plan</h3>
+            </div>
+            <div class="col-md-1">
+                <i class="fa fa-light fa-chevron-down pull-right" style="float: right; margin-top: 15px; background: #EBEEEF; border-radius:3px; padding:5px;"></i>
+            </div>
+        </div>
+
+        <div class="collapse show" id="collectionMaterialPlan">
+            <div class="col-md-12">
+                @foreach (var item in OverviewModel.Types)
+                {
+
+                    <div class="thumbnail" style="margin-bottom:10px;">
+                        <div class="header-title">
+                            <p class="header__text">@item.Label</p>
+                        </div>
+                        <div class="row" style="height:490px;">
+                            <div class="col-md-2">
+                                <div class="row materialTypeInfo">
+                                    <p class="input-field-text col-md-12" id="forecastTitle" contentEditable="false" placeholder="">
+                                        FORECAST QUANTITY
+                                    </p>
+                                    <p id="forecast">@item.WeightedSalesPercentage% of @OverviewModel.ForecastQuantity = @item.TotalPercentageUnits Units</p>
+                                </div>
+
+
+                                <div class="row materialTypeInfo">
+                                    <p class="input-field-text col-md-12" id="forecastTitle" contentEditable="false" placeholder="">
+                                        REQUIRED YARDAGE
+                                    </p>
+                                    <p id="forecast">@item.TotalRequiredUnits Yards</p>
+                                </div>
+
+                                <div class="row materialTypeInfo">
+                                    <p class="input-field-text col-md-12" id="forecastTitle" contentEditable="false" placeholder="">
+                                        TOTAL QUANTITY
+                                    </p>
+                                    <p id="forecast">@item.WeightedUnits Units</p>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="row">
+                                    @foreach (var coloroption in ColorOptionsModel.FindAll(x => x.MaterialTypeId == item.Id).OrderBy(x => x.Title).ToList())
+                                    {
+                                        string name = @CollectionModel.ColorSelectionList.Find(x => x.Title == coloroption.Title && x.MaterialTypeId == coloroption.MaterialTypeId).MaterialName.Replace(" ", "_").Substring(0, 20) + "...";
+
+                                        <div class="col-md-4">
+
+                                            <div class="row title">
+                                                <div class="col-md-12 title" style="margin-left: -15px; font-weight: 500; font-size: 14px; color: #414A5A">
+                                                    <h7>@coloroption.Title.ToUpper()</h7>
+                                                </div>
+                                            </div>
+
+                                            <div class="row color">
+                                                <div class="col-md-12 color border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                                    <div class="row fieldheader">
+                                                        <h3 class="mt-2 text-muted input-text">Color</h3>
+                                                    </div>
+                                                    <div class="row fieldcontent">
+                                                        <select disabled value="@coloroption.Title-@coloroption.ColorId-@coloroption.ColorValue-@item.Id" class="form-control mb-2 form-control-sm bg-white fontBolder" style="border:0px; font-size:12px;" id="city">
+                                                            <option selected disabled value="0">Select Color</option>
+                                                            @foreach (var color in ColorList.Result.Items)
+                                                            {
+                                                                <option value="@coloroption.Title-@color.Id-@color.Value-@item.Id">@color.Value</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row colorP" style="background: @ColorList.Result.Items.Find(x => x.Id == @coloroption.ColorId).HexCode; height:100px; margin-bottom: 8px; border-radius:3px;">
+
+                                            </div>
+
+                                            <div class="row fabric">
+                                                <div class="col-md-12 fabric border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                                    <div class="row fieldheader">
+                                                        <h3 class="mt-2 text-muted input-text">Fabric Selection</h3>
+                                                    </div>
+                                                    <div class="row fieldcontent">
+                                                        <div id="fabricDropdown" class="col-md-11" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; margin: 0; padding: 0;">
+                                                            <svg width="12" height="12" style="margin-top:7px; float:left;">
+                                                                <rect width="12" height="12" style="fill: @ColorList.Result.Items.Find(x => x.Id == @coloroption.ColorId).HexCode; stroke-width:1; stroke:#B3B3B3;" />
+                                                            </svg>
+                                                            <label style="margin-left:10px;" class="fontBolder">
+                                                                @name
+                                                            </label>
+                                                            <i class="fa fa-info-circle info" id="fabricInfos" data-target=".target-@coloroption.Id" data-toggle="collapse"  aria-hidden="true" style="float: right; margin-top: 5px;"></i>
+                                                        </div>
+                                                        <div class="col-md-1" style="margin: 0; padding: 0; float: left;">
+                                                            <i class="fa fa-caret-down pull-right" style="float: right; margin-top: 5px;"></i>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row maxquantity">
+                                                <div class="col-md-12 maxQuantity">
+                                                    <h7>Max Quantity: @coloroption.MaxQuantity Units</h7>
+                                                </div>
+                                            </div>
+
+                                            <div class="row approval">
+                                                <div class="col-md-12 title" style="font-weight:500; font-size:14px; color:#414A5A;">
+                                                    <h7>APPROVAL</h7>
+                                                </div>
+                                                <div class="col-md-12 for__inline" style="margin-top:10px;margin-bottom:10px;">
+                                                    @if (coloroption.ColorOptionIsApproved == true)
+                                                    {
+                                                        <div class="col-md-6 form-check shopify">
+                                                            <input checked class="form-check-input confirm" value="@coloroption.Approve" type="radio" name="@coloroption.ColorId" id="approve-@coloroption.ColorId">
+                                                            <label class="form-check-label" for="approve-@coloroption.ColorId" style="font-size:14px;">
+                                                                Approve
+                                                            </label>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="col-md-6 form-check shopify">
+                                                            <input @onchange='@(e => onChangeApprove(true, @coloroption.Id))' class="form-check-input confirm" value="@coloroption.Approve" type="radio" name="@coloroption.ColorId" id="approve-@coloroption.ColorId">
+                                                            <label class="form-check-label" for="approve-@coloroption.ColorId" style="font-size:14px;">
+                                                                Approve
+                                                            </label>
+                                                        </div>
+                                                    }
+                                                    <div class="col-md-6 form-check shopify">
+                                                        @if (coloroption.ColorOptionIsApproved == false || coloroption.ApprovedOn == null)
+                                                        {
+                                                            <input @onchange='@(e => onChangeReject(true, @coloroption.Id))' class="form-check-input confirm" value="coloroption.Reject" type="radio" name="@coloroption.ColorId" id="reject-@coloroption.ColorId">
+                                                            <label class="form-check-label" for="reject-@coloroption.ColorId" style="font-size:14px;">
+                                                                Reject
+                                                            </label>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 for__inline">
+                                                    <div class="col-md-6 form-check div_confirm">
+                                                        @if (@coloroption.Approve == true)
+                                                        {
+                                                            <button class="btn bg-btn text-light btn_confirm " type="button" id="approve-@coloroption.Id" @onclick='@(e => onClickApprove(@coloroption.Id, coloroption.CollectionId))'>
+                                                                Confirm Approval
+                                                            </button>
+                                                        }
+                                                    </div>
+                                                    <div class="col-md-6 form-check div_confirm">
+                                                        @if (@coloroption.Reject == true)
+                                                        {
+                                                            <button class="btn bg-btn text-light btn_confirm" type="button" id="reject-@coloroption.Id" @onclick='@(e => onClickReject(@coloroption.Id, coloroption.CollectionId))'>
+                                                                Confirm Rejection
+                                                            </button>
+                                                        }
+                                                    </div>
+
+                                                </div>
+                                                @if (coloroption.IsApproved == true || coloroption.ColorOptionIsApproved == true)
+                                                {
+                                                    var approvedOn = string.Empty;
+                                                    if (coloroption.ApprovedOn != null)
+                                                    {
+                                                        approvedOn = @coloroption.ApprovedOn?.ToString("MMMM dd, yyyy").ToString();
+                                                    }
+                                                    else
+                                                    {
+                                                        approvedOn = "Not Available";
+                                                    }
+                                                    <div class="col-md-12 form-check" style="margin-left:8px; margin-bottom:20px;">
+                                                        <label style="background: #FAFAFA; color: #989DA5; font-size: 12px; border: 1px solid #dee2e6 !important; padding: 10px; border-radius: 5px; ">Approved on @approvedOn by Billy</label>
+                                                    </div>
+                                                }
+                                            </div>
+
+                                            <div class="row info ">
+                                                <div class="col-md-12 collapse target-@coloroption.Id" id="fabricInfos-data">
+                                                    <div class="row align" style="margin-top:10px; margin-left:25px;">
+                                                        <div class="col-md-12 align">
+                                                            <p class="header-text-fabric align" style="font-size: 14px;">Used For</p>
+                                                        </div>
+                                                        <div class="col-md-4 align" style="text-align:center;">
+                                                            <p class="header-fabric align" style="font-size:9px;">Influencers</p>
+                                                        </div>
+                                                        <div class="col-md-4 align" style="text-align:center;">
+                                                            <p class="header-fabric align" style="font-size:9px;">Collections</p>
+                                                        </div>
+                                                        <div class="col-md-4 align" style="text-align:center;">
+                                                            <p class="header-fabric align" style="font-size:9px;">Amount</p>
+                                                        </div>
+
+                                                        <div class="col-md-4 align" style="text-align:center;">
+                                                            <p class="content-fabric align" style="font-size:9px;">Billy & James</p>
+                                                        </div>
+                                                        <div class="col-md-4 align" style="text-align:center;">
+                                                            <p class="content-fabric align" style="font-size:9px;">BJ Collections</p>
+                                                        </div>
+                                                        <div class="col-md-4 align" style="text-align:center;">
+                                                            <p class="content-fabric align" style="font-size:9px;">100</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row align" style="margin-bottom:10px; margin-left:25px;">
+                                                        <div class="col-md-12 align">
+                                                            <p class="header-text-fabric align" style="font-size: 14px;">Reserved For</p>
+                                                        </div>
+                                                        <div class="col-md-4 align" style="text-align:center;">
+                                                            <p class="header-fabric align" style="font-size:9px;">Influencers</p>
+                                                        </div>
+                                                        <div class="col-md-4 align" style="text-align:center;">
+                                                            <p class="header-fabric align" style="font-size:9px;">Collections</p>
+                                                        </div>
+                                                        <div class="col-md-4 align" style="text-align:center;">
+                                                            <p class="header-fabric align" style="font-size:9px;">Amount</p>
+                                                        </div>
+
+                                                        @foreach (var res in ReservationListModel.Result.Items.FindAll(x => x.MaterialId == coloroption.MaterialId))
+                                                        {
+                                                            <div class="col-md-4 align" style="text-align:center;">
+                                                                <p class="content-fabric align" style="font-size:9px;">@res.InfluencersName</p>
+                                                            </div>
+                                                            <div class="col-md-4 align" style="text-align:center;">
+                                                                <p class="content-fabric align" style="font-size:9px;">@res.CollectionName</p>
+                                                            </div>
+                                                            <div class="col-md-4 align" style="text-align:center;">
+                                                                <p class="content-fabric align" style="font-size:9px;">@res.ReservedCount</p>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="spacer"></div>
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</EditForm>*@

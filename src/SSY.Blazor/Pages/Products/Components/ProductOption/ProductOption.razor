@@ -1,0 +1,325 @@
+@{
+    var uniqueIdModal = Guid.NewGuid();
+    var uniqueIdCollapse = Guid.NewGuid();
+           @if(Title == "Parent Product Options"){
+                 <div class="d-flex justify-content-between " data-target="#@uniqueIdCollapse" data-toggle="collapse">
+                    <div class="col-md-8">
+                         <h3 class="header-text">@Title</h3>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="fa fa-light fa-chevron-down pull-right for-dropdown"></i>
+                    </div>
+                </div>
+            }
+            
+           
+         
+        
+        <div class=" collapse show" id="@uniqueIdCollapse">
+            @if(Title == "Parent Product Options")
+            {
+                <div class="row mt-3">
+                    <div class="col-md-8">
+                        <h3 class="sub-header-text mt-3">Product Options</h3>
+                    </div>
+                     <div class="col-md-4">
+                    <button class="btn btn-success pull-right float-right" role="button" data-toggle="modal" data-target="#@uniqueIdModal">Add Product Options</button>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row mt-3">
+                    <div class="col-md-8">
+                        <h3 class="sub-header-text mt-3">Child Product Options</h3>
+                    </div>
+                     <div class="col-md-4">
+                    <button class="btn btn-success pull-right float-right" role="button" data-toggle="modal" data-target="#@uniqueIdModal">Add Product Options</button>
+                    </div>
+                </div>
+            }
+            <div class="row mt-3">
+               
+                <div class="col-md-12 mt-3 mb-3">
+                    <div class="border rounded-sm bg-light p-3">
+
+                        @* <button type="button" class="btn btn-success" @onclick="@(e => xxx())">xxx</button> *@
+
+                        @foreach (var option in ProductTypeModel?.Options)
+                        {
+                            // find if mother id exists in option
+                            @if(ProductModel.Options.Any(x=> x.OptionId == option.Id))
+                            {
+                                var currentOption = ProductModel.Options.FirstOrDefault(x=> x.OptionId == option.Id);
+                                
+                                <p>
+                                    <span class="font-color-text text-uppercase">@option?.Label</span> : @option?.Value 
+                                    @if(!string.IsNullOrWhiteSpace(currentOption.MaterialName))
+                                    {
+                                        <span > > [@currentOption.MaterialName]</span>
+                                    }      
+                                    
+                                </p>
+                            }
+
+                            @if(option.OptionOptions.Any())
+                            {
+                                @foreach (var childOption1 in option.OptionOptions)
+                                {
+                                    @if(ProductModel.Options.Any(x=> x.OptionId == childOption1.Id))
+                                    {
+                                        var currentOption = ProductModel.Options.FirstOrDefault(x=> x.OptionId == childOption1.Id);
+                                        
+                                        <p>
+                                            
+                                            <span class="font-color-text text-uppercase">@option?.Label</span> : @option?.Value > @childOption1.Value
+                                            @if(!string.IsNullOrWhiteSpace(currentOption.MaterialName))
+                                            {
+                                                <span > > [@currentOption.MaterialName]</span>
+                                            }  
+                                        </p>
+                                    }
+
+                                    @if(childOption1.OptionOptions.Any())
+                                    {
+                                        @foreach (var childOption2 in childOption1.OptionOptions)
+                                        {  
+
+                                            @if(ProductModel.Options.Any(x=> x.OptionId == childOption2.Id))
+                                            {
+                                                var currentOption = ProductModel.Options.FirstOrDefault(x=> x.OptionId == childOption2.Id);
+                                                
+                                                <p>
+                                                    <span class="font-color-text text-uppercase">@option?.Label</span> : @option?.Value > @childOption1.Value > @childOption2.Value
+                                                    @if(!string.IsNullOrWhiteSpace(currentOption.MaterialName))
+                                                    {
+                                                        <span > > [@currentOption.MaterialName]</span>
+                                                    }  
+                                                </p>
+                                            }
+
+                                            @if(childOption2.OptionOptions.Any()){
+                                                foreach (var childOption3 in childOption2.OptionOptions)
+                                                {  
+
+                                                    @if(ProductModel.Options.Any(x=> x.OptionId == childOption3.Id))
+                                                    {
+                                                        var currentOption = ProductModel.Options.FirstOrDefault(x=> x.OptionId == childOption3.Id);
+                                                        
+                                                        <p>
+                                                            <span class="font-color-text text-uppercase">@option?.Label</span> : @option?.Value 
+                                                                > @childOption1.Value > @childOption2.Value > @childOption3.Value
+                                                                @if(!string.IsNullOrWhiteSpace(currentOption.MaterialName))
+                                                                {
+                                                                    <span > > [@currentOption.MaterialName]</span>
+                                                                }  
+                                                        </p>
+                                                        
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="modal fade" id="@uniqueIdModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" >Add Product Options</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                    @if(groupByOptionLabel.Any()){
+                        @foreach (var option in groupByOptionLabel)
+                        {
+                            @if(option.Key.ToLower() == "gender"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" Panels="Panels" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "rise"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "body length"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "fit"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "strap"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "hem"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "sleeve type"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "base"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "inside shorts"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "neckline"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "backcutout style"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "bustband"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "waistband"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "inside shorts length"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "inside shorts panel"){
+                                <div class="col-12 mt-2">
+                                    <ParentCheckbox ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "outside shorts"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "waistband pocket"){
+                                <div class="col-12 mt-2">
+                                    <ParentCheckbox ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "front seam"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "leg shape"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "length"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+                            
+                            @* note: will change to "single panel" and " multi panel" *@
+                            @if(option.Key.ToLower() == "panel"){ 
+                                @if(ProductModel.TypeId == 1044 || ProductModel.TypeId == 1045 || ProductModel.TypeId == 1006 || ProductModel.TypeId == 1046 || ProductModel.TypeId == 1059){
+                                    <div class="col-12 mt-2">
+                                        <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                    </div>
+                                }else {
+                                    <div class="col-12 mt-2">
+                                        <ParentCheckbox ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" Panels="Panels" />
+                                    </div>
+                                }
+                            }
+
+                            @* note: will change to "single sleeve style" and " multi sleeve style" *@
+                            @if(option.Key.ToLower() == "sleeve style"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            } 
+
+                            @if(option.Key.ToLower() == "outside branding"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "front opening"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+
+                            @if(option.Key.ToLower() == "pocket"){
+                                @if(ProductModel.TypeId == 1009 || ProductModel.TypeId == 1022){
+                                    <div class="col-12 mt-2">
+                                        <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                    </div>
+                                }else {
+                                    <div class="col-12 mt-2">
+                                        <ParentCheckbox ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" Panels="Panels" />
+                                    </div>
+                                }
+                            }
+
+                            @if(option.Key.ToLower() == "waistband style"){
+                                <div class="col-12 mt-2">
+                                    <ParentDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductModel.Id" ProductTypeId="ProductModel.TypeId" ProductOptions="ProductModel.Options" Title="@option.Key" OptionListModel="@option.Value" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+                                </div>
+                            }
+                        }
+                    }
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" @onclick="@(e => SaveChanges())">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

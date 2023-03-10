@@ -1,0 +1,824 @@
+@* @using SSY.Web.Blazor.Core.Data.Materials.Model;
+@using SSY.Web.Blazor.Core.Data.RollsAndLocations.Model; *@
+
+
+
+    <div class="border rounded-lg p-4 shadow-sm bg-white">
+        <div class="justify-content-between">
+            <div class="row m-0 p-0">
+                @* <div class="col-md-6 m-0" @onclick="@(e => OnClickSection())"> *@
+                    <div class="col-md-12 m-0">
+                    <h3 class="header-text text-center m-0 p-0">Materials</h3>
+                </div>
+               
+            </div>
+        </div>
+        @* <div class="row custom__overideWTH collapse @collapseSection" id="CollectionColor"> *@
+        <div class="row custom__overideWTH collapse show" id="CollectionColor">
+            <div class="col-md-12 pt-3">
+                @* @foreach (var item in CollectionModel.MaterialProductTypeList?.OrderBy(x => x.MaterialTypeName))
+                {
+                    var materialType = item?.MaterialTypes?.FirstOrDefault(x => x.Id == item.MaterialTypeId);
+
+                    if (item.IsApplied)
+                    { *@
+                        <div class="thumbnail mb-3">
+
+                            <div class="row header-title m-0 py-1">
+                                <div class="col-md-10 m-0 p-0" data-target="#sample-id" data-toggle="collapse">
+                                    @* <p class="font-weight-bold m-0 my-1 pl-3">@item.MaterialTypeName</p> *@
+                                     <p class="font-weight-bold m-0 my-1 pl-3">sample</p>
+                                </div>
+                                <div class="col-md-2 m-0 p-0">
+                                    @* @if (IsEditable)
+                                    { *@
+                                        @* <button class="btn bg-btn py-1 text-light float-right mr-3" id="addColorOption" type="button" @onclick='@(e => AddColorOptionHandler(item, materialType))'>
+                                            Add Color Option
+                                        </button> *@
+                                         <button class="btn bg-btn py-1 text-light float-right mr-3" id="addColorOption" type="button">
+                                            Add Color Option
+                                        </button>
+                                    @* } *@
+                                </div>
+                            </div>
+
+                            @* <div class="row m-0 thumbnail-content show" id="sample-id"> *@
+                             <div class="row m-0 thumbnail-content show" id="sample-id">
+                                <div class="col-md-12 m-0 p-0">
+                                    <div class="row m-0 p-0 pt-2 pb-2">
+                                        <div class="col-md-4 m-0 p-0 product-details">
+
+                                            <div class="row m-0 headers col-md-12 p-0">
+                                                <div class="col-md-6 m-0 pt-1 pb-1">
+                                                    <p class="input-field-text text-uppercase pt-2 pl-3 ml-3 p-0" id="forecastTitle" contentEditable="false">Product Type</p>
+                                                </div>
+                                                <div class="col-md-3 m-0 pt-1 pb-1">
+                                                    <p class="input-field-text text-uppercase text-center m-0 p-0" id="forecastTitle" contentEditable="false">Forecast Quantity</p>
+                                                </div>
+                                                <div class="col-md-3 m-0 pt-1 pb-1">
+                                                    <p class="input-field-text text-uppercase text-center m-0 p-0" id="forecastTitle" contentEditable="false">Average Consumption</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="row m-0 product-productType col-md-12 pl-3 p-0">
+                                                @* @foreach (var productType in item?.ProductTypes?.OrderBy(x => x.Value).Where(x => x.IsSelected == true))
+                                                { *@
+                                                    <div class="row m-0 p-0 product-type col-md-12 mb-1">
+                                                        <div class="col-md-6 m-0 p-0 list-inline text-nowrap dropdown">
+                                                            @* <button class="btn list-inline-item m-0" id="@productType.Value" data-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></button> *@
+                                                            @* @if (productType.IsOnEdit == false)
+                                                            { *@
+                                                                @* <p class="h1 list-inline-item m-0 ml-n2" contentEditable="false">@productType.Value</p> *@
+                                                            @* }
+                                                            else
+                                                            { *@
+                                                                @* <select value="@productType.Id" class="select-dropdown col-9 form-control-sm list-inline-item" @oninput="@(e => onChangeProductTypeHandler(productType, e.Value.ToString()))">
+                                                                    @foreach (var prod in ProductTypeListModel?.Items?.Where(x => x.MaterialTypeId == item.MaterialTypeId)?.OrderBy(x => x.Value))
+                                                                    {
+                                                                        if (item.ProductTypeIds.Contains(prod.Id))
+                                                                        {
+                                                                            <option value="@prod.Id" selected="@(productType.Id.Equals(prod.Id)==true)" disabled>@prod.Value</option>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <option value="@prod.Id">@prod.Value</option>
+                                                                        }
+                                                                    }
+                                                                </select> *@
+                                                            @* }
+                                                            @if (IsEditable)
+                                                            { *@
+                                                                @* <ul class="dropdown-menu m-0 p-0 ml-2" aria-labelledby="@productType.Value"> *@
+                                                                    @* <li class="m-0 p-0 border-bottom" @onclick="@(e => onEditProductTypeHandler(productType))"><a class="dropdown-item">Edit</a></li>
+                                                                    <li class="m-0 p-0 border-bottom" @onclick="@(e => onDeleteProductTypeHandler(productType))"><a class="dropdown-item">Delete</a></li> *@
+                                                                    @* <li class="m-0 p-0 border-bottom"><a class="dropdown-item">Edit</a></li>
+                                                                    <li class="m-0 p-0 border-bottom"><a class="dropdown-item">Delete</a></li>
+                                                                </ul> *@
+                                                            @* } *@
+                                                        </div>
+                                                        <div class="col-md-3 m-0 pt-2 pb-1 ml-n2">
+                                                            <p class="h1 text-center text-value" contentEditable="false">Sample</p>
+                                                        </div>
+                                                        <div class="col-md-3 m-0 pt-2 pb-1">
+                                                            <p class="h1 text-center text-value" contentEditable="false">Sample</p>
+                                                        </div>
+                                                    </div>
+                                                @* } *@
+                                            </div>
+
+                                            <div class="row m-0 headers col-md-12 p-0 total-forecast">
+                                                <div class="col-md-6 m-0 pt-1 pb-1">
+                                                    <p class="input-field-text text-uppercase pt-2 pl-3 ml-3 p-0" id="forecastTitle" contentEditable="false">Total Forecast</p>
+                                                </div>
+                                                <div class="col-md-3 m-0 pt-1 pb-1">
+                                                    @* <p class="h1 text-center text-value" contentEditable="false" value="@item.TotalForecast">@item.TotalForecast</p> *@
+                                                    <p class="h1 text-center text-value" contentEditable="false" value="sample">sample</p>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row m-0 headers col-md-12 p-0 total-max-quantity">
+                                                <div class="col-md-6 m-0 pt-1 pb-1">
+                                                    <p class="input-field-text text-uppercase pt-2 pl-3 ml-3 p-0" id="forecastTitle" contentEditable="false">Total Max Quantity</p>
+                                                </div>
+                                                <div class="col-md-3 m-0 pt-1 pb-1">
+                                                    @* <p class="h1 text-center text-value" contentEditable="false" value="@item.TotalMaxQuantity">@item.TotalMaxQuantity</p> *@
+                                                     <p class="h1 text-center text-value" contentEditable="false" value="sample">sample</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-8 m-0 p-0 list-inline-item color-options">
+
+                                            <div class="container testimonial-group m-0 p-0 pr-3">
+                                                <div class="row m-0 col-md-12 p-0">
+                                                    @* @foreach (var colorSelection in CollectionModel?.ColorSelectionList?.OrderBy(x => x.Title)?.Where(x => x.MaterialTypeId == item.MaterialTypeId && x.IsRejected != true))
+                                                    {
+                                                        double totalRequiredYardage = 0;
+                                                        var productTypes = @CollectionModel.SelectedMaterialProducts.Find(x => x.MaterialTypeId == colorSelection.MaterialTypeId && x.ColorId == colorSelection.ColorId);
+                                                        totalRequiredYardage = productTypes != null ? productTypes.TotalProductRequiredYardage : 0; *@
+                                                        <div class="col-md-4 m-0 p-0 ml-2">
+
+                                                            <div class="col-md-12 m-0 p-0 mr-3">
+                                                                <div class="row m-1 available-product">
+                                                                    <div class="col-md-12 mb-2 mt-2">
+                                                                        <p class="input-field-text text-uppercase text-center m-0 p-0" id="forecastTitle" contentEditable="false">Available in this Color</p>
+                                                                    </div>
+                                                                </div>
+                                                                @* @foreach (var productType in item?.ProductTypes?.OrderBy(x => x.Value).Where(x => x.IsSelected == true))
+                                                                {
+                                                                    if (IsEditable && colorSelection.IsApproved == null)
+                                                                    { *@
+                                                                        <div class="row m-1 is-available-product-type">
+                                                                            <div class="col-md-12">
+                                                                                <div class="text-center m-1 custom-checkbox  checkbox__producttype custom-control custom-checkbox" id="sample-colorid">
+                                                                                    @* <input class="form-check-input text-center custom-control-input" checked="@(colorSelection.ProductTypeIds.Contains(productType.Id)==true)" @onchange="@(e => IsAvailableHandler(colorSelection, productType, e.Value.ToString(), colorSelection.ColorId))" type="checkbox" id="@productType.Value-@colorSelection.Id" name="@productType.Value">
+                                                                                    <label class="form-check-label text-center custom-control-label" for="@productType.Value-@colorSelection.Id"></label> *@
+                                                                                     <input class="form-check-input text-center custom-control-input">
+                                                                                    <label class="form-check-label text-center custom-control-label"></label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    @* }
+                                                                    else
+                                                                    {
+                                                                        <div class="row m-1 is-available-product-type">
+                                                                            <div class="col-md-12">
+                                                                                <div class="text-center m-1 custom-checkbox  checkbox__producttype custom-control custom-checkbox" id="sample-colorid">
+                                                                                    <input class="form-check-input text-center custom-control-input" disabled checked="@(colorSelection.ProductTypeIds.Contains(productType.Id)==true)" type="checkbox" id="@productType.Value-@colorSelection.Id" name="@productType.Value">
+                                                                                    <label class="form-check-label text-center custom-control-label" for="@productType.Value-@colorSelection.Id"></label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                } *@
+                                                            </div>
+
+                                                            <div class="col-md-12 m-0 p-0">
+
+                                                                <div class="row m-1 color-optiomn-title">
+                                                                    <div class="col-md-10 m-0 pt-1 pb-1 ml-n1">
+                                                                        @* <p class="input-field-text text-uppercase h1 pt-1 ml-n3" contentEditable="false">@colorSelection.Title</p> *@
+                                                                    </div>
+                                                                    <div class="col-md-2 m-0 pt-1 pb-1 p-0">
+                                                                        @* @* @if (IsEditable && colorSelection.IsApproved == null)
+                                                                        { *@
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#000000" id="deleteColorOption"
+                                                                                 class="bi bi-trash3" viewBox="0 0 16 16">
+                                                                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                                                                            </svg>
+                                                                        @* } *@ 
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row m-1 color-option-color-dropdown mb-2">
+                                                                    <div class="col-md-12 color border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                                                        <div class="row fieldheader">
+                                                                            <h3 class="mt-2 text-muted input-text">Color</h3>
+                                                                        </div>
+                                                                        <div class="row fieldcontent">
+                                                                            @* @if (IsEditable && colorSelection.IsApproved == null)
+                                                                            {
+                                                                                <select value="sample-colorid" id="sample-colorid" class="form-control  form-control-sm color-option-dropdown" @oninput="@(e => SelectColorHandler(colorSelection, e.Value.ToString()))">
+                                                                                    <option selected disabled value="0">Select Color</option>
+                                                                                    @foreach (var color in ColorList?.Result?.Items)
+                                                                                    {
+                                                                                        if (item.SelectedColorIds.Contains(color.Id))
+                                                                                        {
+                                                                                            <option value="@color.Id" selected="@(color.Id.Equals(colorSelection.ColorId)==true)" disabled>@color.Value</option>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <option value="@color.Id">@color.Value</option>
+                                                                                        }
+                                                                                    }
+                                                                                </select>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <select disabled value="sample-colorid" data-toggle="tooltip" data-placement="top" title="Click Edit to modify this field" id="sample-colorid" class="form-control  form-control-sm color-option-dropdown">
+                                                                                    <option selected disabled value="0">Select Color</option>
+                                                                                    @foreach (var color in ColorList?.Result?.Items)
+                                                                                    {
+                                                                                        <option value="@color.Id">@color.Value</option>
+                                                                                    }
+                                                                                </select>
+                                                                            } *@
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                @* @if (!@colorSelection.MaterialId.Equals(Guid.Empty))
+                                                                {
+                                                                    if (colorSelection.SwatchImage == null || colorSelection.SwatchImage == string.Empty || colorSelection.SwatchImage == "NotFound")
+                                                                 { *@
+                                                                        <div class="row m-1 color-option-color-palette" style="background: red"></div>
+                                                                    @* } 
+                                                                    else
+                                                                    {
+                                                                        <div class="row m-1 color-option-color-palette mt-n1 mb-2" id="@colorSelection.SwatchImage">
+                                                                            <img src="@colorSelection.SwatchImage" height="100%" class="color-pallete" onerror="this.onerror = null; this.src='/img/No-Image-Placeholder.svg.png'" />
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="row m-1 color-option-color-palette" style="background-color:@colorSelection?.HexCode;"></div>
+                                                                } *@
+
+                                                                <div class="row m-1 color-option-fabric mb-2">
+                                                                    <div class="col-md-12 color border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                                                        <div class="row fieldheader">
+                                                                            <h3 class="mt-2 text-muted input-text">Fabric Selection</h3>
+                                                                        </div>
+                                                                        <div class="row fieldcontent list-inline">
+                                                                            <div class="col-md-1 list-inline-item m-0 p-0 mr-n2">
+                                                                                @* @if (!@colorSelection.MaterialId.Equals(Guid.Empty))
+                                                                                {
+                                                                                    <img src="@colorSelection.SwatchImage" width="12" height="12" class="color-pallete" onerror="this.onerror = null; this.src='/img/No-Image-Placeholder.svg.png'" />
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <svg width="12" height="12" class="color-pallete">
+                                                                                        <rect width="12" height="12" style="fill: @colorSelection.HexCode; stroke-width:1; stroke:#B3B3B3;" />
+                                                                                    </svg>
+                                                                                } *@
+                                                                            </div>
+                                                                            <div class="col-md-11 list-inline-item m-0 p-0 dropdown">
+                                                                                @* @{
+                                                                                    var fabricSelection = colorSelection.MaterialId.Equals(Guid.Empty) ? "Select Fabric" : colorSelection.MaterialName;
+
+                                                                                    @if (IsEditable)
+                                                                                    {
+                                                                                        <button type="button" id="fabricButton" @onclick="@(e => onSelectFabric(colorSelection, item.MaterialTypeId))" data-toggle="modal" data-target="#fabricSelectionModal" aria-haspopup="true" aria-expanded="false" class="btn bg-white inputfield color-option-dropdown fabric-options list-inline-item">
+                                                                                            @fabricSelection
+                                                                                        </button>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <button type="button" id="fabricButton" aria-haspopup="true" aria-expanded="false" class="btn bg-white inputfield color-option-dropdown fabric-options list-inline-item">
+                                                                                            @fabricSelection
+                                                                                        </button>
+                                                                                    }
+
+                                                                                    @if (!@colorSelection.MaterialId.Equals(Guid.Empty))
+                                                                                    {
+                                                                                        <i class="fa fa-info fa-light hover-info fabric-icon">
+                                                                                            <div class="tooltip">
+                                                                                                <div class="row info m-0 p-0">
+                                                                                                    <div class="col-md-12 m-0 p-0">
+                                                                                                        <div class="row align mt-2 ml-3">
+                                                                                                            <div class="col-12 col-lg-12 col-md-12 col-sm-12 align m-0 p-0">
+                                                                                                                <p class="header-text-fabric info-header align">Used For</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-4 col-lg-4 col-md-4 col-sm-4 align text-center m-0 p-0">
+                                                                                                                <p class="header-fabric align text-center info-content">Influencers</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-4 col-lg-4 col-md-4 col-sm-4 align text-center m-0 p-0">
+                                                                                                                <p class="header-fabric align text-center info-content">Collections</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-4 col-lg-4 col-md-4 col-sm-4 align text-center m-0 p-0">
+                                                                                                                <p class="header-fabric align text-center info-content">Amount</p>
+                                                                                                            </div>
+
+                                                                                                            <div class="col-4 col-lg-4 col-md-4 col-sm-4 align text-center m-0 p-0">
+                                                                                                                <p class="content-fabric align text-center info-content">Billy & James</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-4 col-lg-4 col-md-4 col-sm-4 align text-center m-0 p-0">
+                                                                                                                <p class="content-fabric align text-center info-content">BJ Collections</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-4 col-lg-4 col-md-4 col-sm-4 align text-center m-0 p-0">
+                                                                                                                <p class="content-fabric align text-center info-content">100</p>
+                                                                                                            </div>
+                                                                                                        </div>
+
+                                                                                                        <div class="row align mt-2 ml-3">
+                                                                                                            <div class="col-12 col-lg-12 col-md-12 col-sm-12 align m-0 p-0">
+                                                                                                                <p class="header-text-fabric info-header align">Reserved For</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-4 col-lg-4 col-md-4 col-sm-4 align text-center m-0 p-0">
+                                                                                                                <p class="header-fabric text-center align info-content">Influencers</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-4 col-lg-4 col-md-4 col-sm-4 align text-center m-0 p-0">
+                                                                                                                <p class="header-fabric align info-content">Collections</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-4 col-lg-4 col-md-4 col-sm-4 align text-center m-0 p-0">
+                                                                                                                <p class="header-fabric align info-content">Amount</p>
+                                                                                                            </div>
+
+                                                                                                            @foreach (var roll in colorSelection.RollAndLocations)
+                                                                                                            {
+                                                                                                                foreach (var res in roll.RollReservations)
+                                                                                                                {
+                                                                                                                    <div class="col-md-4 align text-center m-0 p-0">
+                                                                                                                        <p class="content-fabric align text-center info-content">@res.InfluencersNames</p>
+                                                                                                                    </div>
+                                                                                                                    <div class="col-md-4 align text-center m-0 p-0">
+                                                                                                                        <p class="content-fabric align text-center info-content">@res.CollectionName</p>
+                                                                                                                    </div>
+                                                                                                                    <div class="col-md-4 align text-center m-0 p-0">
+                                                                                                                        <p class="content-fabric align text-center info-content">@res.ReservationCount</p>
+                                                                                                                    </div>
+                                                                                                                }
+
+                                                                                                            }
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </i>
+                                                                                    }
+
+                                                                                    var icon = colorSelection.MaterialId.Equals(Guid.Empty) ? "fabric-dropdown-icon-empty" : "fabric-dropdown-icon";
+
+                                                                                    @if (IsEditable)
+                                                                                    {
+                                                                                        <i class="fa fa-chevron-down @icon" @onclick="@(e => onSelectFabric(colorSelection, item.MaterialTypeId))" data-toggle="modal" data-target="#fabricSelectionModal"></i>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <i class="fa fa-chevron-down @icon"></i>
+                                                                                    }
+                                                                                } *@
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row m-1 color-option-roll mb-2">
+                                                                    <div class="col-md-12 color border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                                                        <div class="row fieldheader">
+                                                                            <h3 class="mt-2 text-muted input-text">Roll Selection</h3>
+                                                                        </div>
+                                                                        <div class="row fieldcontent dropdown">
+
+                                                                            @* @if (IsEditable)
+                                                                            {
+                                                                                <button type="button" id="rollAndLocationButton" @onclick="@(e => onClickRoll(colorSelection))" data-toggle="modal" data-target="#rollSelectionModal" aria-haspopup="true" aria-expanded="false" class="btn m-0 form-control-sm bg-white col-md-11">
+                                                                                    @colorSelection.SelectRolls
+                                                                                </button>
+                                                                                <i class="fa fa-chevron-down fabric-dropdown-icon col-md-1 m-0 p-1 pl-2" @onclick="@(e => onClickRoll(colorSelection))" data-toggle="modal" data-target="#rollSelectionModal"></i>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <button type="button" id="rollAndLocationButton" aria-haspopup="true" aria-expanded="false" class="btn m-0 form-control-sm bg-white col-md-11">
+                                                                                    @colorSelection.SelectRolls
+                                                                                </button>
+                                                                                <i class="fa fa-chevron-down fabric-dropdown-icon col-md-1 m-0 p-1 pl-2"></i>
+                                                                            } *@
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row m-1 color-option-required-yardage mb-2">
+                                                                    <div class="col-md-12 mt-2 maxQuantity">
+                                                                        <p class="h1 text-center text-value" contentEditable="false">Required Yardage: 35</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                @* @if (totalRequiredYardage > colorSelection.TotalRollYardage)
+                                                                { *@
+                                                                    <div class="row m-1 mb-2 color-option-reserve-yardage">
+                                                                        <div class="col-md-12 maxQuantity fabric-site-no">
+                                                                            <p class="h1 text-center text-fabric-site-no" contentEditable="false">Reserved Yardage: 35</p>
+                                                                        </div>
+                                                                    </div>
+                                                                @* } 
+                                                                else
+                                                                {
+                                                                    <div class="row m-1 mb-2 color-option-reserve-yardage">
+                                                                        <div class="col-md-12 maxQuantity">
+                                                                            <p class="h1 text-center text-value" contentEditable="false">Reserved Yardage: @colorSelection.TotalRollYardage (@colorSelection.TotalRollYardagePercentage%)</p>
+                                                                        </div>
+                                                                    </div>
+                                                                } *@
+
+                                                                <div class="row m-1 mb-2 color-option-max-quantity">
+                                                                    <div class="col-md-12 maxQuantity">
+                                                                        <p class="h1 text-center text-value" contentEditable="false">Max Quantity: 35</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                @* @if (colorSelection.SelectedRollIds.Count > 0)
+                                                                {
+                                                                    @if (colorSelection.isFabricOnSite == true)
+                                                                    { *@
+                                                                        <div class="row m-1 mb-2 color-option-fabric-on-site">
+                                                                            <div class="col-md-12 fabric-site-yes">
+                                                                                <p class="h1 text-center text-value" contentEditable="false">Fabric On-Site: Yes</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    @* } 
+                                                                    else
+                                                                    {
+                                                                        <div class="row m-1 mb-2 color-option-fabric-on-site">
+                                                                            <div class="col-md-12 fabric-site-no">
+                                                                                <p class="h1 text-center text-fabric-site-no" contentEditable="false">Fabric On-Site: No</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                }
+
+                                                                @if (IsModuleAdd == false)
+                                                                {
+                                                                    <div class="row m-1 mb-3 p-0 color-option-approval">
+                                                                        @if (IsEditable == false || colorSelection.IsApproved != null)
+                                                                        { *@
+                                                                            <div class="col-md-12 title m-1 mb-0 p-0">
+                                                                                <p class="input-field-text mb-0 text-uppercase h1">APPROVAL</p>
+                                                                            </div>
+                                                                            <div class="col-md-12 for__inline m-0 p-0 mb-2">
+                                                                                <div class="col-md-6 shopify custom-control custom-radio">
+                                                                                    <input class="form-check-input confirm custom-control-input" checked="samples" type="radio" name="samples" id="samples">
+                                                                                    <label class="form-check-label custom-control-label" for="samples">
+                                                                                        Approve
+                                                                                    </label>
+                                                                                </div>
+                                                                                @* @if (colorSelection.IsApproved == null && colorSelection.IsRejected == null && colorSelection.IsApproved != true)
+                                                                                { *@
+                                                                                    <div class="col-md-6 shopify custom-control custom-radio">
+                                                                                        <input class="form-check-input confirm custom-control-input"  type="radio" name="samples" id="samples">
+                                                                                        <label class="form-check-label custom-control-label" for="samples">
+                                                                                            Reject
+                                                                                        </label>
+                                                                                    </div>
+                                                                                @* }
+                                                                            </div>
+                                                                        }
+                                                                        @if (colorSelection.IsApproved == null && colorSelection.IsRejected == null)
+                                                                        {
+                                                                            <div class="col-md-12 for__inline m-0 p-0">
+                                                                                <div class="col-md-6 div_confirm m-0 p-0">
+                                                                                    @if (colorSelection.ApprovalIsApprove)
+                                                                                    {
+                                                                                        <button class="btn bg-btn m-0 text-light btn_confirm" @onclick="@(e => onClickApprove(colorSelection))" type="button" id="approve-@colorSelection.Id">
+                                                                                            Confirm Approval
+                                                                                        </button>
+                                                                                    }
+                                                                                </div>
+                                                                                <div class="col-md-6 div_confirm m-0 p-0">
+                                                                                    @if (colorSelection.ApprovalIsReject)
+                                                                                    {
+                                                                                        <button class="btn bg-btn m-0 text-light btn_confirm" @onclick="@(e => onClickReject(colorSelection))" type="button" id="reject-@colorSelection.Id">
+                                                                                            Confirm Rejection
+                                                                                        </button>
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                        @if (colorSelection.IsApproved == true)
+                                                                        {
+                                                                            var approvedOn = string.Empty;
+                                                                            var approvedBy = colorSelection.ApprovedBy != null ? colorSelection.ApprovedBy : @currentUser;
+                                                                            if (colorSelection.ApprovedOn != null)
+                                                                            {
+                                                                                approvedOn = @colorSelection.ApprovedOn?.ToString("MMMM dd, yyyy").ToString();
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                approvedOn = @DateTime.Now.ToString("MMMM dd, yyyy").ToString();
+                                                                            }
+                                                                            <div class="col-md-12 m-0 text-center p-3 approved">
+                                                                                <p class="m-0 p-0 approved-content">Approved on @approvedOn  by @approvedBy</p>
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                } *@
+
+                                                            </div>
+
+                                                        </div>
+                                                    @* } *@
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    @* }
+                } *@
+            </div>
+        </div>
+    </div>
+
+@* 
+<div class="modal fade" id="fabricSelectionModal" tabindex="-1" role="dialog" aria-labelledby="fabricSelectionModal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fabricSelection">Fabric Selection</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <TextEdit type="text" class="form-control" @bind-Text="@customFabricFilterValue" placeholder="Search"></TextEdit>
+
+                <DataGrid CustomFilter="@OnCustomFabricFilter"
+                          TItem="MaterialModel"
+                          Data="@_materials"
+                          Responsive
+                          Hoverable="true"
+                          ShowPager="true"
+                          ShowPageSizes="true"
+                          FixedHeader
+                          FixedHeaderTableHeight="400px"
+                          RowStyling="@OnRowStylingFabric">
+
+                    <ChildContent>
+                        <DataGridColumn TItem="MaterialModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(MaterialModel.Image)" Caption="Thumbnail" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center" data-dismiss="modal" @onclick="@(e => OnSelectFabricHandler(@ColorSelectionModel.Id, context.TypeId.Value, context.Id))">
+                                    <img class="width-30 rounded" src="@context.Image" onerror="this.onerror = null; this.src='/img/No-Image-Placeholder.svg.png'" />
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="MaterialModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(MaterialModel.Name)" Caption="Name" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center" data-dismiss="modal" @onclick="@(e => OnSelectFabricHandler(@ColorSelectionModel.Id, context.TypeId.Value, context.Id))">
+                                    @context.Name
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="MaterialModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(MaterialModel.AvailableCount)" Caption="Available Count" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center" data-dismiss="modal" @onclick="@(e => OnSelectFabricHandler(@ColorSelectionModel.Id, context.TypeId.Value, context.Id))">
+                                    @context.AvailableCount Yards
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                    </ChildContent>
+                    <EmptyTemplate>
+                        <div class="box text-center">
+                            No records were found.
+                        </div>
+                    </EmptyTemplate>
+                </DataGrid>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="rollSelectionModal" tabindex="-1" role="dialog" aria-labelledby="rollSelectionModal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rollSelection">Roll Selection</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <TextEdit type="text" class="form-control" @bind-Text="@customRollFilterValue" placeholder="Search"></TextEdit>
+
+                <DataGrid CustomFilter="@OnCustomRollFilter"
+                          TItem="RollAndLocationModel"
+                          Data="@_rolls"
+                          Responsive
+                          Hoverable="true"
+                          ShowPager="true"
+                          ShowPageSizes="true"
+                          FixedHeader
+                          FixedHeaderTableHeight="500px">
+
+                    <ChildContent>
+                        <DataGridColumn TItem="RollAndLocationModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(RollAndLocationModel.Id)" Caption="" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    <div class="text-center m-1 custom-checkbox  checkbox__producttype custom-control custom-checkbox" id="roll-@context.Id">
+                                        <input class="form-check-input text-center custom-control-input" checked="@(ColorSelectionModel.SelectedRollIds.Contains(context.Id)==true)" @onchange="@(e => SelectRollHandler(ColorSelectionModel, context, e.Value.ToString()))" type="checkbox" id="@context.Id" name="roll-@context.Id">
+                                        <label class="form-check-label text-center custom-control-label" for="@context.Id"></label>
+                                    </div>
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="RollAndLocationModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(RollAndLocationModel.QR)" Caption="QR" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center" data-dismiss="modal">
+                                    <QRCode Value="@($"{context.Id} - {context.RollNumber}")" Alt="QRCode image" style="width:50px;height:50px;" />
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="RollAndLocationModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(RollAndLocationModel.RollNumber)" Caption="Roll Number" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.RollNumber
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="RollAndLocationModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(RollAndLocationModel.AvailableCount)" Caption="Total Count" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.AvailableCount Yards
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn TItem="RollAndLocationModel" HeaderTextAlignment="TextAlignment.Center" Field="@nameof(RollAndLocationModel.BuildingOrWarehouse)" Caption="Building/Warehouse" Editable>
+                            <DisplayTemplate>
+                                <div class="text-center">
+                                    @context.BuildingOrWarehouse
+                                </div>
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                    </ChildContent>
+                    <EmptyTemplate>
+                        <div class="box text-center">
+                            No records were found.
+                        </div>
+                    </EmptyTemplate>
+                </DataGrid>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<EditForm Model="InventoryAdditionRequestModel">
+    <DataAnnotationsValidator />
+
+    <div class="modal fade" id="InventoryAdditionalRequestModal" tabindex="-1" role="dialog" aria-labelledby="InventoryAdditionalRequestModal"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="InventoryAdditionalRequest">Inventory Addition Request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="@(e => onCloseInventoryAdditionRequest())">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row custom__overideWTH">
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Type *</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <InputSelect @bind-Value="InventoryAdditionRequestModel.TypeId" class="form-control mb-2 form-control-sm border-0 pricePoint" id="city">
+                                        <option selected disabled value="0">Select Type</option>
+                                        @foreach (var item in AdditionRequestTypeListModel)
+                                        {
+                                            <option value="@item.Id">@item.Value</option>
+                                        }
+                                    </InputSelect>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Category *</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <InputSelect @bind-Value="InventoryAdditionRequestModel.CategoryId" class="form-control mb-2 form-control-sm border-0 pricePoint" id="city">
+                                        <option selected disabled value="0">Select Category</option>
+                                        @foreach (var item in MaterialCategoryListModel.Result.Items.OrderBy(x => x.OrderNumber))
+                                        {
+                                            <option value="@item.Id">@item.Value</option>
+                                        }
+                                    </InputSelect>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Material Type *</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <InputSelect @bind-Value="InventoryAdditionRequestModel.MaterialTypeId" class="form-control mb-2 form-control-sm border-0 pricePoint" id="city">
+                                        <option selected disabled value="0">Select Material Type</option>
+                                        @foreach (var item in TypeListModel)
+                                        {
+                                            <option value="@item.Id">@item.Value</option>
+                                        }
+                                    </InputSelect>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Item Code</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <InputText @bind-Value="InventoryAdditionRequestModel.ItemCode" class="form-control mb-2 form-control-sm bg-white inputfield  border-0 collectionName" contentEditable="false" placeholder="Item Code">
+                                    </InputText>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Color Code/Name</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <InputText @bind-Value="InventoryAdditionRequestModel.ColorCode" class="form-control mb-2 form-control-sm bg-white inputfield  border-0 collectionName" contentEditable="false" placeholder="Color Code/Name">
+                                    </InputText>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Color Group *</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <InputSelect @bind-Value="InventoryAdditionRequestModel.ColorGroupId" class="form-control mb-2 form-control-sm border-0 pricePoint" id="city">
+                                        <option selected disabled value="0">Select Color Group</option>
+                                        @foreach (var item in ColorList.Result.Items)
+                                        {
+                                            <option value="@item.Id">@item.Value</option>
+                                        }
+                                    </InputSelect>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">TXC Code *</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <InputText @bind-Value="InventoryAdditionRequestModel.TXCCode" class="form-control mb-2 form-control-sm bg-white inputfield  border-0 collectionName" contentEditable="false" placeholder="TXC Code">
+                                    </InputText>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Required Yardage *</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <InputNumber @bind-Value="InventoryAdditionRequestModel.RequiredYardage" class="form-control mb-2 form-control-sm bg-white inputfield  border-0 collectionName" contentEditable="false" placeholder="Required Yardage">
+                                    </InputNumber>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-lg btn-success buttons__class" @onclick="@(e => OnSubmitAdditionRequest())">Request</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="@(e => onCloseInventoryAdditionRequest())">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</EditForm> *@
+    </div>

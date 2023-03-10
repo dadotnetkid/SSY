@@ -1,0 +1,489 @@
+<EditForm Model="CollectionModel">
+    <DataAnnotationsValidator />
+
+    <div class="border rounded-lg p-4 shadow-sm bg-white">
+        <div class="d-flex justify-content-between " data-target="#overview" data-toggle="collapse">
+            <div class="col-md-11">
+                <h3 class="header-text">Overview</h3>
+            </div>
+            <div class="col-md-1">
+                <i class="fa fa-light fa-chevron-down pull-right accordion-dropdown-icon"></i>
+            </div>
+        </div>
+
+        <div class="row custom__overideWTH collapse show" id="overview">
+            <div class="col-lg-3 col-md-12 col-sm-12 mt-3 ">
+                <div class="border bg-light text-dark bg-white fieldBody">
+                    <div class="row fieldheader">
+                        <h3 class="mt-2 text-muted input-text">Collection Name <span class="text-danger">*</span></h3>
+                    </div>
+                    <div class="row fieldparagraph">
+                        @if (IsEditable)
+                        {
+                            <InputText @bind-Value="CollectionModel.Name" class="mb-2 form-control-sm bg-white inputfield-editable" contentEditable="false" placeholder="Collection Name">
+                            </InputText>
+                        }
+                        else
+                        {
+                            <InputText disabled @bind-Value="CollectionModel.Name" class="mb-2 form-control-sm bg-white inputfield" contentEditable="false" placeholder="Collection Name">
+                            </InputText>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-12 col-sm-12 mt-3 ">
+                <div class="border  bg-light text-dark bg-white fieldBody">
+                    <div class="row fieldheader">
+                        <h3 class="mt-2 text-muted input-text">Influencers <span class="text-danger">*</span></h3>
+                    </div>
+                    <div class="row fieldparagraph">
+                        @if (IsEditable)
+                        {
+                            <button type="button" id="influencerButton" class="col-md-12 bg-white inputfield-editable" @onclick="OnClickInfluencers">
+                                @CollectionModel.Influencers
+                                <i class="fa fa-chevron-down col-md-1 fabric-dropdown-icon pull-right"></i>
+                            </button>
+                        }
+                        else
+                        {
+                            <button disabled type="button" id="influencerButton" class="col-12 bg-white fontBolder">
+                                @CollectionModel.Influencers
+                                <i class="fa fa-chevron-down fabric-dropdown-icon pull-right pt-1"></i>
+                            </button>
+                        }
+                    </div>
+                    <div id="influencers" class="collapse @collapseInfluencer">
+                        @foreach (var item in UserDetailListModel.Where(x => x.Status == 7).OrderBy(x => x.FullName))
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-check checkbox__producttype custom-control custom-checkbox">
+                                        <input class="form-check-input custom-control-input" type="checkbox" id="@item.Id" name="@item.FullName" checked="@(CollectionModel.InfluencerIdsList.Contains(item.Id)==true)"
+                                               value="@CollectionModel.InfluencerIdsList" @onchange='@(e => onChangeInfluencerHandler(item.Name, item, (bool)e.Value))'>
+                                        <label class="form-check-label custom-control-label" for="@item.Id">@item.FullName</label>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                <div class="border bg-light text-dark bg-white fieldBody">
+                    <div class="row fieldheader">
+                        <h3 class="mt-2 text-muted input-text">Season <span class="text-danger">*</span></h3>
+                    </div>
+                    <div class="row fieldparagraph">
+                        @if (IsEditable)
+                        {
+                            <select @bind="CollectionModel.SeasonId" @oninput="@(e => onChangeSeason(e.Value.ToString()))" class="mb-2 form-control-sm bg-white inputfield-editable" id="city">
+                                <option disabled selected value="0">Select Season</option>
+                                @foreach (var item in SeasonListModel.OrderBy(x => x.OrderNumber))
+                                {
+                                    <option value="@item.Id">@item.Value (@item.Label)</option>
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            var season = @SeasonListModel?.Find(x => x.Id == @CollectionModel.SeasonId);
+                            var seasonValue = season != null ? $"{season.Value} ({season.Label})" : "No Available";
+                            <label class="form-check-label inputfield m-1">@seasonValue</label>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-1 col-md-12 col-sm-12 mt-3 ">
+                <div class="border bg-light text-dark bg-white fieldBody">
+                    <div class="row fieldheader">
+                        <h3 class="mt-2 text-muted input-text">Year <span class="text-danger">*</span></h3>
+                    </div>
+                    <div class="row fieldparagraph">
+                        @if (IsEditable)
+                        {
+                            <select @bind="CollectionModel.Year" @oninput="@(e => onChangeYear(e.Value.ToString()))" class="mb-2 m-0 p-1 form-control-sm bg-white inputfield-editable" id="city">
+                                <option disabled selected value="0">Select Year</option>
+                                @foreach (var item in YearList)
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            var year = YearList?.Find(x => x == @CollectionModel.Year);
+                            var yearValue = year != null ? year.ToString() : "No Available";
+                            <label class="form-check-label inputfield m-1">@yearValue</label>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-1 col-md-12 col-sm-12 mt-3 ">
+                <div class="border bg-light text-dark bg-white fieldBody">
+                    <div class="row fieldheader">
+                        <h3 class="mt-2 text-muted input-text">Status <span class="text-danger">*</span></h3>
+                    </div>
+                    <div class="row fieldparagraph">
+                        @if (IsEditable)
+                        {
+                            <InputSelect @bind-Value="CollectionModel.StatusId" contentEditable="false" class="mb-2 form-control-sm bg-white inputfield-editable" id="city">
+                                <option selected disabled value="0">Select Status</option>
+                                @foreach (var item in StatusListModel.OrderBy(x => x.OrderNumber))
+                                {
+                                    <option value="@item.Id">@item.Value</option>
+                                }
+                            </InputSelect>
+                        }
+                        else
+                        {
+                            var status = @StatusListModel?.Find(x => x.Id == @CollectionModel.StatusId);
+                            var statusValue = status != null ? status.Value : "No Available";
+                            <label class="form-check-label inputfield m-1">@statusValue</label>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-1 col-md-12 col-sm-12 mt-3 ">
+                <div class="border bg-light text-dark bg-white fieldBody">
+                    <div class="row fieldheader">
+                        <h3 class="mt-2 text-muted input-text">Price Point</h3>
+                    </div>
+                    <div class="row fieldparagraph">
+                        @if (IsEditable)
+                        {
+                            <InputSelect @bind-Value="CollectionModel.PricePointId" contentEditable="false" class="mb-2 form-control-sm bg-white inputfield-editable" id="city">
+                                <option selected disabled value="0">Select Price Point</option>
+                                @foreach (var item in PricePointListModel.OrderBy(x => x.OrderNumber))
+                                {
+                                    <option value="@item.Id">@item.Value</option>
+                                }
+                            </InputSelect>
+                        }
+                        else
+                        {
+                            var pricePoint = PricePointListModel?.Find(x => x.Id == @CollectionModel.PricePointId);
+                            var pricePointValue = pricePoint != null ? pricePoint.Value : "No Available";
+                            <label class="form-check-label inputfield m-1">@pricePointValue</label>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-1 col-md-12 col-sm-12 mt-3 ">
+                <div class="border bg-light text-dark bg-white fieldBody">
+                    <div class="row fieldheader">
+                        <h3 class="mt-2 text-muted input-text">OEM <span class="text-danger">*</span></h3>
+                    </div>
+                    <div class="row fieldparagraph">
+                        @if (IsEditable)
+                        {
+                            <InputSelect @oninput="@(e => onChangeFactory(e.Value.ToString()))" @bind-Value="CollectionModel.FactoryId" class="mb-2 m-0 p-1 form-control-sm bg-white fontBolder inputfield-editable" id="city">
+                                <option disabled selected value="0">Select OEM</option>
+                                @foreach (var item in FactoryListModel.OrderBy(x => x.OrderNumber))
+                                {
+                                    <option value="@item.Id">@item.Value</option>
+                                }
+                            </InputSelect>
+                        }
+                        else
+                        {
+                            var factory = @FactoryListModel?.Find(x => x.Id == @CollectionModel.FactoryId);
+                            var factoryValue = factory != null ? factory.Label : "No Available";
+                            <label class="form-check-label inputfield m-1">@factoryValue</label>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                <div class="border bg-light text-dark bg-white fieldBody">
+                    <div class="row fieldheader">
+                        <h3 class="mt-2 text-muted input-text">Shipping Type <span class="text-danger">*</span></h3>
+                    </div>
+                    <div class="row fieldparagraph">
+                        @if (IsEditable)
+                        {
+                            <InputSelect @bind-Value="CollectionModel.ShippingTypeId" class="mb-2 form-control-sm bg-white fontBolder inputfield-editable" id="city">
+                                <option disabled selected value="0">Select Shipping Type</option>
+                                @foreach (var item in ShippingTypeListModel.OrderBy(x => x.OrderNumber))
+                                {
+                                    <option value="@item.Id">@item.Value</option>
+                                }
+                            </InputSelect>
+                        }
+                        else
+                        {
+                            var shippingType = @ShippingTypeListModel?.Find(x => x.Id == @CollectionModel.ShippingTypeId);
+                            var shippingTypeValue = shippingType != null ? shippingType.Label : "No Available";
+                            <label class="form-check-label inputfield m-1">@shippingTypeValue</label>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-12 col-sm-12 mt-3 ">
+                <div class="border bg-light text-dark bg-white fieldBody">
+                    <div class="row fieldheader">
+                        <h3 class="mt-2 text-muted input-text">Marketing Type <span class="text-danger">*</span></h3>
+                    </div>
+                    <div class="row fieldparagraph">
+                        @if (IsEditable)
+                        {
+                            <InputSelect @bind-Value="CollectionModel.MarketingTypeId" class="mb-2 form-control-sm bg-white fontBolder inputfield-editable" id="city">
+                                <option disabled selected value="0">Select Marketing Type</option>
+                                @foreach (var item in MarketingTypeListModel.OrderBy(x => x.OrderNumber))
+                                {
+                                    <option value="@item.Id">@item.Value</option>
+                                }
+                            </InputSelect>
+                        }
+                        else
+                        {
+                            var marketingType = @MarketingTypeListModel?.Find(x => x.Id == @CollectionModel.MarketingTypeId);
+                            var marketingTypeValue = marketingType != null ? marketingType.Label : "No Available";
+                            <label class="form-check-label inputfield m-1">@marketingTypeValue</label>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-12 col-sm-12 mt-3 ">
+                <div class="border bg-light text-dark bg-white fieldBody">
+                    <div class="row fieldheader">
+                        <h3 class="mt-2 text-muted input-text">Material Type <span class="text-danger">*</span></h3>
+                    </div>
+                    @if (IsEditable)
+                    {
+                        <button id="influencerButton" type="button" class="btn mb-2 form-control-sm bg-white inputfield influencerDropdown" data-toggle="modal" data-target="#@showModal" @onclick="OnClickMaterialTypes">
+                            @CollectionModel.MaterialTypeNames
+                            <i class="fa fa-chevron-down fabric-dropdown-icon pull-right"></i>
+                        </button>
+                    }
+                    else
+                    {
+                        <button disabled type="button" id="influencerButton" class="col-12 bg-white fontBolder">
+                            @CollectionModel.MaterialTypeNames
+                            <i class="fa fa-chevron-down fabric-dropdown-icon pull-right"></i>
+                        </button>
+                    }
+                    <div class="modal fade" id="@showModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6 class="modal-title" id="exampleModalLabel">Material Type</h6>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body modal-material">
+                                    @foreach (var item in TypeListModel)
+                                    {
+                                        @if (!item.Value.Contains("Rib"))
+                                        {
+                                            var selectedProductTypeNames = "Select Product Types";
+                                            var selectedProductType = @CollectionModel.MaterialProductTypeList.Find(x => x.MaterialTypeId == item.Id);
+                                            if (selectedProductType != null)
+                                                selectedProductTypeNames = selectedProductType.selectedProductTypeNames.ToString();
+                                            else
+                                                selectedProductTypeNames = "Select Product Types";
+
+                                            <div class="body-for-drop-down">
+                                                @if (showModal == "tienhu")
+                                                {
+
+                                                    @* <p>tienhu</p> *@
+                                                    @if (item.Value == materialValue)
+                                                    {
+                                                        <div class="row border-bottom p-2 m-0">
+                                                            <div class="col-md-4">
+                                                                <div class="form-check checkbox__producttype custom-control custom-checkbox">
+                                                                    <input class="form-check-input custom-control-input" type="checkbox" id="@item.Id" name="@item.Value"
+                                                                           value="@item.Id" checked="@(MaterialTypeIds.Contains(item.Id)==true)" @onchange='@(e => onChangeMaterialTypeHandler(item.Id, item, (bool)e.Value))'>
+                                                                    <label class="form-check-label custom-control-label" for="@item.Id">@item.Value</label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-8">
+                                                                <div class="border bg-light text-dark mt-3 bg-white fieldBody">
+                                                                    <div class="row fieldheader">
+                                                                        <h3 class="mt-2 text-muted input-text">Product Type</h3>
+                                                                    </div>
+                                                                    <div class="row fieldparagraph dropdown">
+                                                                        <button type="button" id="productTypeButton" class="mb-2 col-md-10 form-control-sm bg-white inputfield-editable text-left"
+                                                                                data-target=".@item.Id" data-toggle="collapse">
+                                                                            @selectedProductTypeNames
+                                                                        </button>
+                                                                        <i class="fa fa-chevron-down fabric-dropdown-icon m-0 p-2 col-md-2 pull-right"></i>
+                                                                    </div>
+
+                                                                    @if (MaterialTypeIds.Contains(item.Id))
+                                                                    {
+                                                                        <div id="productTypes" class="collapse @item.Id">
+                                                                            @foreach (var productType in ProductTypeListModel.Items)
+                                                                            {
+                                                                                @if (productType.MaterialTypeId == item.Id)
+                                                                                {
+                                                                                    var prod = ProductTypeListModel.Items.FindAll(x => CollectionModel.MaterialProductTypeList.Any(m => m.ProductTypes.Any(p => p.Id == x.Id && p.MaterialTypeId == item.Id)));
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-check checkbox__producttype custom-control custom-checkbox">
+                                                                                                <input class="form-check-input custom-control-input" checked="@(prod.Contains(productType)==true)" type="checkbox" id="@productType.Id" name="@productType.Value" @onchange='@(e => onChangeProductTypeHandler(productType, item, (bool)e.Value))'>
+                                                                                                <label class="form-check-label custom-control-label" for="@productType.Id">@productType.Value</label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                            }
+                                                                        </div>
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+
+                                                }
+                                                else if (showModal == "cebu")
+                                                {
+                                                    @if (item.Value == "Activewear" || item.Value == "Jersey" || item.Value == "Mesh" || item.Value == "Sweats" || item.Value == "Windbreaker" || item.Value == "French Terry" || item.Value == "Tea Bag Mesh" || item.Value == "Polar Fleece")
+                                                    {
+                                                        <div class="row border-bottom p-2 m-0">
+                                                            @* <p>cebu</p> *@
+                                                            <div class="col-md-4">
+                                                                <div class="form-check checkbox__producttype custom-control custom-checkbox">
+                                                                    <input class="form-check-input custom-control-input" type="checkbox" id="@item.Id" name="@item.Value"
+                                                                           value="@item.Id" checked="@(MaterialTypeIds.Contains(item.Id)==true)" @onchange='@(e => onChangeMaterialTypeHandler(item.Id, item, (bool)e.Value))'>
+                                                                    <label class="form-check-label custom-control-label" for="@item.Id">@item.Value</label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-8">
+                                                                <div class="border bg-light text-dark mt-3 bg-white fieldBody">
+                                                                    <div class="row fieldheader">
+                                                                        <h3 class="mt-2 text-muted input-text">Product Type</h3>
+                                                                    </div>
+                                                                    <div class="row fieldparagraph dropdown">
+                                                                        <button type="button" id="productTypeButton" class="mb-2 col-md-10 form-control-sm bg-white inputfield-editable text-left"
+                                                                                data-target=".@item.Id" data-toggle="collapse">
+                                                                            @selectedProductTypeNames
+                                                                        </button>
+                                                                        <i class="fa fa-chevron-down fabric-dropdown-icon m-0 p-2 col-md-2 pull-right"></i>
+                                                                    </div>
+
+                                                                    @if (MaterialTypeIds.Contains(item.Id))
+                                                                    {
+                                                                        <div id="productTypes" class="collapse @item.Id">
+                                                                            @foreach (var productType in ProductTypeListModel.Items)
+                                                                            {
+                                                                                @if (productType.MaterialTypeId == item.Id)
+                                                                                {
+                                                                                    var prod = ProductTypeListModel.Items.FindAll(x => CollectionModel.MaterialProductTypeList.Any(m => m.ProductTypes.Any(p => p.Id == x.Id && p.MaterialTypeId == item.Id)));
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="form-check checkbox__producttype custom-control custom-checkbox">
+                                                                                                <input class="form-check-input custom-control-input" checked="@(prod.Contains(productType)==true)" type="checkbox" id="@productType.Id" name="@productType.Value" @onchange='@(e => onChangeProductTypeHandler(productType, item, (bool)e.Value))'>
+                                                                                                <label class="form-check-label custom-control-label" for="@productType.Id">@productType.Value</label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+                                                                            }
+                                                                        </div>
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+
+
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-lg  buttons__class">Clear All</button>
+                                    <button type="button" data-dismiss="modal" id="applyButton" class="btn btn-lg btn-success ml-2 buttons__class" @onclick="@(e => Apply())">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-12 col-sm-12 mt-3 ">
+                <div class="border bg-light text-dark bg-white fieldBody">
+                    <div class="row fieldheader">
+                        <h3 class="mt-2 text-muted input-text">Sizing Options</h3>
+                    </div>
+                    <div class="row fieldparagraph dropdown">
+                        @if (IsEditable)
+                        {
+                            <button type="button" id="influencerButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="col-md-12 btn bg-white inputfield-editable m-0">
+                                @CollectionModel.SizingOptionsName
+                                <i class="fa fa-chevron-down col-md-1 fabric-dropdown-icon pull-right pt-1 ml-n1"></i>
+                            </button>
+
+                            <div id="sizing" aria-labelledby="influencerButton" class="dropdown-menu sizing p-0">
+                                @foreach (var item in ProductSizeListModel.OrderBy(x => x.OrderNumber))
+                                {
+                                    var uniquedIdentifier = Guid.NewGuid();
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-check checkbox__producttype custom-control custom-checkbox">
+                                                <input class="form-check-input custom-control-input" type="checkbox" id="@uniquedIdentifier-@item.Id" name="@item.Value"
+                                                       value="@item.Id" checked="@(CollectionModel.SizingOptionIds.Contains(item.Id)==true)" @onchange="@(e => onChangeSizingOptionsHandler(item, (bool)e.Value))">
+                                                <label class="form-check-label custom-control-label" for="@uniquedIdentifier-@item.Id">@item.Value</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            if (CollectionModel.SizingOptionList.Count == 0)
+                            {
+                                <label class="form-check-label inputfield m-1">No Available</label>
+                            }
+                            else
+                            {
+                                <label class="form-check-label m-1">@CollectionModel.SizingOptionsName</label>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-1 col-md-12 col-sm-12 mt-3 ">
+                <h3 class="mt-2 text-muted input-text">Shopify Availability</h3>
+                <div class="row fieldparagraph ml-2">
+                    <div class="for__inline m-1">
+                        <div class="form-check shopify custom-control custom-radio">
+                            <input class="form-check-input custom-control-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label custom-control-label" for="flexRadioDefault1">
+                                Available
+                            </label>
+                        </div>
+                        <div class="form-check shopify custom-control custom-radio">
+                            <input class="form-check-input custom-control-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                            <label class="form-check-label custom-control-label" for="flexRadioDefault2">
+                                Unavailable
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</EditForm>
+
+

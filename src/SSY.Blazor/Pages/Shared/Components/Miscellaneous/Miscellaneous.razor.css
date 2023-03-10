@@ -1,0 +1,11 @@
+
+.care__instructions .text__secondary {
+    font-size: 10px;
+    line-height: 0px;
+}
+textarea.form-control.mb-2.form-control-sm.editable.valid {
+    height: 108px !important;
+}
+.border.rounded-sm.bg-light.text-dark.pl-3.pr-3.care__instructions {
+    height: 147px;
+}

@@ -1,0 +1,161 @@
+
+
+<div class="col-md-12">
+    <div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+        <div class="d-flex justify-content-between">
+        </div>
+        <div class="inline__flex filter row">
+            <div class="col-md-10">
+                <Searchbox></Searchbox>
+            </div>
+            <div class="col-md-2">
+                <button class="btn bg-btn col-12 text-light" data-toggle="modal" data-target="#settingsUser" @onclick="@(e => AddButtonClear())">Add User</button>
+            </div>
+        </div>
+
+        <div class="pl-3 pr-3 table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="tb-header text-center"><input type="checkbox"></th>
+                        <th class="tb-header">Status</th>
+                        <th class="tb-header">Full Name</th>
+                        <th class="tb-header">Company</th>
+                        <th class="tb-header">Email/Username</th>
+                        <th class="tb-header">User Access</th>
+                        <th class="tb-header">Remarks</th>
+                        <th class="tb-header text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var userDetail in GetAllUserDetailOutputModel?.Result?.Items.OrderByDescending(x => x.CreationTime))
+                    {
+                        <tr>
+                            <td class="tb-td-text text-center"><input type="checkbox"></td>
+                            <td class="tb-td-text">
+                                <h6><span class="badge badge-success @userDetail.IsActive;">Active</span></h6>
+                            </td>
+                            <td class="tb-td-text">@userDetail.FullName</td>
+                            <td class="tb-td-text">@userDetail.CompanyLabel</td>
+                            <td class="tb-td-text">@userDetail.EmailAddress</td>
+                            <td class="tb-td-text">@userDetail.RoleNamesValue</td>
+                            <td class="tb-td-text">@userDetail.Remarks</td>
+
+                            <td class="tb-td-text text-center">
+                                <a type="button" data-toggle="modal" data-target="#settingsUser" @onclick="@(e => EditUserDetails(@userDetail.Id))"> <span class="cursor-pointer">Edit</span> </a>
+                                <a type="button" @onclick="@(e => DeleteUserDetail(@userDetail.Id))">
+                                    <span class="cursor-pointer">Delete</span>
+                                </a>
+                            </td>
+                        </tr>
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<EditForm Model="UserDetailModel" OnValidSubmit="OnSubmit">
+    <DataAnnotationsValidator />
+    <div class="modal fade" id="settingsUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @if (ModuleMessage == "Add")
+                    {
+                        <h5 class="modal-title" id="exampleModalLongTitle">Add User</h5>
+                    }
+                    else if (ModuleMessage == "Edit")
+                    {
+
+                        <h5 class="modal-title" id="exampleModalLongTitle">Edit User</h5>
+                    }
+                    else
+                    {
+                    }
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <h3 class="mt-2 text-muted input-text">First Name</h3>
+                    <InputText @bind-Value="UserDetailModel.Name" class="form-control mb-2 form-control-sm" placeholder="Name"></InputText>
+
+                    <h3 class="mt-2 text-muted input-text">Surname</h3>
+                    <InputText @bind-Value="UserDetailModel.Surname" class="form-control mb-2 form-control-sm" placeholder="Surname"></InputText>
+
+                    <h3 class="mt-2 text-muted input-text">Email Address / Username</h3>
+                    <InputText @bind-Value="UserDetailModel.EmailAddress" class="form-control mb-2 form-control-sm" placeholder="Email"></InputText>
+
+                    <h3 class="mt-2 text-muted input-text">Contact Number</h3>
+                    <InputText @bind-Value="UserDetailModel.PhoneNumber" class="form-control mb-2 form-control-sm" placeholder="Contact Number"></InputText>
+
+                    <h3 class="mt-2 text-muted input-text">Position</h3>
+                    <InputText @bind-Value="UserDetailModel.Position" class="form-control mb-2 form-control-sm" placeholder="Position"></InputText>
+
+                    <h3 class="mt-2 text-muted input-text">Access Rights</h3>
+                    <select @oninput='@(e => onChangeRole(e.Value.ToString()))' class="form-control mb-2 form-control-sm">
+                        @if (ModuleMessage != "Edit")
+                        {
+                            <option selected="selected" disabled>Select Access Rights</option>
+                            @foreach (var role in RolesModel)
+                            {
+                                <option value="@role.Name">@role.Name</option>
+                            }
+                        }
+                        else
+                        {
+                            @foreach (var role in RolesModel)
+                            {
+                                <option value="@role.Name">@role.Name</option>
+                            }
+                        }
+
+
+                    </select>
+                    <h3 class="mt-2 text-muted input-text">Company</h3>
+                    <InputSelect @bind-Value="UserDetailModel.CompanyId" class="form-control mb-2 form-control-sm">
+                        <option selected="selected" disabled>Select Company</option>
+                        @foreach (var company in CompanyListModel?.Result?.Items)
+                        {
+                            <option value="@company.Id">@company.Name</option>
+                        }
+
+                    </InputSelect>
+                    @if (ModuleMessage == "Add")
+                    {
+                        <h3 class="mt-2 text-muted input-text">Password</h3>
+
+                        <div class="input-group mb-3">
+                            <InputText @bind-Value="UserDetailModel.Password" type="@TextType" class="form-control"></InputText>
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-white" @onclick="ShowPassword"><i class="@Icon" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+
+                    }
+                    <h3 class="mt-2 text-muted input-text">Remarks</h3>
+                    <InputText @bind-Value="UserDetailModel.Remarks" class="form-control mb-2 form-control-sm" placeholder="Remark"></InputText>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary text-light btn-danger buttons__class"
+                            data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="btn bg-btn text-light modal__adjustment">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>

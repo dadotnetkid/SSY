@@ -1,0 +1,41 @@
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #7B8E61 !important;
+    border-color: #adb5bd;
+}
+
+.custom-checkbox .custom-control-input:checked:focus ~ .custom-control-label::before {
+    box-shadow: none !important;
+    border-color: #adb5bd;
+}
+
+.custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: none !important;
+    border-color: #adb5bd;
+}
+
+.custom-checkbox .custom-control-input:active ~ .custom-control-label::before {
+    background-color: #7B8E61;
+    border-color: #adb5bd;
+}
+
+::deep select.modified.valid {
+    outline: none;
+    border: 0px;
+}
+
+::deep input {
+    font-size: 14px;
+    border: 0px;
+    outline: none;
+}
+
+::deep select {
+    font-size: 14px;
+    border: 0px;
+    outline: none;
+}
+
+::deep .valid.modified:not([type=checkbox]) {
+    outline: none;
+    border: 0px;
+}

@@ -1,0 +1,219 @@
+@using Microsoft.AspNetCore.Hosting
+@using Microsoft.Extensions.Logging
+@* @inject ILogger<FileUpload1> Logger *@
+@inject IWebHostEnvironment Environment
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment env
+
+
+<EditForm Model="SubMaterialModel" @ref="editForm">
+    <DataAnnotationsValidator />
+
+    <div class="border rounded-lg p-4 shadow-sm inventory__sec bg-white">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Inventory</h3>
+        </div>
+
+        <div class="row ">
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 bg-white totalCount">
+                    @if (IsEditable)
+                    {
+                        <h5 class="mt-2 text-muted input-text">Total Count <span class="text-danger">*</span> </h5>
+                        <InputNumber @bind-Value="SubMaterialModel.TotalCount" class="form-control mb-2 form-control-sm"
+                                   placeholder="Enter Total Count" name="TotalCount"></InputNumber>
+                        @*<p class="text-muted input-field-text" contentEditable="false" placeholder="">@SubMaterialModel.TotalCount</p>*@
+                    }
+                    else
+                    {
+                        <h5 class="mt-2 text-muted input-text">Total Count <span class="text-danger">*</span> </h5>
+                        <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SubMaterialModel.TotalCount</p>
+                    }
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm  text-dark pl-3 pr-3 bg-light onHandCount">
+                    <h5 class="mt-2 text-muted input-text">On Hand Count <span class="text-danger">*</span> </h5>
+                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SubMaterialModel.OnHandCount</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm  text-dark pl-3 pr-3 bg-white incomingCount">
+                    @if (IsEditable)
+                    {
+                        <h5 class="mt-2 text-muted input-text">Incoming Count <span class="text-danger">*</span> </h5>
+                        <InputNumber @bind-Value="SubMaterialModel.IncomingCount" class="form-control mb-2 form-control-sm"
+                                      name="IncomingCount"></InputNumber>
+                        @*<p class="text-muted input-field-text" contentEditable="false" placeholder="">@SubMaterialModel.TotalCount</p>*@
+                    }
+                    else
+                    {
+                        <h5 class="mt-2 text-muted input-text">Incoming Count <span class="text-danger">*</span> </h5>
+                        <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SubMaterialModel.IncomingCount</p>
+                    }
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm  text-dark pl-3 pr-3 bg-light">
+                    <h5 class="mt-2 text-muted input-text">Available Count <span class="text-danger">*</span> </h5>
+                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SubMaterialModel.AvailableCount</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm  text-dark pl-3 pr-3 bg-light">
+                    <h5 class="mt-2 text-muted input-text">Reserved Count <span class="text-danger">*</span> </h5>
+                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SubMaterialModel.ReservedCount</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm  text-dark pl-3 pr-3 bg-light usedCount">
+                    <h5 class="mt-2 text-muted input-text">Used Count <span class="text-danger">*</span> </h5>
+                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SubMaterialModel.UsedCount</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 fileUpload">
+                    <div class="custom-file">
+                        <div class="container cut">
+                            <label class="custom-file" for="customInput">
+                                @if (IsEditable)
+                                {
+                                    <InputFile OnChange="LoadFiles" hidden type="file" class="custom-file-input" id="customInput"
+                                               aria-describedby="fileHelp" accept=".png,.jpg,.jpeg" />
+
+                                    <div class="inventory_custom__upload">
+                                        <span class="custom-file-control form-control-file">Upload Image</span>
+                                        <span class="max__text">Upload png or jpg (Maximum of 5MB)</span>
+                                        @foreach (var file in loadedFiles)
+                                        {
+                                            <span class="max__text">@file.Name</span>
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="width__images">
+                                                    <img class="width-50 rounded" src="@InventoryModel.Image" onerror="this.onerror = null; this.src='/img/No-Image-Placeholder.svg.png'" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="custom___disabled">
+                                                    <span class="max__text view">You are in View Mode</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm  text-dark pl-3 pr-3 uom">
+                    <h5 class="mt-2 text-muted input-text">Unit of Measurement <span class="text-danger">*</span>  </h5>
+
+                    @if (IsEditable)
+                    {
+                        <InputSelect @bind-Value="SubMaterialModel.UnitOfMeasurementId" class="form-control mb-2 form-control-sm"
+                                     id="color" aria-placeholder="Select Color">
+                            <option selected="selected" disabled value="0">Select Unit of Measurement</option>
+                            @foreach (var item in UnitOfMeasurementListModel.Result.Items)
+                            {
+                                <option value="@item.Id">@item.Label</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => SubMaterialModel.UnitOfMeasurementId)" />
+                    }
+                    else
+                    {
+                        <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SubMaterialModel.UnitOfMeasurementValue</p>
+                    }
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-4 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 minimumStock">
+
+                    @if (IsEditable)
+                    {
+                        <h5 class="mt-2 text-muted input-text"> Minimum Stock Level <span class="text-danger">*</span> </h5>
+                        <InputNumber @bind-Value="SubMaterialModel.MinimumStockLevel" class="form-control mb-2 form-control-sm"
+                                     placeholder="Minimum Stock Level" name="Minimum Stock Level"></InputNumber>
+                        <ValidationMessage For="@(() => SubMaterialModel.MinimumStockLevel)" />
+                    }
+                    else
+                    {
+                        <h5 class="mt-2 text-muted input-text"> Minimum Stock Level </h5>
+
+                        <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @SubMaterialModel.MinimumStockLevel </p>
+
+                    }
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</EditForm>
+
+
+@code {
+    EditForm editForm;
+    private List<IBrowserFile> loadedFiles = new();
+    private long maxFileSize = 1024 * 5000;
+    private int maxAllowedFiles = 3;
+    private bool isLoading;
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+        loadedFiles.Clear();
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            try
+            {
+                loadedFiles.Add(file);
+
+                @* var trustedFileNameForFileStorage = Path.GetRandomFileName();
+                    var path = $@"{env.WebRootPath}/Uploads/Images/{file.Name}";
+
+                    await using FileStream fs = new(path, FileMode.Create);
+                    await file.OpenReadStream(maxFileSize).CopyToAsync(fs); *@
+
+                Stream stream = file.OpenReadStream(maxFileSize);
+                var path = $@"/Uploads/Images/{file.Name}";
+                var fullPath = $@"{env.WebRootPath}/Uploads/Images/{file.Name}";
+                FileStream fs = File.Create(fullPath);
+                await stream.CopyToAsync(fs);
+                fs.Close();
+                InventoryModel.Image = path;
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine("File: {Filename} Error: {Error} " +
+                file.Name + ex.Message);
+                await js.InvokeVoidAsync("defaultMessage", "error", "Upload Error!", ex.Message);
+
+            }
+        }
+
+        isLoading = false;
+    }
+}

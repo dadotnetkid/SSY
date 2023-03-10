@@ -1,0 +1,96 @@
+﻿<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+    <div class="d-flex justify-content-between">
+        <h3 class="header-text">Product Category Configuration</h3>
+    </div>
+    <div class="inline__flex filter row">
+        <div class="col-md-10">
+            <Searchbox></Searchbox>
+        </div>
+        <div class="col-md-2">
+
+            <button class="btn bg-btn col-12 text-light" data-toggle="modal" data-target="#productCategory" font-size="12px" @onclick="(e => AddProductCategoryHandler())">Add Product Category Configuration</button>
+
+        </div>
+    </div>
+
+    <div class="pl-3 pr-3 table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="tb-header text-center">Category</th>
+                    <th class="tb-header text-center">Sales Percentage(%)</th>
+                    <th class="tb-header text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ProductCategoryListModel.Items)
+                {
+                    <tr>
+                        <td class="tb-td-text text-center">@item.Label</td>
+                        <td class="tb-td-text text-center">@item.SalesPercentage</td>
+                        <td class="tb-td-text text-center">
+                            <span class="cursor-pointer"
+                                  @onclick="@(e => EditCategory(@item))" data-toggle="modal" data-target="#productCategory">Edit</span> |
+
+                            <span class="cursor-pointer"
+                                  @onclick="@(e => RemoveCategory(@item.Id))">Delete</span>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<EditForm Model="CategoryModel" OnValidSubmit="OnSubmit">
+    <DataAnnotationsValidator />
+    <div class="modal fade" id="productCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @if (IsAddProductCategory)
+                    {
+                        <h5 class="modal-title" id="exampleModalLongTitle">Add Product Category Configuration</h5>
+                    }
+                    else
+                    {
+                        <h5 class="modal-title" id="exampleModalLongTitle">Update Product Category Configuration</h5>
+                    }
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="(e => CloseCategory())">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Product Category<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="CategoryModel.Label" class="form-control mb-2 form-control-sm" placeholder="Enter Category" />
+                        <ValidationMessage For="@(() => CategoryModel.Label)" />
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Sales Percentage</label>
+                        <InputNumber @bind-Value="CategoryModel.SalesPercentage" min="0" class="form-control mb-2 form-control-sm" placeholder="Enter Sales Percentage" />
+                        <ValidationMessage For="@(() => CategoryModel.SalesPercentage)" />
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Order Number</label>
+                        <InputNumber @bind-Value="CategoryModel.OrderNumber" min="0" class="form-control mb-2 form-control-sm" placeholder="Enter Order Number" />
+                        <ValidationMessage For="@(() => CategoryModel.OrderNumber)" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn text-light btn-lg btn-danger buttons__class"
+                            data-dismiss="modal" @onclick="(e => CloseCategory())">
+                        Close
+                    </button>
+                    <button type="submit" class="btn bg-btn text-light btn-lg btn-success buttons__class">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>

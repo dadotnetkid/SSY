@@ -1,0 +1,82 @@
+﻿<div class="col-md-2 addWarehouse">
+    <button class="btn bg-btn col-12 text-light mt-3 mb-3" data-toggle="modal" data-target="#warehouseModal">Add Warehouse</button>
+</div>
+<div class="center">
+    <DataGrid CustomFilter="@OnCustomFilter"
+              TItem="WarehouseModel"
+              Data="@_warehouse"
+              Responsive
+              Hoverable="true"
+              ShowPager="true"
+              ShowPageSizes="true">
+
+        <ChildContent>
+            <DataGridColumn TItem="WarehouseModel" Field="@nameof(WarehouseModel.Name)" Caption="Name" Editable>
+            </DataGridColumn>
+            <DataGridColumn TItem="WarehouseModel" Field="@nameof(WarehouseModel.Location)" Caption="Location" Editable>
+            </DataGridColumn>
+            <DataGridColumn TItem="WarehouseModel" Field="@nameof(WarehouseModel.MaximumCapacity)" Caption="Warehouse Capacity" Editable>
+            </DataGridColumn>
+            <DataGridColumn TItem="WarehouseModel" Field="@nameof(WarehouseModel.Id)" Caption="Action" Editable>
+                <DisplayTemplate>
+                    <div class="">
+                        <span class="cursor-pointer"
+                              @onclick="@(e => EditWarehouse(context.Id))" data-toggle="modal" data-target="#warehouseModal">Edit</span> |
+                        <span class="cursor-pointer"
+                              @onclick="@(e => RemoveWarehouse(context.Id))">Delete</span>
+                    </div>
+                </DisplayTemplate>
+            </DataGridColumn>
+        </ChildContent>
+    </DataGrid>
+</div>
+
+<EditForm Model="WarehouseModel" OnValidSubmit="OnSubmit">
+    <DataAnnotationsValidator />
+    <div class="modal fade" id="warehouseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @if (ModuleMessage == "Edit")
+                    {
+                        <h5 class="modal-title" id="exampleModalLongTitle">Update Warehouse Configuration</h5>
+                    }
+                    else
+                    {
+                        <h5 class="modal-title" id="exampleModalLongTitle">Add Warehouse</h5>
+                    }
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="ClearAll">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Warehouse<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="WarehouseModel.Name" class="form-control mb-2 form-control-sm" placeholder="Enter Warehouse Name" />
+                        <ValidationMessage For="@(() => WarehouseModel.Name)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Location<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="WarehouseModel.Location" min="0" class="form-control mb-2 form-control-sm" placeholder="Enter Location" />
+                        <ValidationMessage For="@(() => WarehouseModel.Location)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Maximum Capacity<span class="text-danger">*</span></label>
+                        <InputNumber @bind-Value="WarehouseModel.MaximumCapacity" min="0" class="form-control mb-2 form-control-sm" placeholder="Enter Warehouse Capacity" />
+                        <ValidationMessage For="@(() => WarehouseModel.MaximumCapacity)" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn text-light btn-lg btn-danger buttons__class"
+                            data-dismiss="modal" @onclick="ClearAll">
+                        Close
+                    </button>
+                    <button type="submit" class="btn bg-btn text-light btn-lg btn-success buttons__class">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+

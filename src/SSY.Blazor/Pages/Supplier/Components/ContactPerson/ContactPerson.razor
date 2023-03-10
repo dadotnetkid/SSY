@@ -1,0 +1,168 @@
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+  <h3 class="header-text"><span class="roll__title">Contact Person</span>
+    @if (ModuleType == "Add" || ModuleType == "Edit")
+    {
+      <button type="button" class="btn btn-success to__theright" @onclick="@(e => ResetContactPerson())"
+      data-toggle="modal" data-target="#ModalSupplier">Add
+        Another Contact</button>
+    }
+
+  </h3>
+  <div class="d-flex justify-content-between  background__rool">
+    <h5 class="brown__background">Contact Persons </h5>
+  </div>
+  <div class="container roll__loc">
+    <div class="row">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" @onclick="@(() => SortTable("OrderNumber"))"><i class="@(SetSortIcon("Name"))"></i> Name</th>
+              <th scope="col" @onclick="@(() => SortTable("Position"))"><i class="@(SetSortIcon("Position"))"></i> Position</th>
+              <th scope="col" @onclick="@(() => SortTable("Email"))"><i class="@(SetSortIcon("Email"))"></i> Email Address</th>
+              <th scope="col" @onclick="@(() => SortTable("Telephone"))"><i class="@(SetSortIcon("Telephone"))"></i> Telephone Number</th>
+              <th scope="col" @onclick="@(() => SortTable("MobileNumber"))"><i class="@(SetSortIcon("MobileNumber"))"></i> Mobile Number</th>
+              @if (ModuleType == "Add" || ModuleType == "Edit")
+              {
+                <th scope="col">Action</th>
+              }
+            </tr>
+
+
+          </thead>
+          <tbody>
+
+            @foreach (var contactPerson in ContactPersons)
+            {
+              if (!contactPerson.IsDeleted)
+              {
+                <tr>
+                  <td class="tb-td-text"> @contactPerson.Name</td>
+                  <td class="tb-td-text"> @contactPerson.Position</td>
+                  <td class="tb-td-text"> @contactPerson.Email</td>
+                  <td class="tb-td-text"> @contactPerson.Telephone</td>
+                  <td class="tb-td-text"> @contactPerson.MobileNumber</td>
+
+                  @if (ModuleType == "Add" || ModuleType == "Edit")
+                  {
+                    <td>
+                      <span class="cursor-pointer" @onclick="@(e => RemoveContactPerson(contactPerson))">Delete</span>
+                      |
+                      <span class="cursor-pointer" data-toggle="modal" data-target="#ModalSupplier"
+                  @onclick="@(e => SetContactPerson(contactPerson))">Edit</span>
+                    </td>
+                  }
+
+                </tr>
+              }
+
+
+
+              @* @foreach (var contactPerson in ContactPersons)
+                {
+                <tr>
+                <td>@contactPerson.Name</td>
+                <td>@contactPerson.Position</td>
+                <td>@contactPerson.Email</td>
+                <td>@contactPerson.Telephone</td>
+                <td>@contactPerson.MobileNumber</td>
+                </tr>
+                }
+
+                }
+                else
+                {
+                @foreach (var contactPerson in ContactPersons)
+                {
+                <tr>
+                <td>
+                <InputText @bind-Value="contactPerson.Name" class="form-control mb-2 form-control-sm"
+                id="company_name" placeholder="Rack" name="rack"></InputText>
+                <ValidationMessage For="@(() => contactPerson.Name)" />
+                </td>
+                <td><InputText @bind-Value="contactPerson.Position" class="form-control mb-2 form-control-sm"
+                id="company_name" placeholder="Rack" name="rack"></InputText>
+                <ValidationMessage For="@(() => contactPerson.Position)" /></td>
+                <td><InputText @bind-Value="contactPerson.Email" class="form-control mb-2 form-control-sm"
+                id="company_name" placeholder="Rack" name="rack"></InputText>
+                <ValidationMessage For="@(() => contactPerson.Email)" /></td>
+                <td><InputText @bind-Value="contactPerson.Telephone" class="form-control mb-2 form-control-sm"
+                id="company_name" placeholder="Rack" name="rack"></InputText>
+                <ValidationMessage For="@(() => contactPerson.Telephone)" /></td>
+                <td><InputText @bind-Value="contactPerson.MobileNumber" class="form-control mb-2 form-control-sm"
+                id="company_name" placeholder="Rack" name="rack"></InputText>
+                <ValidationMessage For="@(() => contactPerson.MobileNumber)" /></td>
+
+
+                </tr>
+                } *@
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<EditForm Model="ContactPersonModel" OnValidSubmit="ContactPersonHandler">
+  <DataAnnotationsValidator />
+  <div class="modal fade" id="ModalSupplier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add More Another Contact</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="formGroupExampleInput">Name *</label>
+            <InputText @bind-Value="ContactPersonModel.Name" type="text" class="form-control" id="formGroupExampleInput"
+              placeholder="Name"></InputText>
+            <ValidationMessage For="@(() => ContactPersonModel.Name)" />
+
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput2">Position *</label>
+            <InputText @bind-Value="ContactPersonModel.Position" type="text" class="form-control"
+              id="formGroupExampleInput" placeholder="Position"></InputText>
+            <ValidationMessage For="@(() => ContactPersonModel.Position)" />
+
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput">Email *</label>
+            <InputText @bind-Value="ContactPersonModel.Email" type="email" class="form-control"
+              id="formGroupExampleInput" placeholder="Email"></InputText>
+            <ValidationMessage For="@(() => ContactPersonModel.Email)" />
+
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput2">Telephone</label>
+            <InputText @bind-Value="ContactPersonModel.Telephone" type="text" class="form-control"
+              id="formGroupExampleInput" placeholder="Telephone"></InputText>
+            <ValidationMessage For="@(() => ContactPersonModel.Telephone)" />
+
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput">Mobile</label>
+            <InputText @bind-Value="ContactPersonModel.MobileNumber" type="text" class="form-control"
+              id="formGroupExampleInput" placeholder="Mobile Number"></InputText>
+            <ValidationMessage For="@(() => ContactPersonModel.MobileNumber)" />
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primar avocado__color">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</EditForm>
+
+
+
+@code {
+
+}

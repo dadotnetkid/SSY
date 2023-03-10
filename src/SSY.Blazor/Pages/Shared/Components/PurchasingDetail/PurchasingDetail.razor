@@ -1,0 +1,566 @@
+<EditForm Model="PurchaseDetailModel" @ref="editForm">
+    <DataAnnotationsValidator />
+
+    <div class="border rounded-lg p-4 shadow-sm bg-white purchase__inventory">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Purchasing Details</h3>
+            <div class="text-align-right">
+                <button class="btn btn-success mr-2" data-toggle="modal" data-target="#BulkPurchaseOrderRequest">Bulk Purchase Order Request</button>
+            </div>
+        </div>
+        <div class="row custom__overideWTH">
+            <div class="col-lg-4">
+                <h5 class="header-text ">Price Per Unit</h5>
+                <div class="row">
+                    <div class="col-6 col-sm-6 mt-3 price__perunit">
+                        <div class="default-height border rounded-sm text-dark pl-3 pr-3">
+                            <h5 class="mt-2 text-muted input-text">Price  </h5>
+
+                            @if (IsEditable)
+                            {
+                                <InputNumber @bind-Value="PurchaseDetailModel.Price" class="form-control mb-2 form-control-sm"
+                                             placeholder="Enter Price"></InputNumber>
+                                <ValidationMessage For="@(() => PurchaseDetailModel.Price)" />
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">@PurchaseDetailModel.Price</p>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-6 mt-3 price__perunit">
+                        <div class="default-height border rounded-sm text-dark pl-3 pr-3">
+                            <h5 class="mt-2 text-muted input-text">Currency   </h5>
+                            @if (IsEditable)
+                            {
+                                <InputSelect @bind-Value="PurchaseDetailModel.CurrencyId" class="form-control mb-2 form-control-sm"
+                                             id="ci" aria-placeholder="Currency">
+                                    <option selected disabled value="0">Select Currency </option>
+                                    @foreach (var currency in CurrencyListModel.Result.Items)
+                                    {
+                                        <option value="@currency.Id">@currency.Label</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => PurchaseDetailModel.CurrencyId)" />
+                            }
+                            else
+                            {
+                                @if (CurrencyListModel.Result.Items.FirstOrDefault(x => x.Id == PurchaseDetailModel.CurrencyId) != null)
+                                {
+                                    <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @CurrencyListModel.Result.Items.First(x => x.Id == PurchaseDetailModel.CurrencyId).Label </p>
+                                }
+                                else
+
+                                {
+                                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">No Currency Selected</p>
+                                }
+
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-6 mt-3 price__perunit">
+                        <div class="default-height border rounded-sm text-dark pl-3 pr-3">
+                            <h5 class="mt-2 text-muted input-text">Request Id  </h5>
+
+                            @if (IsEditable)
+                            {
+                                <InputText @bind-Value="PurchaseDetailModel.RequestId" class="form-control mb-2 form-control-sm"
+                                           placeholder="Enter Request Id"></InputText>
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">@PurchaseDetailModel.RequestId</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-6 mt-3 below__moq">
+                        <div class="default-height border rounded-sm text-dark pl-3 pr-3">
+                            <h5 class="mt-2 text-muted input-text">Pricing Type <span class="text-danger">*</span>  </h5>
+                            @if (IsEditable)
+                            {
+                                <InputSelect @bind-Value="PurchaseDetailModel.PricingTypeId" class="form-control mb-2 form-control-sm" id="pricingtype"
+                                             aria-placeholder="Pricing Type">
+                                    <option selected disabled value="0">Select Pricing Type</option>
+                                    @foreach (var pricingType in PricingTypeListModel.Result.Items)
+                                    {
+                                        <option value="@pricingType.Id">@pricingType.Label</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => PurchaseDetailModel.PricingTypeId)" />
+                            }
+                            else
+                            {
+                                @if (PricingTypeListModel.Result.Items.FirstOrDefault(x => x.Id == PurchaseDetailModel.PricingTypeId) != null)
+                                {
+                                    <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @PricingTypeListModel.Result.Items.First(x => x.Id == PurchaseDetailModel.PricingTypeId).Label </p>
+                                }
+                            }
+                        </div>
+                    </div>
+                    @*<div class="col-6 col-sm-6 mt-3 price__perunit">
+                            <div class="border rounded-sm text-dark pl-3 pr-3">
+                                <h5 class="mt-2 text-muted input-text">Count  </h5>
+
+                                @if (IsEditable)
+                                {
+                                    <InputNumber @bind-Value="PurchaseDetailModel.Count" class="form-control mb-2 form-control-sm"
+                                                  placeholder="Enter Count" ></InputNumber>
+                                    <ValidationMessage For="@(() => PurchaseDetailModel.Count)" />
+                                }
+                                else
+                                {
+                                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">@PurchaseDetailModel.Count</p>
+                                }
+                            </div>
+                        </div>*@
+                    @*<div class="col-6 col-sm-6 mt-3 price__perunit">
+                            <div class="border rounded-sm text-dark pl-3 pr-3">
+                                <h5 class="mt-2 text-muted input-text">Unit of Measurement  </h5>
+                                @if (IsEditable)
+                                {
+                                    <InputSelect @bind-Value="PurchaseDetailModel.UnitOfMeasurementId" class="form-control mb-2 form-control-sm"
+                                                 id="ci" aria-placeholder="Currency">
+                                        <option selected disabled value="0">Select Unit Measurement </option>
+                                        @foreach (var unit in UnitOfMeasurementListModel.Result.Items)
+                                        {
+                                            <option value="@unit.Id">@unit.Label</option>
+                                        }
+                                    </InputSelect>
+                                    <ValidationMessage For="@(() => PurchaseDetailModel.UnitOfMeasurementId)" />
+                                }
+                                else
+                                {
+                                    @if (UnitOfMeasurementListModel.Result.Items.FirstOrDefault(x => x.Id == PurchaseDetailModel.UnitOfMeasurementId) != null)
+                                    {
+                                        <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @UnitOfMeasurementListModel.Result.Items.First(x => x.Id == PurchaseDetailModel.UnitOfMeasurementId).Label </p>
+                                    }
+                                    else
+
+                                    {
+                                        <p class="text-muted input-field-text" contentEditable="false" placeholder="">No Unit of Measurement Selected</p>
+                                    }
+
+                                }
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="header-text ">Below MOQ</h5>
+                <div class="row">
+                    <div class="col-6 col-sm-6 mt-3 below__moq">
+                        <div class="default-height border rounded-sm text-dark pl-3 pr-3">
+                            <h5 class="mt-2 text-muted input-text">Upcharge Type  </h5>
+                            @if (IsEditable)
+                            {
+                                <InputSelect @bind-Value="PurchaseDetailModel.UpchargeTypeId" class="form-control mb-2 form-control-sm" id="upcharge"
+                                             aria-placeholder="Upcharge Type" @oninput="@(e => onChangeUpchargeType(e.Value.ToString()))">
+                                    <option selected disabled value="0">Select Upcharge Type</option>
+                                    @foreach (var upcharge in UpchargeTypeListModel.Result.Items)
+                                    {
+                                        <option value="@upcharge.Id">@upcharge.Label</option>
+                                    }
+                                </InputSelect>
+                            }
+                            else
+                            {
+                                @if (UpchargeTypeListModel.Result.Items.FirstOrDefault(x => x.Id == PurchaseDetailModel.UpchargeTypeId) != null)
+                                {
+                                    <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @UpchargeTypeListModel.Result.Items.First(x => x.Id == PurchaseDetailModel.UpchargeTypeId).Label </p>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-6 mt-3 below__moq">
+                        <div class="default-height border rounded-sm text-dark pl-3 pr-3">
+                            <h5 class="mt-2 text-muted input-text">Upcharge Price  </h5>
+
+                            @if (IsEditable)
+                            {
+                                <InputNumber @bind-Value="PurchaseDetailModel.UpchargePrice" class="form-control mb-2 form-control-sm"
+                                             placeholder="Enter Upcharge Price"></InputNumber>
+                                <ValidationMessage For="@(() => PurchaseDetailModel.UpchargePrice)" />
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">@PurchaseDetailModel.UpchargePrice</p>
+                            }
+                        </div>
+                    </div>
+
+                    @if (PurchaseDetailModel.IsUpchargePercentage)
+                    {
+                        <div class="col-6 col-sm-6 mt-3 below__moq">
+                            <div class="default-height border rounded-sm text-dark pl-3 pr-3">
+                                <h5 class="mt-2 text-muted input-text">Upcharge %  </h5>
+                                @if (IsEditable)
+                                {
+                                    @*<InputNumber @bind-Value="PurchaseDetailModel.UpchargePercentage" class="form-control mb-2 form-control-sm"
+                                        placeholder="Enter Percentage"  @oninput="@(e => onChangeUpchargePrice())" ></InputNumber>*@
+                                    <input type="number" class="form-control mb-2 form-control-sm"
+                                           placeholder="Enter Percentage" @onchange="@(e => onChangeUpchargePrice(e.Value.ToString()))"></input>
+                                    <ValidationMessage For="@(() => PurchaseDetailModel.UpchargePercentage)" />
+                                }
+                                else
+                                {
+                                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">@PurchaseDetailModel.UpchargePercentage</p>
+                                }
+                            </div>
+                        </div>
+                    }
+                    @*<div class="col-6 col-sm-6 mt-3 below__moq">
+                            <div class="border rounded-sm text-dark pl-3 pr-3">
+                                <h5 class="mt-2 text-muted input-text">Count  </h5>
+
+                                @if (IsEditable)
+                                {
+                                    <InputNumber @bind-Value="PurchaseDetailModel.BelowMinimumOrderQuantityCount" class="form-control mb-2 form-control-sm"
+                                                  placeholder="Enter Count" ></InputNumber>
+                                    <ValidationMessage For="@(() => PurchaseDetailModel.BelowMinimumOrderQuantityCount)" />
+                                }
+                                else
+                                {
+                                    <p class="text-muted input-field-text" contentEditable="false" placeholder="">@PurchaseDetailModel.BelowMinimumOrderQuantityCount</p>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-6 mt-3  below__moq">
+                            <div class="border rounded-sm text-dark pl-3 pr-3">
+                                <h5 class="mt-2 text-muted input-text">Unit of Measurement  </h5>
+                                @if (IsEditable)
+                                {
+                                    <InputSelect @bind-Value="PurchaseDetailModel.BelowMinmumOrderQuantityUnitOfMeasurementId" class="form-control mb-2 form-control-sm"
+                                                 id="ci" aria-placeholder="Currency">
+                                        <option selected disabled value="0">Select Unit of Measurements</option>
+                                        @foreach (var unit in UnitOfMeasurementListModel.Result.Items)
+                                        {
+                                            <option value="@unit.Id">@unit.Label</option>
+                                        }
+                                    </InputSelect>
+                                    <ValidationMessage For="@(() => PurchaseDetailModel.BelowMinmumOrderQuantityUnitOfMeasurementId)" />
+                                }
+                                else
+                                {
+                                    @if (UnitOfMeasurementListModel.Result.Items.FirstOrDefault(x => x.Id == PurchaseDetailModel.BelowMinmumOrderQuantityUnitOfMeasurementId) != null)
+                                    {
+                                        <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @UnitOfMeasurementListModel.Result.Items.First(x => x.Id == PurchaseDetailModel.BelowMinmumOrderQuantityUnitOfMeasurementId).Label </p>
+                                    }
+                                    else
+
+                                    {
+                                        <p class="text-muted input-field-text" contentEditable="false" placeholder="">No Unit of Measurement Selected</p>
+                                    }
+
+                                }
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="header-text ">General Information</h5>
+                <div class="row">
+                    <div class="col-6 col-sm-6 general_information">
+                        <div class="default-height border rounded-sm text-dark pl-3 pr-3">
+                            <h5 class="mt-2 text-muted input-text">MOQ  </h5>
+                            @if (IsEditable)
+                            {
+                                <InputNumber @bind-Value="PurchaseDetailModel.GeneralInformationMinimumOrderQuantity" class="form-control mb-2 form-control-sm"
+                                             placeholder="Enter MOQ" name="MOQ"></InputNumber>
+                                <ValidationMessage For="@(() => PurchaseDetailModel.GeneralInformationMinimumOrderQuantity)" />
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">@PurchaseDetailModel.GeneralInformationMinimumOrderQuantity</p>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-6 general_information">
+                        <div class="default-height border rounded-sm text-dark pl-3 pr-3">
+                            <h5 class="mt-2 text-muted input-text">MCQ   </h5>
+                            @if (IsEditable)
+                            {
+                                <InputNumber @bind-Value="PurchaseDetailModel.GeneralInformationMinimumColorQuantity" class="form-control mb-2 form-control-sm"
+                                             placeholder="Enter MCQ" name="MCQ"></InputNumber>
+                                <ValidationMessage For="@(() => PurchaseDetailModel.GeneralInformationMinimumColorQuantity)" />
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">@PurchaseDetailModel.GeneralInformationMinimumColorQuantity</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-3 col-sm-3 mt-3 general__information mobile__responsive">
+                        <div class="default-height border rounded-sm text-dark pl-3 pr-3">
+                            <h5 class="mt-2 text-muted input-text header">Unit of Measurement </h5>
+                            @if (IsEditable)
+                            {
+                                <InputSelect @bind-Value="PurchaseDetailModel.GeneralInformationUnitOfMeasurementId" class="form-control mb-2 form-control-sm"
+                                             id="ci" aria-placeholder="Currency">
+                                    <option selected disabled value="0">Select Unit of Measurement</option>
+                                    @foreach (var unit in UnitOfMeasurementListModel.Result.Items)
+                                    {
+                                        <option value="@unit.Id">@unit.Label</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => PurchaseDetailModel.GeneralInformationUnitOfMeasurementId)" />
+                            }
+                            else
+                            {
+                                @if (UnitOfMeasurementListModel.Result.Items.FirstOrDefault(x => x.Id == PurchaseDetailModel.GeneralInformationUnitOfMeasurementId) != null)
+                                {
+                                    <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @UnitOfMeasurementListModel.Result.Items.First(x => x.Id == PurchaseDetailModel.GeneralInformationUnitOfMeasurementId).Label </p>
+                                }
+                                else
+
+                                {
+                                    @* <p class="text-muted input-field-text" contentEditable="false" placeholder="">No Unit of Measurement Selected</p> *@
+                                }
+
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="col-3 col-sm-3 mt-3 general__information mobile__responsive">
+                        <div class="default-height border rounded-sm text-dark pl-3 pr-3">
+                            <h5 class="mt-2 text-muted input-text header">Lead Time (Days)</h5>
+                            @if (IsEditable)
+                            {
+                                <InputText @bind-Value="PurchaseDetailModel.LeadTime" class="form-control mb-2 form-control-sm"
+                                           placeholder="Enter Lead Time" name="LeadTime"></InputText>
+                                <ValidationMessage For="@(() => PurchaseDetailModel.LeadTime)" />
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">@PurchaseDetailModel.LeadTime</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-3 col-sm-3 mt-3 general__information mobile__responsive">
+                        <div class="default-height border rounded-sm text-dark pl-3 pr-3">
+                            <h5 class="mt-2 text-muted input-text header">Shipping Time By Air (Days)</h5>
+                            @if (IsEditable)
+                            {
+                                <InputText @bind-Value="PurchaseDetailModel.ShippingTimeByAir" class="form-control mb-2 form-control-sm"
+                                           placeholder="Enter Shipping Time By Air" name="ShippingTimeByAir"></InputText>
+                                <ValidationMessage For="@(() => PurchaseDetailModel.ShippingTimeByAir)" />
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">@PurchaseDetailModel.ShippingTimeByAir</p>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-3 col-sm-3 mt-3 general__information mobile__responsive">
+
+                        <div class="default-height border rounded-sm text-dark pl-3 pr-3">
+                            <h5 class="mt-2 text-muted input-text header">Shipping Time By Sea (Days)</h5>
+                            @if (IsEditable)
+                            {
+                                <InputText @bind-Value="PurchaseDetailModel.ShippingTimeBySea" class="form-control mb-2 form-control-sm"
+                                           placeholder="Enter Shipping Time By Sea" name="ShippingTimeBySea"></InputText>
+                                <ValidationMessage For="@(() => PurchaseDetailModel.ShippingTimeBySea)" />
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">@PurchaseDetailModel.ShippingTimeBySea</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</EditForm>
+
+<EditForm Model="BulkPurchaseOrderRequestModel" OnValidSubmit="OnSubmit">
+    <DataAnnotationsValidator />
+    <div class="modal fade" id="BulkPurchaseOrderRequest" tabindex="-1" role="dialog" aria-labelledby="BulkPurchaseOrderRequest"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="InventoryAdditionalRequest">Bulk Purchase Order Request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row custom__overideWTH">
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Category *</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <p class="form-control mb-2 form-control-sm border-0 pricePoint">@BulkPurchaseOrderRequestModel.CategoryValue</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Material Type *</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <p class="form-control mb-2 form-control-sm border-0 pricePoint">@BulkPurchaseOrderRequestModel.MaterialTypeValue</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Item Code</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <p class="form-control mb-2 form-control-sm bg-white inputfield  border-0 collectionName" contentEditable="false" placeholder="Item Code">@BulkPurchaseOrderRequestModel.ItemCode</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Color Code/Name</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <p class="form-control mb-2 form-control-sm bg-white inputfield  border-0 collectionName" contentEditable="false" placeholder="Color Code/Name">@BulkPurchaseOrderRequestModel.ColorCode</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Color Group *</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <p class="form-control mb-2 form-control-sm border-0 pricePoint">@BulkPurchaseOrderRequestModel.ColorValue</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">TCX Code *</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <p class="form-control mb-2 form-control-sm bg-white inputfield  border-0 collectionName" contentEditable="false" placeholder="TCX Code">@BulkPurchaseOrderRequestModel.TCXCode</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Required Yardage *</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    @*<InputNumber @bind-Value="BulkPurchaseOrderRequestModel.RequiredYardage" class="form-control mb-2 form-control-sm bg-white inputfield  border-0 collectionName" contentEditable="false" placeholder="Required Yardage"></InputNumber>*@
+                                    <InputNumber @bind-Value="BulkPurchaseOrderRequestModel.RequiredYardage" class="form-control mb-2 form-control-sm border-0"
+                                                 id="yardage" placeholder="Enter Required Yardage" name="Yardage"></InputNumber>
+                                    <ValidationMessage For="@(() => BulkPurchaseOrderRequestModel.RequiredYardage)" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Approve Lab Dip Shade *</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <InputText @bind-Value="BulkPurchaseOrderRequestModel.ApprovedByLabDipShade" placeholder="Enter Approved by Lab Dip Shade" class="form-control mb-2 form-control-sm border-0 pricePoint"></InputText>
+                                    <ValidationMessage For="@(() => BulkPurchaseOrderRequestModel.ApprovedByLabDipShade)" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Price ($)*</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    @*<InputNumber @bind-Value="BulkPurchaseOrderRequestModel.Price" class="form-control mb-2 form-control-sm border-0 pricePoint"></InputNumber>*@
+                                    <InputNumber @bind-Value="BulkPurchaseOrderRequestModel.Price" class="form-control mb-2 form-control-sm border-0"
+                                                 id="yardage" placeholder="Enter Price" name="Yardage"></InputNumber>
+                                    <ValidationMessage For="@(() => BulkPurchaseOrderRequestModel.Price)" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Supplier Name *</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <p class="form-control mb-2 form-control-sm border-0 pricePoint supplier">@BulkPurchaseOrderRequestModel.Company.Name</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Influencer Name *</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <InputSelect @bind-Value="BulkPurchaseOrderRequestModel.InfluencerId" @oninput='@(e => OnChangeInfluencer(e.Value.ToString()))' class="form-control mb-2 form-control-sm border-0 pricePoint">
+                                        <option selected disabled value="0">Select Influencer Name</option>
+                                        @foreach (var item in GetAllUserDetailModel.Result.Items.Where(x => x.Status == 7))
+                                        {
+                                            <option value="@item.Id">@item.FullName</option>
+                                        }
+                                    </InputSelect>
+                                    <ValidationMessage For="@(() => BulkPurchaseOrderRequestModel.Influencers)" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12 mt-3 pb-2">
+                            <div class="border bg-light text-dark pl-3 pr-3 bg-white fieldBody">
+                                <div class="row fieldheader">
+                                    <h3 class="mt-2 text-muted input-text">Collection Name *</h3>
+                                </div>
+                                <div class="row fieldcontent">
+                                    <select @oninput="@(e => OnSelectCollection(e.Value.ToString()))" class="form-control mb-2 form-control-sm border-0 pricePoint">
+                                        <option selected disabled value="0">Select Collection Name</option>
+                                        @foreach (var item in CollectionsListModel)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    </select>
+                                    <ValidationMessage For="@(() => BulkPurchaseOrderRequestModel.CollectionId)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success mr-2 buttons__class" type="submit">Request</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    EditForm editForm;
+}

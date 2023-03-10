@@ -1,0 +1,111 @@
+﻿<div class="modal fade" id="MassAdjustmentModal" tabindex="-1" role="dialog" aria-labelledby="MassAdjustmentModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="MassAdjustmentModalLabel">Mass Adjustment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <h5 class="modal-title" id="MassAdjustmentModalLabel">Excel file</h5>
+                    <div class="border rounded-sm bg-light text-dark pl-3 pr-3 mt-2">
+                        <div class="custom-file">
+                            <div class="container cut">
+                                <label class="custom-file" for="customInput">
+                                    <InputFile OnChange="@ImportExcelFile" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    @if (isValidating)
+                    {
+                        <button class="btn col-12 mt-1 default-background-color text-light">
+                            <span class="spinner-border spinner-border-sm "></span>
+                            Checking Data
+                        </button>
+                    }
+
+                    @if (isUploading)
+                    {
+                        <button class="btn col-12 mt-1 default-background-color text-light">
+                            <span class="spinner-border spinner-border-sm "></span>
+                            Uploading Data
+                        </button>
+                    }
+
+                    @if (UploadErrors.Any())
+                    {
+                        <div class="alert alert-danger cursor-pointer" data-toggle="collapse" data-target="#mass-upload-error">
+                            <strong>Warning!</strong> There is an error on your mass adjustment form. <strong>Click Here to view.</strong>
+                            <div id="mass-upload-error" class="collapse">
+                                @foreach (var item in UploadErrors)
+                                {
+                                    <p>@item</p>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        @if (isReady)
+                        {
+                            <div class="alert alert-success">
+                                <strong>Success!</strong> Mass adjustment form is validated and ready for uploading.
+                            </div>
+
+                        }
+
+                    }
+                    @if (isInvalidFile)
+                    {
+                        <div class="alert alert-danger">
+                            <strong>Warning!</strong> Theres an error on your excel file.
+                        </div>
+                    }
+
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 text-center">
+                    <p>Download the Template below to see the updated template for uploading</p>
+                </div>
+
+                <div class="container">
+                    
+                        @if (Module == "Greige" || Module == "Fabric" || Module == "All")
+                        {
+                            <div class="col-12 col-sm-12 green__links download__file text-center justify-content-center">
+                                <div class="link_download">
+                                    <span class="cursor-pointer default-color"
+                                    @onclick="@(e => GenerateMassAdjustmentExcel())">
+                                        Fabric and Greige - Mass Adjustment Form
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                        <div class="col-12 col-sm-12 green__links download__file text-center justify-content-center">
+                            <div class="link_download">
+                                <span class="cursor-pointer default-color"
+                                     @onclick="@(e => GenerateMassAdjustmentSubMaterialExcel())">
+                                    Trims and Accesories - Mass Adjustment Form
+                                </span>
+                            </div>
+                        </div>
+                        }
+                    
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primar avocado__color" @onclick="@(e => HandleUploadSubmit())">Upload excel</button>
+            </div>
+
+        </div>
+    </div>
+</div>

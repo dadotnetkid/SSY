@@ -1,0 +1,90 @@
+@page "/collectionandproduct/calendar"
+
+<CascadingValue Value="@Module" Name="Module">
+    <BannerLayoutSSY></BannerLayoutSSY>
+</CascadingValue>
+
+<div class="bg-white">
+    <ProductNavLayout />
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-bordered calendar mt-4">
+                <thead>
+                    <tr>
+                        <th @onclick="@(() => SortTable("CollectionName"))" class="collection th-lg-percent for-sticky" scope="col" rowspan="2">Collection <i class="@(SetSortIcon("CollectionName"))"></i></th>
+                        <th class="statistic th-lg-percent for-sticky" scope="col" colspan="3">Statistic</th>
+                        <th class="targetvsActual th-lg-percent for-sticky" scope="col" rowspan="2" colspan="2">Target vs Actual</th>
+                        <th @onclick="@(() => SortTable("CollectionName"))" class="collectiondevelopment th-lg-percent for-sticky" scope="col" rowspan="2">Collection Development <i class="@(SetSortIcon("CollectionName"))"></i></th>
+                        @if (CalendarCollectionList is not null && CalendarCollectionList.Any())
+                        {
+                            foreach (var i in CalendarCollectionList.FirstOrDefault()?.CollectionStatuses?.GroupBy(c => c.ProductStatus.DesignStatus.Label))
+                            {
+                                <th class="designdraft th-lg-percent for-sticky" scope="col" colspan="@(i.Count())">@i.Key</th>
+                            }
+                        }
+                    </tr>
+                    <tr>
+                        <td class="tb-header for-sticky" @onclick="@(() => SortTable("SalesForeCastQuantity"))" scope="col">Sales Forecast QTY <i class="@(SetSortIcon("SalesForeCastQuantity"))"></i></td>
+                        <td class="tb-header for-sticky" @onclick="@(() => SortTable("ActualSalesQuantity"))" scope="col">Actual Sales QTY <i class="@(SetSortIcon("ActualSalesQuantity"))"></i></td>
+                        <td class="for-sticky" scope="col">Eligible for re-drop / New Collection </td>
+
+                        @if (CalendarCollectionList is not null && CalendarCollectionList.Any())
+                        {
+                            foreach (var i in CalendarCollectionList.FirstOrDefault()?.CollectionStatuses)
+                            {
+                                <td scope="col">@($"{i.Name} ({i.TargetDay} days)")</td>
+                            }
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    
+                    @if (CalendarCollectionList is not null && CalendarCollectionList.Any())
+                    {
+                        foreach (var i in CalendarCollectionList)
+                        {
+                            <tr>
+                                <td class="collection-name" rowspan="3"><p class="collection-width">@i.CollectionName</p></td>
+                                <td rowspan="3"><p class="statistic-width">@i.SalesForecastQuantity</p></td>
+                                <td rowspan="3"><p class="statistic-width">@i.ActualSalesQuantity</p></td>
+                                <td rowspan="3" class="statistic-width">
+                                    <select class="form-control mb-2 form-control-sm">
+                                        <option>Select</option>
+                                        <option>Yes</option>
+                                        <option>No</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><p class="target-date">Target</p></td>
+                                <td><p class="collection-development">@i.CollectionDevelopmentTarget.ToString("MMM. d, yyyy")</p></td>
+
+                                @foreach (var status in i.CollectionStatuses)
+                                {
+                                    <td><p class="target-date">@status.Target?.ToString("MMM. d, yyyy")</p></td>
+                                }
+                            </tr>
+                            <tr>
+                                <td colspan="2"><p class="target-date">Actual</p></td>
+                                <td><p class="collection-development">@i.CollectionDevelopmentActual.ToString("MMM. d, yyyy")</p></td>
+
+                                @foreach (var status in i.CollectionStatuses)
+                                {
+                                    <td>
+                                        <p class="actual-date">@i.ActualCollectionStatus.FirstOrDefault(c=>c.ProductStatus.Id==status.ProductStatus.Id)?.Actual?.ToString("MMM. d, yyyy")</p>
+                                    </td>
+                                }
+                            </tr>
+
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,355 @@
+<EditForm Model="CompositionAndConstructionModel" @ref="editForm">
+    <DataAnnotationsValidator />
+    <div class="border rounded-lg p-4 shadow-sm compositionandconstruction bg-white">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Composition & Construction</h3>
+        </div>
+
+        <div class="row ">
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 ">
+
+                    @if (IsEditable)
+                    {
+                        <h5 class="mt-2 text-muted input-text">Content <span class="text-danger">*</span></h5>
+                        <InputText @bind-Value="CompositionAndConstructionModel.Content" class="form-control mb-2 form-control-sm"
+                                   id="content" placeholder="Enter Content" name="content"></InputText>
+                        <ValidationMessage For="@(() => CompositionAndConstructionModel.Content)" />
+                    }
+                    else
+                    {
+                        <h5 class="mt-2 text-muted input-text">Content </h5>
+                        <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @CompositionAndConstructionModel.Content</p>
+                    }
+
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3 ">
+
+                    @if (IsEditable)
+                    {
+                        <h5 class="mt-2 text-muted input-text">Construction</h5>
+                        <InputText @bind-Value="CompositionAndConstructionModel.Construction" class="form-control mb-2 form-control-sm"
+                                   id="construction" placeholder="Enter Construction" name="construction"></InputText>
+                        <ValidationMessage For="@(() => CompositionAndConstructionModel.Construction)" />
+                    }
+                    else
+                    {
+                        <h5 class="mt-2 text-muted input-text">Construction </h5>
+                        <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @CompositionAndConstructionModel.Construction</p>
+                    }
+
+                </div>
+            </div>
+            @if (MaterialCategory != "Yarn")
+            {
+                <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm text-dark pl-3 pr-3">
+                        <h5 class="mt-2 text-muted input-text">Gauge  </h5>
+
+                        @if (IsEditable)
+                        {
+                            <InputText @bind-Value="CompositionAndConstructionModel.Gauge" class="form-control mb-2 form-control-sm"
+                                       id="gauge" placeholder="Enter Gauge" name="gauge"></InputText>
+                            <ValidationMessage For="@(() => CompositionAndConstructionModel.Gauge)" />
+                        }
+                        else
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">@CompositionAndConstructionModel.Gauge</p>
+                        }
+
+                    </div>
+                </div>
+            }
+            <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+
+                    @if (IsEditable)
+                    {
+                        <h5 class="mt-2 text-muted input-text">Recycled <span class="text-danger">*</span> </h5>
+                        <InputSelect @bind-Value="CompositionAndConstructionModel.RecycledId" class="form-control mb-2 form-control-sm"
+                                     id="recycled" aria-placeholder="Select Recycled">
+                            <option selected disabled value="0">Select Recycled</option>
+                            @foreach (var recycle in recycledListModel?.Result?.Items)
+                            {
+                                <option value="@recycle.Id">@recycle.Label</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => CompositionAndConstructionModel.RecycledId)" />
+                    }
+                    else
+                    {
+                        <h5 class="mt-2 text-muted input-text">Recycled </h5>
+                        @if (recycledListModel.Result.Items.FirstOrDefault(x => x.Id == CompositionAndConstructionModel.RecycledId) != null)
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @recycledListModel.Result.Items.First(x => x.Id == CompositionAndConstructionModel.RecycledId).Label </p>
+                        }
+                        else
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">No Recycled Selected</p>
+                        }
+                    }
+
+                </div>
+            </div>
+            @if (MaterialCategory != "Yarn")
+            {
+                <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm text-dark pl-3 pr-3">
+
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 text-muted input-text">PFP <span class="text-danger">*</span> </h5>
+                            <InputSelect @bind-Value="CompositionAndConstructionModel.PreparedForPrintId" class="form-control mb-2 form-control-sm"
+                                         id="pfp" aria-placeholder="Select PFP">
+                                <option selected disabled value="0">Select PFP</option>
+                                @foreach (var pfp in pFPListModel?.Result?.Items)
+                                {
+
+                                    <option value="@pfp.Id">@pfp.Label</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => CompositionAndConstructionModel.PreparedForPrintId)" />
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 text-muted input-text">PFP </h5>
+                            @if (pFPListModel.Result.Items.FirstOrDefault(x => x.Id == CompositionAndConstructionModel.PrintRepeatId) != null)
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @pFPListModel.Result.Items.First(x => x.Id == CompositionAndConstructionModel.PrintRepeatId).Label </p>
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">No Prepared For Print Selected</p>
+                            }
+                        }
+
+                    </div>
+                </div>
+            }
+            @if (MaterialCategory != "Yarn")
+            {
+                <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm text-dark pl-3 pr-3">
+
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 text-muted input-text">Compression</h5>
+                            <InputSelect @bind-Value="CompositionAndConstructionModel.CompressionId" class="form-control mb-2 form-control-sm"
+                                         id="materialtype" aria-placeholder="Compression">
+                                <option selected disabled value="0">Select Compression</option>
+                                @foreach (var compress in compressionListModel?.Result?.Items)
+                                {
+                                    <option value="@compress.Id">@compress.Label</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => CompositionAndConstructionModel.CompressionId)" />
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 text-muted input-text">Compression  </h5>
+                            @if (compressionListModel.Result.Items.FirstOrDefault(x => x.Id == CompositionAndConstructionModel.CompressionId) != null)
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @compressionListModel.Result.Items.First(x => x.Id == CompositionAndConstructionModel.CompressionId).Label </p>
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">No Compression Selected</p>
+                            }
+                        }
+
+                    </div>
+                </div>
+            }
+            @if (MaterialCategory != "Yarn")
+            {
+                <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm text-dark pl-3 pr-3">
+
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 text-muted input-text">Fabric Stretch </h5>
+                            <InputSelect @bind-Value="CompositionAndConstructionModel.FabricStretchId" class="form-control mb-2 form-control-sm"
+                                         id="fabricstretch" aria-placeholder="Fabric Stretch">
+                                <option selected disabled value="0">Select Fabric Stretch</option>
+                                @foreach (var fabrstch in fabricStretchListModel?.Result?.Items)
+                                {
+                                    <option value="@fabrstch.Id">@fabrstch.Label</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => CompositionAndConstructionModel.FabricStretchId)" />
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 text-muted input-text">Fabric Stretch </h5>
+                            @if (fabricStretchListModel.Result.Items.FirstOrDefault(x => x.Id == CompositionAndConstructionModel.FabricStretchId) != null)
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @fabricStretchListModel.Result.Items.First(x => x.Id == CompositionAndConstructionModel.FabricStretchId).Label </p>
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">No Fabric Stretch Selected</p>
+                            }
+                        }
+
+                    </div>
+                </div>
+            }
+            @if (MaterialCategory != "Yarn")
+            {
+                <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm text-dark pl-3 pr-3">
+
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 text-muted input-text">Crease </h5>
+                            <InputSelect @bind-Value="CompositionAndConstructionModel.CreaseId" class="form-control mb-2 form-control-sm"
+                                         id="country" aria-placeholder="Crease">
+                                <option selected disabled value="0">Select Crease</option>
+                                @foreach (var crease in creaseListModel?.Result?.Items)
+                                {
+                                    <option value="@crease.Id">@crease.Label</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => CompositionAndConstructionModel.CreaseId)" />
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 text-muted input-text">Crease</h5>
+                            @if (creaseListModel.Result.Items.FirstOrDefault(x => x.Id == CompositionAndConstructionModel.CreaseId) != null)
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @creaseListModel.Result.Items.First(x => x.Id == CompositionAndConstructionModel.CreaseId).Label </p>
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">No Crease Selected</p>
+                            }
+                        }
+
+                    </div>
+                </div>
+            }
+            @if (MaterialCategory != "Yarn")
+            {
+                <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm text-dark pl-3 pr-3">
+                        <h5 class="mt-2 text-muted input-text">Print Repeat </h5>
+                        @if (IsEditable)
+                        {
+                            <InputSelect @bind-Value="CompositionAndConstructionModel.PrintRepeatId" class="form-control mb-2 form-control-sm"
+                                         id="country" aria-placeholder="Print Repeat">
+                                <option selected disabled value="0">Select Print Repeat</option>
+                                @foreach (var printRepeat in printRepeatListModel?.Result?.Items)
+                                {
+                                    <option value="@printRepeat.Id">@printRepeat.Label</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => CompositionAndConstructionModel.PrintRepeatId)" />
+                        }
+                        else
+                        {
+                            @if (printRepeatListModel.Result.Items.FirstOrDefault(x => x.Id == CompositionAndConstructionModel.PrintRepeatId) != null)
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @printRepeatListModel.Result.Items.First(x => x.Id == CompositionAndConstructionModel.PrintRepeatId).Label </p>
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" contentEditable="false" placeholder="">No PrintRepeat Selected</p>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+            <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm text-dark pl-3 pr-3">
+
+                    @if (IsEditable)
+                    {
+                        <h5 class="mt-2 text-muted input-text">Excess <span class="text-danger">*</span> </h5>
+                        <InputSelect @bind-Value="CompositionAndConstructionModel.ExcessId" class="form-control mb-2 form-control-sm"
+                                     id="country" aria-placeholder="Excess">
+                            <option selected disabled value="0">Select Excess</option>
+                            @foreach (var excess in excessListModel?.Result?.Items)
+                            {
+                                <option value="@excess.Id">@excess.Label</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => CompositionAndConstructionModel.ExcessId)" />
+                    }
+                    else
+                    {
+                        <h5 class="mt-2 text-muted input-text">Excess </h5>
+                        @if (excessListModel.Result.Items.FirstOrDefault(x => x.Id == CompositionAndConstructionModel.ExcessId) != null)
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder=""> @excessListModel.Result.Items.First(x => x.Id == CompositionAndConstructionModel.ExcessId).Label </p>
+                        }
+                        else
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">No Excess Selected</p>
+                        }
+                    }
+
+
+                </div>
+            </div>
+
+
+            @if (MaterialCategory != "Yarn")
+            {
+                <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm text-dark pl-3 pr-3">
+                        <h5 class="mt-2 text-muted input-text">Hand Feel</h5>
+                        @if (IsEditable)
+                        {
+                            @*<p class="text-muted input-field-text cursor-pointer " href="#typeassignment" data-toggle="collapse"  contentEditable="false">@handFeelText</p>*@
+                            <button type="button" id="handFeelButton" class="btn text-muted input-field-text cursor-pointer mb-2 " aria-haspopup="true" aria-expanded="false"
+                                    data-toggle="dropdown" contentEditable="false">
+                                @handFeelText
+                            </button>
+                        }
+                        else
+                        {
+                            <p class="text-muted input-field-text mb-2" contentEditable="false">@handFeelText</p>
+                        }
+
+                        <div id="typeassignment" class="dropdown-menu overflow-auto multiplecheckbox specificheight" aria-labelledby="handFeelButton">
+                            @foreach (var item in HandFeelListModel?.Result?.Items)
+                            {
+                                <div class="weight__unit dropdown">
+                                    <input class="form-check-input" checked="@(CompositionAndConstructionModel.HandFeelIdList.Contains(item.Id) == true)" type="checkbox" @onchange='@(e => onChangeHandFeel(item.Id, (bool)e.Value))' value="@CompositionAndConstructionModel.HandFeelIds" id="flexCheckChecked">
+                                    <label class="text-muted input-field-text" contentEditable="false">@item.Label</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (CompositionAndConstructionModel.ExcessId == 1002)
+            {
+                <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm text-dark pl-3 pr-3">
+
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 text-muted input-text"> Minimum Stock Level <span class="text-danger">*</span> </h5>
+                            <input class="form-control mb-2 form-control-sm" value="@CompositionAndConstructionModel.MinimumStockLevel " @onchange="@(e => OnChangeMinmumStockLevel(e.Value.ToString()))"
+                                   placeholder="Minimum Stock Level" name="Minimum Stock Level" />
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 text-muted input-text">Minimum Stock Level  </h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="Minimum Stock Level"> @CompositionAndConstructionModel.MinimumStockLevel </p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</EditForm>
+
+
+@code {
+    EditForm editForm;
+}

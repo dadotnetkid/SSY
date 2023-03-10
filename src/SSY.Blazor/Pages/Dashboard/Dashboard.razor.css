@@ -1,0 +1,35 @@
+[contenteditable][placeholder]:empty:before {
+    content: attr(placeholder);
+    position: absolute;
+    color: gray;
+    background-color: transparent;
+  }
+
+
+
+  .header-text{
+    color: #486CD9;
+  }
+  
+  .custom-button {
+    background-color: #486CD9;
+    width: 320px;
+  }
+
+  .text-deco-none{ text-decoration: none }
+
+  .graph-text{
+    font: var(--unnamed-font-style-normal) normal 900 var(--unnamed-font-size-14)/12px Avenir;
+letter-spacing: var(--unnamed-character-spacing-0);
+color: var(---333333);
+text-align: center;
+font: normal normal 900 14px/12px Avenir;
+letter-spacing: 0px;
+color: #333333;
+text-transform: uppercase;
+opacity: 1;
+  }
+  .spacer__footer {
+    margin-bottom: 123px;
+  }
+  

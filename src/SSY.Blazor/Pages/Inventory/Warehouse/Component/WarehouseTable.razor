@@ -1,0 +1,502 @@
+@attribute [Authorize()]
+@if(IsLoading == true)
+{
+    <LoadingSpinner></LoadingSpinner>
+}
+else
+{
+        <Table Bordered Resizable Responsive ResizeMode="TableResizeMode.Columns">
+        <TableHeader>
+            <TableRow>
+                <TableHeaderCell>Warehouse Location</TableHeaderCell>
+                <TableHeaderCell>Warehouse mapping</TableHeaderCell>
+                <TableHeaderCell>Whse Capacity (In yards)</TableHeaderCell>
+                <TableHeaderCell>Current Total Inventory (In yards) </TableHeaderCell>
+                <TableHeaderCell>Reserved Fabrics Inventory</TableHeaderCell>
+                <TableHeaderCell>Unreserved Fabrics Inventory</TableHeaderCell>
+                <TableHeaderCell>Incoming Fabrics Deliveries (In yards)</TableHeaderCell>
+                <TableHeaderCell>Fabric for Disposal (In yards)</TableHeaderCell>
+                <TableHeaderCell>Available Space (In yards) Pre-Disposal</TableHeaderCell>
+                <TableHeaderCell>Available Space (In yards) Post-Disposal</TableHeaderCell>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            <TableRow>
+                <TableRowHeader>SSY Cebu </TableRowHeader>
+                <TableRowCell>SSY Cebu F1, SSY Cebu F2</TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SsyCebuWarehouseCapacity != 0)
+                    {
+                        @WarehouseOverviewModel.SsyCebuWarehouseCapacity
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SsyCebuCurrentTotalInventory != 0)
+                    {
+                        @WarehouseOverviewModel.SsyCebuCurrentTotalInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SsyCebuReservedFabricsInventory != 0)
+                    {
+                        @WarehouseOverviewModel.SsyCebuReservedFabricsInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SsyCebuUnreservedFabricsInventory != 0)
+                    {
+                        @WarehouseOverviewModel.SsyCebuUnreservedFabricsInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SsyCebuIncomingFabricsDeliveries != 0)
+                    {
+                            <button type="button" class="btn btn-success to__theright"
+                            data-toggle="modal" data-target="#ModalPONumber" @onclick="@(x => OnClickModal("SSY CEBU"))">
+                            @WarehouseOverviewModel.SsyCebuIncomingFabricsDeliveries
+                            </button>
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SsyCebuFabricForDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.SsyCebuFabricForDisposal
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SsyCebuAvailableSpacePreDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.SsyCebuAvailableSpacePreDisposal
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SsyCebuAvailableSpacePostDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.SsyCebuAvailableSpacePostDisposal
+                    }
+                </TableRowCell>
+            </TableRow>
+            <TableRow>
+                <TableRowHeader>YTI Cebu</TableRowHeader>
+                <TableRowCell>YTI Cebu</TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.YtiCebuWarehouseCapacity != 0)
+                    {
+                        @WarehouseOverviewModel.YtiCebuWarehouseCapacity
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.YtiCebuCurrentTotalInventory != 0)
+                    {
+                        @WarehouseOverviewModel.YtiCebuCurrentTotalInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.YtiCebuReservedFabricsInventory != 0)
+                    {
+                        @WarehouseOverviewModel.YtiCebuReservedFabricsInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.YtiCebuUnreservedFabricsInventory != 0)
+                    {
+                        @WarehouseOverviewModel.YtiCebuUnreservedFabricsInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.YtiCebuIncomingFabricsDeliveries != 0)
+                    {
+                            <button type="button" class="btn btn-success to__theright"
+                            data-toggle="modal" data-target="#ModalPONumber" @onclick="@(x => OnClickModal("YTI Cebu"))">
+                            @WarehouseOverviewModel.YtiCebuIncomingFabricsDeliveries
+                            </button>
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.YtiCebuFabricForDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.YtiCebuFabricForDisposal
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.YtiCebuAvailableSpacePreDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.YtiCebuAvailableSpacePreDisposal
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.YtiCebuAvailableSpacePostDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.YtiCebuAvailableSpacePostDisposal
+                    }
+                </TableRowCell>
+            </TableRow>
+            <TableRow>
+                <TableRowHeader>Cambodia</TableRowHeader>
+                <TableRowCell>Cambodia</TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.CambodiaWarehouseCapacity != 0)
+                    {
+                        @WarehouseOverviewModel.CambodiaWarehouseCapacity
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.CambodiaCurrentTotalInventory != 0)
+                    {
+                        @WarehouseOverviewModel.CambodiaCurrentTotalInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.CambodiaReservedFabricsInventory != 0)
+                    {
+                        @WarehouseOverviewModel.CambodiaReservedFabricsInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.CambodiaUnreservedFabricsInventory != 0)
+                    {
+                        @WarehouseOverviewModel.CambodiaUnreservedFabricsInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.CambodiaIncomingFabricsDeliveries != 0)
+                    {
+                            <button type="button" class="btn btn-success to__theright"
+                            data-toggle="modal" data-target="#ModalPONumber" @onclick="@(x => OnClickModal("Cambodia"))">
+                            @WarehouseOverviewModel.CambodiaIncomingFabricsDeliveries
+                            </button>
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.CambodiaFabricForDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.CambodiaFabricForDisposal
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.CambodiaAvailableSpacePreDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.CambodiaAvailableSpacePreDisposal
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.CambodiaAvailableSpacePostDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.CambodiaAvailableSpacePostDisposal
+                    }
+                </TableRowCell>
+            </TableRow>
+            <TableRow>
+                <TableRowHeader>Gjm</TableRowHeader>
+                <TableRowCell>Gjm</TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.GjmWarehouseCapacity != 0)
+                    {
+                        @WarehouseOverviewModel.GjmWarehouseCapacity
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.GjmCurrentTotalInventory != 0)
+                    {
+                        @WarehouseOverviewModel.GjmCurrentTotalInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.GjmReservedFabricsInventory != 0)
+                    {
+                        @WarehouseOverviewModel.GjmReservedFabricsInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.GjmUnreservedFabricsInventory != 0)
+                    {
+                        @WarehouseOverviewModel.GjmUnreservedFabricsInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.GjmIncomingFabricsDeliveries != 0)
+                    {
+                            <button type="button" class="btn btn-success to__theright"
+                            data-toggle="modal" data-target="#ModalPONumber" @onclick="@(x => OnClickModal("Gjm"))">
+                            @WarehouseOverviewModel.GjmIncomingFabricsDeliveries
+                            </button>
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.GjmFabricForDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.GjmFabricForDisposal
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.GjmAvailableSpacePreDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.GjmAvailableSpacePreDisposal
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.GjmAvailableSpacePostDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.GjmAvailableSpacePostDisposal
+                    }
+                </TableRowCell>
+            </TableRow>
+            <TableRow>
+                <TableRowHeader>Skechers</TableRowHeader>
+                <TableRowCell>Skechers</TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SkechersWarehouseCapacity != 0)
+                    {
+                        @WarehouseOverviewModel.SkechersWarehouseCapacity
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SkechersCurrentTotalInventory != 0)
+                    {
+                        @WarehouseOverviewModel.SkechersCurrentTotalInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SkechersReservedFabricsInventory != 0)
+                    {
+                        @WarehouseOverviewModel.SkechersReservedFabricsInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SkechersUnreservedFabricsInventory != 0)
+                    {
+                        @WarehouseOverviewModel.SkechersUnreservedFabricsInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SkechersIncomingFabricsDeliveries != 0)
+                    {
+                            <button type="button" class="btn btn-success to__theright"
+                            data-toggle="modal" data-target="#ModalPONumber" @onclick="@(x => OnClickModal("Skechers"))">
+                            @WarehouseOverviewModel.SkechersIncomingFabricsDeliveries
+                            </button>
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SkechersFabricForDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.SkechersFabricForDisposal
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SkechersAvailableSpacePreDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.SkechersAvailableSpacePreDisposal
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.SkechersAvailableSpacePostDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.SkechersAvailableSpacePostDisposal
+                    }
+                </TableRowCell>
+            </TableRow>
+            <TableRow>
+                <TableRowHeader>Tms</TableRowHeader>
+                <TableRowCell>Tms</TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.TmsWarehouseCapacity != 0)
+                    {
+                        @WarehouseOverviewModel.TmsWarehouseCapacity
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.TmsCurrentTotalInventory != 0)
+                    {
+                        @WarehouseOverviewModel.TmsCurrentTotalInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.TmsReservedFabricsInventory != 0)
+                    {
+                        @WarehouseOverviewModel.TmsReservedFabricsInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.TmsUnreservedFabricsInventory != 0)
+                    {
+                        @WarehouseOverviewModel.TmsUnreservedFabricsInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.TmsIncomingFabricsDeliveries != 0)
+                    {
+                            <button type="button" class="btn btn-success to__theright"
+                            data-toggle="modal" data-target="#ModalPONumber" @onclick="@(x => OnClickModal("Tms"))">
+                            @WarehouseOverviewModel.TmsIncomingFabricsDeliveries
+                            </button>
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.TmsFabricForDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.TmsFabricForDisposal
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.TmsAvailableSpacePreDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.TmsAvailableSpacePreDisposal
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.TmsAvailableSpacePostDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.TmsAvailableSpacePostDisposal
+                    }
+                </TableRowCell>
+            </TableRow>
+            <TableRow>
+                <TableRowHeader>Others</TableRowHeader>
+                <TableRowCell>Others</TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.OthersWarehouseCapacity != 0)
+                    {
+                        @WarehouseOverviewModel.OthersWarehouseCapacity
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.OthersCurrentTotalInventory != 0)
+                    {
+                        @WarehouseOverviewModel.OthersCurrentTotalInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.OthersReservedFabricsInventory != 0)
+                    {
+                        @WarehouseOverviewModel.OthersReservedFabricsInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.OthersUnreservedFabricsInventory != 0)
+                    {
+                        @WarehouseOverviewModel.OthersUnreservedFabricsInventory
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.OthersIncomingFabricsDeliveries != 0)
+                    {
+                            <button type="button" class="btn btn-success to__theright"
+                            data-toggle="modal" data-target="#ModalPONumber" @onclick="@(x => OnClickModal("Others"))">
+                            @WarehouseOverviewModel.OthersIncomingFabricsDeliveries
+                            </button>
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.OthersFabricForDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.OthersFabricForDisposal
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.OthersAvailableSpacePreDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.OthersAvailableSpacePreDisposal
+                    }
+                </TableRowCell>
+                <TableRowCell>
+                    @if (WarehouseOverviewModel.OthersAvailableSpacePostDisposal != 0)
+                    {
+                        @WarehouseOverviewModel.OthersAvailableSpacePostDisposal
+                    }
+                </TableRowCell>
+            </TableRow>
+        </TableBody>
+        <TableFooter>
+            <TableHeaderCell>Total</TableHeaderCell>
+            <TableHeaderCell></TableHeaderCell>
+            <TableHeaderCell>
+                @if (WarehouseOverviewModel.WarehouseCapacityTotal != 0)
+                {
+                    @WarehouseOverviewModel.WarehouseCapacityTotal
+                }
+            </TableHeaderCell>
+            <TableHeaderCell>
+                @if (WarehouseOverviewModel.CurrentTotalInventoryTotal != 0)
+                {
+                    @WarehouseOverviewModel.CurrentTotalInventoryTotal
+                }
+            </TableHeaderCell>
+            <TableHeaderCell>
+                @if (WarehouseOverviewModel.ReservedFabricsInventoryTotal != 0)
+                {
+                    @WarehouseOverviewModel.ReservedFabricsInventoryTotal
+                }
+            </TableHeaderCell>
+            <TableHeaderCell>
+                @if (WarehouseOverviewModel.UnreservedFabricsInventoryTotal != 0)
+                {
+                    @WarehouseOverviewModel.UnreservedFabricsInventoryTotal
+                }
+            </TableHeaderCell>
+            <TableHeaderCell>
+                @if (WarehouseOverviewModel.IncomingFabricsDeliveriesTotal != 0)
+                {
+                    @WarehouseOverviewModel.IncomingFabricsDeliveriesTotal
+                }
+            </TableHeaderCell>
+            <TableHeaderCell>
+                @if (WarehouseOverviewModel.FabricForDisposalTotal != 0)
+                {
+                    @WarehouseOverviewModel.FabricForDisposalTotal
+                }
+            </TableHeaderCell>
+            <TableHeaderCell>
+                @if (WarehouseOverviewModel.AvailableSpacePreDisposalTotal != 0)
+                {
+                    @WarehouseOverviewModel.AvailableSpacePreDisposalTotal
+                }
+            </TableHeaderCell>
+            <TableHeaderCell>
+                @if (WarehouseOverviewModel.AvailableSpacePostDisposalTotal != 0)
+                {
+                    @WarehouseOverviewModel.AvailableSpacePostDisposalTotal
+                }
+            </TableHeaderCell>
+        </TableFooter>
+    </Table>
+
+    <div class="modal fade" id="ModalPONumber" tabindex="-1" role="dialog" aria-labelledby="ModalPONumber"
+     aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalPONumber">Purchase Order Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <DataGrid TItem="WarehousePO"
+                          Data="@_warehouse"
+                          Responsive
+                          Hoverable="true"
+                          ShowPager="true"
+                          ShowPageSizes="true">
+                        <ChildContent>
+                            <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="WarehousePO" Field="@nameof(WarehousePO.PONumber)" Caption="PO Number" Editable Sortable="false" />
+                            <DataGridColumn VerticalAlignment="VerticalAlignment.Middle" TItem="WarehousePO" Field="@nameof(WarehousePO.Id)" Caption="View" Editable Sortable="false">
+                                <DisplayTemplate>
+                                    <a class="text-dark" href="/inventory/purchaseorder/detail/@context.Id" onclick="$('#ModalPONumber').modal('hide')">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                </DisplayTemplate>
+                            </DataGridColumn>
+
+                        </ChildContent>
+                    </DataGrid>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

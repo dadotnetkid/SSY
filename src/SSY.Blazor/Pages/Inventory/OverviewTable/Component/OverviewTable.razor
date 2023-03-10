@@ -1,0 +1,88 @@
+@attribute [Authorize()]
+<Accordion>
+    <Collapse Visible="@collapse1Visible">
+        <CollapseHeader>
+            <Heading Size="HeadingSize.Is5">
+                <Button Clicked="@(()=>collapse1Visible = !collapse1Visible)">Greige & Fabric:</Button>
+            </Heading>
+        </CollapseHeader>
+        <CollapseBody>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-8 text-center" colspan="10">Greige & Fabric</th>
+                        <th class="col-2 text-center" colspan="2">History</th>
+                        <th class="col-2 text-center" rowspan="3">Total Unallocated Quantity (Free Float)</th>
+                    </tr>
+                    <tr>
+                        <th class="col">Thumbnail</th>
+                        <th class="col">Material Type</th>
+                        <th class="col">Item Code</th>
+                        <th class="col">Color Code</th>
+                        <th class="col">Color</th>
+                        <th class="col">Actual Count</th>
+                        <th class="col">Reserved Count</th>
+                        <th class="col">UoM</th>
+                        <th class="col">Reserved for this Collection</th>
+                        <th class="col">Collection Name</th>
+                        <th class="col" colspan="2">Available Count (Unreserved)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="4">sample</td>
+                        <td rowspan="4">sample</td>
+                        <td rowspan="4">sample</td>
+                        <td rowspan="4">sample</td>
+                        <td rowspan="4">sample</td>
+                        <td rowspan="4">sample</td>
+                        <td rowspan="4">sample</td>
+                        <td rowspan="4">sample</td>
+                        <td rowspan="4">sample</td>
+                        <td>sample</td>
+                        <td>sample</td>
+                        <td>sample</td>
+                        <td rowspan="4">sample</td>
+                    </tr>
+                    <tr>
+                        <td>sample</td>
+                        <td>sample</td>
+                        <td>sample</td>
+
+                    </tr>
+                    <tr>
+                        <td>sample</td>
+                        <td>sample</td>
+                        <td>sample</td>
+                    </tr>
+                    <tr>
+                        <td>sample</td>
+                        <td>sample</td>
+                        <td>sample</td>
+                    </tr>
+                </tbody>
+            </table>
+        </CollapseBody>
+    </Collapse>
+    <Collapse Visible="@collapse2Visible">
+        <CollapseHeader>
+            <Heading Size="HeadingSize.Is5">
+                <Button Clicked="@(()=>collapse2Visible = !collapse2Visible)">Trims & Accessories:</Button>
+            </Heading>
+        </CollapseHeader>
+        <CollapseBody>
+            @* insert table here *@
+        </CollapseBody>
+    </Collapse>
+
+    <Collapse Visible="@collapse3Visible">
+        <CollapseHeader>
+            <Heading Size="HeadingSize.Is5">
+                <Button Clicked="@(()=>collapse3Visible = !collapse3Visible)">Packagings:</Button>
+            </Heading>
+        </CollapseHeader>
+        <CollapseBody>
+            @* insert table here *@
+        </CollapseBody>
+    </Collapse>
+</Accordion>

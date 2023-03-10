@@ -1,0 +1,69 @@
+@* @TotalCount *@
+@if(TotalCount != 0){
+
+
+<div class="d-flex justify-content-between ">
+    @* @if (revenueTransactionHistoryListModel.RevenueTransactionHistoryList.RevenueHistories.Any()) *@
+    @* { *@
+    <div>
+        <div class="input-group mb-3 ml-3 input-group-sm">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Showing @CurrentItems to @TotalItems of
+                    @TotalCount</span>
+            </div>
+            <select class="form-control" @onchange="(e)=> onChangeListPerPage(e.Value.ToString())" value="10">
+                <option value="10" selected>10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+
+            </select>
+            <div class="input-group-append">
+                <span class="input-group-text">per page</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="mr-3">
+        <ul class="pagination pagination-sm">
+
+            @if (CurrentPage != 1)
+            {
+                <li class="page-item cursor-pointer" @onclick="@(e =>
+                SetPage((CurrentPage-1).ToString()))">
+                    <p class="page-link default-color">Previous</p>
+                </li>
+
+
+            }
+
+            @for (int i = PaginationStart; i <= PaginationLimit; i++)
+            {
+                var localVariable = i;
+                var style = (localVariable == CurrentPage)
+                ? "page-item active" : "page-item";
+
+                <li class="@style cursor-pointer">
+                    <p class="page-link default-color" @onclick="@(e => SetPage(localVariable.ToString()))"> @(i)
+                    </p>
+                </li>
+            }
+
+            @if (MaxPage != CurrentPage)
+            {
+                <li class="page-item cursor-pointer" @onclick="@(e =>
+                SetPage((CurrentPage+1).ToString()))">
+                    <p class="page-link default-color">Next</p>
+                </li>
+
+            }
+        </ul>
+
+    </div>
+    @* } *@
+
+
+</div>
+
+}

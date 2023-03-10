@@ -1,0 +1,59 @@
+.header-dashboard {
+    background: #7b8e61;
+    color: white;
+    position: sticky;
+    top: 55px;
+    z-index: 1;
+}
+span.square-number {
+    background: white;
+    padding: 6px;
+    border-radius: 4px;
+    color: black;
+    font-size: 22px;
+    font-weight: 700;
+}
+span.square-seperator {
+    font-size: 20px;
+    font-weight: 700;
+}
+.box-spacings {
+    margin: 15px 4px 5px 4px;
+}
+.box-spacings p {
+    margin-bottom: unset;
+    font-size: 13px;
+    margin-top: 5px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.desktop {
+    margin: auto;
+    width: 100%;
+    
+}
+.mobile {
+    width: 100%;
+    margin: auto;
+    visibility: hidden;
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .mobile {
+        width: 100%;
+        margin: auto;
+        visibility:visible;
+        display: block;
+    }
+    .boxes {
+        display: inline-flex;
+        margin: auto;
+    }
+    .desktop {
+        margin: auto;
+        width: 100%;
+        visibility:hidden;
+        display: none;
+    }
+  }

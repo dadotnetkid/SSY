@@ -1,0 +1,9 @@
+
+.custom__row {
+    width: 100%;
+    display: flex;
+    margin: 10px;
+}
+.table-primary, .table-primary>td, .table-primary>th {
+    background-color: #7b8d60 !important;
+}

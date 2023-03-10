@@ -1,0 +1,13 @@
+
+
+.financial__information {
+    height: 452px;
+}
+@media (max-width: 768px) {
+    .spacer {
+        padding: 0;
+    }
+    .spacer__add {
+        padding: 0;
+    }
+  }

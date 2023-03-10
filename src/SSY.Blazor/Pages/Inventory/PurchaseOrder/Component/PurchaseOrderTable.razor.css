@@ -1,0 +1,61 @@
+﻿.bg-btn {
+    background-color: #7B8E61;
+}
+
+    .bg-btn.col-12 {
+        background-color: #7B8E61;
+        font-size: 12px;
+    }
+
+.inline__flex.filter.row {
+    padding: 17px;
+}
+
+.addPurchaseOrder {
+    float: right;
+}
+
+.footer__button .mt-3,
+.my-3 {
+    margin-top: 8px !important;
+}
+
+.col-3.col-sm-3.mt-3.left p {
+    color: white;
+    font-size: 13px;
+    padding-left: 19px;
+}
+
+svg {
+    transition: transform .2s;
+}
+
+    svg:hover {
+        transform: scale(1.5);
+    }
+
+    svg.bi.bi-dash-square {
+        cursor: pointer;
+    }
+.icons svg {
+    margin: 3px;
+}
+.material__id svg {
+    margin-right: 8px;
+}
+.received {
+    background: #7B8E61;
+    width: 100%
+}
+.partiallyReceived {
+    background: #BA8269;
+    width: 100%
+}
+.notReceived {
+    background: #808080;
+    width: 100%
+}
+.tableText {
+    color: black;
+    text-decoration: none;
+}

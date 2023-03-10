@@ -1,0 +1,149 @@
+
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+    <div class="d-flex justify-content-between">
+        <h3 class="header-text">Material Type Configuration</h3>
+    </div>
+    <div class="inline__flex filter row">
+        <div class="col-md-10">
+            <Searchbox></Searchbox>
+        </div>
+        <div class="col-md-2">
+
+            <button class="btn bg-btn col-12 text-light" data-toggle="modal" data-target="#materialType" @onclick="(e => AddMaterialTypeHandler())">Add Material Type Configuration</button>
+
+        </div>
+    </div>
+
+    <div class="pl-3 pr-3 table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="tb-header text-center">Material Type</th>
+                    <th class="tb-header text-center">Sales Percentage (%)</th>
+                    <th class="tb-header text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in TypeModelList.Result.Items)
+                {
+                    <tr>
+                        <td class="tb-td-text text-center">@item.Value</td>
+                        <td class="tb-td-text text-center">@item.SalesPercentage</td>
+                        <td class="tb-td-text text-center">
+                            <span class="cursor-pointer"
+                                  @onclick="@(e => EditMaterialType(@item.Id))" data-toggle="modal" data-target="#materialType">Edit</span> |
+
+                            <span class="cursor-pointer"
+                                  @onclick="@(e => RemoveMaterialType(@item.Id))">Delete</span>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<ProductCategoryConfiguration></ProductCategoryConfiguration>
+
+<ProductTypeConfiguration></ProductTypeConfiguration>
+
+<ColorConfiguration></ColorConfiguration>
+
+<!-- Modal Reservation -->
+<EditForm Model="TypeModel" OnValidSubmit="OnSubmit">
+    <DataAnnotationsValidator />
+    <div class="modal fade" id="materialType" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @if (IsAddMaterialType)
+                    {
+                        <h5 class="modal-title" id="exampleModalLongTitle">Add Material Type Configuration</h5>
+                    }
+                    else
+                    {
+                        <h5 class="modal-title" id="exampleModalLongTitle">Update Material Type Configuration</h5>
+                    }
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="ClearAll">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @*<div class="form-group">
+                            <label for="formGroupExampleInput">Material Type<span class="text-danger">*</span></label>
+                            <InputSelect @bind-Value="ReservationMaterialTypeModel.MaterialTypeId" class="form-control mb-2 form-control-sm" placeholder="Enter Material Type">
+                                <option value="0" selected>Select Material Type</option>
+                                @foreach (var item in TypeModelList.Result.Items)
+                                {
+                                    <option value="@item.Id" selected>@item.Value</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => ReservationMaterialTypeModel.MaterialTypeId)" />
+                        </div>*@
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Material Type<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="TypeModel.Value" class="form-control mb-2 form-control-sm" placeholder="Enter Material Type" />
+                        <ValidationMessage For="@(() => TypeModel.Value)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Sales Percentage</label>
+                        <InputNumber @bind-Value="TypeModel.SalesPercentage" min="0" class="form-control mb-2 form-control-sm" placeholder="Enter Sales Percentage" />
+                        <ValidationMessage For="@(() => TypeModel.SalesPercentage)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Unit Of Measurement</label>
+                        <InputSelect @bind-Value="TypeModel.UnitOfMeasurementId" class="form-control mb-2 form-control-sm" placeholder="Unit Of Measurement">
+                            <option value="0" selected disabled>Select Unit Of Measurement</option>
+                            @foreach (var item in unitOfMeasurementListModel.Result.Items)
+                            {
+                                <option value="@item.Id">@item.Value</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => TypeModel.UnitOfMeasurementId)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Short Code</label>
+                        <InputText @bind-Value="TypeModel.ShortCode" min="0" class="form-control mb-2 form-control-sm" placeholder="Enter Short Code" />
+                        <ValidationMessage For="@(() => TypeModel.ShortCode)" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="formGroupExampleInput">Order Number (Optional)</label>
+                        <InputNumber @bind-Value="TypeModel.OrderNumber" min="0" class="form-control mb-2 form-control-sm" placeholder="Enter Order Number" />
+                        <ValidationMessage For="@(() => TypeModel.OrderNumber)" />
+                    </div>
+                    <div class="form-group mt-4 border rounded-sm text-dark pl-3 pr-3" data-target="#typeassignment" data-toggle="collapse">
+                        <h5 class="mt-2 text-muted input-text">Panels</h5>
+                        @if (!IsEditable)
+                        {
+                            <p class="text-muted input-field-text cursor-pointer" contentEditable="false">@TypeModel.SelectedPanels</p>
+                        }
+                        else
+                        {
+                            <p class="text-muted input-field-text mb-2" contentEditable="false">@TypeModel.SelectedPanels</p>
+                        }
+
+                        <div class="collapse overflow-auto multiplecheckbox specificheight" id="typeassignment">
+                            @foreach (var item in PanelListModel.Result.Items)
+                            {
+                                <div class="weight__unit dropdown">
+                                    <input class="form-check-input" checked="@(TypeModel.PanelIdList.Contains(item.Id)==true)" type="checkbox" @onchange='@(e => onChangePanel(item.Id, (bool)e.Value, item))' value="@TypeModel.PanelIds" id="flexCheckChecked">
+                                    <label class="text-muted input-field-text" contentEditable="false">@item.Label</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn text-light btn-lg btn-danger buttons__class"
+                            data-dismiss="modal" @onclick="ClearAll">
+                        Close
+                    </button>
+                    <button type="submit" class="btn bg-btn text-light btn-lg btn-success buttons__class">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>

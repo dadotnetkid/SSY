@@ -1,0 +1,61 @@
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <BannerLayoutSSY></BannerLayoutSSY>
+    </CascadingValue>
+</CascadingValue>
+
+<div class="tab-content">
+    <div id="home" class="tab-pane fade in active show">
+        <div class="row">
+            <div class="col-md-6 col-sm-12 mt-3">
+                <Description @ref="DescriptionComponent" OverviewModel="MaterialModel" IsEditable="@IsEditable" OnChangeMaterialType="MaterialTypeChanged" MaterialCategory="@MaterialCategory" />
+            </div>
+            <div class="col-md-6 col-sm-12 mt-3">
+                <CompositionAndConstruction @ref="CompositionAndConstructionComponent" CompositionAndConstructionModel="MaterialModel.CompositionAndConstruction" IsEditable="@IsEditable" MaterialCategory="@MaterialCategory" />
+            </div>
+            <div class="col-md-6 col-sm-12 mt-3">
+                <Inventory @ref="InventoryComponent" InventoryModel="MaterialModel" IsEditable="@IsEditable" />
+            </div>
+
+            <div class="col-md-6 col-sm-12 mt-3">
+                <Miscellaneous @ref="MiscellaneousComponent" MaterialModel="MaterialModel" IsEditable="@IsEditable" />
+            </div>
+            <div class="col-md-12 col-sm-12 mt-3">
+                <RollAndLocation MaterialModel="MaterialModel" IsEditable="@IsEditable" />
+            </div>
+            <div class="col-md-12 col-sm-12 mt-3">
+                <SupplierDetail @ref="SupplierComponent" SupplierModel="@MaterialModel.Company" IsEditable="@IsEditable" OnChangeSupplier="SupplierChanged" />
+            </div>
+            <div class="col-md-12 col-sm-12 mt-3">
+                <PurchasingDetail @ref="PurchasingDetailComponent" PurchaseDetailModel="MaterialModel.PurchaseDetail" IsEditable="@IsEditable" />
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="footer__button">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 mt-3">
+            <div class="background">
+                <div class="buttons">
+                    <button class="btn btn-lg btn-danger buttons__class"
+                            onclick="window.history.go(-1); return false;">
+                        Discard
+                    </button>
+                    <button class="btn btn-lg btn-success buttons__class" @onclick="@(e => HandleSubmit())">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    Description DescriptionComponent = new();
+    CompositionAndConstruction CompositionAndConstructionComponent = new();
+    Inventory InventoryComponent = new();
+    Miscellaneous MiscellaneousComponent = new();
+    SupplierDetail SupplierComponent = new();
+    RollAndLocation RollComponent = new();
+    PurchasingDetail PurchasingDetailComponent = new();
+}

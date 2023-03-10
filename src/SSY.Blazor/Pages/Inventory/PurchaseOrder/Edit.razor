@@ -1,0 +1,29 @@
+﻿@page "/inventory/purchaseorder/edit/{id:guid}"
+@attribute [Authorize()]
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <CascadingValue Value="@Crud" Name="Crud">
+            <CascadingValue Value="@PurchaseOrderModel.Number" Name="MaterialName">
+                <CascadingValue Value="@PurchaseOrderModel.Number" Name="ModuleChange">
+                    <PurchaseOrderDescription PurchaseOrderModel="@PurchaseOrderModel" IsEditable="@IsEditable" />
+                </CascadingValue>
+            </CascadingValue>
+            </CascadingValue>
+        </CascadingValue>
+</CascadingValue>
+
+<div class="footer__button">
+    <div class="row mt-2 saveButton">
+        <div class="col-md-12 col-sm-12 mt-3">
+            <div class="background">
+                <div class="buttons mb-2">
+                    <button class="btn btn-lg btn-danger buttons__class"
+                            onclick="window.history.go(-1); return false;">
+                        Discard
+                    </button>
+                    <button type="submit" class="btn btn-lg btn-success buttons__class" @onclick="HandleSubmit">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

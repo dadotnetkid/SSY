@@ -1,0 +1,227 @@
+﻿<div class="col-md-12 pl-0 pr-0">
+    <div class="row">
+        <div class="col">
+            <h5 class="mt-2 text-muted input-text">2D Technical Design Board</h5>
+            @if (string.IsNullOrWhiteSpace(TechDesign2d))
+            {
+                @if(IsEditable)
+                {
+                    <InputFile OnChange='@(e => UploadFile(e,"2D Technical Design Board"))' class="productionfiles__border" type="file" accept=".pdf" />
+                }
+                else 
+                {
+                    <div class="col border rounded-sm bg-light text-dark pl-3 pr-3 ml-1 mt-3">
+                        <p class="text-muted input-field-text mt-3 production-file-ellipsis mt-3" contentEditable="false"
+                        placeholder="">
+                            No File Available
+                        </p>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col border rounded-sm bg-light text-dark pl-3 pr-3 ml-1 mt-3">
+
+                    <p class="text-muted input-field-text mt-3 production-file-ellipsis mt-3" contentEditable="false"
+                    placeholder="">
+                        <a data-toggle="modal" data-target="#modal-production">
+                            @TechDesign2d
+                        </a>
+                        @if(IsEditable){
+                            <span @onclick='@(e => OnDelete(@TechDesign2dId,"2D Technical Design Board"))' class="fa fa-trash for-production-files cursor-pointer"></span>
+                        }
+                    </p>
+
+                </div>
+            }
+        </div>
+
+        <div class="col">
+            <h5 class="mt-2 text-muted input-text">SIZE SPECS</h5>
+            @if (string.IsNullOrWhiteSpace(SizeSpecs))
+            {
+                @if(IsEditable)
+                {
+                    <InputFile OnChange='@(e => UploadFile(e,"Size Specs"))' class="productionfiles__border" type="file" accept=".xlsx,.csv" />
+                }
+                else 
+                {
+                    <div class="col border rounded-sm bg-light text-dark pl-3 pr-3 ml-1 mt-3">
+                        <p class="text-muted input-field-text mt-3 production-file-ellipsis mt-3" contentEditable="false"
+                        placeholder="">
+                            No File Available
+                        </p>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col border rounded-sm bg-light text-dark pl-3 pr-3 ml-1 mt-3">
+
+                    <p class="text-muted input-field-text mt-3 production-file-ellipsis mt-3" contentEditable="false"
+                    placeholder="">
+                        <a data-toggle="modal" data-target="#modal-production">
+                            @SizeSpecs
+                        </a>
+                        @if(IsEditable){
+                            <span @onclick='@(e => OnDelete(@SizeSpecsId,"Size Specs"))' class="fa fa-trash for-production-files cursor-pointer"></span>
+                        }
+                    </p>
+
+                </div>
+            }
+        </div>
+
+        <div class="col">
+            <h5 class="mt-2 text-muted input-text">Obj Files</h5>
+            @if (string.IsNullOrWhiteSpace(ObjFiles))
+            {
+                @if(IsEditable)
+                {
+                    <InputFile OnChange='@(e => UploadFile(e,"Obj Files"))' class="productionfiles__border" type="file" accept=".rar,.zip,.obj" />
+                }
+                else 
+                {
+                    <div class="col border rounded-sm bg-light text-dark pl-3 pr-3 ml-1 mt-3">
+                        <p class="text-muted input-field-text mt-3 production-file-ellipsis mt-3" contentEditable="false"
+                        placeholder="">
+                            No File Available
+                        </p>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col border rounded-sm bg-light text-dark pl-3 pr-3 ml-1 mt-3">
+
+                    <p class="text-muted input-field-text mt-3 production-file-ellipsis mt-3" contentEditable="false"
+                    placeholder="">
+                        <a data-toggle="modal" data-target="#modal-production">
+                            @ObjFiles
+                        </a>
+                        @if(IsEditable){
+                            <span @onclick='@(e => OnDelete(@ObjFilesId,"Obj Files"))' class="fa fa-trash for-production-files cursor-pointer"></span>
+                        }
+                    </p>
+
+                </div>
+            }
+        </div>
+
+        <div class="col">
+            <h5 class="mt-2 text-muted input-text">Patterns</h5>
+            @if (string.IsNullOrWhiteSpace(Patterns))
+            {
+                @if(IsEditable)
+                {
+                    <InputFile OnChange='@(e => UploadFile(e,"Patterns"))' class="productionfiles__border" type="file" accept=".zip,.rar,.zprj" />
+                }
+                else 
+                {
+                    <div class="col border rounded-sm bg-light text-dark pl-3 pr-3 ml-1 mt-3">
+                        <p class="text-muted input-field-text mt-3 production-file-ellipsis mt-3" contentEditable="false"
+                        placeholder="">
+                            No File Available
+                        </p>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col border rounded-sm bg-light text-dark pl-3 pr-3 ml-1 mt-3">
+
+                    <p class="text-muted input-field-text mt-3 production-file-ellipsis mt-3" contentEditable="false"
+                    placeholder="">
+                        <a data-toggle="modal" data-target="#modal-production">
+                            @Patterns
+                        </a>
+                        @if(IsEditable){
+                            <span @onclick='@(e => OnDelete(@PatternsId,"Patterns"))' class="fa fa-trash for-production-files cursor-pointer"></span>
+                        }
+                    </p>
+
+                </div>
+            }
+        </div>
+
+        <div class="col">
+            <h5 class="mt-2 text-muted input-text">3D Technical Design Board</h5>
+            @if (string.IsNullOrWhiteSpace(TechDesign3d))
+            {
+                @if(IsEditable)
+                {
+                    <InputFile OnChange='@(e => UploadFile(e,"3D Technical Design Board"))' class="productionfiles__border" type="file" accept=".pdf" />
+                }
+                else 
+                {
+                    <div class="col border rounded-sm bg-light text-dark pl-3 pr-3 ml-1 mt-3">
+                        <p class="text-muted input-field-text mt-3 production-file-ellipsis mt-3" contentEditable="false"
+                        placeholder="">
+                            No File Available
+                        </p>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col border rounded-sm bg-light text-dark pl-3 pr-3 ml-1 mt-3">
+
+                    <p class="text-muted input-field-text mt-3 production-file-ellipsis mt-3" contentEditable="false"
+                    placeholder="">
+                        <a data-toggle="modal" data-target="#modal-production">
+                            @TechDesign3d
+                        </a>
+                        @if(IsEditable){
+                            <span @onclick='@(e => OnDelete(@TechDesign3dId,"3D Technical Design Board"))' class="fa fa-trash for-production-files cursor-pointer"></span>
+                        }
+                    </p>
+
+                </div>
+            }
+        </div>
+
+        <div class="col">
+            <h5 class="mt-2 text-muted input-text">Workmanship Guide</h5>
+            @if (string.IsNullOrWhiteSpace(Workmanship))
+            {
+                @if(IsEditable)
+                {   
+                    <div class="productionfiles__border">
+                      <InputSelect @bind-Value="ProductModel.WorkmanshipGuideId" class="form-control form-control-sm bg-white
+                        for-border" placeholder="Workmanship Guide">
+                            <option selected disabled value="">Select Workmanship</option>
+                        </InputSelect>
+                    </div>
+                    @* <InputFile OnChange='@(e => UploadFile(e,"Workmanship Guide"))' class="productionfiles__border" type="file" accept=".pdf" /> *@
+                }
+                else 
+                {
+                    <div class="col border rounded-sm bg-light text-dark pl-3 pr-3 ml-1 mt-3">
+                        <p class="text-muted input-field-text mt-3 production-file-ellipsis mt-3" contentEditable="false"
+                        placeholder="">
+                            No File Available
+                        </p>
+                    </div>
+                }
+               
+            }
+            else
+            {
+                <div class="col border rounded-sm bg-light text-dark pl-3 pr-3 ml-1 mt-3">
+
+                    <p class="text-muted input-field-text mt-3 production-file-ellipsis mt-3" contentEditable="false"
+                    placeholder="">
+                        <a data-toggle="modal" data-target="#modal-production">
+                            @Workmanship
+                        </a>
+                        @if(IsEditable){
+                            <span @onclick='@(e => OnDelete(@WorkmanshipId,"Workmanship Guide"))' class="fa fa-trash for-production-files cursor-pointer"></span>
+                        }
+                    </p>
+
+                </div>
+            }
+        </div>
+
+    </div>
+</div>

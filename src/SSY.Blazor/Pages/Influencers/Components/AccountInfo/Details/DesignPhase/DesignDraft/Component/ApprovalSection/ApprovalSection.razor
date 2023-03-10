@@ -1,0 +1,301 @@
+
+<div class="approval section mt-5">
+
+    @* internal approval
+    @if(CategoryId == 2001 || CategoryId == 2002 || 
+        CategoryId == 2003 || CategoryId == 2004 || 
+        CategoryId == 2005 || CategoryId == 2006 ){
+
+        @if(ProductMediaFilesByCategory.Any()){
+            Guid uniqueId = Guid.NewGuid();
+            Guid uniqueIdApproved = Guid.NewGuid();
+            Guid uniqueIdRejected = Guid.NewGuid(); *@
+            <div class="col-md-12">
+                <div class="approval-label">
+                    INTERNAL APPROVAL
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="approval-options d-inline-flex">
+
+                    <div class="form-check mr-1">
+                        <input class="form-check-input" 
+                            type="radio">
+                        <label class="form-check-label">
+                            Approve
+                        </label>
+                    </div>
+
+                    <div class="form-check ml-1">
+                        <input class="form-check-input" 
+                            type="radio">
+                        <label class="form-check-label">
+                            Reject
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="confirmation-options">
+                    @* @if(isInternalApproved == true) 
+                    {
+                        @if (@ProductMediaFilesByCategory.FirstOrDefault().InternalIsApproved == true)
+                        {
+                            DateTime? dateLastModification = @ProductMediaFilesByCategory.FirstOrDefault().InternalIsApprovedDateTime;
+                            string dateMod = dateLastModification.Value.ToString("MMMM d, yyyy"); *@
+                            @* <div class="border rounded-sm bg-light text-dark pl-3 pr-3"> *@
+                                @* @if( RejectionNotesByCategory.Any())
+                                { *@
+                                    @* <span class="float-right"><i class="fa fa-comment cursor-pointer"  data-toggle="modal"></i></span> *@
+                                @* } *@
+                                @* <p class="text-muted input-field-text address mt-3" contentEditable="false" placeholder="">
+                                    Approved on 
+                                </p> *@
+                            @* </div> *@
+                        @* }
+                        else
+                        { *@
+                            @* <button class="confirmation-option-button">Confirm Approval</button> *@
+                        @* }
+                    }
+
+                    @if (isInternalApproved == false)
+                    { *@
+                        @* <div class="rejection-section col-12"> *@
+                            @* @if(isDisabledInternalRadio){
+                                DateTime? dateLastModification = @ProductMediaFilesByCategory.FirstOrDefault().InternalIsApprovedDateTime;
+                                string dateMod = dateLastModification.Value.ToString("MMMM d, yyyy"); *@
+                                @* <div class="rounded-sm bg-light text-dark text-truncate">
+                                    <p class="text-muted input-field-text address mt-1" contentEditable="false">
+                                        <small> Sample </small> <span class="float-right"><i class="fa fa-comment cursor-pointer" data-toggle="modal"></i></span> <br>
+                                        <span class="default-color"> Sample </span>  
+                                    </p>
+                                </div> *@
+                            @* }else {
+                                @if( RejectionNotesByCategory.Any())
+                                { *@
+                                    @* <span class="float-right"><i class="fa fa-comment cursor-pointer"></i></span> *@
+                                @* }
+                                <InputText disabled = "@isDisabledInternalRadio" @bind-Value="internalNotes" type="text" placeholder="Reason for rejection" />
+                            } *@
+                            @* @if(!isDisabledInternalRadio){
+                                <div class="rejection-button-section">
+                                    <button @onclick='@(e => onRejectInternal())'>Submit</button>
+                                </div>
+                            } *@
+                        @* </div> *@
+                    @* }  *@
+                </div>
+            </div>
+        @* } *@
+        
+        @* @if( RejectionNotesByCategory.Any() && isInternalApproved == null)
+        { *@
+            @* DateTime? dateLastModification = @RejectionNotesByCategory.FirstOrDefault().creationTime;
+            string dateMod = dateLastModification.Value.ToString("MMMM d, yyyy"); *@
+            @* <div class="col-md-12 mt-3">
+                <div class="approval-label">
+                    INTERNAL NOTES
+                </div>
+            </div>
+            <div class="rejection-section col-12">
+                <div class="rounded-sm bg-light text-dark text-truncate">
+                    <p class="text-muted input-field-text address mt-1" contentEditable="false">
+                        <small> @dateMod </small> <span class="float-right"><i class="fa fa-comment cursor-pointer" @onclick='@(e => FilterRejectionNotes(true))'  data-toggle="modal" data-target="#@uniqueModalId"></i></span> <br>
+                        <span class="default-color">@RejectionNotesByCategory.FirstOrDefault().UserName </span>  <br>
+                        - @internalNotes 
+                    </p>
+                </div>
+            </div>
+        }
+    } *@
+
+    @* influencer approval *@
+    @* @if(CategoryId == 2001 || CategoryId == 2007 || CategoryId == 2008 || CategoryId == 2009 ){
+        @if(ProductMediaFilesByCategory.Any()){
+            Guid uniqueId = Guid.NewGuid();
+            Guid uniqueIdApproved = Guid.NewGuid();
+            Guid uniqueIdRejected = Guid.NewGuid();
+            <div class="col-md-12 mt-3">
+                <div class="approval-label">
+                    INFLUENCER APPROVAL
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="approval-options d-inline-flex">
+
+                    <div class="form-check mr-1">
+                        <input class="form-check-input" 
+                            type="radio"
+                            name="@uniqueId" 
+                            id="@uniqueIdApproved"
+                            @onchange='@(e => onChangeApprove(true,"influencer"))'
+                            disabled = "@isDisabledInfluencerRadio"
+                            checked="@(ProductMediaFilesByCategory.FirstOrDefault().InfluencerIsApproved==true)">
+                        <label class="form-check-label" for="@uniqueIdApproved">
+                            Approve
+                        </label>
+                    </div>
+
+                    <div class="form-check ml-1">
+                        <input class="form-check-input" 
+                            type="radio"
+                            name="@uniqueId"
+                            id="@uniqueIdRejected"
+                            @onchange='@(e => onChangeApprove(false,"influencer"))'
+                            disabled = "@isDisabledInfluencerRadio"
+                            checked="@(ProductMediaFilesByCategory.FirstOrDefault().InfluencerIsApproved==false)">
+                        <label class="form-check-label" for="@uniqueIdRejected">
+                            Reject
+                        </label>
+                    </div>
+
+                </div>
+            </div> *@
+
+            @* <div class="col-md-12">
+                <div class="confirmation-options">
+                    @if(isInfluencerApproved == true) 
+                    {
+                        @if (@ProductMediaFilesByCategory.FirstOrDefault().InfluencerIsApproved == true)
+                        {
+                            DateTime? dateLastModification = @ProductMediaFilesByCategory.FirstOrDefault().InfluencerIsApprovedDateTime;
+                            string dateMod = dateLastModification.Value.ToString("MMMM d, yyyy");
+                            <div class="border rounded-sm bg-light text-dark pl-3 pr-3"> *@
+                                @* @if( RejectionNotesByCategory.Any())
+                                { *@
+                                    @* <span class="float-right"><i class="fa fa-comment cursor-pointer" @onclick='@(e => FilterRejectionNotes(false))'  data-toggle="modal" data-target="#@uniqueModalId"></i></span> *@
+                                @* } *@
+                                @* <p class="text-muted input-field-text address mt-3" contentEditable="false" placeholder="">
+                                    Approved on @dateMod by @ProductMediaFilesByCategory.FirstOrDefault().InfluencerApprovedBy
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
+                            <button class="confirmation-option-button" @onclick='@(e => onApproveInfluencer())'>Confirm Approval</button>
+                        }
+                    }
+
+                    @if (isInfluencerApproved == false)
+                    {
+                        <div class="rejection-section col-12">
+                            @if(isDisabledInfluencerRadio){
+                                DateTime? dateLastModification = @ProductMediaFilesByCategory.FirstOrDefault().InfluencerIsApprovedDateTime;
+                                string dateMod = dateLastModification.Value.ToString("MMMM d, yyyy");
+                                <div class="rounded-sm bg-light text-dark text-truncate">
+                                    <p class="text-muted input-field-text address mt-1" contentEditable="false">
+                                        <small> @dateMod </small> <span class="float-right"><i class="fa fa-comment cursor-pointer" @onclick='@(e => FilterRejectionNotes(false))'  data-toggle="modal" data-target="#@uniqueModalId"></i></span> <br>
+                                        <span class="default-color">@ProductMediaFilesByCategory.FirstOrDefault().InfluencerApprovedBy </span>  <br>
+                                        - @influencerNotes 
+                                    </p>
+                                </div>
+                            }else {
+                                @if( RejectionNotesByCategory.Any())
+                                {
+                                    <span class="float-right"><i class="fa fa-comment cursor-pointer" @onclick='@(e => FilterRejectionNotes(false))'  data-toggle="modal" data-target="#@uniqueModalId"></i></span>
+                                }
+                                <InputText disabled = "@isDisabledInfluencerRadio" @bind-Value="influencerNotes" type="text" placeholder="Reason for rejection" />
+                            }
+                            @if(!isDisabledInfluencerRadio){
+                                <div class="rejection-button-section">
+                                    <button @onclick='@(e => onRejectInfluencer())'>Submit</button>
+                                </div>
+                            }
+                        </div>
+                    } 
+                </div>
+            </div>
+        } *@
+        
+        @* @if( RejectionNotesByCategory.Any() && isInfluencerApproved == null)
+        {
+            DateTime? dateLastModification = @RejectionNotesByCategory.FirstOrDefault().creationTime;
+            string dateMod = dateLastModification.Value.ToString("MMMM d, yyyy");
+            <div class="col-md-12 mt-3">
+                <div class="approval-label">
+                    INFLUENCER NOTES
+                </div>
+            </div>
+            <div class="rejection-section col-12">
+                <div class="rounded-sm bg-light text-dark text-truncate">
+                    <p class="text-muted input-field-text address mt-1" contentEditable="false">
+                        <small> @dateMod </small> <span class="float-right"><i class="fa fa-comment cursor-pointer" @onclick='@(e => FilterRejectionNotes(false))'  data-toggle="modal" data-target="#@uniqueModalId"></i></span> <br>
+                        <span class="default-color">@RejectionNotesByCategory.FirstOrDefault().UserName </span>  <br>
+                        - @influencerNotes 
+                    </p>
+                </div>
+            </div>
+        }
+        
+    }
+   
+
+</div> *@
+@* 
+<!-- Modal -->
+<div class="modal fade" id="@uniqueModalId" tabindex="-1" role="dialog" aria-labelledby="RejectionNotesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title " id="RejectionNotesLabel">Notes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <div class="border rounded-sm p-3">
+                    @foreach (var item in FilteredRejectionNotes)
+                    {
+                        string dateMod = item.creationTime.ToString("MMMM d, yyyy");
+                        <p class="text-center note-header text-muted" > <span>@dateMod - @item.UserName </span> </p>
+
+                        <div class="row">
+                            <div class="col-12 mb-2">    
+                                <span>@item.Notes </span> 
+                            </div>
+                            @if(item.MediaFiles.Any())
+                            {
+                                <div class="col-12 mt-3">
+                                    <div class="design-draft-content scrollable-y height-fix">
+                                        @foreach (var media in item.MediaFiles)
+                                        {
+                                            <div class="col">
+                                                <div class="add-container">
+                                                    <div class="mr-3 mb-3">
+                                                        <div class="border-dashed border-secondary border-width rounded design-draft-content-detail">
+                                                            <div class="thumbnail-container">
+                                                                <img class="thumbnail responsive" src="@media.MediaFile.FilePath" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                    }
+                </div>
+            </div> *@
+
+            @* <div class="modal-footer"> *@
+                @* <div class="row mb-3">
+                    <div class="col-9 ">
+                        <input @oninput='@(e => OnChangeNote(e.Value.ToString()))' @bind="RejectionNoteComment" class="col-12" type="text" placeholder="Add Note" />
+                    </div>
+                    <div class="col-1 ">
+                        <i class="fa fa-paperclip mt-2 cursor-pointer" aria-hidden="true"></i>
+                    </div>
+                        <div class="col-2 ">
+                            <button disabled="@(string.IsNullOrWhiteSpace(RejectionNoteComment))" type="button" class="btn btn-sm btn-success buttons__class col-12" @onclick='@(e => AddRejectionComment())'>Submit</button>
+                        </div>
+                </div> *@
+            @* </div> *@
+        </div>
+    @* </div>
+</div> *@

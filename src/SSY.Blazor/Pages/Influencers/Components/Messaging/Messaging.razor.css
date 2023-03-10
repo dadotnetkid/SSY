@@ -1,0 +1,113 @@
+.icon-inspiration-sm:before {
+    content: url(/img/icon-inspirations-sm.svg);
+}
+
+.icon-materials-sm:before {
+    content: url(/img/icon-materials-sm.svg);
+}
+
+.icon-design-drafts-sm:before {
+    content: url(/img/icon-design-draft-sm.svg);
+}
+
+.icon-virtual-fitting-sm:before {
+    content: url(/img/icon-virtual-fitting-sm.svg);
+}
+
+.icon-sample-images-sm:before {
+    content: url(/img/icon-sample-images-sm.svg);
+}
+
+.icon-full-collection-overview-sm:before {
+    content: url(/img/icon-full-collection-overview-sm.svg);
+}
+
+.design-phase-header-container {
+    background-image: url('/images/Component 101 – 6.png');
+    background-repeat: no-repeat;
+    min-height: 250px;
+    background-size: cover;
+    background-position: center;
+}
+
+.design-phase-content {
+    padding: 30px 100px;
+    color: #FFF;
+}
+
+.design-phase-header-label {
+    cursor: pointer;
+}
+
+.selected-component-class {
+    color: #A0643D;
+    text-decoration: underline;
+}
+
+.design-phase-nav-content {
+    color: #FFF;
+    width: 100%;
+    text-align: center;
+    opacity: 40%;
+    display: grid;
+}
+
+    .design-phase-nav-content .fa-stack:hover {
+        cursor: pointer;
+    }
+
+    .design-phase-nav-content .fa-circle {
+        font-size: 1.8em;
+    }
+
+    .design-phase-nav-content:hover, .design-phase-nav-content.active {
+        opacity: 100%;
+    }
+
+        .design-phase-nav-content.active:after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -15px;
+            width: 0;
+            height: 0;
+            border-bottom: solid 15px #FFF;
+            border-left: solid 15px transparent;
+            border-right: solid 15px transparent;
+            padding-top: 45px;
+        }
+
+    .design-phase-nav-content .fa-circle {
+        color: #A35C3C;
+    }
+
+    .design-phase-nav-content .nav-label {
+        white-space: nowrap;
+    }
+
+.your-design-section-content {
+    width: 100%;
+    text-align: right;
+    display: grid;
+}
+
+.your-design-main-text {
+    font-size: 46px;
+    font-weight: bold;
+    font-family: IvyPresto Display;
+}
+
+@media only screen and (max-width: 769px) {
+    .design-phase-content {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .your-design-col {
+        display: none;
+    }
+
+    .design-phase-nav-content.active:after {
+        display: none;
+    }
+}

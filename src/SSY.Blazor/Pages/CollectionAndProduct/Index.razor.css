@@ -1,0 +1,134 @@
+[contenteditable][placeholder]:empty:before {
+    content: attr(placeholder);
+    position: absolute;
+    color: gray;
+    background-color: transparent;
+}
+
+.header-text {
+    color: #486CD9;
+}
+
+.custom-button {
+    background-color: #486CD9;
+    width: 320px;
+}
+
+.text-deco-none {
+    text-decoration: none
+}
+
+.graph-text {
+    font: var(--unnamed-font-style-normal) normal 900 var(--unnamed-font-size-14)/12px Avenir;
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(---333333);
+    text-align: center;
+    font: normal normal 900 14px/12px Avenir;
+    letter-spacing: 0px;
+    color: #333333;
+    text-transform: uppercase;
+    opacity: 1;
+}
+
+.box-gray.for-count {
+    text-align: center;
+    background: #dddbdb;
+    border-radius: 9px;
+    padding: 17px;
+    width: 242px;
+}
+
+.row.box-gray-layout {
+    width: 800px;
+    margin: auto;
+    padding-bottom: 25px;
+}
+
+td.tb-td-text {
+    text-align: center;
+}
+
+th.tb-header {
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .row.box-gray-layout {
+        width: 100% !important;
+        display: block !important;
+    }
+    .box-gray.for-count {
+        padding: 17px;
+        display: block !important;
+        margin: auto !important;
+    }
+    .row.box-gray-layout .col-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 12px;
+    }
+}
+
+a.active {
+    color: #687a52 !important;
+    padding: 6px;
+    border-bottom: 2px solid #687a52;
+    font-weight: 600 !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+h4.title-count-number {
+    color: #687a52;
+}
+
+p.title-count {
+    color: #687a52;
+}
+
+.footer__button {
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #414A5A;
+    bottom: 0;
+}
+
+.background {
+    padding: 10px;
+}
+
+.buttons {
+    text-align: right;
+}
+
+.mt-3,
+.my-3 {
+    margin-top: 0!important;
+    margin-bottom: 0 !important;
+}
+
+.buttons__class {
+    font-size: 15px;
+}
+
+button.btn.btn-lg.btn-danger.buttons__class {
+    background: #646D7B;
+    border-color: #646D7B;
+}
+
+.btn-danger.focus,
+.btn-danger:focus {
+    box-shadow: #646D7B !important;
+}
+
+a.btn.btn-lg.btn-success.buttons__class {
+    background-color: #7B8E61;
+    border-color: #7B8E61;
+}
+
+button.btn.btn-lg.btn-success.buttons__class {
+    background-color: #7B8E61;
+    border-color: #7B8E61;
+}

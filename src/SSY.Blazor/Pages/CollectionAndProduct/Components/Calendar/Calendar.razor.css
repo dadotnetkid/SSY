@@ -1,0 +1,58 @@
+.table-bordered.calendar th:first-child {
+    position: sticky !important;
+    left: 0;
+    z-index: 3;
+    background: #f5f1ee;
+    border: 1px solid #dee2e6;
+}
+table.table.table-bordered.calendar.mt-4 .collection-name:first-child {
+    position: sticky !important;
+    left: 0;
+    z-index: 3;
+    background: #f5f1ee;
+    border: 1px solid #dee2e6;
+}
+table.table.table-bordered.calendar.mt-4 thead {
+    position: sticky !important;
+    top: 0;
+    z-index: 4;
+    background: #f5f1ee;
+    border: 1px solid #dee2e6;
+}
+.table-responsive {
+    height: 600px;
+}
+@media only screen and (max-width: 600px) {
+    .table-responsive {
+        height: 100%;
+    }
+}
+p.target-date {
+    width: 95px;
+    text-align: center;
+    margin-bottom: unset;
+}
+p.actual-date {
+    width: 95px;
+    text-align: center;
+    margin-bottom: unset;
+}
+p.statistic-width {
+    text-align: center;
+    margin-bottom: unset;
+    width: 100%;
+}
+p.collection-width {
+    width: 277px;
+    margin-bottom: unset;
+}
+p.collection-development {
+    text-align: center;
+    margin-bottom: unset;
+    width: 129px;
+}
+thead td {
+    font-size: 14px;
+    line-height: 15px;
+    padding: 6px !important;
+}

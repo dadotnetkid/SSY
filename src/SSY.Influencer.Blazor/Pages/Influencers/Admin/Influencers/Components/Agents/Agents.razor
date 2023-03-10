@@ -1,0 +1,50 @@
+@page "/influencers/agents"
+
+<NavInfluencerDetail></NavInfluencerDetail>
+
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <CascadingValue Value="@ModuleChange" Name="ModuleChange">
+            <BannerLayouts></BannerLayouts>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+
+<div class="row agents">
+    <div class="col-md-12">
+       <div class="border rounded-lg p-4 roll_loc shadow-sm bg-white agents">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 col-sm-12 mt-3">
+                    <div class="border rounded-sm text-dark pl-3 pr-3">
+                        <!--!-->
+                        <h5 class="mt-2 text-muted input-text" >FIRST NAME</h5>
+                        <p class="text-muted input-field-text" contenteditable="false">
+                        Jordi</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-12 col-sm-12 mt-3">
+                    <div class="border rounded-sm text-dark pl-3 pr-3">
+                        <!--!-->
+                        <h5 class="mt-2 text-muted input-text" >LAST NAME</h5>
+                        <p class="text-muted input-field-text" contenteditable="false">
+                            Jordi</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-12 col-sm-12 mt-3">
+                    <div class="border rounded-sm text-dark pl-3 pr-3">
+                        <!--!-->
+                        <h5 class="mt-2 text-muted input-text" >EMAIL NAME</h5>
+                        <p class="text-muted input-field-text" contenteditable="false">
+                        jordi@gmail.com</p>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mt-3">
+                    <a href="#" class="btn btn-hexcolor no-underline">Add More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

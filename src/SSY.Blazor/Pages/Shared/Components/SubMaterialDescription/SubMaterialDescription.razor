@@ -1,0 +1,134 @@
+<EditForm Model="SubMaterialModel" @ref="editForm">
+    <DataAnnotationsValidator />
+
+
+    <div class="border rounded-lg p-4 shadow-sm bg-white">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Description</h3>
+        </div>
+
+        <div class="row ">
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm  text-dark pl-3 pr-3 ">
+                    <h5 class="mt-2 text-muted input-text">MATERIAL NAME</h5>
+
+                    @if (@IsEditable)
+                    {
+                        <InputText @bind-Value="SubMaterialModel.Name" class="form-control mb-2 form-control-sm"
+                                   id="materialName" placeholder="Enter Material Name" name="materialName"></InputText>
+                        @*<ValidationMessage For="@(() => SubMaterialModel.Name)" />*@
+                    }
+                    else
+                    {
+                        <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SubMaterialModel.Name</p>
+                    }
+
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm  text-dark pl-3 pr-3">
+                    <h5 class="mt-2 text-muted input-text">MATERIAL TYPE <span class="text-danger">*</span> </h5>
+
+                    @if (@IsEditable)
+                    {
+                        <InputSelect @bind-Value="SubMaterialModel.TypeId" class="form-control mb-2 form-control-sm"
+                                     id="material_type" aria-placeholder="MaterialType">
+                            <option selected="selected" disabled value="0">Select Material Type</option>
+                            @foreach (var item in TypeListModel.Result.Items)
+                            {
+                                <option value="@item.Id">@item.Label</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => SubMaterialModel.TypeId)" />
+                    }
+                    else
+                    {
+                        <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SubMaterialModel.TypeValue</p>
+                    }
+
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm  text-dark pl-3 pr-3">
+                    <h5 class="mt-2 text-muted input-text">COLOR <span class="text-danger">*</span> </h5>
+
+                    @if (@IsEditable)
+                    {
+                        <InputSelect @bind-Value="SubMaterialModel.ColorId" class="form-control mb-2 form-control-sm"
+                                     id="color" aria-placeholder="Select Color">
+                            <option selected="selected" disabled value="0">Select Color</option>
+                            @foreach (var item in ColorListModel.Result.Items)
+                            {
+                                <option value="@item.Id">@item.Label</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => SubMaterialModel.ColorId)" />
+                    }
+                    else
+                    {
+                        <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SubMaterialModel.ColorValue</p>
+                    }
+
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm  text-dark pl-3 pr-3">
+                    <h5 class="mt-2 text-muted input-text">WEIGHT<span class="text-danger">*</span></h5>
+
+                    @if (@IsEditable)
+                    {
+                        <InputNumber @bind-Value="SubMaterialModel.Weight" class="form-control mb-2 form-control-sm"
+                                     id="weight" placeholder="Enter Weight" name="weight">
+                        </InputNumber>
+                        <ValidationMessage For="@(() => SubMaterialModel.Weight)" />
+
+                    }
+                    else
+                    {
+                        <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SubMaterialModel.Weight</p>
+                    }
+
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm  text-dark pl-3 pr-3">
+                    <h5 class="mt-2 text-muted input-text">WEIGHT UNIT <span class="text-danger">*</span> </h5>
+
+                    @if (@IsEditable)
+                    {
+                        <InputSelect @bind-Value="SubMaterialModel.WeightUnitId" class="form-control mb-2 form-control-sm"
+                                     id="weightUnit" aria-placeholder="Select Weight Unit">
+                            <option selected="selected" disabled value="0">Select Weight Unit</option>
+                            @foreach (var item in WeightListModel.Result.Items)
+                            {
+                                <option value="@item.Id">@item.Label</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => SubMaterialModel.WeightUnitId)" />
+                    }
+                    else
+                    {
+                        <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SubMaterialModel.WeightUnitValue</p>
+                    }
+
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="spacer"></div>
+    </div>
+
+
+
+
+</EditForm>
+
+@code {
+    EditForm editForm;
+}

@@ -1,0 +1,495 @@
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment env
+@attribute [Authorize()]
+<EditForm Model="PurchaseOrderModel" @ref="editForm">
+    <BannerLayoutSSY></BannerLayoutSSY>
+    <DataAnnotationsValidator />
+    <div class="col-lg-12">
+        <div class="border rounded-lg p-4 shadow-sm bg-white">
+            <div class="d-flex justify-content-between ">
+                <h3 class="header-text">Description</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3">
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 input-text">
+                                PO Number
+                                <span class="text-danger" b-ngxlr6921p="">*</span>
+                            </h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                <InputText @bind-Value="PurchaseOrderModel.Number" id="number" placeholder="Enter PO Number" class="form-control mb-2 form-control-sm valid" />
+                                <ValidationMessage For="@(() => PurchaseOrderModel.Number)" />
+                            </p>
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 input-text">
+                                PO Number
+                                <span class="text-danger" b-ngxlr6921p="">*</span>
+                            </h5>
+                            <p class="text-muted input-field-text" placeholder="">
+                                @PurchaseOrderModel.Number
+                            </p>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3">
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 input-text">
+                                Supplier Name
+                            </h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                <InputSelect @bind-Value="PurchaseOrderModel.CompanyId" class="form-control mb-2 form-control-sm">
+                                    <option selected="selected" disabled value="0">Select Supplier Name</option>
+
+                                    @foreach (var supplier in SuppliersModel)
+                                    {
+                                        <option value="@supplier.Id">@supplier.Name</option>
+                                    }
+
+                                </InputSelect>
+                            </p>
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 input-text">
+                                Supplier Name
+                            </h5>
+                            <p class="text-muted input-field-text" placeholder="">
+                                @PurchaseOrderModel.Company.Name
+                            </p>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3">
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 input-text">
+                                PO Type
+                                <span class="text-danger" b-ngxlr6921p="">*</span>
+                            </h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                <InputSelect @bind-Value="PurchaseOrderModel.PurchaseOrderTypeId" class="form-control mb-2 form-control-sm"
+                                             id="purchaseordertype" aria-placeholder="Purchase Order Type">
+                                    <option selected disabled value="0">Purchase Order Type</option>
+                                    @foreach (var purchaseordertype in PurchaseOrdersTypeModel)
+                                    {
+                                        <option value="@purchaseordertype.Id">@purchaseordertype.Label</option>
+                                    }
+                                </InputSelect>
+                                <ValidationMessage For="@(() => PurchaseOrderModel.PurchaseOrderTypeId)" />
+                            </p>
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 input-text">
+                                Purchase Order Type
+                                <span class="text-danger" b-ngxlr6921p="">*</span>
+                            </h5>
+                            <p class="text-muted input-field-text" placeholder="">
+                                @PurchaseOrderModel.PurchsaeOrderType.Label
+                            </p>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3">
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 input-text">PO Document</h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                <div class="custom-file">
+                                    <label class="custom-file">
+                                        <InputFile OnChange="LoadFiles" hidden type="file" class="custom-file-input" id="customInput"
+                                                   aria-describedby="fileHelp" />
+                                        <div class="custom__upload">
+                                            <span class="custom-file-control form-control-file">Upload File</span>
+
+                                            @foreach (var loadFile in loadedFiles)
+                                            {
+                                                <span class="max__text">@loadFile.Name</span>
+                                            }
+                                        </div>
+                                    </label>
+                                </div>
+                            </p>
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 input-text">
+                                PO Document
+                                <span class="text-danger" b-ngxlr6921p="">*</span>
+                            </h5>
+                            @if (@PurchaseOrderModel.Document != null)
+                            {
+                                <p class="text-muted input-field-text" placeholder="">
+                                    @*@_fabricTestingReport*@
+                                    <button type="button" class="btn-download hexcolor-7B8E61 text-light text-center"
+                                            @onclick='@(e => DownloadFileFromURL(@PurchaseOrderModel.Document,
+                                        @PurchaseOrderModel.Document.Replace("/Uploads/PurchaseOrder/Document/", "")))'>
+                                        Download Document
+                                    </button>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" placeholder="">
+
+                                </p>
+                            }
+                        }
+                    </div>
+                </div>
+
+
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3">
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 input-text">PO Price($)</h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                <InputNumber @bind-Value="PurchaseOrderModel.Price" id="number" placeholder="Enter PO Price" class="form-control mb-2 form-control-sm valid" />
+                            </p>
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 input-text">PO Price</h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                @PurchaseOrderModel.Price
+                            </p>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3">
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 input-text">
+                                PO Issued Date
+                                <span class="text-danger" b-ngxlr6921p="">*</span>
+                            </h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                <InputDate @bind-Value="PurchaseOrderModel.IssuedDate" id="number" placeholder="Enter PO Issued Date" class="form-control mb-2 form-control-sm valid" />
+                            </p>
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 input-text">
+                                PO Issued Date
+                                <span class="text-danger" b-ngxlr6921p="">*</span>
+                            </h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                @PurchaseOrderModel.IssuedDate.ToString("MMMM dd, yyyy")
+                            </p>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3">
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 input-text">Shipping Invoice</h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                <div class="custom-file">
+                                    <label class="custom-file">
+                                        <InputFile OnChange="LoadShippingInvoice" hidden type="file" class="custom-file-input" id="customInput"
+                                                   aria-describedby="fileHelp" />
+                                        <div class="custom__upload">
+                                            <span class="custom-file-control form-control-file">Upload File</span>
+
+                                            @foreach (var loadedShippingInvoice in loadedShippingInvoice)
+                                            {
+                                                <span class="max__text">@loadedShippingInvoice.Name</span>
+                                            }
+                                        </div>
+                                    </label>
+                                </div>
+                            </p>
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 input-text">
+                                Shipping Invoice
+                            </h5>
+                            @if (@PurchaseOrderModel.ShippingInvoice != null)
+                            {
+                                <p class="text-muted input-field-text" placeholder="">
+                                    @*@_fabricTestingReport*@
+                                    <button type="button" class="btn-download hexcolor-7B8E61 text-light text-center"
+                                            @onclick='@(e => DownloadFileFromURL(@PurchaseOrderModel.ShippingInvoice,
+                                        @PurchaseOrderModel.ShippingInvoice.Replace("/Uploads/PurchaseOrder/PackingList/", "")))'>
+                                        Download Shipping Invoice
+                                    </button>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" placeholder="">
+
+                                </p>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3">
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 input-text">Estimated Time of Departure</h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                <InputDate @bind-Value="PurchaseOrderModel.ETD" id="number" placeholder="Enter PO Estimated Time of Departure" class="form-control mb-2 form-control-sm valid" />
+                            </p>
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 input-text">Estimated Time of Departure</h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                @PurchaseOrderModel.ETD?.ToString("MMMM dd, yyyy")
+                            </p>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3">
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 input-text">Estimated Time of Arrival</h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                <InputDate @bind-Value="PurchaseOrderModel.ETA" id="number" placeholder="Enter PO Estimated Time of Arrival" class="form-control mb-2 form-control-sm valid" />
+                            </p>
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 input-text">Estimated Time of Arrival</h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                @PurchaseOrderModel.ETA?.ToString("MMMM dd, yyyy")
+                            </p>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3">
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 input-text">Packing List</h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                <div class="custom-file">
+                                    <label class="custom-file">
+                                        <InputFile OnChange="LoadPackingList" hidden type="file" class="custom-file-input" id="customInput"
+                                                   aria-describedby="fileHelp" />
+                                        <div class="custom__upload">
+                                            <span class="custom-file-control form-control-file">Upload File</span>
+
+                                            @foreach (var loadedPackingList in loadedPackingList)
+                                            {
+                                                <span class="max__text">@loadedPackingList.Name</span>
+                                            }
+                                        </div>
+                                    </label>
+                                </div>
+                            </p>
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 input-text">
+                                Packing List
+                            </h5>
+                            @if (@PurchaseOrderModel.PackingList != null)
+                            {
+                                <p class="text-muted input-field-text" placeholder="">
+                                    @*@_fabricTestingReport*@
+                                    <button type="button" class="btn-download hexcolor-7B8E61 text-light text-center"
+                                            @onclick='@(e => DownloadFileFromURL(@PurchaseOrderModel.PackingList,
+                                        @PurchaseOrderModel.PackingList.Replace("/Uploads/PurchaseOrder/PackingList/", "")))'>
+                                        Download Packing List
+                                    </button>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" placeholder="">
+
+                                </p>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3">
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 input-text">BL/AWB</h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                <div class="custom-file">
+                                    <label class="custom-file">
+                                        <InputFile OnChange="LoadBlawb" hidden type="file" class="custom-file-input" id="customInput"
+                                                   aria-describedby="fileHelp" />
+                                        <div class="custom__upload">
+                                            <span class="custom-file-control form-control-file">Upload File</span>
+
+                                            @foreach (var loadedBlawb in loadedBlawb)
+                                            {
+                                                <span class="max__text">@loadedBlawb.Name</span>
+                                            }
+                                        </div>
+                                    </label>
+                                </div>
+                            </p>
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 input-text">
+                                BL/AWB
+                            </h5>
+                            @if (@PurchaseOrderModel.Blawb != null)
+                            {
+                                <p class="text-muted input-field-text" placeholder="">
+                                    @*@_fabricTestingReport*@
+                                    <button type="button" class="btn-download hexcolor-7B8E61 text-light text-center"
+                                            @onclick='@(e => DownloadFileFromURL(@PurchaseOrderModel.Blawb,
+                                        @PurchaseOrderModel.Blawb.Replace("/Uploads/PurchaseOrder/Blawb/", "")))'>
+                                        Download BL/AWB
+                                    </button>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" placeholder="">
+
+                                </p>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3">
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 input-text">Fabric Inspection Report</h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                <div class="custom-file">
+                                    <label class="custom-file">
+                                        <InputFile OnChange="LoadFabricInspectionReport" hidden type="file" class="custom-file-input" id="customInput"
+                                                   aria-describedby="fileHelp" />
+                                        <div class="custom__upload">
+                                            <span class="custom-file-control form-control-file">Upload File</span>
+
+                                            @foreach (var loadedFabricInspectionReport in loadedFabricInspectionReport)
+                                            {
+                                                <span class="max__text">@loadedFabricInspectionReport.Name</span>
+                                            }
+                                        </div>
+                                    </label>
+                                </div>
+                            </p>
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 input-text">
+                                Fabric Inspection Report
+                            </h5>
+                            @if (@PurchaseOrderModel.FabricInspectionReport != null)
+                            {
+                                <p class="text-muted input-field-text" placeholder="">
+                                    @*@_fabricTestingReport*@
+                                    <button type="button" class="btn-download hexcolor-7B8E61 text-light text-center"
+                                            @onclick='@(e => DownloadFileFromURL(@PurchaseOrderModel.FabricInspectionReport,
+                                        @PurchaseOrderModel.FabricInspectionReport.Replace("/Uploads/PurchaseOrder/FabricInspectionReport/", "")))'>
+                                        Download Fabric Inspection Report
+                                    </button>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" placeholder="">
+
+                                </p>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3">
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 input-text">Fabric Testing Report</h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                <div class="custom-file">
+                                    <label class="custom-file">
+                                        <InputFile OnChange="LoadFabricTestingReport" hidden type="file" class="custom-file-input" id="customInput"
+                                                   aria-describedby="fileHelp" />
+                                        <div class="custom__upload">
+                                            <span class="custom-file-control form-control-file">Upload File</span>
+
+                                            @foreach (var loadedFabricTestingReport in loadedFabricTestingReport)
+                                            {
+                                                <span class="max__text">@loadedFabricTestingReport.Name</span>
+                                            }
+                                        </div>
+                                    </label>
+                                </div>
+                            </p>
+                        }
+                        else
+                        {
+
+
+                            <h5 class="mt-2 input-text">
+                                Fabric Testing Report
+                            </h5>
+                            @if (@PurchaseOrderModel.FabricTestingReport != null)
+                            {
+                                <p class="text-muted input-field-text" placeholder="">
+                                    @*@_fabricTestingReport*@
+                                    <button type="button" class="btn-download hexcolor-7B8E61 text-light text-center"
+                                            @onclick='@(e => DownloadFileFromURL(@PurchaseOrderModel.FabricTestingReport,
+                                        @PurchaseOrderModel.FabricTestingReport.Replace("/Uploads/PurchaseOrder/FabricTestingReport/", "")))'>
+                                        Download Fabric Testing Report
+                                    </button>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="text-muted input-field-text" placeholder="">
+
+                                </p>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3">
+                        @if (IsEditable)
+                        {
+                            <h5 class="mt-2 input-text">
+                                Request ID
+                                @*<span class="text-danger" b-ngxlr6921p="">*</span>*@
+                            </h5>
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">
+                                <InputText @bind-Value="PurchaseOrderModel.RequestId" id="RequestId" placeholder="Enter Request ID" class="form-control mb-2 form-control-sm valid" />
+                            </p>
+                        }
+                        else
+                        {
+                            <h5 class="mt-2 input-text">
+                                Request ID
+                                @*<span class="text-danger" b-ngxlr6921p="">*</span>*@
+                            </h5>
+                            <p class="text-muted input-field-text" placeholder="">
+                                @PurchaseOrderModel.RequestId
+                            </p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    EditForm editForm;
+}

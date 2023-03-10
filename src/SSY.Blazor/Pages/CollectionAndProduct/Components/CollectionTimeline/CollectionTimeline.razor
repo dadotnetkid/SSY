@@ -1,0 +1,120 @@
+
+
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+    <div class="inline__flex filter">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Collection Timeline</h3>
+        </div>
+    </div>
+
+
+    @if (IsLoading == true)
+    {
+        <LoadingSpinner></LoadingSpinner>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var i in CollectionTimelineList)
+            {
+                <div class=" col" id="timeline">
+                    <div class="border rounded-lg shadow-sm mt-3 text-center p-2 timeline-div">
+                        <h2 class="timeline-number">@i.Count</h2>
+                        <p class="timeline-text">@i.Name</p>
+                    </div>
+                    @if (i.CollectionTimelineListCount > 0)
+                    {
+                        <div id="timeline-hover-data">
+                            <div class="list-group">
+                                @foreach (var influencer in i.CollectionTimelineList)
+                                {
+                                    <a href="/collectionandproduct/collections/@influencer.Id" class="list-group-item list-group-item-action">
+                                        <p class="text-dark title">@influencer.CollectionName</p>
+                                        <span class="text-muted sub-title">(@influencer.InfluencerName)</span>
+                                    </a>
+                                }
+
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            }
+        </div>
+    }
+
+    <div class="inline__flex filter">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Statistics</h3>
+        </div>
+    </div>
+
+    <GraphV2 CategoryId="@CategoryId" UserDetailListModel="UserDetailListModel" Module="@Module" PageName="@PageName" />
+
+    <div class="inline__flex filter">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Collection Sample</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12" id="sample">
+            <div class="border rounded-lg shadow-sm mt-3 text-center p-2 sample-div">
+                <h2 class="sample-number">1</h2>
+                <p class="sample-text">1st Fit Sample Status</p>
+            </div>
+            <div id="sample-hover-data">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <p class="text-dark title">April Daniels</p>
+                        <span class="text-muted sub-title">(April Daniels)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12" id="sample">
+            <div class="border rounded-lg shadow-sm mt-3 text-center p-2 sample-div">
+                <h2 class="sample-number">1</h2>
+                <p class="sample-text">2nd Fit Samples Status</p>
+            </div>
+            <div id="sample-hover-data">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <p class="text-dark title">April Daniels</p>
+                        <span class="text-muted sub-title">(April Daniels)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12" id="sample">
+            <div class="border rounded-lg shadow-sm mt-3 text-center p-2 sample-div">
+                <h2 class="sample-number">1</h2>
+                <p class="sample-text">Photoshoot Sample Status</p>
+            </div>
+            <div id="sample-hover-data">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <p class="text-dark title">April Daniels</p>
+                        <span class="text-muted sub-title">(April Daniels)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12" id="sample">
+            <div class="border rounded-lg shadow-sm mt-3 text-center p-2 sample-div">
+                <h2 class="sample-number">1</h2>
+                <p class="sample-text">Marketing Sample QTY</p>
+            </div>
+            <div id="sample-hover-data">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <p class="text-dark title">April Daniels</p>
+                        <span class="text-muted sub-title">(April Daniels)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

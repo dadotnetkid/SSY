@@ -1,0 +1,48 @@
+button.btn.btn-outline-secondary.bg-white {
+    border: 1px solid #dee2e6!important;
+}
+.btn-outline-secondary:hover {
+    color: #7c8e61;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}   
+td.tb-td-text {
+    text-align: center;
+}
+th.tb-header {
+    text-align: center;
+}
+ 
+
+  
+ul.nav.nav-tabs.nav-tabs-views.nav.justify-content-center.border.border-left-0.border-top-0.border-right-0.scrollmenu.nav-menu {
+    font-size: 14px;
+    font-family: avenir !important;
+    font-weight: 700;
+  }
+  ul.nav.nav-tabs.nav-tabs-views.nav.justify-content-center.border.border-left-0.border-top-0.border-right-0.scrollmenu.nav-menu li {
+    margin-left: 27px;
+    margin-right: 27px;
+  }
+
+  ul.nav.nav-tabs-views.nav.justify-content-center.scrollmenu.nav-menu.settings__navs {
+    background: #7a8e60;
+    width: 75%;
+    padding: 14px;
+    margin: auto;
+    border-radius: 9px;
+}
+ul.nav.nav-tabs-views.nav.justify-content-center.scrollmenu.nav-menu.settings__navs li a {
+    color: white;
+    padding: 17px;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+}
+a.active {  
+    color: #b3bca9 !important;
+}
+ tr td {
+    text-align: center;
+    vertical-align: middle;
+}

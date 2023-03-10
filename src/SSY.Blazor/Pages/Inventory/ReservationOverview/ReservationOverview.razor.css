@@ -1,0 +1,221 @@
+[contenteditable][placeholder]:empty:before {
+    content: attr(placeholder);
+    position: absolute;
+    color: gray;
+    background-color: transparent;
+}
+
+.header-text {
+    color: #486CD9;
+}
+
+.custom-button {
+    background-color: #486CD9;
+    width: 320px;
+}
+
+.text-deco-none {
+    text-decoration: none
+}
+
+.graph-text {
+    font: var(--unnamed-font-style-normal) normal 900 var(--unnamed-font-size-14)/12px Avenir;
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(---333333);
+    text-align: center;
+    font: normal normal 900 14px/12px Avenir;
+    letter-spacing: 0px;
+    color: #333333;
+    text-transform: uppercase;
+    opacity: 1;
+}
+
+.bg-btn {
+    background-color: #7B8E61;
+}
+
+.btn-export {
+    color: #7B8E61;
+    border: #7B8E61;
+}
+
+tr {
+    cursor: pointer !important;
+}
+
+.material-name {
+    width: 250px;
+}
+
+.col-3.col-sm-3.mt-3.left p {
+    color: white;
+    font-size: 13px;
+    padding-left: 19px;
+}
+
+.col-md-12.col-sm-12.mt-3 span.badge.badge-secondary {
+    font-size: 13px;
+    margin-left: 19px;
+}
+
+.footer__button .mt-3,
+.my-3 {
+    margin-top: 8px !important;
+}
+
+.col-6.col-sm-6.mt-3.centered .icons {
+    text-align: center;
+}
+
+.close__button {
+    margin-right: 20px;
+}
+
+span.close {
+    color: white;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.icons svg {
+    margin: 3px;
+}
+
+span.text__icon {
+    font-size: 12px;
+    color: white;
+}
+
+.material__id {
+    text-align: left !important;
+    width: 237px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+    .material__id svg {
+        margin-right: 8px;
+    }
+
+.creationtime__elipsis {
+    text-align: center !important;
+    width: 93px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+th.tb-header.submaterial {
+    text-align: left;
+}
+
+td.tb-td-text.submaterial .material__id {
+    width: 135px;
+}
+
+span.cursor__pointer {
+    cursor: pointer;
+}
+
+svg {
+    transition: transform .2s;
+}
+
+    svg:hover {
+        transform: scale(1.5);
+    }
+
+    svg.bi.bi-dash-square {
+        cursor: pointer;
+    }
+
+.close__button {
+    cursor: pointer;
+}
+
+.col-lg-2.col-md-2.col-sm-12.mt-3.button__shot .btn {
+    font-size: 13px;
+}
+
+
+.form__label .border.rounded-sm.bg-light.text-dark.pl-3.pr-3 {
+    width: 100%;
+}
+
+.form__label {
+    padding: 8px;
+}
+
+    .form__label .form-control-sm {
+        font-size: 11px;
+        background-color: #f8f9fa;
+        border: 1px solid #f8f9fa;
+        padding: 0;
+    }
+
+    .form__label label {
+        font-size: 12px;
+        margin: auto;
+        display: block;
+        text-align: center;
+        padding-top: 11px;
+    }
+
+    .form__label .mt-2,
+    .my-2 {
+        margin-top: 5px !important;
+        /* margin-bottom: -6px; */
+        margin-left: 5px;
+    }
+
+
+option.for__title {
+    background: #E6E6E6;
+    color: black;
+}
+
+.form__label .border.rounded-sm.bg-light.text-dark.pl-3.pr-3 {
+    width: 100%;
+    padding-top: 8px;
+}
+
+.invtory__table .form-group {
+    margin-bottom: -2rem;
+}
+
+.invtory__table table.table.table-hover th.tb-header {
+    color: #7a8e60;
+}
+
+.supplier__table table.table.table-hover th.tb-header {
+    color: #7c8e61;
+}
+
+@media screen and (max-width: 600px) {
+    .col-md-12.col-sm-12.mt-3 span.badge.badge-secondary {
+        margin-left: auto;
+    }
+}
+
+@media screen and (max-width: 1008px) {
+    span.text__icon {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 911px) {
+    span.text__icon {
+        display: none;
+    }
+}
+.tableText {
+    color: black;
+    text-decoration: none;
+}
+.wd-table span {
+    display: block;
+    width: 125px !important;
+}
+.wd-table {
+    vertical-align: middle !important;
+}

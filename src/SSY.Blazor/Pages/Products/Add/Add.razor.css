@@ -1,0 +1,226 @@
+.big__padding {
+    padding: 43px;
+    border: dashed #d7d4d4;
+    font-size: 11px;
+    margin: -9px;
+}
+button#materialButton {
+    height: 30px;
+    padding-top: 4px;
+    font-size: 14px;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: none;
+    display:block;
+    width:100%;
+}
+button#influencerButton:focus {
+    outline: solid;
+    outline-style: none;
+    border-color: none;
+}
+button#influencerButton {
+    height: 30px;
+    padding-top: 4px;
+    font-size: 12px;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: none;
+    display:block;
+    width:100%;
+}
+div#influencers {
+    background: white;
+    padding-bottom: 14px;
+    border: solid 1px #dee2e6;
+    position: absolute;
+    z-index: 2;
+    width: 93%;
+    margin-left:-17px;
+/*    margin-top:-6px;*/
+    overflow-y: auto;
+    height:350px;
+}
+.row.fieldcontent {
+    margin: 0px;
+}
+button#applyButton {
+    padding-left:10px;
+}
+.buttons__class {
+    font-size: 15px;
+}
+.buttons {
+    text-align: right;
+}
+button.btn.btn-lg.btn-danger.buttons__class {
+    background: #646D7B;
+    border-color: #646D7B;
+}
+.btn-danger.focus, .btn-danger:focus {
+    box-shadow: #646D7B !important;
+  }
+  
+  a.btn.btn-lg.btn-success.buttons__class
+{
+  background-color: #7B8E61;
+  border-color: #7B8E61;
+}
+button.btn.btn-lg.btn-success.buttons__class {
+    background-color: #7B8E61;
+    border-color: #7B8E61;
+} 
+button.btn.bg-btn.col-12.text-light.assign__button {
+    background-color: #7B8E61;
+    margin-bottom: 9px;
+    margin-top: 19px;
+}
+.bg-btn {
+    background-color: #7B8E61;
+}
+button.form-control.col-12 {
+    font-size: 12px;
+}
+a.collapsable__item.mb-2.form-control-sm.dropdown {
+    color: black;
+    font-size: 11px;
+    margin-bottom: 3px;
+}
+.form-check.checkbox__producttype {
+    font-size: 13px;
+    padding-top: 22px;
+}
+.form-check.checkbox__materialtype {
+    font-size: 13px;
+    padding-top: 35px;
+}
+
+a.collapsable__item {
+    background: white;
+    border: solid 1px #dee2e6;
+    padding: 5px;
+}
+div#demo {
+    background: white;
+    position: absolute;
+    z-index: 2;
+    width: 93.3%;
+}
+.footer__button {
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #414A5A;
+    bottom: 0;
+  }
+.background {
+    padding-bottom: 15px;
+}
+div#material-product-type {
+    background: white;
+    padding-bottom: 14px;
+    border: solid 1px #dee2e6;
+    position: absolute;
+    z-index: 2;
+    width: 93.9%;
+    margin-top: -16px;
+    border-radius: 0 0 5px 5px;
+}
+.fieldBody {
+    margin: 0px;
+    height: 54px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.row.fieldheader {
+    margin: 0px;
+    height: 20px;
+}
+.form-control:focus {
+    border-color: white;
+}
+.influencerButton {
+    border: 0px;
+    font-size: 13px;
+    outline: none
+}
+.caretStyle {
+    font-size: 10px;
+    float: right;
+}
+.collectionSelect {
+    border: 0px;
+    outline: none;
+    font-size: 12px;
+    color: black;
+}
+.materialButton {
+    border: 0px;
+    font-size: 13px;
+    outline: none
+}
+.clearAll {
+    margin-top: 15px;
+}
+.productName {
+    border: 0px;
+    outline: none
+}
+
+::deep input {
+    font-size: 12px;
+    outline: none;
+    border: 0px;
+}
+
+::deep select {
+    font-size: 12px;
+    outline: none;
+    border: 0px;
+    color: black;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #7B8E61 !important;
+    border-color: #adb5bd;
+}
+
+.custom-checkbox .custom-control-input:checked:focus ~ .custom-control-label::before {
+    box-shadow: none !important;
+    border-color: #adb5bd;
+}
+
+.custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: none !important;
+    border-color: #adb5bd;
+}
+
+.custom-checkbox .custom-control-input:active ~ .custom-control-label::before {
+    background-color: #7B8E61;
+    border-color: #adb5bd;
+}
+
+.custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #7B8E61 !important;
+    border-color: #adb5bd;
+}
+
+.custom-radio .custom-control-input:checked:focus ~ .custom-control-label::before {
+    box-shadow: none !important;
+    border-color: #adb5bd;
+}
+
+.custom-radio .custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: none !important;
+    border-color: #adb5bd;
+}
+
+.custom-radio .custom-control-input:active ~ .custom-control-label::before {
+    background-color: #7B8E61;
+    border-color: #adb5bd;
+}
+
+

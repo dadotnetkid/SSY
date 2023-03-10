@@ -1,0 +1,28 @@
+
+<div class="border rounded-sm bg-white text-dark pl-3 pr-3">
+    <h4 class="mt-2 mb-0 text-muted input-text">@Title</h4>
+    <InputSelect @bind-Value="@SelectedOption"  @oninput='@(e => OnClickDropdown(e.Value.ToString()))' class="form-control mb-0 form-control-sm">
+        <option selected disabled value="0">Select Option</option>
+        @foreach (var item in OptionListModel)
+        {
+            <option value="@item.Id">@item.Value</option>
+        }
+    </InputSelect>
+</div>
+
+@if(SelectedProductOption.OptionOptions.Any() && SelectedIds.Contains(SelectedOption))
+{
+    @if(ProductTypeId == 1044 || ProductTypeId == 1045 || ProductTypeId == 1046)
+    {
+        <div class="ml-3 mt-2">
+            <ChildCheckbox ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductId" ProductOptions="ProductOptions" Title="Options" OptionListModel="@SelectedProductOption.OptionOptions" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+        </div>
+    }
+    else 
+    {
+        <div class="ml-3 mt-2">
+            <ChildDropdown ForecastQuantity="ForecastQuantity" UpdateProductOptionRollIds="UpdateProductOptionRollIds" MaterialListModel="MaterialListModel" unitOfMeasurementListModel="unitOfMeasurementListModel" ProductParentId="ProductParentId" ProductId="ProductId" ProductOptions="ProductOptions" Title="Options" OptionListModel="@SelectedProductOption.OptionOptions" SelectedIds="SelectedIds" ProductOptionRollIds="ProductOptionRollIds" />
+        </div>
+    }
+
+}

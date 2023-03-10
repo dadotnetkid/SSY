@@ -1,0 +1,58 @@
+﻿@page
+@model SSY.Blazor.Pages.Account.SSYLoginModel
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="p-5">
+    <h1 class="login-hearder-text">Login to SewSewYou</h1>
+    <span class="login-info-text">Enter your details below</span>
+
+    <form class="pt-3" method="post">
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+
+            <input type="email" placeholder="Enter email" class="form-control modified" asp-for="LoginInput.UserNameOrEmailAddress">
+            <span asp-validation-for="LoginInput.UserNameOrEmailAddress" class="text-danger"></span>
+        </div>
+        <div class="form-group pt-3">
+            <label for="pwd">Password:</label>
+            <input type="password" id="pwd" placeholder="Enter password"  class="form-control modified" asp-for="LoginInput.Password">
+            <span asp-validation-for="LoginInput.Password" class="text-danger"></span>
+            <div class="input-group mb-3">
+            </div>
+
+
+        </div>
+        <div class="form-group form-check pt-3">
+            <div class="row">
+                <div class="col">
+                    <input class="form-check-input" type="checkbox" name="remember"> Remember me
+                </div>
+                <div class="col text-right">
+                    <a href="forgot/password">Forgot your password?</a>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn default-background-color text-white col-12">Login</button>
+
+
+        <div class="pt-3">
+            <span>Don't have an account?</span> <a href="register">Register now!</a>
+        </div>
+    </form>
+</div>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"
+        asp-fallback-src="~/Identity/lib/jquery-validation/dist/jquery.validate.min.js"
+        asp-fallback-test="window.jQuery && window.jQuery.validator"
+        crossorigin="anonymous"
+        integrity="sha384-rZfj/ogBloos6wzLGpPkkOr/gpkBNLZ6b6yLy4o+ok+t/SAKlL5mvXLr0OXNi1Hp">
+</script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.9/jquery.validate.unobtrusive.min.js"
+        asp-fallback-src="~/Identity/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+        asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive"
+        crossorigin="anonymous"
+        integrity="sha384-ifv0TYDWxBHzvAk2Z0n8R434FL1Rlv/Av18DXE43N/1rvHyOG4izKst0f2iSLdds">
+</script>

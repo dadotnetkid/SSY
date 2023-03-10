@@ -1,0 +1,107 @@
+.for__inline {
+    display: inline-flex;
+}
+
+    .for__inline h5 {
+        border-right: 1px #dee2e6 solid;
+    }
+
+    .for__inline p {
+        font-size: 13px;
+        margin: 21px;
+    }
+
+h5.title__collection {
+    font-size: 13px;
+    padding-top: 16px;
+    margin-top: 6px;
+    padding-right: 12px;
+}
+
+[contenteditable][placeholder]:empty:before {
+    content: attr(placeholder);
+    position: absolute;
+    color: gray;
+    background-color: transparent;
+}
+
+button#applyButton {
+    margin-left: -15px;
+}
+
+button#influencerButton {
+    border: 0px;
+    text-align: left;
+    font-size: 12px;
+    margin-top: 4px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    box-shadow: none;
+}
+
+.productTypeButton {
+    border: 0px;
+    text-align: left;
+    font-size: 12px;
+    margin-top: 1px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.header-text {
+    color: #486CD9;
+}
+
+.row.fieldheader {
+    margin: 0px;
+    height: 20px;
+}
+
+.row.fieldcontent {
+    margin: 0px;
+}
+
+.fieldBody {
+    margin: 0px;
+    height: 54px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.inputfield {
+    font-size: 12px;
+}
+
+::deep select.modified.valid {
+    outline: none;
+    border: 0px;
+}
+
+::deep input {
+    font-size: 12px;
+    border: 0px;
+    outline: none;
+}
+
+::deep label {
+    font-size: 12px;
+    border: 0px;
+    outline: none;
+}
+
+::deep input.modified.valid {
+    outline: none;
+    border: 0px;
+}
+
+::deep select.modified.valid {
+    outline: none;
+    border: 0px;
+}
+
+.custom-button {
+    background-color: #486CD9;
+    width: 320px;
+}

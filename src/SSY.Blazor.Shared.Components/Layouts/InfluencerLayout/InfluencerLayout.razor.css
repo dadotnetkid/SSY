@@ -1,0 +1,31 @@
+@media all and (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu{ display: none; }
+	.navbar .nav-item:hover .dropdown-menu{ display: block; }
+	.navbar .nav-item .dropdown-menu{ margin-top:0; }
+}
+.dropdown-menu
+{
+	padding: 5px;
+}
+.dropdown-item
+{
+	border-bottom-style: solid;
+}
+
+.fa-square
+{
+	opacity: 0.5;
+	color: #7B8E61;
+}
+
+.fa-stack:hover .fa-square
+{
+ opacity: 1;
+}
+.navbar
+{
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size:small;
+}
+
+

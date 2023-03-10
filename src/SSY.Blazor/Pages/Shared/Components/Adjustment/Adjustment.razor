@@ -1,0 +1,212 @@
+<div class="row mt-3">
+    <div class="col-12 ">
+        <div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+            <div class="pl-3 pr-3 table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="tb-header" @onclick="@(() => SortTable("Action"))">
+                                <i class="@(SetSortIcon("Action"))"></i> Action
+                            </th>
+                            <th class="tb-header" @onclick="@(() => SortTable("Id"))">
+                                <i class="@(SetSortIcon("Id"))"></i> Adjustment Id
+                            </th>
+                            <th class="tb-header" @onclick="@(() => SortTable("Date"))">
+                                <i class="@(SetSortIcon("Date"))"></i> Date
+                            </th>
+                            <th class="tb-header" @onclick="@(() => SortTable("Remarks"))">
+                                <i class="@(SetSortIcon("Remarks"))"></i> Remarks
+                            </th>
+                            <th class="tb-header" @onclick="@(() => SortTable("From"))">
+                                <i class="@(SetSortIcon("From"))"></i> From
+                            </th>
+                            <th class="tb-header" @onclick="@(() => SortTable("To"))">
+                                <i class="@(SetSortIcon("To"))"></i> To
+                            </th>
+                            <th class="tb-header" @onclick="@(() => SortTable("User"))">
+                                <i class="@(SetSortIcon("User"))"></i>User
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (MaterialId == Guid.Empty)
+                        {
+                            @foreach (var item in SubMaterialAdjustments.OrderByDescending(x => x.AdjustmentDate))
+                            {
+                                <tr>
+                                    <td class="tb-td-text">@item.AdjustmentTypeValue</td>
+                                    <td class="tb-td-text">@item.AdjustmentId</td>
+                                    <td class="tb-td-text">@item.AdjustmentDate</td>
+                                    <td class="tb-td-text">@item.AdjustmentRemarks</td>
+                                    <td class="tb-td-text">@item.AdjustmentFrom</td>
+                                    <td class="tb-td-text">@item.AdjustmentTo</td>
+                                    <td class="tb-td-text">@item.AdjustmentUser</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            @foreach (var item in RollAdjustmentListModel.OrderByDescending(x => x.Date))
+                            {
+                                <tr>
+                                    <td class="tb-td-text">@item.Action</td>
+                                    <td class="tb-td-text">@item.AdjustmentId</td>
+                                    <td class="tb-td-text">@item.Date</td>
+                                    <td class="tb-td-text">@item.Remarks</td>
+                                    <td class="tb-td-text">@item.From</td>
+                                    <td class="tb-td-text">@item.To</td>
+                                    <td class="tb-td-text">@item.User</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        @* <TimelineAndComments></TimelineAndComments> *@
+        @if (IsEditable)
+        {
+            <div class="footer__button">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 mt-3">
+                        <div class="background">
+                            <div class="buttons">
+                                <a class="btn btn-lg btn-success buttons__class text-white cursor-pointer"
+                                   data-toggle="modal" data-target="#adjustmentModal">Add Adjustment</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="adjustmentModal" tabindex="-1" role="dialog" aria-labelledby="adjustmentModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="adjustmentModalLabel">Add Adjustment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="AdjustmentModel" OnValidSubmit="OnSubmit">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                            <label for="formGroupExampleInput">Action<span class="text-danger"></span></label>
+                            <select class="form-control mb-2 form-control-sm"
+                                    @oninput='@(e => OnChangeAction(e.Value.ToString()))'>
+                                <option value="2">Adjustment</option>
+                                <option value="1">Disposal</option>
+                            </select>
+
+                            @if (MaterialId == Guid.Empty)
+                            {
+
+                                <label for="formGroupExampleInput">From<span class="text-danger">*</span></label>
+                                <InputNumber type="Number" @bind-Value="AdjustmentModel.From" class="form-control mb-2 form-control-sm border-sm"
+                                             placeholder="Current Total Available" disabled></InputNumber>
+
+
+                                <label for="formGroupExampleInput">To<span class="text-danger">*</span></label>
+                                <InputNumber type="Number" @bind-Value="AdjustmentModel.To" class="form-control mb-2 form-control-sm" id="to"
+                                             placeholder="New Total Available" name="to"> </InputNumber>
+                                <ValidationMessage For="@(() => AdjustmentModel.To)" />
+                            }
+                            else
+                            {
+                                @*<div class="form-check checkbox__assignment" id="selecRoll" data-toggle="dropdown"
+                                         aria-haspopup="true" aria-expanded="false">
+                                        <a href="#adjustmentRoll" data-toggle="collapse"
+                                           class="collapsable__item mb-2 form-control-sm dropdown">Select Roll </a>
+                                    </div>*@
+                                <div class="border rounded-sm pl-3 pr-3 multidropdownchecbox">
+                                    <button type="button" id="selectRoll" class="btn input-field-text cursor-pointer mb-2" aria-haspopup="true" aria-expanded="false"
+                                            data-toggle="dropdown" contentEditable="false">
+                                        Select Roll
+                                    </button>
+
+                                    <div class=" dropdown-menu border border-sm rounded" aria-labelledby="selectRoll">
+                                        @foreach (var item in RollAndLocationListModel?.Result?.Items)
+                                        {
+
+                                            @*<div id="adjustmentRoll" class="weight__unit dropdown collapse" aria-labelledby="selectRoll">*@
+                                            <div class="text-left d-block">
+                                                <input type="checkbox" value="1" @onchange='@(e => ChangeRoll1(item, @item.Id,(bool)e.Value))'>
+                                                <span class="input-text-roll"> @item.RollNumber (</span>
+
+                                                @if (@item.TotalCount != null)
+                                                {
+                                                    <span class="input-text-roll ">@item.TotalCount @UoM/</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="input-text-roll ">Roll Count is Empty/</span>
+                                                }
+                                                @if (@item.ShadingValue != null)
+                                                {
+                                                    <span class="input-text-rollnonborder ">
+                                                        @item.ShadingValue)
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="input-text-rollnonborder ">
+                                                        Shading Value is Empty)
+                                                    </span>
+                                                }
+                                            </div>
+                                            @*</div>*@
+                                        }
+                                    </div>
+                                </div>
+                                @if (IsAdjust == true)
+                                {
+                                    <div class="row custom-row">
+                                        @foreach (var roll in SelectedAdjustment)
+                                        {
+                                            @if (SelectedAdjustment.Contains(roll))
+                                            {
+                                                <div class="roll float-left">
+                                                    <h5 class="formGroupExampleInput text__label">@roll.RollNumber</h5>
+                                                    <label for="formGroupExampleInput">From<span class="text-danger">*</span></label>
+                                                    <InputNumber @bind-Value="roll.From" class="form-control mb-2 form-control-sm" id="from" placeholder="Current Total Available" name="from" disabled="disabled">
+                                                    </InputNumber>
+                                                    <label for="formGroupExampleInput">To<span class="text-danger">*</span></label>
+                                                    <input required type="Number" class="form-control mb-2 form-control-sm" id="to" placeholder="New Total Available" name="to" @oninput='@(e => OnChangeRollCount(roll.RollId, double.Parse(e.Value.ToString())))' />
+                                                </div>
+                                            }
+
+                                        }
+                                    </div>
+                                }
+
+                            }
+                            <label for="formGroupExampleInput">Date<span class="text-danger">*</span></label>
+                            <InputDate @bind-Value="AdjustmentModel.Date" class="form-control mb-2 form-control-sm col-12"
+                                       id="date" name="date"></InputDate>
+                            <ValidationMessage For="@(() => AdjustmentModel.Date)" />
+
+
+                            <label for="formGroupExampleInput">Remarks<span class="text-danger"></span></label>
+                            <InputTextArea @bind-Value="AdjustmentModel.Remarks"
+                                           class="form-control mb-2 form-control-sm" placeholder="Remarks"></InputTextArea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary modal__adjustmentclose" data-dismiss="modal"
+                                    @onclick="@(e => OnClose())">
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary modal__adjustment">Save changes</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,288 @@
+
+@using NPOI.SS.Formula.Functions
+@using SSY.Inventory.Materials
+@attribute [Authorize()]
+@if (IsLoading == true)
+{
+    <Div Class="row">
+        <Div Class="col-md-12 col-lg-4 col-sm-12"></Div>
+        <Div Class="col-md-12 col-lg-4 col-sm-12" Margin="Margin.Is4.FromBottom">
+            <LoadingSpinner></LoadingSpinner>
+        </Div>
+        <Div Class="col-md-12 col-lg-4 col-sm-12"></Div>
+    </Div>
+}
+else
+{
+    @if (PageName == "Timeline")
+    {
+        <div class="row ">
+            <div class="col-md-12 col-lg-4 col-sm-12">
+                <p class="text-center graph-text">Influencer Overview</p>
+                <div class="border rounded-lg shadow-sm bg-white b-spc">
+                    @*<table class="table responsive table-striped table-responsive">*@
+
+                    <DataGrid TItem="CollectionListDto"
+                              Data="@_CollectionList"
+                              AggregateData="@_CollectionList"
+                              Responsive
+                              FixedHeader
+                              FixedHeaderTableHeight="300px"
+                              Hoverable="true"
+                              Resizable
+                              Striped="true">
+
+                        <DataGridAggregates>
+                            <DataGridAggregate Field="@nameof(CollectionListDto.InfluencerNames)">
+                                <DisplayTemplate>
+                                    @($"Total: {context.Value}")
+                                </DisplayTemplate>
+                            </DataGridAggregate>
+                            <DataGridAggregate Field="@nameof(CollectionListDto.CollectionForecastRevenue)" Aggregate="DataGridAggregateType.Sum" DisplayFormat="{0:C}" DisplayFormatProvider="@System.Globalization.CultureInfo.GetCultureInfo("en-US")" />
+                            <DataGridAggregate Field="@nameof(CollectionListDto.CollectionForecastQuantity)" Aggregate="DataGridAggregateType.Sum" />
+                        </DataGridAggregates>
+                        <ChildContent>
+                            <DataGridColumn TItem="CollectionListDto" Field="@nameof(CollectionListDto.InfluencerNames)" Caption="Influencer Name" Editable>
+                                <DisplayTemplate>
+                                    <div onclick="location.href='@($"/collectionandproduct/collections/details/{context.Id}'")">
+                                        @context.InfluencerNames
+                                    </div>
+                                </DisplayTemplate>
+                            </DataGridColumn>
+                            <DataGridColumn TItem="CollectionListDto" Field="@nameof(CollectionListDto.Name)" Caption="Collection Name" Editable>
+                                <DisplayTemplate>
+                                    <div onclick="location.href='@($"/collectionandproduct/collections/details/{context.Id}'")">
+                                        @context.Name
+                                    </div>
+                                </DisplayTemplate>
+                            </DataGridColumn>
+                            <DataGridColumn TItem="CollectionListDto" Field="@nameof(CollectionListDto.DesignStatusValue)" Caption="Collection Status" Editable>
+                                <DisplayTemplate>
+                                    <div onclick="location.href='@($"/collectionandproduct/collections/details/{context.Id}'")">
+                                        @context.DesignStatusValue
+                                    </div>
+                                </DisplayTemplate>
+                            </DataGridColumn>
+                            <DataGridColumn TItem="CollectionListDto" Field="@nameof(CollectionListDto.CollectionForecastRevenue)" Caption="Forecast Revenue" Editable>
+                                <DisplayTemplate>
+                                    <div onclick="location.href='@($"/collectionandproduct/collections/details/{context.CollectionForecastRevenue}'")">
+                                        $@context.CollectionForecastRevenue
+                                    </div>
+                                </DisplayTemplate>
+                            </DataGridColumn>
+                            <DataGridColumn TItem="CollectionListDto" Field="@nameof(CollectionListDto.CollectionForecastQuantity)" Caption="Forecast Quantity" Editable>
+                                <DisplayTemplate>
+                                    <div onclick="location.href='@($"/collectionandproduct/collections/details/{context.CollectionForecastQuantity}'")">
+                                        @context.CollectionForecastQuantity
+                                    </div>
+                                </DisplayTemplate>
+                            </DataGridColumn>
+                        </ChildContent>
+                    </DataGrid>
+                </div>
+
+            </div>
+
+            <div class="col-md-12 col-lg-4 col-sm-12 ">
+
+                <p class="text-center graph-text">Most Available Colors</p>
+                <div class="border rounded-lg shadow-sm bg-white b-spc">
+                    @* <Chart Config="_lineconfig"></Chart> *@
+                    <div class="barconfig__scale ">
+                        @if (MaterialPerColorList.Any() || SubMaterialPerColorList.Any())
+                        {
+                            @* <Chart Config="_colorBarConfig"></Chart> *@
+                        }
+                        else
+                        {
+                            <p class="text-center"> No data Available</p>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4 col-sm-12">
+                <p class="text-center graph-text">Most Available Materials</p>
+                <div class="border rounded-lg shadow-sm bg-white b-spc">
+                    <div class="barconfig__scale ">
+                        @if (MaterialPerMaterialTypeList.Any() || SubMaterialPerMaterialTypeList.Any())
+                        {
+                            @* <Chart Config="_colorBarConfig1"></Chart> *@
+                        }
+                        else
+                        {
+                            <p class="text-center"> No data Available</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+
+            @* <div class="col-lg-3 col-md-12 col-sm-12 ">
+                    <p class="text-center graph-text">Material Count Per Influencer & Material Type</p>
+
+                    <div class="border rounded-lg shadow-sm p-3 bg-white b-spc">
+                        <div class="row">
+                            <div class="temporarypie__spacer"></div>
+                            <div class="col-md-4 col-12">
+                                <div class="drop__downs pie__graphs">
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-12 pieconfg__pads">
+                                <div class="pie__settings ">
+                                    @if (PieList.Any())
+                                    {
+                                        <ChartJs.Blazor.Chart Config="_pieconfig"></ChartJs.Blazor.Chart>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-center"> No data Available</p>
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> *@
+            <!--<div class="col-md-12 col-lg-4 col-sm-12">
+                <p class="text-center graph-text">Warehouse Capacity per Material Type</p>
+                <div class="border rounded-lg shadow-sm bg-white b-spc">
+                    <div class="row drop_downs_columns">
+                        <div class="temporary__spacer"></div>
+                        <div class="col-sm-4 col-12 drop__downs">-->
+            @* <div class="border rounded-sm bg-light text-dark pl-3 pr-3 ">
+                <p class="text-left graph-text">By</p>
+                <div class="form-group">
+                <select class="form-control" id="sel1">
+                <option>Make</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                </select>
+                </div>
+                </div> *@
+            <!--</div>
+            <div class="col-sm-4 col-12 drop__downs">-->
+            @* <div class="border rounded-sm bg-light text-dark pl-3 pr-3 ">
+                <p class="text-left graph-text">Class </p>
+                <div class="form-group">
+                <select class="form-control" id="sel1">
+                <option>5 Selected</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                </select>
+                </div>
+                </div> *@
+            <!--</div>
+            <div class="col-sm-4 col-12 drop__downs">-->
+            @* <div class="border rounded-sm bg-light text-dark pl-3 pr-3 ">
+                <p class="text-left graph-text">Limit to </p>
+                <div class="form-group">
+                <select class="form-control" id="sel1">
+                <option>Top 10</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                </select>
+                </div>
+                </div> *@
+            <!--</div>
+                    </div>
+                    <div class="barconfig__scale ">
+                        @if (UsedCountList.Any())
+                        {
+                            <Chart Config="_barconfig3"></Chart>
+                        }
+                        else
+                        {
+                            <p class="text-center"> No data Available</p>
+                        }
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    }
+
+
+    else
+    {
+        <div class="row ">
+            <div class="col-md-12 col-lg-4 col-sm-12 ">
+                <p class="text-center graph-text">Most Available Colors</p>
+                <div class="border rounded-lg shadow-sm bg-white b-spc">
+                    @* <Chart Config="_lineconfig"></Chart> *@
+                    <div class="barconfig__scale ">
+                        @if (MaterialPerColorList.Any() || SubMaterialPerColorList.Any())
+                        {
+                            @* <Chart Config="_colorBarConfig"></Chart> *@
+                        }
+                        else
+                        {
+                            <p class="text-center"> No data Available</p>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4 col-sm-12">
+                <p class="text-center graph-text">Most Available Materials</p>
+                <div class="border rounded-lg shadow-sm bg-white b-spc">
+                    <div class="barconfig__scale ">
+                        @if (MaterialPerMaterialTypeList.Any() || SubMaterialPerMaterialTypeList.Any())
+                        {
+                            @* <Chart Config="_colorBarConfig1"></Chart> *@
+                        }
+                        else
+                        {
+                            <p class="text-center"> No data Available</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+
+            @*<div class="col-lg-3 col-md-12 col-sm-12 ">
+                    <p class="text-center graph-text">Material Count Per Influencer & Material Type</p>
+
+                    <div class="border rounded-lg shadow-sm p-3 bg-white b-spc">
+                        <div class="row">
+                            <div class="temporarypie__spacer"></div>
+                            <div class="col-md-4 col-12">
+                                <div class="drop__downs pie__graphs">
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-12 pieconfg__pads">
+                                <div class="pie__settings ">
+                                    @if (PieList.Any())
+                                    {
+                                        <ChartJs.Blazor.Chart Config="_pieconfig"></ChartJs.Blazor.Chart>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-center"> No data Available</p>
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>*@
+            <div class="col-md-12 col-lg-4 col-sm-12">
+                <p class="text-center graph-text">Warehouse Capacity per Material Type</p>
+                <div class="border rounded-lg shadow-sm bg-white b-spc">
+                    <div class="barconfig__scale ">
+                        @if (CountPerLocationUsed.Any())
+                        {
+                            @* <Chart Config="_barconfig3"></Chart> *@
+                        }
+                        else
+                        {
+                            <p class="text-center"> No data Available</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

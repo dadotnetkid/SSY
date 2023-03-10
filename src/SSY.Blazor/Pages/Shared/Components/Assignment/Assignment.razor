@@ -1,0 +1,133 @@
+<div class="row mt-3">
+    <div class="col-12 ">
+        <div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+            <div class="pl-3 pr-3 table-responsive">
+                <table class="table table-hover">
+
+                    <thead>
+                        <tr>
+
+                            <th class="tb-header" @onclick="@(() => SortTable("ProductName"))"><i class="@(SetSortIcon("ProductName"))"></i> Product Name</th>
+                            <th class="tb-header" @onclick="@(() => SortTable("Consumption"))"><i class="@(SetSortIcon("Consumption"))"></i> Consumption</th>
+                            <th class="tb-header" @onclick="@(() => SortTable("ProductType"))"><i class="@(SetSortIcon("ProductType"))"></i> Product Type</th>
+                            <th class="tb-header" @onclick="@(() => SortTable("Collection"))"><i class="@(SetSortIcon("Collection"))"></i> Collection</th>
+                            <th class="tb-header" @onclick="@(() => SortTable("Influncer"))"><i class="@(SetSortIcon("Influncer"))"></i> Influencer</th>
+                            <th class="tb-header" @onclick="@(() => SortTable("CreatedBy"))"><i class="@(SetSortIcon("CreatedBy"))"></i> Created By</th>
+                            @if (IsEditable)
+                            {
+                                <th class="tb-header">Action</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in AssignmentList)
+                        {
+                            <tr>
+                                <td class="tb-td-text">@item.ProductName</td>
+                                <td class="tb-td-text">@item.Consumption</td>
+                                <td class="tb-td-text">@item.ProductType</td>
+                                <td class="tb-td-text">@item.Collection</td>
+                                <td class="tb-td-text">@item.Influencer</td>
+                                <td class="tb-td-text">@item.CreatedBy</td>
+                                @if (IsEditable)
+                                {
+                                    <td class="tb-td-text">
+                                        <span class="cursor-pointer"
+                                              @onclick="@(e => EditAssignment(@item.Id))" data-toggle="modal" data-target="#assignment">Edit</span> |
+
+                                        <span class="cursor-pointer"
+                                              @onclick="@(e => RemoveAssignment(@item.Id))">Delete</span>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+ @* <TimelineAndComments></TimelineAndComments> *@
+@if (IsEditable)
+{
+
+    <div class="footer__button">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 mt-3">
+                <div class="background">
+                    <div class="buttons">
+                        <a class="btn btn-lg btn-success buttons__class text-white cursor-pointer" data-toggle="modal" data-target="#assignment">Add Product Assignment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<!-- Modal Reservation -->
+<EditForm Model="AssignmentModel" OnValidSubmit="OnSubmit">
+    <DataAnnotationsValidator />
+    <div class="modal fade" id="assignment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @if (ModuleMessage == "Edit")
+                    {
+                        <h5 class="modal-title" id="exampleModalLongTitle">Update Product Assignment</h5>
+                    }
+                    else
+                    {
+                        <h5 class="modal-title" id="exampleModalLongTitle">Add Product Assignment</h5>
+                    }
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="ClearAll">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Product Name<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="AssignmentModel.ProductName" class="form-control mb-2 form-control-sm" placeholder="Enter Product Name" />
+                        <ValidationMessage For="@(() => AssignmentModel.ProductName)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Consumption<span class="text-danger">*</span></label>
+                        <InputNumber @bind-Value="AssignmentModel.Consumption" min="0" class="form-control mb-2 form-control-sm" placeholder="Enter Consumption" />
+                        <ValidationMessage For="@(() => AssignmentModel.Consumption)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Product Type<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="AssignmentModel.ProductType" class="form-control mb-2 form-control-sm" placeholder="Enter Product Type" />
+                        <ValidationMessage For="@(() => AssignmentModel.ProductType)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Collection<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="AssignmentModel.Collection" class="form-control mb-2 form-control-sm" placeholder="Enter Collection" />
+                        <ValidationMessage For="@(() => AssignmentModel.Collection)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Influence<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="AssignmentModel.Influencer" class="form-control mb-2 form-control-sm" placeholder="Enter Influencer" />
+                        <ValidationMessage For="@(() => AssignmentModel.Influencer)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Created By<span class="text-danger">*</span></label>
+                        <InputText @bind-Value="AssignmentModel.CreatedBy" class="form-control mb-2 form-control-sm" placeholder="Enter Created By" />
+                        <ValidationMessage For="@(() => AssignmentModel.CreatedBy)" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-lg btn-danger buttons__class"
+                            data-dismiss="modal" @onclick="ClearAll">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-lg btn-success buttons__class">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>

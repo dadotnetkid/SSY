@@ -1,0 +1,29 @@
+<div class="modal fade" id="yourHero" tabindex="-1" aria-labelledby="yourHeroLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-0 text-center">
+                <h5 class="modal-title" id="yourHero">Your Hero Image</h5>
+            </div>
+            <div class="modal-body border-0">
+                <p class="body-desc">Upload your image here. This will be used to both brand your collection and displayed on your landing page</p>
+                <div class="photo-input"> 
+                    <input type="file" id="loadFile"
+                        onchange="console.log(this.files[0].name);" />
+                    @* <button class="btn btn-sm btn-primary" onclick="document.getElementById('loadFile').click()"> Select
+                        a file
+                    </button> *@
+                </div>
+            </div>
+             <div class="col-lg-12 border-0 mb-5">
+                <div class="row text-center">
+                    <div class="col-lg-6">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

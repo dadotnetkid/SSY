@@ -1,0 +1,50 @@
+@inherits LayoutComponentBase
+
+<ul class="nav justify-content-center border border-left-0 border-top-0 border-right-0 scrollmenu nav-menu">
+
+    <li class="nav-item">
+        <NavLink class="nav-link" href="@($"/influencers/accountinfo/{Id}")" Match="NavLinkMatch.All">
+            <span aria-hidden="true"></span> Account Info
+        </NavLink>
+    </li>
+    <li class="nav-item">
+        <NavLink class="nav-link" href="@($"/influencers/sizing/{Id}")" Match="NavLinkMatch.All">
+            <span aria-hidden="true"></span> Sizing
+        </NavLink>
+    </li>
+    <li class="nav-item">
+        <NavLink class="nav-link" href="@($"/influencers/agents/{Id}")" Match="NavLinkMatch.All">
+            <span aria-hidden="true"></span> Agents
+        </NavLink>
+    </li>
+    <li class="nav-item">
+        <NavLink class="nav-link" href="@($"/influencers/messaging/{Id}")" Match="NavLinkMatch.All">
+            <span aria-hidden="true"></span> Messaging
+        </NavLink>
+    </li>
+    <li class="nav-item">
+        <NavLink class="nav-link" href="@($"/influencers/designphase/{Id}")" Match="NavLinkMatch.All">
+            <span aria-hidden="true"></span> Design Phase
+        </NavLink>
+    </li>
+    <li class="nav-item">
+        <NavLink class="nav-link" href="@($"/influencers/launchphase/{Id}")" Match="NavLinkMatch.All">
+            <span aria-hidden="true"></span> Launch Phase
+        </NavLink>
+    </li>
+    <li class="nav-item">
+        <NavLink class="nav-link" href="/influencers/uploads/" Match="NavLinkMatch.All">
+            <span aria-hidden="true"></span> Uploads
+        </NavLink>
+    </li>
+    <li class="nav-item">
+        <NavLink class="nav-link" href="/influencers/influencercalendar" Match="NavLinkMatch.All">
+            <span aria-hidden="true"></span> Influencer Calendar
+        </NavLink>
+    </li>
+    <li class="nav-item">
+        <NavLink class="nav-link" href="@($"/influencers/financials/{Id}")" Match="NavLinkMatch.All">
+            <span aria-hidden="true"></span> Financials
+        </NavLink>
+    </li>
+</ul>

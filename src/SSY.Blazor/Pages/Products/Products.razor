@@ -1,0 +1,200 @@
+@page "/collectionandproduct/product"
+
+
+
+<CascadingValue Value="@Module" Name="Module">
+    <BannerLayoutSSY></BannerLayoutSSY>
+</CascadingValue>
+
+<div class="bg-white">
+    <ProductNavLayout />
+</div>
+<div class="border rounded-lg p-4 roll_loc shadow-sm bg-white">
+    <div class="inline__flex filter row">
+        <div class="col-md-8">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <button type="button" class="form-control" data-toggle="collapse" data-target="#demo">Filter</button>
+                    <div id="demo" class="collapse">
+                        <div class="form__label">
+                            <div class="row">
+                                <div class="col-md-3"> <label>Influencer</label></div>
+                                <div class="col-md-9">
+                                    <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                        <h5 class="mt-2 text-muted input-text">Influencer</h5>
+                                        <select class="form-control mb-2 form-control-sm" id="Status" aria-placeholder="Status">
+                                            <option selected disabled value="0">Select Status</option>
+                                            <option value="dsad">All</option>
+                                            <option value="dsad">Active</option>
+                                            <option value="dsad">InActive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form__label">
+                            <div class="row">
+                                <div class="col-md-3"> <label>Collection</label></div>
+                                <div class="col-md-9">
+                                    <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                        <h5 class="mt-2 text-muted input-text">Collection</h5>
+                                        <select class="form-control mb-2 form-control-sm" id="MaterialType"
+                                                aria-placeholder="Collection">
+                                            <option selected disabled value="0">Select</option>
+                                            <option value="dsad">All</option>
+                                            <option value="dsad">Greige Activewear</option>
+                                            <option value="dsad">Greige Jersey</option>
+                                            <option value="dsad">Greige Windbreaker</option>
+                                            <option value="dsad">Greige Mesh</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form__label">
+                            <div class="row">
+                                <div class="col-md-3"> <label>Product Assignment</label></div>
+                                <div class="col-md-9">
+                                    <div class="border rounded-sm bg-light text-dark pl-3 pr-3">
+                                        <h5 class="mt-2 text-muted input-text">Product Assignment</h5>
+                                        <select class="form-control mb-2 form-control-sm" id="ProductAssignment"
+                                                aria-placeholder="Product Assignment">
+                                            <option selected disabled value="0">Select Product Assignment</option>
+                                            <option value="dsad" class="for__title" disabled>Activewear</option>
+                                            <option value="dsad">Leggings</option>
+                                            <option value="dsad">Bike Shorts</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" class="btn col-12 btn-export">Clear All Filters</button>
+                            </div>
+                            <div class="col-md-3"><button type="button" class="btn col-12 btn-export">Cancel</button> </div>
+                            <div class="col-md-3"><button type="button" class="btn col-12 btn-export">Apply</button></div>
+                        </div>
+                    </div>
+                </div>
+                <TextEdit type="text" class="form-control" @bind-Text="@customFilterValue" placeholder="Search"></TextEdit>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <a href="/collectionandproduct/product/add">
+                <button class="btn bg-btn col-12 text-light">Create Product</button>
+            </a>
+        </div>
+        <div class="col-md-2">
+            <button type="button" data-toggle="modal" data-target="#exampleModal"
+                    class="btn bg-btn col-12 text-light">
+                Mass Upload
+            </button>
+        </div>
+    </div>
+    @if(IsLoading == true)
+        {
+            <LoadingSpinner></LoadingSpinner>
+        }
+    else
+    {
+        <div class="pl-3 pr-3 table-responsive">
+
+        <div class="center">
+            <DataGrid TItem="ProductListDto" Data="@_products" Responsive Hoverable="true" ShowPageSizes="true" ShowPager="true" CustomFilter="@OnCustomFilter">
+                <DataGridColumn TItem="ProductListDto" Editable>
+                    <CaptionTemplate>
+                        <div class="text-center">
+                            <input type="checkbox">
+                        </div>
+                    </CaptionTemplate>
+                    <DisplayTemplate>
+                        <div class="text-center">
+                            <input type="checkbox" />
+                        </div>
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="ProductListDto" Editable>
+                    <DisplayTemplate>
+                        @* @{
+                        var productModel = context as ProductModel;
+                        @if (productModel.ThreeDVirtualFittingModel != null && productModel.ThreeDVirtualFittingModel.FrontImageUrl != null)
+                        {
+                        <img class="width-30 rounded" src="@productModel.ThreeDVirtualFittingModel.FrontImageUrl" />
+                        }
+                        else if (productModel.FirstDesignDraftModel != null && productModel.FirstDesignDraftModel.FrontImageUrl != null)
+                        {
+                        <img class="width-30 rounded" src="@productModel.FirstDesignDraftModel.FrontImageUrl" />
+                        }
+                        else
+                        {
+                        <img class="width-30 rounded" src="/img/No-Image-Placeholder.svg.png" />
+                        }
+                        } *@
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="ProductListDto" Field="@nameof(ProductListDto.Name)" Caption="Product Name" Editable>
+                    <DisplayTemplate>
+                        <a class="tableText" href="/collectionandproduct/product/@context.Id">
+                            @context.Name
+                        </a>
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="ProductListDto" Caption="Design Status" Editable>
+                    <DisplayTemplate>
+                        <a class="tableText" href="/collectionandproduct/product/@context.Id">
+                            <h6>
+                                <span class="badge text-light p-2 rounded-pill hexcolor-7B8E61">
+                                    @context.DesignStatusValue
+                                </span>
+                            </h6>
+                        </a>
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="ProductListDto" Field="@nameof(ProductListDto.InfluencerNames)" Caption="Influencers" Editable>
+                    <DisplayTemplate>
+                        <a class="tableText" href="/collectionandproduct/product/@context.Id">
+                            @context.InfluencerNames
+                        </a>
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="ProductListDto" Field="@nameof(ProductListDto.CollectioName)" Caption="Collection" Editable>
+                    <DisplayTemplate>
+                        <a class="tableText" href="/collectionandproduct/product/@context.Id">
+                            @context.CollectioName
+                        </a>
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="ProductListDto" Field="@nameof(ProductListDto.Sku)" Caption="SKU" Editable>
+                    <DisplayTemplate>
+                        <a class="tableText" href="/collectionandproduct/product/@context.Id">
+                            @context.Sku
+                        </a>
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="ProductListDto" Field="@nameof(ProductListDto.CreationTime)" Caption="Date Added" Editable>
+                    <DisplayTemplate>
+                        <a class="tableText" href="/collectionandproduct/product/@context.Id">
+                            @context.CreationTime.ToString("MMMM dd, yyyy")
+                        </a>
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="ProductListDto" Caption="Action" Editable>
+                    <DisplayTemplate>
+
+                        <i class="fa fa-trash" aria-hidden="true" @onclick="(e) => OnDeleteClicked(context.Id)"></i>
+
+                    </DisplayTemplate>
+                </DataGridColumn>
+            </DataGrid>
+        </div>
+    </div>
+    }
+    
+</div>
+<TimelineAndComment PageName="@Module"></TimelineAndComment>
+
+
+

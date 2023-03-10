@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>SSY</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SSY.Domain\SSY.Domain.csproj" />
+    <ProjectReference Include="..\SSY.Application.Contracts\SSY.Application.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.4.0" />
+    <PackageReference Include="Volo.Abp.Account.Application" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.Identity.Application" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Application" Version="7.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Products\" />
+    <None Remove="Newtonsoft.Json" />
+    <None Remove="ShopifySharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Products\" />
+  </ItemGroup>
+</Project>

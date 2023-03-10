@@ -1,0 +1,122 @@
+<div class="table-responsive">
+<table class="table summary-reservation">
+  <tr>
+    <td class="tbl-fabric-greige" colspan="9">Fabric & Greige</td>
+    <td class="tbl-colorways" colspan="@ChildProducts.Count()">Colorways</td>
+    <td class="tbl-notes" rowspan="2">Notes</td>
+  </tr>
+  <tr>
+      @* Fabric & Greige Header*@
+      <td class="sub-header">Part Number</td>
+      <td class="sub-header">Part Name</td>
+      <td class="sub-header">Item Code</td>
+      <td class="sub-header">Consumption</td>
+      <td class="sub-header">Unit of Measurements</td>
+      <td class="sub-header">Cuttable Width</td>
+      <td class="sub-header">Content/Description</td>
+      <td class="sub-header">Price $</td>
+      <td class="sub-header">Supplier</td>
+      @* Colorways Header*@
+      @*<td class="sub-header">BLK01</td>
+      <td class="sub-header">PNK01</td>
+      <td class="sub-header">RED01</td>*@
+      @foreach (var item in ChildProducts)
+      {
+          <td class="sub-header">@item.ColorName</td>
+      }
+  </tr>
+
+ @* Note do the Foreach here *@
+
+    @foreach (var item in BomSummaries)
+    {
+        <tr>
+            @* Fabric & Greige *@
+            <td>@item.PartNumber</td>
+            <td>@item.PartName</td>
+            <td>@item.ItemCode</td>
+            <td>
+                @if (item.IsEdit == false)
+                {
+                    @item.Consumption
+                }
+                else
+                {
+                    <input type="number" class="text-consumption text-center" value="@item.Consumption" @oninput="@(e => OnEditConsumption(item.Id, e.Value.ToString()))" />
+                }
+                @if (IsEditable && item.IsEdit == false)
+                {
+                    <button type="button" class="btn-edit"><i class="fa fa-pencil" @onclick="@(e => OnClickEditConsumption(item))"></i></button>
+                }
+            </td>
+            <td>@item.UnitOfMeasurement</td>
+            <td>@item.CuttableWidth</td>
+            <td>@item.ContentDescription</td>
+            <td>@item.Price</td>
+            <td>@item.Supplier</td>
+
+            @* Colorways *@
+
+            @foreach (var child in ChildProducts)
+            {
+                if (child.Id == item.ChildProductId)
+                {
+                    <td>@item.ColorCode</td>
+                }
+                else
+                {
+                    <td>x</td>
+                }
+            }
+            @* Notes *@
+            <td>@item.Notes</td>
+        </tr>
+    }
+
+</table>
+</div>
+<div class="table-responsive">
+<table class="table summary-reservation">
+  <tr>
+    <td class="tbl-fabric-greige" colspan="9">Trims & Accessories</td>
+    <td class="tbl-colorways" colspan="3">Colorways</td>
+    <td class="tbl-notes" rowspan="2">Notes</td>
+  </tr>
+  <tr>
+    @* Trims & Accessories Header*@
+    <td class="sub-header">Part Number</td>
+    <td class="sub-header">Part Name</td>
+    <td class="sub-header">Material Name</td>
+    <td class="sub-header">Consumption</td>
+    <td class="sub-header">Unit of Measurements</td>
+    <td class="sub-header">Cuttable Width</td>
+    <td class="sub-header">Content/Description</td>
+    <td class="sub-header">Price $</td>
+    <td class="sub-header">Supplier</td>
+    @* Colorways Header*@
+    <td class="sub-header">BLK01</td>
+    <td class="sub-header">PNK01</td>
+    <td class="sub-header">RED01</td>
+  </tr>
+
+ @* Note do the Foreach here *@
+   <tr>
+  @* Fabric & Greige *@
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    @* Colorways *@
+    <td>x</td>
+    <td>x</td>
+    <td>x</td>
+    @* Notes *@
+    <td></td>
+  </tr>
+</table>
+</div>

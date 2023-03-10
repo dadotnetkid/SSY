@@ -1,0 +1,94 @@
+@page "/inventory/supplier/edit/{Id:int}"
+
+<CascadingValue Value="@MaterialTypeText" Name="SubMessage">
+    <CascadingValue Value="@Module" Name="Module">
+        <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+            <CascadingValue Value="@SupplierModel.Name" Name="MaterialName">
+                <CascadingValue Value="@SupplierModel.Name" Name="ModuleChange">
+                    <CascadingValue Value="@Crud" Name="Crud">
+                        <BannerLayoutSSY></BannerLayoutSSY>
+                    </CascadingValue>
+                </CascadingValue>
+            </CascadingValue>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+
+<ul class="nav nav-tabs nav-tabs-views nav justify-content-center border border-left-0 border-top-0 border-right-0 scrollmenu nav-menu">
+    <li><a data-toggle="tab" href="#overview" class="active">Overview</a></li>
+    <li><a data-toggle="tab" href="#excesslist">Excess List</a></li>
+    <li><a data-toggle="tab" href="#requestswatches">Request for Swatches List</a></li>
+    <li><a data-toggle="tab" href="#finalselection">Final Selection List</a></li>
+</ul>
+
+<div class="row">
+    <div class="border rounded-lg p-4 roll_loc shadow-sm bg-white col-12">
+        <div class="tab-content">
+            <div id="overview" class="tab-pane fade in active show">
+                <div class="row settings">
+                    <div class="col-md-12 col-sm-12 mt-3">
+                        <CompanyInformation SupplierModel="SupplierModel" CompanyTypeIds="SupplierModel.CompanyTypeIds" ModuleType="ModuleType" IsEditable="IsEditable" Id="Id" />
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 mt-3">
+                        <CascadingValue Value="@ModuleType" Name="ModuleType">
+                            <SupplierSourcing OnChangeMaterialText="UpdateMaterialTypeText" CompanyMaterialTypekeys="SupplierModel.CompanyMaterialTypeKeys" CompanyExcessReminderKeys="SupplierModel.CompanyExcessReminderKeys" SupplierModel="SupplierModel" />
+                        </CascadingValue>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 mt-3">
+                        <CascadingValue Value="@SupplierModel" Name="SupplierModel">
+                            <CascadingValue Value="@ModuleType" Name="ModuleType">
+                                <FinancialInformation />
+                            </CascadingValue>
+                        </CascadingValue>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 mt-3">
+                        <CascadingValue Value="@ModuleType" Name="ModuleType">
+                            <ContactPerson ContactPersons="SupplierModel.ContactPersons" OnAddContactPerson="ContactPersonAdded" />
+                        </CascadingValue>
+                    </div>
+
+
+
+                    <div class="footer__button">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 mt-3">
+                                <div class="background">
+                                    <div class="buttons">
+                                        <button type="button" action="action" class="btn btn-lg btn-danger buttons__class"
+                                                onclick="window.history.go(-1); return false;">
+                                            Discard
+                                        </button>
+                                        <button @onclick="@(e => HandleSubmit())" class="btn btn-lg btn-info buttons__class"> Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="excesslist" class="tab-pane fade">
+                <div class="row settings">
+                    <ExcessList></ExcessList>
+                </div>
+            </div>
+
+
+             <div id="requestswatches" class="tab-pane fade">
+                <div class="row settings">
+                    <RequestSwatches></RequestSwatches>
+                </div>
+            </div>
+
+            <div id="finalselection" class="tab-pane fade">
+                <div class="row settings">
+                    <FinalSelection></FinalSelection>
+                </div>
+            </div> 
+
+        </div>
+    </div>
+</div>

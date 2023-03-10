@@ -1,0 +1,333 @@
+﻿
+        
+<div class="design-draft-main-section">
+    <div class="col-md-12 mt-3">
+        <div class="design-draft-content-section">
+
+            <div class="design-draft-content-header">
+                @Title
+            </div>
+
+            <div class="design-draft-content-body">
+                <div class="row">
+                    <div class="col-xl-5 mt-3">
+                        <div class="row">
+
+                            <div class="col-6">
+                                <div class="design-draft-label mt-2 mb-2">
+                                    Front
+                                </div>
+                                <div class="mr-3 mb-3">
+                                    <div class="border-dashed border-secondary border-width rounded design-draft-content-front">
+                                        @if(string.IsNullOrWhiteSpace(frontPath)){
+                                            // for uniqe id for image upload
+                                            @if(IsEditable){
+                                                @if(!isDisabledApproval){
+                                                    var uniqueId = Guid.NewGuid();
+                                                    <InputFile id="@uniqueId" OnChange='@(e => UploadFile(e,"Front"))' accept=".png,.jpg,.jpeg"  type="file" hidden />
+                                                    <label for="@uniqueId" class="btn hexcolor-7B8E61 text-light text-center mt-5 mb-5 size-button-product-inside-border for-first-col">Add File</label>
+                                                }else {
+                                                      
+                                                        <div class="thumbnail-container">
+                                                            <img class="responsive thumbnail" src="/img/No-Image-Placeholder.svg.png" />
+                                                        </div>
+                                                }
+                                            }else {
+                                                <div class="thumbnail-container">
+                                                    <img class="responsive thumbnail" src="/img/No-Image-Placeholder.svg.png" />
+                                                </div>
+                                            }
+                                        }else {
+                                            
+                                            <div class="thumbnail-container">
+                                                @if(Title == "Design Draft")
+                                                {
+                                                    <a data-toggle="modal" href="#@titleModal" @onclick='@(e => ZoomImage(@frontPath, "DesignDraft"))'>
+                                                        <img class="responsive thumbnail" src="@frontPath" />
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a data-toggle="modal" href="#@titleModal" @onclick='@(e => ZoomImage(@frontPath, ""))'>
+                                                        <img class="responsive thumbnail" src="@frontPath" />
+                                                    </a>
+                                                }
+                                                @if(IsEditable && !isDisabledApproval){
+                                                    <span @onclick='@(e => OnDelete(@frontId,"Front"))' class="fa fa-trash cursor-pointer"></span>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="design-draft-label mt-2 mb-2">
+                                    Back
+                                </div>
+                                <div class="mr-3 mb-3">
+                                    <div class="border-dashed border-secondary border-width rounded design-draft-content-back">
+                                        @if(string.IsNullOrWhiteSpace(backPath)){
+                                            // for uniqe id for image upload
+                                            @if(IsEditable){
+                                                @if(!isDisabledApproval){
+                                                    var uniqueId = Guid.NewGuid();
+                                                    <InputFile id="@uniqueId" OnChange='@(e => UploadFile(e,"Back"))' accept=".png,.jpg,.jpeg"  type="file" hidden />
+                                                    <label for="@uniqueId" class="btn hexcolor-7B8E61 text-light text-center mt-5 mb-5 size-button-product-inside-border for-first-col">Add File</label>
+                                                }else {
+                                                    <div class="thumbnail-container">
+                                                            <img class="responsive thumbnail" src="/img/No-Image-Placeholder.svg.png" />
+                                                    </div>
+                                                }
+                                            }else {
+                                                <div class="thumbnail-container">
+                                                    <img class="responsive thumbnail" src="/img/No-Image-Placeholder.svg.png" />
+                                                </div>
+                                            }
+                                        }else {
+                                            <div class="thumbnail-container">
+                                                    <a  data-toggle="modal" href="#@titleModal" @onclick='@(e => ZoomImage(@backPath, @Title))'>
+                                                         <img class="responsive thumbnail" src="@backPath" />
+                                                    </a>
+                                                @if(IsEditable && !isDisabledApproval){
+                                                    <span @onclick='@(e => OnDelete(@backId,"Back"))' class="fa fa-trash cursor-pointer"></span>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 mt-3">
+                        @if(!IsEditable){
+                            @if(!string.IsNullOrWhiteSpace(frontPath) || !string.IsNullOrWhiteSpace(backPath)
+                                || !string.IsNullOrWhiteSpace(rightPath) || !string.IsNullOrWhiteSpace(leftPath) 
+                                || RejectionNotesByCategory.Count() != 0 || isHaveDetails )
+                            {
+                                <ApprovalSection AddRejection="AddRejection" OnRejection="ClearMediaFileById"  ProductId="@ProductModel.Id" CategoryId="CategoryId" ProductMediaFiles="ProductModel.ProductMediaFiles" RejectionNotes="RejectionNotes" /> 
+                            }
+                        }
+                    </div>
+
+                    @if(Title != "Design Draft"){
+                        <div class="col-xl-5 mt-3">
+                            <div class="row">
+
+                                <div class="col-6">
+                                    <div class="design-draft-label mt-2 mb-2">
+                                        Left Side
+                                    </div>
+                                    <div class="mr-3 mb-3">
+                                        <div class="border-dashed border-secondary border-width rounded design-draft-content-front">
+                                            @if(string.IsNullOrWhiteSpace(leftPath)){
+                                                @if(IsEditable){
+                                                    // for uniqe id for image upload
+                                                    @if(!isDisabledApproval){
+                                                        var uniqueId = Guid.NewGuid();
+                                                        <InputFile id="@uniqueId" OnChange='@(e => UploadFile(e,"Left"))' accept=".png,.jpg,.jpeg"  type="file" hidden />
+                                                        <label for="@uniqueId" class="btn hexcolor-7B8E61 text-light text-center mt-5 mb-5 size-button-product-inside-border for-first-col">Add File</label>
+                                                    }else {
+                                                        <div class="thumbnail-container">
+                                                            <img class="responsive thumbnail" src="/img/No-Image-Placeholder.svg.png" />
+                                                        </div>
+                                                    }
+                                                }else {
+                                                    <div class="thumbnail-container">
+                                                        <img class="responsive thumbnail" src="/img/No-Image-Placeholder.svg.png" />
+                                                    </div>
+                                                }
+                                            }else {
+                                                <div class="thumbnail-container">
+                                                        <a  data-toggle="modal" href="#@titleModal" @onclick='@(e => ZoomImage(@leftPath, @Title))'>
+                                                            <img class="responsive thumbnail" src="@leftPath" />
+                                                        </a>
+                                                    @if(IsEditable && !isDisabledApproval){
+                                                        <span @onclick='@(e => OnDelete(@leftId,"Left"))' class="fa fa-trash cursor-pointer"></span>
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="design-draft-label mt-2 mb-2">
+                                        Right Side
+                                    </div>
+                                    <div class="mr-3 mb-3">
+                                        <div class="border-dashed border-secondary border-width rounded design-draft-content-back">
+                                            @if(string.IsNullOrWhiteSpace(rightPath)){
+                                                @if(IsEditable){
+                                                    @if(!isDisabledApproval){
+                                                        var uniqueId = Guid.NewGuid();
+                                                        <InputFile id="@uniqueId" OnChange='@(e => UploadFile(e,"Right"))' accept=".png,.jpg,.jpeg"  type="file" hidden />
+                                                        <label for="@uniqueId" class="btn hexcolor-7B8E61 text-light text-center mt-5 mb-5 size-button-product-inside-border for-first-col">Add File</label>
+                                                    }else {
+                                                        <div class="thumbnail-container">
+                                                            <img class="responsive thumbnail" src="/img/No-Image-Placeholder.svg.png" />
+                                                        </div>
+                                                    }
+                                                }else {
+                                                    <div class="thumbnail-container">
+                                                        <img class="responsive thumbnail" src="/img/No-Image-Placeholder.svg.png" />
+                                                    </div>
+                                                }
+                                            }else {
+                                                <div class="thumbnail-container">
+                                                    <a  data-toggle="modal" href="#@titleModal" @onclick='@(e => ZoomImage(@rightPath, @Title))'>
+                                                        <img class="responsive thumbnail" src="@rightPath" />
+                                                    </a>
+                                                    @if(IsEditable && !isDisabledApproval){
+                                                        <span @onclick='@(e => OnDelete(@rightId,"Right"))' class="fa fa-trash cursor-pointer"></span>
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }else {
+                        int count = 0;
+                        
+                        <div class="col-xl-5 mt-3">
+                            <div class="design-draft-content scrollable-y height-fix">
+                                
+                                @foreach (var item in ProductModel.ProductMediaFiles)
+                                {    
+                                    @if (IsEditable == false)
+                                    {
+                                        @if(item.MediaFile.Name == "Details")
+                                        {
+                                            count++;
+                                            string designString = "DesignDraftDetails";
+                                            string detailsCount = designString + "-" + count;
+                                            <div class="col">
+                                                <div class="add-container">
+                                                    <div class="design-draft-label mt-2 mb-2">
+                                                        Detail @count
+                                                    </div>
+                                                    <div class="mr-3 mb-3">
+                                                        <div class="border-dashed border-secondary border-width rounded design-draft-content-detail">
+                                                            <div class="thumbnail-container">
+                                                                <a  data-toggle="modal" href="#@titleModal" @onclick='@(e => ZoomImage(@item.MediaFile.FilePath, @designString))'>
+                                                                    <img class="thumbnail responsive" src="@item.MediaFile.FilePath" />
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @if(item.MediaFile.Name == "Details")
+                                        {
+                                            count++;
+                                            <div class="col">
+                                                <div class="add-container">
+                                                    <div class="design-draft-label mt-2 mb-2">
+                                                        Detail @count
+                                                    </div>
+                                                    <div class="mr-3 mb-3">
+                                                        <div class="border-dashed border-secondary border-width rounded design-draft-content-detail">
+                                                            <div class="thumbnail-container">
+                                                                <img class="thumbnail responsive" src="@item.MediaFile.FilePath" />
+                                                                @if(IsEditable && !isDisabledApproval){          
+                                                                    <span class="fa fa-trash cursor-pointer" @onclick='@(e => OnDelete(@item.MediaFile.Id,"Details"))'></span>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                                
+                                @if (IsEditable)
+                                {
+                                    count++;
+                                    var uniqueId = Guid.NewGuid();
+                                    <div class="col">
+                                        <div class="add-container">
+                                            <div class="design-draft-label mt-2 mb-2">
+                                                Add Detail @count
+                                            </div>
+                                            <div class="mr-3 mb-3">
+                                                <div class="border-dashed border-secondary border-width rounded design-draft-content-detail">
+                                                    <InputFile id="@uniqueId"  OnChange='@(e => UploadMultipleFile(e,"Details"))' type="file" hidden multiple />
+                                                    <label class="btn hexcolor-7B8E61 text-light text-center size-button-product-inside-border for-first-col" for="@uniqueId">Add File</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ 
+  
+    <div id="@titleModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header transparent">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+            @if(Title == "Design Draft")
+            {
+                <div class="row">
+                        <div class="col-md-6">
+                            <div class="m-4">
+                                <div class="p-4">
+                                    <img src="@ModalImage" class="w-100">
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div class="col-md-6">
+                            <div class="m-4">
+                            <h4 class="mt-3">Sample</h4>
+                            <div class="border background-modal p-4 mt-4">
+                            
+                                        <p class="hexcode-paragraph">sample:</p>
+                                        <p class="hexcode-paragraph">sample:</p>
+                                        <p class="hexcode-paragraph">sample:</p>
+                                        <p class="hexcode-paragraph">sample:</p>
+                                        <p class="hexcode-paragraph">sample:</p>
+                            </div>
+                            <h4 class="mt-3">Sample</h4>
+                            <div class="border background-modal p-4 mt-4">
+                                        <p class="hexcode-paragraph">sample:</p>
+                                        <p class="hexcode-paragraph">sample:</p>
+                                        <p class="hexcode-paragraph">sample:</p>
+                                        <p class="hexcode-paragraph">sample:</p>
+                                        <p class="hexcode-paragraph">sample:</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               }
+               else
+                {
+                        <img src="@ModalImage" class="w-100"/>
+                }
+        </div>
+    </div>
+    </div>
+  

@@ -1,0 +1,91 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>SSY</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SSY.Domain.Shared\SSY.Domain.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.1" />
+    <PackageReference Include="Volo.Abp.Emailing" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.Identity.Application" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.Identity.Domain" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Domain.Identity" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.BackgroundJobs.Domain" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.AuditLogging.Domain" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Domain" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Domain" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Domain" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.OpenIddict.Domain" Version="7.0.2" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Domain.OpenIddict" Version="7.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Products\" />
+    <None Remove="UserDetails\" />
+    <None Remove="Authorizations\" />
+    <None Remove="Authorizations\Users\" />
+    <None Remove="Inventory\CareInstructionTypes\" />
+    <None Remove="Inventory\Categories\" />
+    <None Remove="Inventory\Colors\" />
+    <None Remove="Inventory\Compressions\" />
+    <None Remove="Inventory\Creases\" />
+    <None Remove="Inventory\Currencies\" />
+    <None Remove="Inventory\Excesses\" />
+    <None Remove="Inventory\FabricStretches\" />
+    <None Remove="Inventory\HandFeels\" />
+    <None Remove="Inventory\PreparedForPrints\" />
+    <None Remove="Inventory\PricingTypes\" />
+    <None Remove="Inventory\PrintRepeats\" />
+    <None Remove="Inventory\ProductAssignments\" />
+    <None Remove="Inventory\Recycles\" />
+    <None Remove="Inventory\Shadings\" />
+    <None Remove="Inventory\UnitOfMeasurements\" />
+    <None Remove="Inventory\UpchargeTypes\" />
+    <None Remove="Inventory\WeightUnits\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Products\" />
+    <None Remove="Companies\Cities\" />
+    <None Remove="Companies\Countries\" />
+    <None Remove="Companies\ContactPersons\" />
+    <None Remove="Companies\Provinces\" />
+    <None Remove="Companies\Types\" />
+    <None Remove="Inventory\Adjustments\Types\" />
+    <Folder Include="Authorizations\" />
+    <Folder Include="Authorizations\Users\" />
+    <Folder Include="Inventory\CareInstructionTypes\" />
+    <Folder Include="Inventory\Categories\" />
+    <Folder Include="Inventory\Colors\" />
+    <Folder Include="Inventory\Compressions\" />
+    <Folder Include="Inventory\Creases\" />
+    <Folder Include="Inventory\Currencies\" />
+    <Folder Include="Inventory\Excesses\" />
+    <Folder Include="Inventory\FabricStretches\" />
+    <Folder Include="Inventory\HandFeels\" />
+    <Folder Include="Inventory\PreparedForPrints\" />
+    <Folder Include="Inventory\PricingTypes\" />
+    <Folder Include="Inventory\PrintRepeats\" />
+    <Folder Include="Inventory\ProductAssignments\" />
+    <Folder Include="Inventory\Recycles\" />
+    <Folder Include="Inventory\Shadings\" />
+    <Folder Include="Inventory\UnitOfMeasurements\" />
+    <Folder Include="Inventory\UpchargeTypes\" />
+    <Folder Include="Inventory\WeightUnits\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Companies\Cities\" />
+    <Folder Include="Companies\Countries\" />
+    <Folder Include="Companies\ContactPersons\" />
+    <Folder Include="Companies\Provinces\" />
+    <Folder Include="Companies\Types\" />
+    <Folder Include="Inventory\Adjustments\Types\" />
+  </ItemGroup>
+</Project>

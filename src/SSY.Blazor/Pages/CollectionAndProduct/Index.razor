@@ -1,0 +1,26 @@
+@page "/collectionandproduct"
+
+
+
+
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <BannerLayoutSSY></BannerLayoutSSY>
+    </CascadingValue>
+</CascadingValue>
+
+<div class="bg-white">
+        <ProductNavLayout />
+</div>
+
+    <div id="DashboardTab" class="tab-pane fade in active show">
+        <div class="row">
+            <div class="col-md-12">
+                <CollectionTimeline></CollectionTimeline>
+            </div>
+            <div class="col-md-12">
+                <Collections PageName="@PageName"></Collections>
+            </div>
+        </div>
+    </div>
+

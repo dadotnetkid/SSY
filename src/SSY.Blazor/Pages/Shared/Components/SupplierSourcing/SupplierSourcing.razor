@@ -1,0 +1,163 @@
+<EditForm Model="SupplierModel">
+    <DataAnnotationsValidator />
+    <div class="border rounded-lg p-4 shadow-sm bg-white supplier__source">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Sourcing</h3>
+        </div>
+
+        <div class="row ">
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3 dropdown__supplier">
+                <div class="border rounded-sm  text-dark pl-3 pr-3 ">
+                    <h5 class="mt-2 text-muted input-text">Material Type Assignment</h5>
+                    @if (ModuleType == "Add" || ModuleType == "Edit")
+                    {
+                        @*<p class="text-muted input-field-text cursor-pointer " href="#materialType" data-toggle="collapse"  contentEditable="false">@MaterialTypeText</p>*@
+                        <button type="button" id="materialTypeButton" class="btn text-muted input-field-text cursor-pointer mb-2 " aria-haspopup="true" aria-expanded="false"
+                                data-toggle="dropdown" contentEditable="false">
+                            @MaterialTypeText
+                        </button>
+                        <div id="materialType" class="dropdown-menu overflow-auto multiplecheckbox specificheight" aria-labelledby="materialTypeButton">
+                            @foreach (var greige in GreigeModel?.Result?.Items)
+                            {
+                                <div class="weight__unit dropdown">
+                                    <input class="form-check-input" checked="@(CompanyMaterialTypeIds.Contains(greige.Id)==true)" type="checkbox" @onchange='@(e => onChangeAssignment(greige.Id, (bool)e.Value))' value="@SupplierModel.MaterialTypeIds" id="flexCheckChecked">
+                                    <label class="text-muted input-field-text" contentEditable="false">@greige.Label</label>
+                                </div>
+                            }
+                            @foreach (var fabric in FabricModel?.Result?.Items)
+                            {
+                                <div class="weight__unit dropdown">
+                                    <input class="form-check-input" checked="@(CompanyMaterialTypeIds.Contains(fabric.Id)==true)" type="checkbox" @onchange='@(e => onChangeAssignment(fabric.Id, (bool)e.Value))' value="@SupplierModel.MaterialTypeIds" id="flexCheckChecked">
+                                    <label class="text-muted input-field-text" contentEditable="false">@fabric.Label</label>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="checkbox__weightunit">
+                            <p class="text-muted input-field-text cursor-pointer " contentEditable="false">@MaterialTypeText</p>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3  marging-top-negative">
+                <div class="border rounded-sm  text-dark pl-3 pr-3 ">
+                    <h5 class="mt-2 text-muted input-text">Excess Supplier</h5>
+                    @if (ModuleType == "Add" || ModuleType == "Edit")
+                    {
+                        <InputSelect @bind-Value="SupplierModel.IsExcessSupplier" placeholder="Select" class="form-control" @oninput="@(e => OnChangeIsExcess(e.Value.ToString()))">
+                            <option value="0" disabled selected>Select</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </InputSelect>
+                    }
+                    else
+                    {
+                        if (SupplierModel.IsExcessSupplier == true)
+                        {
+                            <p class="text-muted input-field-text" contenteditable="true" placeholder="">Yes</p>
+                        }
+                    }
+                </div>
+            </div>
+
+            @if (ModuleType == "Add" || ModuleType == "Edit")
+            {
+                @if (SupplierModel.IsExcessSupplier == true)
+                {
+                    <div class="col-lg-12 col-md-12 col-sm-12 dropdown__supplier">
+                        <div class="border rounded-sm  text-dark pl-3 pr-3   mt-3 ">
+                            <h5 class="mt-2 text-muted input-text">Excess Reminder</h5>
+                            @*<p class="text-muted input-field-text cursor-pointer " href="#excessReminder" data-toggle="collapse" contentEditable="false">@ExcessReminderText</p>*@
+                        <button type="button" id="excessReminderButton" class="btn text-muted input-field-text cursor-pointer mb-2 " aria-haspopup="true" aria-expanded="false"
+                                data-toggle="dropdown" contentEditable="false">
+                            @ExcessReminderText
+                        </button>
+
+                            <div id="excessReminder" class="dropdown-menu overflow-auto multiplecheckbox specificheight" aria-labelledby="excessReminderButton">
+                                @if (ModuleType == "Add" || ModuleType == "Edit")
+                                {
+                                    <div class="weight__unit dropdown">
+                                        <input class="form-check-input" checked="@(CompanyExcessReminderIds.Contains(1)==true)" type="checkbox" @onchange='@(e => onChangeExcessReminder(1, (bool)e.Value))' value="1" id="flexCheckChecked">
+                                        <label class="text-muted input-field-text" contentEditable="false">January </label>
+                                    </div>
+
+                                    <div class="weight__unit dropdown">
+                                        <input class="form-check-input" checked="@(CompanyExcessReminderIds.Contains(2)==true)" type="checkbox" @onchange='@(e => onChangeExcessReminder(2, (bool)e.Value))' value="2" id="flexCheckChecked">
+                                        <label class="text-muted input-field-text" contentEditable="false">February</label>
+                                    </div>
+
+                                    <div class="weight__unit dropdown">
+                                        <input class="form-check-input" checked="@(CompanyExcessReminderIds.Contains(3)==true)" type="checkbox" @onchange='@(e => onChangeExcessReminder(3, (bool)e.Value))' value="3" id="flexCheckChecked">
+                                        <label class="text-muted input-field-text" contentEditable="false">March</label>
+                                    </div>
+
+                                    <div class="weight__unit dropdown">
+                                        <input class="form-check-input" checked="@(CompanyExcessReminderIds.Contains(4)==true)" type="checkbox" @onchange='@(e => onChangeExcessReminder(4, (bool)e.Value))' value="4" id="flexCheckChecked">
+                                        <label class="text-muted input-field-text" contentEditable="false">April</label>
+                                    </div>
+
+                                    <div class="weight__unit dropdown">
+                                        <input class="form-check-input" checked="@(CompanyExcessReminderIds.Contains(5)==true)" type="checkbox" @onchange='@(e => onChangeExcessReminder(5, (bool)e.Value))' value="5" id="flexCheckChecked">
+                                        <label class="text-muted input-field-text" contentEditable="false">May</label>
+                                    </div>
+
+                                    <div class="weight__unit dropdown">
+                                        <input class="form-check-input" checked="@(CompanyExcessReminderIds.Contains(6)==true)" type="checkbox" @onchange='@(e => onChangeExcessReminder(6, (bool)e.Value))' value="6" id="flexCheckChecked">
+                                        <label class="text-muted input-field-text" contentEditable="false">June</label>
+                                    </div>
+
+                                    <div class="weight__unit dropdown">
+                                        <input class="form-check-input" checked="@(CompanyExcessReminderIds.Contains(7)==true)" type="checkbox" @onchange='@(e => onChangeExcessReminder(7, (bool)e.Value))' value="7" id="flexCheckChecked">
+                                        <label class="text-muted input-field-text" contentEditable="false">July</label>
+                                    </div>
+
+                                    <div class="weight__unit dropdown">
+                                        <input class="form-check-input" checked="@(CompanyExcessReminderIds.Contains(8)==true)" type="checkbox" @onchange='@(e => onChangeExcessReminder(8, (bool)e.Value))' value="8" id="flexCheckChecked">
+                                        <label class="text-muted input-field-text" contentEditable="false">August</label>
+                                    </div>
+
+                                    <div class="weight__unit dropdown">
+                                        <input class="form-check-input" checked="@(CompanyExcessReminderIds.Contains(9)==true)" type="checkbox" @onchange='@(e => onChangeExcessReminder(9, (bool)e.Value))' value="9" id="flexCheckChecked">
+                                        <label class="text-muted input-field-text" contentEditable="false">September</label>
+                                    </div>
+
+                                    <div class="weight__unit dropdown">
+                                        <input class="form-check-input" checked="@(CompanyExcessReminderIds.Contains(10)==true)" type="checkbox" @onchange='@(e => onChangeExcessReminder(10, (bool)e.Value))' value="10" id="flexCheckChecked">
+                                        <label class="text-muted input-field-text" contentEditable="false">October</label>
+                                    </div>
+
+                                    <div class="weight__unit dropdown">
+                                        <input class="form-check-input" checked="@(CompanyExcessReminderIds.Contains(11)==true)" type="checkbox" @onchange='@(e => onChangeExcessReminder(11, (bool)e.Value))' value="11" id="flexCheckChecked">
+                                        <label class="text-muted input-field-text" contentEditable="false">November</label>
+                                    </div>
+
+                                    <div class="weight__unit dropdown">
+                                        <input class="form-check-input" checked="@(CompanyExcessReminderIds.Contains(12)==true)" type="checkbox" @onchange='@(e => onChangeExcessReminder(12, (bool)e.Value))' value="12" id="flexCheckChecked">
+                                        <label class="text-muted input-field-text" contentEditable="false">December</label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                @if (SupplierModel.IsExcessSupplier == true)
+                {
+                    <div class="col-lg-12 col-md-12 col-sm-12 dropdown__supplier">
+                        <div class="border rounded-sm  text-dark pl-3 pr-3   mt-3 ">
+                            <h5 class="mt-2 text-muted input-text">Excess Reminder</h5>
+                            <div class="display__dropdown">
+                                <p class="text-muted input-field-text cursor-pointer " contentEditable="false">@ExcessReminderText</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</EditForm>

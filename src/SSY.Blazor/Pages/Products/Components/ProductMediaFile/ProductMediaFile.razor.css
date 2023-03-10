@@ -1,0 +1,13 @@
+﻿.hexcode-paragraph
+{
+    color: #9aa887;
+} 
+.background-modal{
+    background-color: #fafafa;
+}
+.modal-header.transparent {
+    position: absolute;
+    border: unset;
+    right: 2px;
+    z-index: 1;
+}

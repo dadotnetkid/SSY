@@ -1,0 +1,91 @@
+.account-header-text[b-lu6wbedwd7] {
+    color: #486CD9;
+}
+
+.account-banner[b-lu6wbedwd7] {
+    background-image: url("/images/Component 101 – 6.png");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 0%;
+    padding: 20px;
+}
+
+.cursor-pointer[b-lu6wbedwd7]{
+    cursor: pointer;
+}
+
+.module-text[b-lu6wbedwd7]{
+    font: var(--unnamed-font-style-normal) normal 600 42px/45px IvyPresto Display;
+letter-spacing: var(--unnamed-character-spacing-0);
+text-align: center;
+font: normal normal 600 42px/45px IvyPresto Display;
+letter-spacing: 0px;
+color: #FFFFFF;
+opacity: 1;
+
+}
+
+.module-info[b-lu6wbedwd7]{
+    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600) var(--unnamed-font-size-14)/var(--unnamed-line-spacing-18) var(--unnamed-font-family-avenir);
+    letter-spacing: var(--unnamed-character-spacing-0-2);
+    color: var(--unnamed-color-ffffff);
+    font: normal normal 600 14px/18px Avenir;
+    letter-spacing: 0.2px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.name-text[b-lu6wbedwd7]{
+    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-26)/var(--unnamed-line-spacing-35) var(--unnamed-font-family-avenir);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--unnamed-color-ffffff);
+    text-align: left;
+    font: normal normal medium 26px/35px Avenir;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.navigation-text[b-lu6wbedwd7]{
+    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-12)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-avenir);
+    letter-spacing: var(--unnamed-character-spacing-0-17);
+    color: var(--unnamed-color-ffffff);
+    text-align: left;
+    font: normal normal normal 12px/15px Avenir;
+    letter-spacing: 0.17px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    opacity: 1;
+    text-transform: uppercase
+}
+
+@media (max-width: 640.98px) {
+    .account-banner[b-lu6wbedwd7] {
+        /* background-image: url("/img/header background account.svg");
+        background-repeat: no-repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-position: center;
+        margin-bottom: 0%; */
+        width: 100%;
+        /* margin-left: -30px; */
+        margin-top: -15px;
+        padding-left: 0px!important;
+        padding-right: 0px !important;
+    }
+}
+
+@media (min-width: 641px) {
+    
+}
+@media (max-width: 433px) {
+    p.module-text[b-lu6wbedwd7] {
+        font-size: 15px ;
+    }
+}

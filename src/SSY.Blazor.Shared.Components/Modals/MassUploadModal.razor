@@ -1,0 +1,14 @@
+﻿<h3>MassUploadModal</h3>
+
+
+<InputFile OnChange="@LoadFiles" multiple />
+
+<InputFile OnChange="@LoadFiles" multiple />
+
+@code {
+    private void LoadFiles(InputFileChangeEventArgs e)
+    {
+        //await using FileStream fs = new(path, FileMode.Create);
+        //await browserFile.OpenReadStream().CopyToAsync(fs);
+    }
+}

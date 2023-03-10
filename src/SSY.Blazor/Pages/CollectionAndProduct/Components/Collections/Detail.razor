@@ -1,0 +1,246 @@
+@page "/collectionandproduct/collections/{Id:guid}"
+@using SSY.Blazor.Pages.CollectionAndProduct.Components.Files
+@using Files = SSY.Blazor.Pages.CollectionAndProduct.Components.Files.Files
+
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@TabName" Name="TabName">
+        <CascadingValue Value="@CollectionName" Name="CollectionName">
+            <CascadingValue Value="@CollectionId" Name="CollectionId">
+                <CascadingValue Value="@ModuleChange" Name="ModuleChange">
+                    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+                        <CascadingValue Value="@CollectionDetails" Name="CollectionDetails">
+                            <BannerLayoutSSY></BannerLayoutSSY>
+                        </CascadingValue>
+                    </CascadingValue>
+                </CascadingValue>
+            </CascadingValue>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+
+<ul class="nav nav-tabs nav-tabs-views nav justify-content-center border border-left-0 border-top-0 border-right-0 scrollmenu nav-menu">
+    <li><a data-toggle="tab" href="#home" class="active" @onclick='@(e => ChangeTab("Overview"))'>Overview</a></li>
+    <li><a data-toggle="tab" href="#products" @onclick='@(e => ChangeTab("Products"))'>Products</a></li>
+    <li><a data-toggle="tab" href="#files" @onclick='@(e => ChangeTab("Files"))'> Files </a></li>
+</ul>
+
+@if (IsLoading == true)
+{
+    <div class="border rounded-lg p-4 shadow-sm bg-white">
+        <LoadingSpinner></LoadingSpinner>
+    </div>
+}
+else
+{
+    <div class="tab-content">
+
+        <div id="home" class="tab-pane fade in active show">
+            <div class="row">
+                <div class="col-md-12">
+                    <CollectionProgress CollectionModel="CollectionModel"> </CollectionProgress>
+
+                    <Overview CollectionModel="CollectionModel"
+                              OverviewModel="OverviewModel"
+                              Id="Id"
+                              IsEditable="IsEditable"
+                              UserDetailListModel="UserDetailListModel"
+                              TypeListModel="TypeListModel"
+                              FactoryListModel="FactoryListModel"
+                              ShippingTypeListModel="ShippingTypeListModel"
+                              MarketingTypeListModel="MarketingTypeListModel"
+                              SeasonListModel="SeasonListModel"
+                              PricePointListModel="PricePointListModel"
+                              ProductTypeListModel="ProductTypeListModel"
+                              ProductSizeListModel="ProductSizeListModel"
+                              StatusListModel="StatusListModel"
+                              MaterialListModel="MaterialListModel"></Overview>
+
+                    <AssignedTo CollectionModel="CollectionModel" AssignedToModel="CollectionModel.AssignedTo" Id="Id" IsEditable="IsEditable" UserDetailListModel="UserDetailListModel"></AssignedTo>
+
+                    <DesignBriefs @bind-TypeFormResponseDto="DesignBriefContent" @ref="designBriefRef"></DesignBriefs>
+
+                    <CollectionColorOption OnApprovedCollection="OnApprovedCollection"
+                                           OnRejectCollection="OnRejectCollection"
+                                           OverviewModel="OverviewModel"
+                                           CollectionModel="CollectionModel"
+                                           MaterialProductTypeList="CollectionModel.MaterialProductTypeList"
+                                           IsEditable="IsEditable"
+                                           IsModuleAdd="IsModuleAdd"
+                                           ColorList="ColorList"
+                                           ProductTypeListModel="ProductTypeListModel"
+                                           ProductListModel="ProductListModel"
+                                           MaterialListModel="MaterialListModel"
+                                           TypeListModel="TypeListModel"
+                                           AdditionRequestTypeListModel="AdditionRequestTypeListModel"
+                                           StatusListModel="StatusListModel"
+                                           MaterialCategoryListModel="MaterialCategoryListModel"></CollectionColorOption>
+
+                    <BomSummaryReservation Id="Id" CollectionModel="CollectionModel" MaterialModel="MaterialListModel" ColorList="ColorList"></BomSummaryReservation>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="products" class="tab-pane fade">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="border rounded-lg p-4 shadow-sm bg-white">
+                        <div class="d-flex justify-content-between" data-target="#parentproducts" data-toggle="collapse">
+                            <div class="col-md-8">
+                                <h3 class="header-text">Parent Products</h3>
+                            </div>
+                            <div class="col-md-4">
+                                <i class="fa fa-light fa-chevron-down pull-right for-dropdown"></i>
+                            </div>
+                        </div>
+
+                        <div id="parentproducts" class="collapse show">
+                            @if (CollectionModel.StatusId == ConfirmedStatusId)
+                            {
+                                @if (CollectionModel.ParentProducts.Count > 0)
+                                {
+                                    @foreach (var item in CollectionModel.ParentProducts.Where(x => x.IsActive = true && x.ParentId == null))
+                                    {
+                                        <div class="collapse show" id="design-draft ">
+                                            <ProductMediaFile IsEditable="IsEditable" ProductModel="item" CategoryId="2001" Title="@item.Name" />
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <div class="border rounded-lg p-4 shadow-sm bg-white">
+                        <div class="d-flex justify-content-between" data-target="#fullproductlist" data-toggle="collapse">
+                            <div class="col-md-8">
+                                <h3 class="header-text">Full Product List</h3>
+                            </div>
+                            <div class="col-md-4">
+                                <i class="fa fa-light fa-chevron-down pull-right for-dropdown"></i>
+                            </div>
+                        </div>
+
+                        <div class="p-3 table-responsive collapse show" id="fullproductlist">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="tb-header">
+                                            <div class="text-center">
+                                                <input type="checkbox" />
+                                            </div>
+                                        </th>
+                                        <th class="tb-header">Parent Product Name</th>
+                                        <th class="tb-header">Child Product Name</th>
+                                        <th class="tb-header">Status</th>
+                                        <th class="tb-header">Drop</th>
+                                        <th class="tb-header">3D Virtual Fitting Status</th>
+                                        <th class="tb-header">1st Fit Samples Status</th>
+                                        <th class="tb-header">2nd Fit Samples Status</th>
+                                        <th class="tb-header">PhotoShoot Sample Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (CollectionModel.StatusId == ConfirmedStatusId)
+                                    {
+                                        @foreach (var item in ChildProducts.Where(x => x.IsActive == true))
+                                        {
+                                            <tr class="border-0">
+                                                <td class="tb-td-text border-0 text-left inline-flex text-nowrap">
+                                                    <div class="text-center">
+                                                        <input type="checkbox" />
+                                                    </div>
+                                                </td>
+                                                @if (item.ProductName != "")
+                                                {
+                                                    <td rowspan="@item.ParentCount" class="tb-td-text border-0 text-left inline-flex text-nowrap">
+                                                        <a class="tableText" href="/collectionandproduct/product/@item.ParentId.Value">@item.ProductName</a>
+                                                    </td>
+                                                }
+                                                <td class="tb-td-text border-0 text-left inline-flex text-nowrap">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="@item.HexCode" class="bi bi-square-fill" viewBox="0 0 16 16">
+                                                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                                                    </svg>
+                                                    <a class="tableText" href="/collectionandproduct/product/@item.ParentId.Value">@item.Name</a>
+                                                </td>
+                                                <td class="tb-td-text border-0">@item.StatusValue</td>
+                                                <td class="tb-td-text border-0">
+                                                    <select class="mb-2 form-control-sm bg-white fontBolder inputfield-editable">
+                                                        <option value="0" disabled selected>Select</option>
+                                                        @foreach (var drop in DropListModel.OrderBy(x => x.OrderNumber))
+                                                        {
+                                                            <option value="@drop.Id">@drop.Value</option>
+                                                        }
+                                                    </select>
+                                                </td>
+                                                <td class="tb-td-text border-0"><span class="badge badge-success color__circle"></span> Not Ordered</td>
+                                                <td class="tb-td-text border-0">
+                                                    <span class="badge badge-success color__circle"></span> Not Ordered <br />
+                                                    @item.CreationTime.ToString("MMM dd yyyy")
+                                                </td>
+                                                <td class="tb-td-text border-0"><span class="badge badge-success color__circle"></span> Not Ordered</td>
+                                                <td class="tb-td-text border-0">No Available</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="files" class="tab-pane fade">
+            <div class="row">
+                <div class="col-md-12">
+                    <Files></Files>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+<TimelineAndComment PageName="@Module"></TimelineAndComment>
+
+<div class="footer__button">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 mt-3">
+            <div class="background">
+                <div class="buttons">
+                    @if (IsEditable)
+                    {
+                        <button class="btn btn-lg btn-danger buttons__class" @onclick="@(e => OnDiscardHandler())">
+                            Discard
+                        </button>
+                        <button class="btn btn-lg btn-success buttons__class" @onclick="@(e => OnSubmitHandler())">
+                            Save
+                        </button>
+                    }
+                    else
+                    {
+                        @if (CollectionModel.IsPublished == true)
+                        {
+                            <button disabled class="btn btn-lg btn-success buttons__class mr-2">Publish</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-lg btn-success buttons__class mr-2" @onclick="@(e => OnPublishHandler())">
+                                Publish
+                            </button>
+                        }
+                        <button class="btn btn-lg btn-danger buttons__class" @onclick="@(e => OnEditHandler())">
+                            Edit
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<Modal @ref="ModalSaving">
+    <ModalSavingSpinner></ModalSavingSpinner>
+</Modal>
+

@@ -1,0 +1,158 @@
+﻿.bg-image {
+    background-image: url("/img/ssy-login-image.png");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    /* background-color: #7b8d61; */
+    height: 100%;
+}
+
+.full-height {
+    position: absolute;
+    height: 100%;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+/* .vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+} */
+
+.auth-copy-right-lg {
+    position: absolute;
+    width: 100%;
+    bottom: 1px;
+    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) 16px/var(--unnamed-line-spacing-12) var(--unnamed-font-family-avenir);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--unnamed-color-ffffff);
+    text-align: center;
+    font: normal normal normal 16px/12px Avenir;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.auth-copy-right-sm {
+    visibility: hidden;
+}
+
+.horizontal-center {
+    margin: auto;
+    width: 60%;
+}
+
+.auth-body {
+    margin-left: 50%;
+    margin-top: 100px;
+}
+
+.vertical-center {
+    min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 991px) {
+    .header {
+        height: 200px;
+    }
+
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 35%;
+    }
+
+    .vertical-center {
+        min-height: 25%;
+        min-height: 25vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .auth-copy-right-lg {
+        display: none;
+    }
+
+    .auth-body {
+        margin-left: 0px;
+        margin-top: 200px;
+        width: 100%;
+    }
+
+    .auth-copy-right-sm {
+        visibility: visible;
+        position: relative;
+        width: 100%;
+        bottom: 1px;
+        font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) 16px/var(--unnamed-line-spacing-12) var(--unnamed-font-family-avenir);
+        letter-spacing: var(--unnamed-character-spacing-0);
+        color: var(--unnamed-color-ffffff);
+        text-align: center;
+        font: normal normal normal 16px/12px Avenir;
+        letter-spacing: 0px;
+        color: black;
+        opacity: 1;
+    }
+
+    @media (max-width: 550px) {
+        .header {
+            height: 200px;
+        }
+
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 45%;
+        }
+
+        .vertical-center {
+            min-height: 25%;
+            min-height: 25vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-copy-right-lg {
+            display: none;
+        }
+
+        .auth-body {
+            margin-left: 0px;
+            margin-top: 200px;
+            width: 100%;
+        }
+
+        .auth-copy-right-sm {
+            visibility: visible;
+            position: relative;
+            width: 100%;
+            bottom: 1px;
+            font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) 16px/var(--unnamed-line-spacing-12) var(--unnamed-font-family-avenir);
+            letter-spacing: var(--unnamed-character-spacing-0);
+            color: var(--unnamed-color-ffffff);
+            text-align: center;
+            font: normal normal normal 16px/12px Avenir;
+            letter-spacing: 0px;
+            color: black;
+            opacity: 1;
+        }
+    }
+}

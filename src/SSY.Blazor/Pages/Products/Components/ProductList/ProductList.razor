@@ -1,0 +1,56 @@
+
+<div class="pl-3 pr-3 table-responsive">
+
+    <div class="center">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="tb-header">Parent Product Name</th>
+                    <th class="tb-header">Child Product Name</th>
+                    <th class="tb-header">Status</th>
+                    <th class="tb-header">Drop</th>
+                    <th class="tb-header">3D Virtual Fitting Status</th>
+                    <th class="tb-header">1st Fit Samples Status</th>
+                    <th class="tb-header">2nd Fit Samples Status</th>
+                    <th class="tb-header">PhotoShoot Sample Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                 @foreach (var item in ChildProducts.Where(x => x.IsActive == true))
+                {
+                        <tr class="border-0">
+                        @if (item.ProductName != "child-product")
+                        {
+                            <td rowspan="@count" class="tb-td-text border-0 text-left inline-flex text-nowrap">
+                               @item.ProductName
+                            </td>
+                        }
+                        <td class="tb-td-text border-0 text-left inline-flex text-nowrap">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="@item.HexCode" class="bi bi-square-fill" viewBox="0 0 16 16">
+                                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z" />
+                            </svg>
+                           @item.Name
+                        </td>
+                        <td class="tb-td-text border-0">@item.StatusValue</td>
+                        <td class="tb-td-text border-0">
+                            <select class="mb-2 form-control-sm bg-white fontBolder inputfield-editable">
+                                <option value="0" disabled selected>Select</option>
+                                @foreach (var drop in DropListModel.OrderBy(x => x.OrderNumber))
+                                {
+                                    <option value="@drop.Id">@drop.Value</option>
+                                }
+                            </select>
+                        </td>
+                        <td class="tb-td-text border-0"><span class="badge badge-success color__circle"></span> Not Ordered</td>
+                        <td class="tb-td-text border-0">
+                            <span class="badge badge-success color__circle"></span> Not Ordered <br />
+                            @item.CreationTime.ToString("MMM dd yyyy")
+                        </td>
+                        <td class="tb-td-text border-0"><span class="badge badge-success color__circle"></span> Not Ordered</td>
+                        <td class="tb-td-text border-0">No Available</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    </div>

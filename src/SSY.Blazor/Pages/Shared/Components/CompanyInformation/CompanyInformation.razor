@@ -1,0 +1,218 @@
+
+<EditForm Model="SupplierModel">
+    <DataAnnotationsValidator />
+    <div class="border rounded-lg p-4 shadow-sm bg-white">
+        <div class="d-flex justify-content-between ">
+            <h3 class="header-text">Company Information</h3>
+        </div>
+
+        <div class="row ">
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                <div class="border rounded-sm  text-dark pl-3 pr-3 multidropdownchecbox">
+                    <h5 class="mt-2 text-muted input-text">Company Type</h5>
+                    @if (IsEditable == true)
+                    {
+                        @*<p class="text-muted input-field-text cursor-pointer " href="#companyType" data-toggle="collapse" contentEditable="false">@CompanyType</p>*@
+                        <button type="button" id="companyTypeButton" class="btn text-muted input-field-text cursor-pointer mb-2" aria-haspopup="true" aria-expanded="false"
+                                data-toggle="dropdown" contentEditable="false">
+                            @CompanyType
+                        </button>
+                        <div id="companyType" class="dropdown-menu overflow-auto multiplecheckbox specificheight" aria-labelledby="companyTypeButton">
+                            @foreach (var item in CompanyTypeListModel)
+                            {
+                                <div class="weight__unit dropdown">
+                                    <input class="form-check-input" checked="@(CompanyTypeIdList.Contains(item.Id)==true)" @onchange='@(e => onChangeCompanyType(item.Id, item.Value, (bool)e.Value))' type="checkbox" value="@item.Id"
+                                           id="flexCheckChecked">
+                                    <label class="text-muted input-field-text" contentEditable="false">@item.Value</label>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted input-field-text cursor-pointer " href="#companyType" data-toggle="collapse" contentEditable="false">@CompanyType</p>
+                    }
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                @if (IsEditable != true)
+                    {
+                    <div class="border rounded-sm  text-dark pl-3 pr-3 ">
+                        @*<h5 class="mt-2 text-muted input-text">COMPANY CODE <span class="text-danger">*</span></h5>*@
+                        <!--if (IsEditable == true)
+                        {-->
+                        @*<InputText @bind-Value="SupplierModel.Code" class="form-control mb-2 form-control-sm"
+                                       id="code" placeholder="Enter Company Code" name="code"></InputText>
+                            <ValidationMessage For="@(() => SupplierModel.Code)" />*@
+                        <!--}
+                        else
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder=""></p>
+                        }-->
+
+                        <h5 class="mt-2 text-muted input-text">COMPANY CODE <span class="text-danger">*</span></h5>
+                        <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.Code</p>
+                    </div>
+                    }
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3 ">
+                        <h5 class="mt-2 text-muted input-text">SHORT CODE <span class="text-danger">*</span></h5>
+                        @if (IsEditable == true)
+                        {
+                            <InputText @bind-Value="SupplierModel.ShortCode" class="form-control mb-2 form-control-sm"
+                                       id="short_code" placeholder="Enter Short Code" name="short_code"></InputText>
+                            <ValidationMessage For="@(() => SupplierModel.ShortCode)" />
+                        }
+                        else
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.ShortCode</p>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3 ">
+                        <h5 class="mt-2 text-muted input-text">COMPANY NAME <span class="text-danger">*</span></h5>
+                        @if (IsEditable == true)
+                        {
+                            <InputText @bind-Value="SupplierModel.Name" class="form-control mb-2 form-control-sm"
+                                       id="company_name" placeholder="Enter Company Name" name="company_name"></InputText>
+                            <ValidationMessage For="@(() => SupplierModel.Name)" />
+                        }
+                        else
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.Name</p>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3 ">
+                        <h5 class="mt-2 text-muted input-text">WEBSITE</h5>
+                        @if (IsEditable == true)
+                        {
+                            <InputText @bind-Value="SupplierModel.Website" class="form-control mb-2 form-control-sm"
+                                       id="website" placeholder="Enter Website" name="website"></InputText>
+                            <ValidationMessage For="@(() => SupplierModel.Website)" />
+                        }
+                        else
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.Website</p>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3 ">
+                        <h5 class="mt-2 text-muted input-text">ADDRESS 1 <span class="text-danger">*</span></h5>
+                        @if (IsEditable == true)
+                        {
+                            <InputText @bind-Value="SupplierModel.Address1" class="form-control mb-2 form-control-sm"
+                                       id="address_1" placeholder="Enter Address 1" name="address_1"></InputText>
+                            <ValidationMessage For="@(() => SupplierModel.Address1)" />
+                        }
+                        else
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.Address1</p>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3 ">
+                        <h5 class="mt-2 text-muted input-text">ADDRESS 2</h5>
+                        @if (IsEditable == true)
+                        {
+                            <InputText @bind-Value="SupplierModel.Address2" class="form-control mb-2 form-control-sm"
+                                       id="address_2" placeholder="Enter Address 2" name="address_2"></InputText>
+                            <ValidationMessage For="@(() => SupplierModel.Address2)" />
+                        }
+                        else
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.Address2</p>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3 ">
+                        <h5 class="mt-2 text-muted input-text">Country <span class="text-danger">*</span></h5>
+                        @if (IsEditable == true)
+                        {
+                            <InputSelect @bind-Value="SupplierModel.Country" class="form-control mb-2 form-control-sm" id="city">
+                                <option selected disabled value="">Select Country</option>
+                                @foreach (var country in CountryModel.Countries)
+                                {
+                                    if (@country.FriendlyName == null)
+                                    {
+                                        <option value="@country.ISOAlpha2">@country.ISOName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@country.ISOAlpha2">@country.FriendlyName</option>
+                                    }
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => SupplierModel.Country)" />
+                        }
+                        else
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.City</p>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3 ">
+                        <h5 class="mt-2 text-muted input-text">Province <span class="text-danger">*</span></h5>
+                        @* <input class="form-control mb-3" /> *@
+                        @if (IsEditable == true)
+                        {
+                            <InputText @bind-Value="SupplierModel.Province" class="form-control mb-2 form-control-sm"
+                                       id="zip_code" placeholder="Enter Province" name="province"></InputText>
+                            <ValidationMessage For="@(() => SupplierModel.Province)" />
+                        }
+                        else
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.Province</p>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3 ">
+                        <h5 class="mt-2 text-muted input-text">City <span class="text-danger">*</span></h5>
+                        @if (IsEditable == true)
+                        {
+                            <InputText @bind-Value="SupplierModel.City" class="form-control mb-2 form-control-sm"
+                                       id="zip_code" placeholder="Enter City" name="city"></InputText>
+                            <ValidationMessage For="@(() => SupplierModel.Province)" />
+                        }
+                        else
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.Country</p>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12 col-sm-12 mt-3 ">
+                    <div class="border rounded-sm  text-dark pl-3 pr-3 ">
+                        <h5 class="mt-2 text-muted input-text">Zip Code <span class="text-danger">*</span></h5>
+                        @if (IsEditable == true)
+                        {
+                            <InputText @bind-Value="SupplierModel.ZipCode" class="form-control mb-2 form-control-sm"
+                                       id="zip_code" placeholder="Enter Zip Code" name="zip_code"></InputText>
+                            <ValidationMessage For="@(() => SupplierModel.ZipCode)" />
+                        }
+                        else
+                        {
+                            <p class="text-muted input-field-text" contentEditable="false" placeholder="">@SupplierModel.ZipCode</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>

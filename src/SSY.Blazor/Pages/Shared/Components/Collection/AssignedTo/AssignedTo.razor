@@ -1,0 +1,241 @@
+
+
+<EditForm Model="AssignedToModel">
+    <DataAnnotationsValidator />
+
+    <div class="border rounded-lg p-4 shadow-sm bg-white">
+        <div class="d-flex justify-content-between " data-target="#assignedTo" data-toggle="collapse">
+            <div class="col-md-11">
+                <h3 class="header-text">Assigned To</h3>
+            </div>
+            <div class="col-md-1">
+                <i class="fa fa-light fa-chevron-down pull-right accordion-dropdown-icon"></i>
+            </div>
+        </div>
+
+        <div class="row custom__overideWTH collapse show" id="assignedTo">
+            <div class="col mt-3">
+                <div class="border bg-light text-dark bg-white fieldBody">
+                    <div class="row fieldheader">
+                        <h3 class="mt-2 mb-2 text-muted input-text">Designer </h3>
+                    </div>
+                  
+                        @if (IsEditable)
+                        {
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle assign-to col-md-12" type="button" data-toggle="dropdown">
+                                @selectedName 
+                                 <i class="fa fa-chevron-down fabric-dropdown-icon pull-right caretStyle"></i>
+                            </button>
+                            <div class="dropdown-menu assign">
+                                <div class="row">
+                                        <InputText class="form-control form-control-sm" @bind-Value="searchText" placeholder="Search..." @oninput="OnSearchTextChange"></InputText>
+                                        @foreach (var namesOfDesigner in _userDetailDesigner)
+                                        {
+                                            @if(namesOfDesigner.RoleNames.Contains("DESIGNER"))
+                                            {
+                                                    @if(namesOfDesigner.FullName.ToLower().Contains(searchText.ToLower()))
+                                                    {
+                                                        <button class="dropdown-item" @onclick='@(e => SelectNames(namesOfDesigner.Id, namesOfDesigner.FullName,"Designer"))'>@namesOfDesigner.FullName</button>
+                                                    }
+                                                    else if(searchText == "")
+                                                    {
+                                                        <button class="dropdown-item" @onclick='@(e => SelectNames(namesOfDesigner.Id, namesOfDesigner.FullName,"Designer"))'>@namesOfDesigner.FullName</button>
+                                                    }
+                                            }
+                                        }
+                                </div>
+                            </div>
+                        </div>
+                        }
+                        else
+                        {
+                            var user = @UserDetailListModel?.Find(x => x.Id == @AssignedToModel.DesignerId);
+                            var userValue = user != null ? $"{user.FullName}" : "No Selected Designer";
+                            selectedName = userValue;
+                            <label class="form-check-label inputfield m-1">@userValue</label>
+
+                        }
+             
+                </div>
+            </div>
+
+            <div class="col mt-3">
+                <div class="border bg-light text-dark bg-white fieldBody">
+                   <div class="row fieldheader">
+                        <h3 class="mt-2 mb-2 text-muted input-text">3D Designer </h3>
+                    </div>
+                    
+                        @if (IsEditable)
+                        {
+                             <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle assign-to col-md-12" type="button" data-toggle="dropdown">
+                                @selectedThreeDDesigner
+                                <i class="fa fa-chevron-down fabric-dropdown-icon pull-right caretStyle"></i>
+                            </button>
+                            <div class="dropdown-menu assign">
+                                <div class="row">
+                                        <InputText class="form-control form-control-sm" @bind-Value="searchText" placeholder="Search..." @oninput="OnSearchTextChange"></InputText>
+                                        @foreach (var namesOfDesigner in _userDetail3dDesigner)
+                                        {
+                                            @if(namesOfDesigner.RoleNames.Contains("3DDESIGNER"))
+                                            {
+                                                    @if(namesOfDesigner.FullName.ToLower().Contains(searchText.ToLower()))
+                                                    {
+                                                        <button class="dropdown-item" @onclick='@(e => SelectNames(namesOfDesigner.Id, namesOfDesigner.FullName,"ThreeD Designer"))'>@namesOfDesigner.FullName</button>
+                                                    }
+                                                    else if(searchText == "")
+                                                    {
+                                                        <button class="dropdown-item" @onclick='@(e => SelectNames(namesOfDesigner.Id, namesOfDesigner.FullName,"ThreeD Designer"))'>@namesOfDesigner.FullName</button>
+                                                    }
+                                            }
+                                        }
+                                </div>
+                            </div>
+                        </div>
+                        }
+                        else
+                        {
+                            var user = @UserDetailListModel?.Find(x => x.Id == @AssignedToModel.ThreeDDesignerId);
+                            var userValue = user != null ? $"{user.FullName}" : "No Selected 3D Designer";
+                             selectedThreeDDesigner = userValue;
+                            <label class="form-check-label inputfield m-1">@userValue</label>
+                        }
+                    
+                </div>
+            </div>
+
+            <div class="col mt-3">
+                <div class="border bg-light text-dark bg-white fieldBody">
+                    <div class="row fieldheader">
+                            <h3 class="mt-2 mb-2 text-muted input-text">SSY Merchandiser</h3>
+                        </div>
+                        @if (IsEditable)
+                        {
+                            <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle assign-to col-md-12" type="button" data-toggle="dropdown">
+                                @selectedSSYMerchandiser 
+                                <i class="fa fa-chevron-down fabric-dropdown-icon pull-right caretStyle"></i>
+                            </button>
+                            <div class="dropdown-menu assign">
+                                <div class="row">
+                                        <InputText class="form-control form-control-sm" @bind-Value="searchText" placeholder="Search..." @oninput="OnSearchTextChange"></InputText>
+                                        @foreach (var namesOfDesigner in _userDetailSSYMerchandiser)
+                                        {
+                                            @if(namesOfDesigner.RoleNames.Contains("SSYMERCHANDISER"))
+                                            {
+                                                    @if(namesOfDesigner.FullName.ToLower().Contains(searchText.ToLower()))
+                                                    {
+                                                        <button class="dropdown-item" @onclick='@(e  => SelectNames(namesOfDesigner.Id, namesOfDesigner.FullName,"SSY Merchandise"))'>@namesOfDesigner.FullName</button>
+                                                    }
+                                                    else if(searchText == "")
+                                                    {
+                                                        <button class="dropdown-item" @onclick='@(e  => SelectNames(namesOfDesigner.Id, namesOfDesigner.FullName,"SSY Merchandise"))'>@namesOfDesigner.FullName</button>
+                                                    }
+                                            }
+                                        }
+                                </div>
+                            </div>
+                        </div>
+                        }
+                        else
+                        {
+                            var user = @UserDetailListModel?.Find(x => x.Id == @AssignedToModel.SSYMerchandiserId);
+                            var userValue = user != null ? $"{user.FullName}" : "No Selected SSY Merchandiser";
+                            selectedSSYMerchandiser = userValue;
+                            <label class="form-check-label inputfield m-1">@userValue</label>
+                        }
+                </div>
+            </div>
+
+            <div class="col mt-3">
+                <div class="border bg-light text-dark bg-white fieldBody">
+                    <div class="row fieldheader">
+                            <h3 class="mt-2 mb-2 text-muted input-text">OEM Merchandiser</h3>
+                        </div>
+                        @if (IsEditable)
+                        {
+                           <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle assign-to col-md-12" type="button" data-toggle="dropdown">
+                                @selectedOEMMerchandiser 
+                                <i class="fa fa-chevron-down fabric-dropdown-icon pull-right caretStyle"></i>
+                            </button>
+                            <div class="dropdown-menu assign">
+                                <div class="row">
+                                        <InputText class="form-control form-control-sm" @bind-Value="searchText" placeholder="Search..." @oninput="OnSearchTextChange"></InputText>
+                                        @foreach (var namesOfDesigner in _userDetailOEMMerchandiser)
+                                        {
+                                            @if(namesOfDesigner.RoleNames.Contains("OEMMERCHANDISER"))
+                                            {
+                                                    @if(namesOfDesigner.FullName.ToLower().Contains(searchText.ToLower()))
+                                                    {
+                                                        <button class="dropdown-item" @onclick='@(e => SelectNames(namesOfDesigner.Id, namesOfDesigner.FullName,"OEM Merchandiser"))'>@namesOfDesigner.FullName</button>
+                                                    }
+                                                    else if(searchText == "")
+                                                    {
+                                                        <button class="dropdown-item" @onclick='@(e => SelectNames(namesOfDesigner.Id, namesOfDesigner.FullName,"OEM Merchandiser"))'>@namesOfDesigner.FullName</button>
+                                                    }
+                                            }
+                                        }
+                                </div>
+                            </div>
+                        </div>
+                        }
+                        else
+                        {
+                            var user = @UserDetailListModel?.Find(x => x.Id == @AssignedToModel.OEMMerchandiserId);
+                            var userValue = user != null ? $"{user.FullName}" : "No Selected OEM Merchandiser";
+                            selectedOEMMerchandiser = userValue;
+                            <label class="form-check-label inputfield m-1">@userValue</label>
+                        }
+                </div>
+            </div>
+
+            <div class="col mt-3">
+                <div class="border bg-light text-dark bg-white fieldBody">
+                    <div class="row fieldheader">
+                            <h3 class="mt-2 mb-2 text-muted input-text">OEM Pattern Maker</h3>
+                        </div>
+                        @if (IsEditable)
+                        {
+                           <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle assign-to col-md-12" type="button" data-toggle="dropdown">
+                                @selectedOEMPatternMaker 
+                                <i class="fa fa-chevron-down fabric-dropdown-icon pull-right caretStyle"></i>
+                            </button>
+                            <div class="dropdown-menu assign">
+                                <div class="row">
+                                        <InputText class="form-control form-control-sm" @bind-Value="searchText" placeholder="Search..." @oninput="OnSearchTextChange"></InputText>
+                                        @foreach (var namesOfDesigner in _userDetailOEMPatternMaker)
+                                        {
+                                            @if(namesOfDesigner.RoleNames.Contains("OEMPATTERHMAKER"))
+                                            {
+                                                    @if(namesOfDesigner.FullName.ToLower().Contains(searchText.ToLower()))
+                                                    {
+                                                        <button class="dropdown-item" @onclick='() => SelectNames(namesOfDesigner.Id, namesOfDesigner.FullName,"OEM Pattern Maker")'>@namesOfDesigner.FullName</button>
+                                                    }
+                                                    else if(searchText == "")
+                                                    {
+                                                        <button class="dropdown-item" @onclick='() => SelectNames(namesOfDesigner.Id, namesOfDesigner.FullName,"OEM Pattern Maker")'>@namesOfDesigner.FullName</button>
+                                                    }
+                                            }
+                                        }
+                                </div>
+                            </div>
+                        </div>
+                        }
+                        else
+                        {
+                            var user = @UserDetailListModel?.Find(x => x.Id == @AssignedToModel.OEMPatternMakerId);
+                            var userValue = user != null ? $"{user.FullName}" : "No Selected OEM Pattern Maker";
+                            selectedOEMPatternMaker = userValue;
+                            <label class="form-check-label inputfield m-1">@userValue</label>
+                        }
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</EditForm>
+

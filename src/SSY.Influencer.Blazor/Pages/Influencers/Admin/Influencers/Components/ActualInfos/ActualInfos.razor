@@ -1,0 +1,33 @@
+
+@page "/influencers/actualinfo"
+
+<NavInfluencerDetail></NavInfluencerDetail>
+
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <CascadingValue Value="@ModuleChange" Name="ModuleChange">
+            <BannerLayouts></BannerLayouts>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+
+<div class="row inlfluencer-detail">
+    <div class="col-md-6">
+        <PersonalInformation></PersonalInformation>
+    </div>
+    <div class="col-md-6">
+        <SamplingAddress></SamplingAddress>
+    </div>
+    <div class="col-md-6">
+        <ContactInformation></ContactInformation>
+    </div>
+     <div class="col-md-6">
+        <SocialMedia></SocialMedia>
+    </div>
+     <div class="col-md-6">
+        <ResidentialAddress></ResidentialAddress>
+    </div>
+     <div class="col-md-6">
+        <ProductType></ProductType>
+    </div>
+</div>

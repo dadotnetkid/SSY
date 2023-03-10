@@ -1,0 +1,45 @@
+@page "/influencers/sizing/{Id:guid}"
+@using SSY.Blazor.Pages.Influencers.Shared.NavInfluencerDetail
+@using SSY.Blazor.Pages.Influencers.Shared.BannerLayouts
+
+<NavInfluencerDetail Id="Id"></NavInfluencerDetail>
+
+<CascadingValue Value="@Module" Name="Module">
+    <CascadingValue Value="@ModuleMessage" Name="ModuleMessage">
+        <CascadingValue Value="@ModuleChange" Name="ModuleChange">
+            <BannerLayouts></BannerLayouts>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+@if (SizingModel is not null)
+{
+    <EditForm Model="SizingModel" OnSubmit="OnSubmit">
+        <CascadingValue Name="MainPage" Value="this">
+
+        
+            <div class="row sizing pb-4">
+                <div class="col-md-12">
+                    <ToziAccountInformation></ToziAccountInformation>
+                </div>
+                <div class="col-md-12">
+                    <ToziMeasurements></ToziMeasurements>
+                </div>
+            </div>
+            <div class="footer__button mt-2" b-90ngp27tmn="">
+                <div class="row" b-90ngp27tmn="">
+                    <div class="col-md-12 col-sm-12 mt-3" b-90ngp27tmn="">
+                        <div class="background" b-90ngp27tmn="">
+                            <div class="buttons" b-90ngp27tmn="">
+                                <button class="btn btn-lg btn-danger buttons__class" b-90ngp27tmn="" type="button">Discard</button><!--!-->
+                                <button class="btn btn-lg btn-success buttons__class" b-90ngp27tmn="" type="submit">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </CascadingValue>
+    </EditForm>
+}
+
+@{
+}
