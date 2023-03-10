@@ -24,6 +24,9 @@ jobs:
       run: sudo service nginx stop
     - name: Restore dependencies
       run: dotnet restore
+    - name: Build
+      run:  dotnet build
+      working-directory: ./src/SSY.Blazor/
     - name: Publish
       run: dotnet publish --no-restore --output /var/www/SSY/SSY.Blazor
       working-directory: ./src/SSY.Blazor/
