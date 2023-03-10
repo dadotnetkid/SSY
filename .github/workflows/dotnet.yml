@@ -20,9 +20,11 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
+    - name: Stop Nginx
+      run: sudo service nginx stop
     - name: Restore dependencies
       run: dotnet restore
-    - name: PUblish
+    - name: Publish
       run: dotnet publish --no-restore --output /var/www/SSY/SSY.Blazor
       working-directory: ./src/SSY.Blazor/
     - name: Test
