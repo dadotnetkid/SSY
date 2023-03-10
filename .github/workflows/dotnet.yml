@@ -20,6 +20,9 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
+    - name: Migration
+      run:  dotnet run --environment developer
+      working-directory: ./src/SSY.DbMigrator
     - name: Stop Service
       run: sudo systemctl stop ssy-app.service
     - name: Restore dependencies
