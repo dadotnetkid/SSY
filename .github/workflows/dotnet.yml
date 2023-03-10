@@ -27,5 +27,7 @@ jobs:
     - name: Publish
       run: dotnet publish --no-restore --output /var/www/SSY/SSY.Blazor
       working-directory: ./src/SSY.Blazor/
+    - name: Start Nginx
+      run: sudo service nginx start
     - name: Test
       run: dotnet test --no-build --verbosity normal
