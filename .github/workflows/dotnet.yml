@@ -39,7 +39,7 @@ jobs:
     - name: Start Service
       run: sudo systemctl start ssy-app.service 
     - name: Seeder
-      run:  dotnet run --environment developer
+      run:  dotnet run
       working-directory: ./src/SSY.DbMigrator  
     - name: Test
       run: dotnet test --no-build --verbosity normal
