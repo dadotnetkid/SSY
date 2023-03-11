@@ -20,9 +20,6 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-    - name: Migration
-      run:  dotnet run --environment developer
-      working-directory: ./src/SSY.DbMigrator
     - name: Stop Service
       run: sudo systemctl stop ssy-app.service
     - name: Restore dependencies
@@ -34,6 +31,9 @@ jobs:
       run: dotnet publish --no-restore --output /var/www/SSY/SSY.Blazor
       working-directory: ./src/SSY.Blazor/
     - name: Start Service
-      run: sudo systemctl start ssy-app.service
+      run: sudo systemctl start ssy-app.service 
+    - name: Migration
+      run:  dotnet run --environment developer
+      working-directory: ./src/SSY.DbMigrator  
     - name: Test
       run: dotnet test --no-build --verbosity normal
