@@ -1,0 +1,42 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: QA1
+
+on:
+   workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+         
+    - name: Stop Service
+      run: sudo systemctl stop ssy-app.service
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Migration
+      run: dotnet ef database update
+      working-directory: ./src/SSY.EntityFrameworkCore/
+      
+    - name: Build
+      run:  dotnet build
+      working-directory: ./src/SSY.Blazor/
+    - name: Publish
+      run: dotnet publish --no-restore --output /var/www/SSY/SSY.Blazor
+      working-directory: ./src/SSY.Blazor/
+    - name: Start Service
+      run: sudo systemctl start ssy-app.service 
+    - name: Seeder
+      run:  dotnet run
+      working-directory: ./src/SSY.DbMigrator  
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
