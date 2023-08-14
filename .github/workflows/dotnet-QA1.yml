@@ -25,11 +25,11 @@
        working-directory: ./abpFramework/SSY
      - name: Migration
        run: dotnet dotnet-ef database update --connection 'Server=localhost;Database=SSYQA1;User=sa;Password=foo!9090;TrustServerCertificate=true;MultipleActiveResultSets=True'
-       working-directory: ./abpFramework/SSY/src/SSY.EntityFrameworkCore/
+       working-directory: /home/runner/work/SSY/SSY/abpFramework/SSY/src/SSY.EntityFrameworkCore/
       
      - name: Build
        run:  dotnet build
-       working-directory: ./abpFramework/SSY/src/SSY.Blazor/
+       working-directory: /home/runner/work/SSY/SSY/abpFramework/SSY/src/SSY.Blazor/
        
       
      - name: Publish
