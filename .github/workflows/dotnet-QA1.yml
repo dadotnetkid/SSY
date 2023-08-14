@@ -19,7 +19,8 @@
        uses: actions/setup-dotnet@v3
        with:
          dotnet-version: 7.0.x
-         
+     - name: get directory
+       run: echo dir
      - name: Restore dependencies
        run: dotnet restore
        working-directory: /home/runner/work/SSY/SSY/abpFramework/SSY
