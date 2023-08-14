@@ -45,8 +45,8 @@
      - name: Upload Build Artifact
      - uses: actions/upload-artifact@v3
        with:
-         name: ${{ github.run_id }}
-         path: /home/runner/work/SSY/SSY/src/SSY.Blazor/release/
+         name: Artifact
+         path: /home/runner/work/SSY/SSY/src/SSY.Blazor/release/${{ github.run_id }}
 
        
      
