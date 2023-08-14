@@ -22,11 +22,8 @@
          
      - name: Restore dependencies
        run: dotnet restore
-       working-directory: ./abpFramework/SSY
-     - name: Migration
-       run: dotnet dotnet-ef database update --connection 'Server=localhost;Database=SSYQA1;User=sa;Password=foo!9090;TrustServerCertificate=true;MultipleActiveResultSets=True'
-       working-directory: /home/runner/work/SSY/SSY/abpFramework/SSY/src/SSY.EntityFrameworkCore/
-      
+       working-directory: /home/runner/work/SSY/SSY/abpFramework/SSY
+       
      - name: Build
        run:  dotnet build
        working-directory: /home/runner/work/SSY/SSY/abpFramework/SSY/src/SSY.Blazor/
