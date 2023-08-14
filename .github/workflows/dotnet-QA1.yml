@@ -28,11 +28,11 @@
        run: dir
      - name: Restore dependencies
        run: dotnet restore
-       working-directory: /home/runner/work/SSY/SSY/abpFramework/SSY
+       working-directory: /home/runner/work/SSY/SSY/
        
      - name: Build
        run:  dotnet build
-       working-directory: /home/runner/work/SSY/SSY/abpFramework/SSY/src/SSY.Blazor/
+       working-directory: /home/runner/work/SSY/SSY/src/SSY.Blazor/
        
       
      - name: Publish
