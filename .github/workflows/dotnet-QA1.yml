@@ -24,8 +24,7 @@
        uses: actions/setup-dotnet@v3
        with:
          dotnet-version: 7.0.x
-     - name: get directory
-       run: dir
+    
      - name: Restore dependencies
        run: dotnet restore
        working-directory: /home/runner/work/SSY/SSY/
@@ -36,15 +35,18 @@
        
       
      - name: Publish
-       run: dotnet publish --no-restore --nologo
-       working-directory: ./abpFramework/SSY/src/SSY.Blazor/
-
+       run: dotnet publish --no-restore --nologo -c Release -o release
+       working-directory: /home/runner/work/SSY/SSY/src/SSY.Blazor/
+       
+     - name: get directory
+       run: dir
+       working-directory: /home/runner/work/SSY/SSY/src/SSY.Blazor/
 
      - name: Upload Build Artifact
        uses: actions/upload-artifact@v2
        with:
          name: Application_Artifact
-         path: /home/runner/work/DotNet6WithGithubActions/DotNet6WithGithubActions/release/
+         path: /home/runner/work/SSY/SSY/src/SSY.Blazor/release/
 
        
      
