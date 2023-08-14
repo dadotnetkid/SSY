@@ -43,7 +43,7 @@
        working-directory: /home/runner/work/SSY/SSY/src/SSY.Blazor/
 
      - name: Upload Build Artifact
-     - uses: actions/upload-artifact@v3
+       uses: actions/upload-artifact@v3
        with:
          name: Artifact
          path: /home/runner/work/SSY/SSY/src/SSY.Blazor/release/${{ github.run_id }}
